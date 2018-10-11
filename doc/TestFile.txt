@@ -1,7 +1,8 @@
 #PatientCare Wiki
 
-## Purpose/Background
+## Authors
 
+## Purpose/Background
 ## Requirements and installation
 
 ## References
