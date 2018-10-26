@@ -7,6 +7,8 @@ public class ProblemList {
     private ArrayList<Problem> problems;
 
     public ProblemList() {
+        this.problems = new ArrayList<Problem>();
+
     }
 
     public ArrayList<Problem> getProblems() {

@@ -3,17 +3,20 @@ package com.example.mukha.picmymedcode;
 public class Patient extends User {
 
 
-
     private Integer phoneNumber;
     private String email;
     private ProblemList problemList;
 
     public Patient() {
-        this.problemList = new ProblemList();
-        this.email = null;
-        this.phoneNumber = null;
+        this(null, null);
     }
+    public Patient(String email, Integer phoneNumbet) {
 
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.problemList = new ProblemList();
+
+    }
     public String getEmail() {
         return email;
     }
@@ -30,4 +33,7 @@ public class Patient extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public ProblemList getProblemList() {
+        return problemList;
+    }
 }
