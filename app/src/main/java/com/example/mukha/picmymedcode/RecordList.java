@@ -9,7 +9,7 @@ public class RecordList {
         this.recordList = new ArrayList<Record>();
     }
 
-    public ArrayList<Record> getPatientList() {
+    public ArrayList<Record> getRecordList() {
         return recordList;
     }
 

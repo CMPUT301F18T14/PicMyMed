@@ -8,10 +8,6 @@ public class Problem {
     private String description;
     private RecordList recordList;
 
-    public Problem() {
-        this(null, null, null);
-    }
-
     public Problem(Date startDate, String title, String description) {
 
         this.startDate = startDate;

@@ -1,24 +1,28 @@
 package com.example.mukha.picmymedcode;
 
+import android.location.Location;
+
+import java.util.Date;
+
 public class Record {
 
     private String title;
     private String comment;
 
-    private Geolocation geolocation;
+    private Location geolocation;
     private PhotoList photoList;
     private BodyLocationList bodyLocationList;
+    private Date timeStamp;
 
-    public Record() {
-        this(null, null);
-    }
-    public Record(String title, String comment) {
+    public Record(String title) {
         this.title = title;
-        this.comment = comment;
-        this.geolocation = new Geolocation();
+        this.comment = "";  // Avoid null pointer exception
+        this.geolocation = new Location("google map");
         this.photoList = new PhotoList();
         this.bodyLocationList = new BodyLocationList();
+        this.timeStamp = new Date();
     }
+
     public String getTitle() {
         return title;
     }
@@ -35,10 +39,13 @@ public class Record {
         this.comment = comment;
     }
 
-
-    public Geolocation getGeolocation() {
+    public Location getGeolocation() {
         return geolocation;
     }
+
+    public void setLocation(Location location) { this.geolocation = location; }
+
+    public void setPhotoList(PhotoList photoList) { this.photoList = photoList; }
 
     public PhotoList getPhotoList() {
         return photoList;
@@ -47,5 +54,6 @@ public class Record {
     public BodyLocationList getBodyLocationList() {
         return bodyLocationList;
     }
+
 }
 

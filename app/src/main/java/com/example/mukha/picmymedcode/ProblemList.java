@@ -4,26 +4,26 @@ import java.util.ArrayList;
 
 public class ProblemList {
 
-    private ArrayList<Problem> problems;
+    private ArrayList<Problem> problemList;
 
     public ProblemList() {
-        this.problems = new ArrayList<Problem>();
+        this.problemList = new ArrayList<Problem>();
 
     }
 
-    public ArrayList<Problem> getProblems() {
-        return this.problems;
+    public ArrayList<Problem> getProblemList() {
+        return this.problemList;
     }
 
     public Problem getProblem(int index) {
-        return this.problems.get(index);
+        return this.problemList.get(index);
     }
 
     public void deleteProblem(int index) {
-        this.problems.remove(index);
+        this.problemList.remove(index);
     }
 
     public void addProblem(Problem problem) {
-        this.problems.add(problem);
+        this.problemList.add(problem);
     }
 }
