@@ -7,7 +7,7 @@ public class PatientList {
     private ArrayList<Patient> patientList;
 
     public PatientList() {
-
+        this.patientList = new ArrayList<Patient>();
     }
 
     public ArrayList<Patient> getPatientList() {

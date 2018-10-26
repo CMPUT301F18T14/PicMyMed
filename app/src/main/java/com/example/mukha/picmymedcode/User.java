@@ -6,9 +6,9 @@ public class User {
     private String password;
 
     public User() {
-        this.username = null;
+        this(null);
     }
-    public User(String username){
+    public User(String username) {
         this.username = username;
     }
     public String getUsername(){

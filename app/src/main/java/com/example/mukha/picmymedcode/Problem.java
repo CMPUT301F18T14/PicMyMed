@@ -9,10 +9,7 @@ public class Problem {
     private RecordList recordList;
 
     public Problem() {
-        this.startDate = null;
-        this.title = null;
-        this.description = null;
-        this.recordList = new RecordList();
+        this(null, null, null);
     }
 
     public Problem(Date startDate, String title, String description) {
@@ -46,5 +43,9 @@ public class Problem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public RecordList getRecordList() {
+        return recordList;
     }
 }
