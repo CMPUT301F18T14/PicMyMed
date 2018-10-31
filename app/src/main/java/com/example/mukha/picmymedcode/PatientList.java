@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PatientList {
 
-    private ArrayList<Patient> patientList;
+    private final ArrayList<Patient> patientList;
 
     public PatientList() {
         this.patientList = new ArrayList<Patient>();
