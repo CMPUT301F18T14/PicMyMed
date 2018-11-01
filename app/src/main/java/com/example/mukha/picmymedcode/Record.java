@@ -12,7 +12,7 @@ public class Record {
     private Location geolocation;
     private PhotoList photoList;
     private BodyLocationList bodyLocationList;
-    private Date timeStamp;
+    private final Date timeStamp;
 
     public Record(String title) {
         this.title = title;
@@ -21,6 +21,7 @@ public class Record {
         this.photoList = new PhotoList();
         this.bodyLocationList = new BodyLocationList();
         this.timeStamp = new Date();
+
     }
 
     public String getTitle() {
@@ -53,6 +54,10 @@ public class Record {
 
     public BodyLocationList getBodyLocationList() {
         return bodyLocationList;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
     }
 
 }

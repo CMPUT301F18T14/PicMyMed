@@ -3,7 +3,7 @@ package com.example.mukha.picmymedcode;
 import java.util.ArrayList;
 
 public class BodyLocationList {
-    private ArrayList<BodyLocation> bodyLocations;
+    private final ArrayList<BodyLocation> bodyLocations;
 
     public BodyLocationList() {
         this.bodyLocations = new ArrayList<BodyLocation>();

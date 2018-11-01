@@ -2,7 +2,7 @@ package com.example.mukha.picmymedcode;
 
 public abstract class User {
 
-    private String username;
+    private final String username;
     private String password;
 
     public User(String username, String password) {
