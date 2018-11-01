@@ -11,7 +11,7 @@ public class ProblemListTest extends TestCase {
         Problem problem = new Problem(new Date(), "Title", "Description");
         problemList.addProblem(problem);
         Problem problemTest = problemList.getProblem(0);
-        assertEquals(problem,problemTest); //compares objects
+        assertEquals(problem,problemTest); //compares references
     }
 
     public void testDeleteProblem(){
@@ -33,7 +33,7 @@ public class ProblemListTest extends TestCase {
         ProblemList problemList = new ProblemList();
         Problem problem = new Problem(new Date(), "Title", "Description");
         problemList.addProblem(problem);
-        assertEquals(problem,problemList.getProblem(0)); //compares objects
+        assertEquals(problem,problemList.getProblem(0)); //compares references
     }
 
     public void testGetProblemList(){
