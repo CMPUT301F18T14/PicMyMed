@@ -25,4 +25,8 @@ public class PhotoList {
     public void addPhoto(Photo photo) {
         this.photoList.add(photo);
     }
+
+    public int sizeOfPhotoList() {
+        return this.photoList.size();
+    }
 }

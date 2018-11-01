@@ -23,7 +23,15 @@ public class ProblemList {
         this.problemList.remove(index);
     }
 
+    public void deleteProblem(Problem problem) {
+        this.problemList.remove(problem);
+    }
+
     public void addProblem(Problem problem) {
         this.problemList.add(problem);
+    }
+
+    public int sizeOfProblemList() {
+        return this.problemList.size();
     }
 }

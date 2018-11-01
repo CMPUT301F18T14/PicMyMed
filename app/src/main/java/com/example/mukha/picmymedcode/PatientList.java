@@ -26,4 +26,8 @@ public class PatientList {
         this.patientList.add(patient);
     }
 
+    public int sizeOfPatientList() {
+        return this.patientList.size();
+    }
+
 }

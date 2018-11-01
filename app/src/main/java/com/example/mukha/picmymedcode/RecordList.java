@@ -24,4 +24,8 @@ public class RecordList {
     public void addRecord(Record record) {
         this.recordList.add(record);
     }
+
+    public int sizeOfRecordList() {
+        return this.recordList.size();
+    }
 }
