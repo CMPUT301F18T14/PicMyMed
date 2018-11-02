@@ -11,15 +11,16 @@ public class Record {
 
     private Location geolocation;
     private PhotoList photoList;
-    private BodyLocationList bodyLocationList;
+    private BodyLocation bodyLocation;
     private final Date timeStamp;
 
     public Record(String title) {
         this.title = title;
         this.comment = "";  // Avoid null pointer exception
-        //this.geolocation = new Location("google map");
+
+        this.geolocation = new Location("");
         this.photoList = new PhotoList();
-        this.bodyLocationList = new BodyLocationList();
+        this.bodyLocation = new BodyLocation();
         this.timeStamp = new Date();
 
     }
@@ -52,8 +53,8 @@ public class Record {
         return photoList;
     }
 
-    public BodyLocationList getBodyLocationList() {
-        return bodyLocationList;
+    public BodyLocation getBodyLocationList() {
+        return this.bodyLocation;
     }
 
     public Date getTimeStamp() {
