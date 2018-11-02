@@ -3,11 +3,11 @@ package com.example.mukha.picmymedcode;
 public class Patient extends User {
 
 
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
     private ProblemList problemList;
 
-    public Patient(String username, String password, String email, int phoneNumber) {
+    public Patient(String username, String password, String email, String phoneNumber) {
 
         super(username, password);
         this.email = email;
@@ -23,11 +23,11 @@ public class Patient extends User {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

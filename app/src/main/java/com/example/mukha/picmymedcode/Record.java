@@ -17,7 +17,7 @@ public class Record {
     public Record(String title) {
         this.title = title;
         this.comment = "";  // Avoid null pointer exception
-        this.geolocation = new Location("google map");
+        //this.geolocation = new Location("google map");
         this.photoList = new PhotoList();
         this.bodyLocationList = new BodyLocationList();
         this.timeStamp = new Date();

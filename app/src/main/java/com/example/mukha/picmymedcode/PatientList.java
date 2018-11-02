@@ -26,6 +26,8 @@ public class PatientList {
         this.patientList.add(patient);
     }
 
+    public boolean hasPatient(Patient patient) { return this.patientList.contains(patient); }
+
     public int sizeOfPatientList() {
         return this.patientList.size();
     }
