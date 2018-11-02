@@ -58,9 +58,9 @@ public class RecordTest extends TestCase {
         assertTrue(record.getPhotoList() instanceof PhotoList);
     }
 
-    public void testBodyLocationList(){
+    public void testBodyLocation(){
         Record record = new Record ("Record");
-        assertTrue(record.getBodyLocationList() instanceof BodyLocationList);
+        assertTrue(record.getBodyLocation() instanceof BodyLocation);
     }
 
     public void testGetTimeStamp(){

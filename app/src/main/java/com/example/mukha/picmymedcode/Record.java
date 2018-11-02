@@ -53,7 +53,7 @@ public class Record {
         return photoList;
     }
 
-    public BodyLocation getBodyLocationList() {
+    public BodyLocation getBodyLocation() {
         return this.bodyLocation;
     }
 
