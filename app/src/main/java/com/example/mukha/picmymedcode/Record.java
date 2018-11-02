@@ -17,6 +17,7 @@ public class Record {
     public Record(String title) {
         this.title = title;
         this.comment = "";  // Avoid null pointer exception
+
         this.geolocation = new Location("");
         this.photoList = new PhotoList();
         this.bodyLocation = new BodyLocation();

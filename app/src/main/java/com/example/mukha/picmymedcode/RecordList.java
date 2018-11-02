@@ -25,6 +25,8 @@ public class RecordList {
         this.recordList.add(record);
     }
 
+    public boolean hasRecord(Record record) { return this.recordList.contains(record); }
+
     public int sizeOfRecordList() {
         return this.recordList.size();
     }
