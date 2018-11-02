@@ -15,11 +15,18 @@ public class PhotoList {
     }
 
     public Photo getPhoto(int index) {
-        return this.photoList.get(index);
+        if (index < photoList.size()) {
+            return this.photoList.get(index);
+        }
+        else {
+            return null;
+        }
     }
 
     public void deletePhoto(int index) {
-        this.photoList.remove(index);
+        if (index < photoList.size()) {
+            this.photoList.remove(index);
+        }
     }
 
     public void addPhoto(Photo photo) {
