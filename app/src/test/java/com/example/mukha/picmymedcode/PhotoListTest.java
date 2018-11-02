@@ -8,7 +8,7 @@ public class PhotoListTest extends TestCase {
 
     public void testGetPhotoList() {
         PhotoList photoList = new PhotoList();
-        //assertEquals("Did not return ArrayList<>", photoList.getPhotoList(), ArrayList<Photo>);
+        assertEquals("Did not return ArrayList", photoList.getPhotoList().getClass().getName(), "java.util.ArrayList");
     }
 
     public void testAddPhoto() {

@@ -8,7 +8,6 @@ public class ProblemList {
 
     public ProblemList() {
         this.problemList = new ArrayList<Problem>();
-
     }
 
     public ArrayList<Problem> getProblemList() {
