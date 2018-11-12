@@ -2,6 +2,7 @@ package com.example.mukha.picmymedcode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 
 public class MainActivity extends AppCompatActivity {
 
