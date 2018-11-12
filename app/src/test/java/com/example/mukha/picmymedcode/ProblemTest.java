@@ -1,5 +1,7 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.ProblemFile.Problem;
+
 import junit.framework.TestCase;
 
 import java.util.Date;
