@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ProblemList {
 
-    private ArrayList<Problem> problemList;
+    public ArrayList<Problem> problemList;
 
     public ProblemList() {
         this.problemList = new ArrayList<Problem>();
