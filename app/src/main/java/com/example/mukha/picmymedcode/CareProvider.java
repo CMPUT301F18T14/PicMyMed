@@ -5,7 +5,7 @@ public class CareProvider extends User {
     PatientList patientList;
 
     public CareProvider(String username, String password) {
-        super(username, password);
+        super(username);
         this.patientList = new PatientList();
     }
     public PatientList getPatientList() {

@@ -9,12 +9,4 @@ public class UserTest extends TestCase {
         assertTrue("Wrong username", user.getUsername().equals("test"));
     }
 
-    public void testPassword() {
-        User user = new CareProvider("test", "123");
-        assertTrue("Wrong password", user.getPassword().equals("123"));
-
-        String newPassword = "123456";
-        user.setPassword(newPassword);
-        assertTrue("Password did not change", user.getPassword().equals(newPassword));
-    }
 }
