@@ -6,6 +6,13 @@ import junit.framework.TestCase;
 
 public class GeolocationTest extends TestCase {
 
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
+        Geolocation geolocation = new Geolocation(-5.3,6.7);
+        assertEquals(-5.3, geolocation.getxCoordinate());
+        assertEquals(6.7, geolocation.getyCoordinate());
+    }
+
     public void testGetXLocation() {
         Geolocation geolocation = new Geolocation(-5.3, 6.7);
         assertEquals(geolocation.getxCoordinate(), -5.3);
