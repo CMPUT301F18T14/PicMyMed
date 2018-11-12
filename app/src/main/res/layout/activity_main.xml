@@ -7,17 +7,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <include
-        android:id="@+id/action_bar"
-        layout = "@layout/app_bar">
 
-    </include>
+
+    <EditText
+        android:id="@+id/enteredUID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="user id"
+        android:text="User Id" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_bar"
-        android:text="button_text" />
+        android:text="Log in" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar"
+        android:text="Sign Up" />
 
 </LinearLayout>
