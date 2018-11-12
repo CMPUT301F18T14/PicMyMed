@@ -1,10 +1,14 @@
 package com.example.mukha.picmymedcode.ProblemFile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.mukha.picmymedcode.MainActivity;
 import com.example.mukha.picmymedcode.R;
 
 import java.util.Date;
@@ -32,6 +36,19 @@ public class ProblemActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManage);
         mAdapter = new ProblemAdapter(problemList.problemList);
         mRecyclerView.setAdapter(mAdapter);
+
+
+        Button addproblembutton = (Button) findViewById(R.id.add_problem_button);
+        addproblembutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
+                startActivity(problemIntent);
+            }
+        });
+
+
+
     }
 
 }
