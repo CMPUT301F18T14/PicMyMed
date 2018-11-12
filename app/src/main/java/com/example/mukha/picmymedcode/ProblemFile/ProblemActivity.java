@@ -1,9 +1,11 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.ProblemFile;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.mukha.picmymedcode.R;
 
 import java.util.Date;
 
