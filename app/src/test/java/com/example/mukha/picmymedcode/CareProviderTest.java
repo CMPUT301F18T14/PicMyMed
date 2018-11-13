@@ -15,7 +15,7 @@ public class CareProviderTest extends TestCase {
 
     public void testUsername() {
         CareProvider user = new CareProvider("test");
-        assertTrue("Wrong username", user.getUsername().equals("test"));
+        assertEquals("Wrong username", user.getUsername(), "test");
     }
 
     public void testPatientList() {

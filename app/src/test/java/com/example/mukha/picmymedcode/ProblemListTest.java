@@ -1,5 +1,8 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.ProblemFile.Problem;
+import com.example.mukha.picmymedcode.ProblemFile.ProblemList;
+
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
