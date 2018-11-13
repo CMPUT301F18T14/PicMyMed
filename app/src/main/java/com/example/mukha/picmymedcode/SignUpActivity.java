@@ -13,14 +13,13 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
 
-
+        final Intent newUsernameIntent = new Intent(SignUpActivity.this, newUsernameActivity.class);
         Button patientBtn = (Button) findViewById(R.id.patientButton);
         patientBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //newUsernameIntent.putExtra("userType", "patient");
-                //Intent newUsernameIntent = new Intent(SignUpActivity.this, newUsernameActivity.class);
-                //startActivity(newUsernameIntent);
+                newUsernameIntent.putExtra("userType", "patient");
+                startActivity(newUsernameIntent);
 
             }
         });
@@ -28,8 +27,8 @@ public class SignUpActivity extends AppCompatActivity {
         Button careProviderBtn = (Button) findViewById(R.id.careProviderButton);
         careProviderBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //newUsernameIntent.putExtra("userType", "care provider");
-                //(newUsernameIntent);
+                newUsernameIntent.putExtra("userType", "care provider");
+                startActivity(newUsernameIntent);
             }
         });
     }
