@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 public class PhotoListTest extends TestCase {
 
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
+        PhotoList photoList = new PhotoList();
+        assertTrue(photoList.getPhotoList() instanceof ArrayList);
+    }
+
     public void testGetPhotoList() {
         PhotoList photoList = new PhotoList();
         assertEquals("Did not return ArrayList", photoList.getPhotoList().getClass().getName(), "java.util.ArrayList");

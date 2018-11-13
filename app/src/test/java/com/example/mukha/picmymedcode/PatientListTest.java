@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
 public class PatientListTest extends TestCase {
 
     public void testConstructor() {
+        //testing that the constructor initialized correctly
+        PatientList patientList = new PatientList();
+        assertTrue(patientList.getPatientList() instanceof ArrayList);
 
     }
 
