@@ -14,6 +14,12 @@ import java.util.ArrayList;
 
 public class RecordListTest extends TestCase {
 
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
+        RecordList recordList = new RecordList();
+        assertTrue(recordList.getRecordList() instanceof ArrayList);
+    }
+
     @Test
     public void testGetRecordList() {
         RecordList recordList = new RecordList();

@@ -18,7 +18,9 @@ public class RecordList {
     }
 
     public void deleteRecord(int index) {
-        this.recordList.remove(index);
+        if (index < recordList.size()) {
+            this.recordList.remove(index);
+        }
     }
 
     public void addRecord(Record record) {

@@ -5,9 +5,16 @@ import com.example.mukha.picmymedcode.ProblemFile.ProblemList;
 
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ProblemListTest extends TestCase {
+
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
+        ProblemList problemList = new ProblemList();
+        assertTrue(problemList.getProblemList() instanceof ArrayList);
+    }
 
     public void testGetProblem(){
         ProblemList problemList = new ProblemList();

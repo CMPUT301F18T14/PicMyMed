@@ -19,7 +19,9 @@ public class ProblemList {
     }
 
     public void deleteProblem(int index) {
-        this.problemList.remove(index);
+        if (index < problemList.size()) {
+            this.problemList.remove(index);
+        }
     }
 
     public void deleteProblem(Problem problem) {

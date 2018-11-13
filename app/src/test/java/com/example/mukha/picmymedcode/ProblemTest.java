@@ -8,6 +8,15 @@ import java.util.Date;
 
 public class ProblemTest extends TestCase {
 
+        public void testConstructor(){
+            //testing that the constructor initialized correctly
+            Date date = new Date();
+            Problem testProblem = new Problem(date, "testProblem", "test description");
+            assertEquals("testProblem", testProblem.getTitle());
+            assertEquals("test description", testProblem.getDescription());
+            assertEquals(date,testProblem.getStartDate());
+        }
+
         public void testGetTitle() {
             Problem testProblem = new Problem(new Date(), "testProblem", "test description");
             assertEquals("testProblem", testProblem.getTitle());
