@@ -8,6 +8,15 @@ import junit.framework.TestCase;
 
 public class PatientTest extends TestCase {
 
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
+        Patient patient = new Patient("username",
+                "test@email.com", "1111111111");
+        assertEquals("username", patient.getUsername());
+        assertEquals("test@email.com", patient.getEmail());
+        assertEquals("1111111111", patient.getPhoneNumber());
+    }
+
     public void testGetEmail() {
         Patient patient = new Patient("username", "test@email.com", "1111111111");
         assertEquals("test@email.com", patient.getEmail());
@@ -18,7 +27,6 @@ public class PatientTest extends TestCase {
         Patient patient = new Patient("username", "test@email.com", "1111111111");
         patient.setEmail("email@email.ca");
         assertEquals("email@email.ca", patient.getEmail());
-
     }
 
     public void testGetPhoneNumber() {

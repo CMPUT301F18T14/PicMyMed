@@ -7,8 +7,14 @@ import junit.framework.TestCase;
 
 public class CareProviderTest extends TestCase {
 
+    public void  testConstructor() {
+        //testing that the constructor initialized correctly
+        CareProvider careProvider = new CareProvider("123");
+        assertEquals("123", careProvider.getUsername());
+    }
+
     public void testUsername() {
-        User user = new CareProvider("test");
+        CareProvider user = new CareProvider("test");
         assertEquals("Wrong username", user.getUsername(), "test");
     }
 

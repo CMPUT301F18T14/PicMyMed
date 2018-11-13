@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class UserTest extends TestCase {
 
     public void testUsername() {
-        User user = new CareProvider("test", "123");
+        User user = new CareProvider("test");
         assertTrue("Wrong username", user.getUsername().equals("test"));
     }
 

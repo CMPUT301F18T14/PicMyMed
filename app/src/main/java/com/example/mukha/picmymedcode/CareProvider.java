@@ -8,6 +8,7 @@ public class CareProvider extends User {
         super(username);
         this.patientList = new PatientList();
     }
+
     public PatientList getPatientList() {
         return this.patientList;
     }
