@@ -6,7 +6,12 @@ public class Login {
 
     // should check for username
     public boolean checkUsername(String username) {
-        return false;
+        if (username.equals("username")) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

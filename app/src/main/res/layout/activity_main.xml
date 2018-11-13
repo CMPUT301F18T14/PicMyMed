@@ -13,8 +13,7 @@
         android:id="@+id/enteredUID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="user id"
-        android:text="User Id" />
+        android:hint="User id" />
 
     <Button
         android:id="@+id/loginButton"

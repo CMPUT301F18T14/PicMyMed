@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
+                EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
                 Login login = new Login();
                 if (login.checkUsername(username)) {
@@ -43,15 +43,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button signupBtn = (Button) findViewById(R.id.signUpButton);
+        Button signupBtn = (Button) findViewById(R.id.signUpButton);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent signupIntent = new Intent(MainActivity.this.SignUpActivity.class);
-                startActivity(signupIntent);
+                Intent problemIntent = new Intent(MainActivity.this,SignUpActivity.class);
+                startActivity(problemIntent);
             }
-                                     }
-
-        );
+        });
     }
 
 
