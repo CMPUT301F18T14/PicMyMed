@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 String username = enteredUsername.getText().toString();
                 Login login = new Login();
                 if (login.checkUsername(username)) {
-                    Intent problemIntent = new Intent(MainActivity.this,ProblemActivity.class);
+                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
                     startActivity(problemIntent);
                 }
                 else {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Button signupBtn = (Button) findViewById(R.id.signUpButton);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent problemIntent = new Intent(MainActivity.this,SignUpActivity.class);
+                Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(problemIntent);
             }
         });
