@@ -10,6 +10,8 @@ public class RecordTest extends TestCase {
 
     public void testConstructor() {
         //testing that the constructor initialized correctly
+        Record record = new Record("Record");
+        assertEquals("Record", record.getTitle());
     }
 
     public void testGetTitle (){
