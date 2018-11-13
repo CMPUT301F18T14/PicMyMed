@@ -19,7 +19,9 @@ public class PatientList {
     }
 
     public void deletePatient(int index) {
-        this.patientList.remove(index);
+        if (index < patientList.size()) {
+            this.patientList.remove(index);
+        }
     }
 
     public void addPatient(Patient patient) {
