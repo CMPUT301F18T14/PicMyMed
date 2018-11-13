@@ -17,6 +17,10 @@ import static org.junit.Assert.*;
 
 public class PatientListTest extends TestCase {
 
+    public void testConstructor() {
+
+    }
+
     @Test
     public void testGetPatientList() {
         PatientList patientList = new PatientList();
@@ -28,7 +32,7 @@ public class PatientListTest extends TestCase {
     @Test
     public void testGetPatient() {
         PatientList patientList = new PatientList();
-        Patient newPatient = new Patient("Daenerys Targaryen", "dracarys", "motherofdragons@got.ca", "+9-999-999-9999");
+        Patient newPatient = new Patient("Daenerys Targaryen", "motherofdragons@got.ca", "+9-999-999-9999");
         patientList.addPatient(newPatient);
 
         assertEquals(newPatient, patientList.getPatient(0)); // Comparing objects
@@ -37,7 +41,7 @@ public class PatientListTest extends TestCase {
     @Test
     public void testDeletePatient() {
         PatientList patientList = new PatientList();
-        Patient newPatient = new Patient("Daenerys Targaryen", "dracarys", "motherofdragons@got.ca", "+9-999-999-9999");
+        Patient newPatient = new Patient("Daenerys Targaryen", "motherofdragons@got.ca", "+9-999-999-9999");
         patientList.addPatient(newPatient);
         patientList.deletePatient(0);
 
@@ -47,7 +51,7 @@ public class PatientListTest extends TestCase {
     @Test
     public void testAddPatient() {
         PatientList patientList = new PatientList();
-        Patient newPatient = new Patient("Daenerys Targaryen", "dracarys", "motherofdragons@got.ca", "+9-999-999-9999");
+        Patient newPatient = new Patient("Daenerys Targaryen", "motherofdragons@got.ca", "+9-999-999-9999");
         patientList.addPatient(newPatient);
 
         assertEquals(newPatient, patientList.getPatient(0)); // Comparing objects
@@ -56,7 +60,7 @@ public class PatientListTest extends TestCase {
     @Test
     public void testHasPatient() {
         PatientList patientList = new PatientList();
-        Patient newPatient = new Patient("Daenerys Targaryen", "dracarys", "motherofdragons@got.ca", "+9-999-999-9999");
+        Patient newPatient = new Patient("Daenerys Targaryen", "motherofdragons@got.ca", "+9-999-999-9999");
         patientList.addPatient(newPatient);
 
         assertTrue(patientList.hasPatient(newPatient)); // Comparing booleans
@@ -65,7 +69,7 @@ public class PatientListTest extends TestCase {
     @Test
     public void testSizeOfPatientList() {
         PatientList patientList = new PatientList();
-        Patient newPatient = new Patient("Daenerys Targaryen", "dracarys", "motherofdragons@got.ca", "+9-999-999-9999");
+        Patient newPatient = new Patient("Daenerys Targaryen", "motherofdragons@got.ca", "+9-999-999-9999");
         patientList.addPatient(newPatient);
         patientList.addPatient(newPatient);
         patientList.addPatient(newPatient);

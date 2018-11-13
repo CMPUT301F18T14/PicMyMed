@@ -8,37 +8,40 @@ import junit.framework.TestCase;
 
 public class PatientTest extends TestCase {
 
-    public void testGetEmail() {
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
         Patient patient = new Patient("username",
-                "pass", "test@email.com", "1111111111");
+                "test@email.com", "1111111111");
+        assertEquals("username", patient.getUsername());
+        assertEquals("test@email.com", patient.getEmail());
+        assertEquals("1111111111", patient.getPhoneNumber());
+    }
+
+    public void testGetEmail() {
+        Patient patient = new Patient("username", "test@email.com", "1111111111");
         assertEquals("test@email.com", patient.getEmail());
 
     }
 
     public void testSetEmail() {
-        Patient patient = new Patient("username",
-                "pass", "test@email.com", "1111111111");
+        Patient patient = new Patient("username", "test@email.com", "1111111111");
         patient.setEmail("email@email.ca");
         assertEquals("email@email.ca", patient.getEmail());
-
     }
 
     public void testGetPhoneNumber() {
-        Patient patient = new Patient("username",
-                "pass", "test@email.com", "1111111111");
-        assertEquals(1111111111, patient.getPhoneNumber());
+        Patient patient = new Patient("username", "test@email.com", "1111111111");
+        assertEquals("1111111111", patient.getPhoneNumber());
     }
 
     public void testSetPhoneNumber() {
-        Patient patient = new Patient("username",
-                "pass", "test@email.com", "1111111111");
+        Patient patient = new Patient("username", "test@email.com", "1111111111");
         patient.setPhoneNumber("1231231234");
-        assertEquals(1231231234,patient.getPhoneNumber());
+        assertEquals("1231231234",patient.getPhoneNumber());
     }
 
     public void testGetProblemList() {
-        Patient patient = new Patient("username",
-                "pass", "test@email.com", "1111111111");
+        Patient patient = new Patient("username", "test@email.com", "1111111111");
         assertTrue(patient.getProblemList() instanceof ProblemList);
     }
 }

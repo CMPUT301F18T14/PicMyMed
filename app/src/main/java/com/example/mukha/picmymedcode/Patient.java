@@ -9,9 +9,9 @@ public class Patient extends User {
     private String email;
     private ProblemList problemList;
 
-    public Patient(String username, String password, String email, String phoneNumber) {
+    public Patient(String username, String email, String phoneNumber) {
 
-        super(username, password);
+        super(username);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.problemList = new ProblemList();
