@@ -21,7 +21,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
         TextView problemTitleTextView;
         public PorblemViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.problemTitleTextView = (TextView) itemView.findViewById(R.id.problem_title_text_view);
+            this.problemTitleTextView = itemView.findViewById(R.id.problem_title_text_view);
         }
     }
 
