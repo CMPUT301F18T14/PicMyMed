@@ -24,6 +24,8 @@
             android:label="New Problem"/>
         <activity android:name=".SignUpActivity"
             android:label="Sign Up"/>
+        <activity android:name=".newUsernameActivity"
+            android:label="Enter Username"/>
     </application>
 
 </manifest>
