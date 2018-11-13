@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PicMyMedCode</string>
+    <string name="google_map_API_key">AIzaSyDPPjS7TfjTA25Ono1-TqBStYa9G_UNE1E</string>
 </resources>
