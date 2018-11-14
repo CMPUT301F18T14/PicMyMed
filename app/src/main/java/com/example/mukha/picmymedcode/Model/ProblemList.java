@@ -1,4 +1,6 @@
-package com.example.mukha.picmymedcode.ProblemFile;
+package com.example.mukha.picmymedcode.Model;
+
+import com.example.mukha.picmymedcode.Model.Problem;
 
 import java.util.ArrayList;
 

@@ -1,13 +1,14 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.Patient;
+import com.example.mukha.picmymedcode.Model.PatientList;
+import com.example.mukha.picmymedcode.View.TooManyCharactersException;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * This class implements TDD for PatientList class

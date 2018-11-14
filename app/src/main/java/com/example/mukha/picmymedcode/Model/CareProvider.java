@@ -1,10 +1,11 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
+
 
 public class CareProvider extends User {
 
-    PatientList patientList;
+    private PatientList patientList;
 
-    public CareProvider(String username) throws TooManyCharactersException {
+    public CareProvider(String username) throws IllegalArgumentException {
         super(username);
 
         this.patientList = new PatientList();

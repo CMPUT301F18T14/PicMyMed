@@ -1,5 +1,8 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.Record;
+import com.example.mukha.picmymedcode.Model.RecordList;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;

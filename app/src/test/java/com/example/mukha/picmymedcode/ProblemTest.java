@@ -1,6 +1,8 @@
 package com.example.mukha.picmymedcode;
 
-import com.example.mukha.picmymedcode.ProblemFile.Problem;
+import com.example.mukha.picmymedcode.Model.RecordList;
+import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.mukha.picmymedcode.View.TooManyCharactersException;
 
 import junit.framework.TestCase;
 

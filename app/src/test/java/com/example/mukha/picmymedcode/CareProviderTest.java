@@ -3,6 +3,10 @@
 
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.CareProvider;
+import com.example.mukha.picmymedcode.Model.PatientList;
+import com.example.mukha.picmymedcode.View.TooManyCharactersException;
+
 import junit.framework.TestCase;
 
 public class CareProviderTest extends TestCase {

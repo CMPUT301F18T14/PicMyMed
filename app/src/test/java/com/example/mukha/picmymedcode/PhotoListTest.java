@@ -1,5 +1,9 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.Photo;
+import com.example.mukha.picmymedcode.Model.PhotoList;
+import com.example.mukha.picmymedcode.View.TooManyListElementsException;
+
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

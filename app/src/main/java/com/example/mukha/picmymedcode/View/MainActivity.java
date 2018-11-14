@@ -1,18 +1,14 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
-import com.example.mukha.picmymedcode.SignUpActivity;
+import com.example.mukha.picmymedcode.Model.Login;
 
 
 public class MainActivity extends AppCompatActivity {
