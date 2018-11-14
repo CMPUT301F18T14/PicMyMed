@@ -34,7 +34,12 @@ public class ProblemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         problemList.addProblem(problem);
-        Problem problem1 = new Problem(date,"Problem1","Description1");
+        Problem problem1 = null;
+        try {
+            problem1 = new Problem(date,"Problem1","Description1");
+        } catch (TooManyCharactersException e) {
+            e.printStackTrace();
+        }
         problemList.addProblem(problem1);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.problem_recycle_view);
