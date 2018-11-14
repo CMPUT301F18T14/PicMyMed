@@ -7,12 +7,25 @@ public class Problem {
     private String title;
     private String description;
     private RecordList recordList;
+    private static final Integer MAX_PROBLEM_TITLE_LENGTH = 30;
+    private static final Integer MAX_PROBLEM_DESCRIPTION_LENGTH = 300;
 
-    public Problem(Date startDate, String title, String description) {
+    public Problem(Date startDate, String title, String description) throws TooManyCharactersException {
 
         this.startDate = startDate;
-        this.title = title;
-        this.description = description;
+
+        if (title.length() <= MAX_PROBLEM_TITLE_LENGTH) {
+            this.title = title;
+        } else {
+            throw new TooManyCharactersException();
+        }
+
+        if (description.length() <= MAX_PROBLEM_DESCRIPTION_LENGTH) {
+            this.description = description;
+        } else {
+            throw new TooManyCharactersException();
+        }
+
         this.recordList = new RecordList();
     }
 
@@ -29,16 +42,24 @@ public class Problem {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String title) throws TooManyCharactersException {
+        if (title.length() <= MAX_PROBLEM_TITLE_LENGTH) {
+            this.title = title;
+        } else {
+            throw new TooManyCharactersException();
+        }
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) throws TooManyCharactersException {
+        if (description.length() <= MAX_PROBLEM_DESCRIPTION_LENGTH) {
+            this.description = description;
+        } else {
+            throw new TooManyCharactersException();
+        }
     }
 
     public RecordList getRecordList() {

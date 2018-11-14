@@ -14,12 +14,18 @@ public class RecordList {
     }
 
     public Record getRecord(int index) {
-        return this.recordList.get(index);
+        if (index < recordList.size()) {
+            return this.recordList.get(index);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public void deleteRecord(int index) {
         if (index < recordList.size()) {
             this.recordList.remove(index);
+        } else {
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -27,7 +33,9 @@ public class RecordList {
         this.recordList.add(record);
     }
 
-    public boolean hasRecord(Record record) { return this.recordList.contains(record); }
+    public boolean hasRecord(Record record) {
+        return this.recordList.contains(record);
+    }
 
     public int sizeOfRecordList() {
         return this.recordList.size();

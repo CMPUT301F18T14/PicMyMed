@@ -15,12 +15,18 @@ public class ProblemList {
     }
 
     public Problem getProblem(int index) {
-        return this.problemList.get(index);
+        if (index < problemList.size()) {
+            return this.problemList.get(index);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public void deleteProblem(int index) {
         if (index < problemList.size()) {
             this.problemList.remove(index);
+        } else {
+            throw new IndexOutOfBoundsException();
         }
     }
 
