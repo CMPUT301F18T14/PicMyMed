@@ -1,11 +1,15 @@
 package com.example.mukha.picmymedcode;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -43,16 +47,74 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Button signupBtn = (Button) findViewById(R.id.signUpButton);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(problemIntent);
+                signupPopUpWindow();
+
+                //Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
+                //startActivity(problemIntent);
             }
         });
+    }
+
+    public void signupPopUpWindow() {
+        final Dialog signupPopUp = new Dialog(MainActivity.this);
+        signupPopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        signupPopUp.setContentView(R.layout.signup_activity);
+        signupPopUp.setTitle("Sign Up");
+
+        Button patient = (Button)signupPopUp.findViewById(R.id.patientButton);
+        Button careProvider = (Button)signupPopUp.findViewById(R.id.careProviderButton);
+
+        patient.setEnabled(true);
+        careProvider.setEnabled(true);
+
+        patient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signupPopUp.cancel();
+                Toast.makeText(MainActivity.this, "User is a patient", Toast.LENGTH_LONG).show();
+                usernamePopUpWindow();
+            }
+        });
+
+        careProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signupPopUp.cancel();
+                Toast.makeText(getApplicationContext(), "User is a care provider", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        signupPopUp.show();
+
     }
 
 
 
 
+
+    public void usernamePopUpWindow(){
+        final Dialog usernamePopUp = new Dialog(MainActivity.this);
+        usernamePopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        usernamePopUp.setContentView(R.layout.newusername_activity);
+        usernamePopUp.setTitle("Pick a Username");
+
+        Button submit = (Button)usernamePopUp.findViewById(R.id.signUpButton);
+
+        submit.setEnabled(true);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText enteredUsername = (EditText) usernamePopUp.findViewById(R.id.enteredUID);
+                String username = enteredUsername.getText().toString();
+                usernamePopUp.cancel();
+                Toast.makeText(MainActivity.this, username, Toast.LENGTH_LONG).show();
+            }
+        });
+        usernamePopUp.show();
+    }
 }
