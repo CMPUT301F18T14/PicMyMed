@@ -27,6 +27,8 @@
             android:label="Sign Up"/>
         <activity android:name=".View.newUsernameActivity"
             android:label="Enter Username"/>
+        <activity android:name=".View.ProfileActivity"
+            android:label="Profile"/>
     </application>
 
 </manifest>
