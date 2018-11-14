@@ -34,6 +34,7 @@ public class CareProviderTest extends TestCase {
             fail("Exception shouldn't have been thrown.");
         }
         assertTrue("Wrong username", careProvider.getUsername().equals("test"));
+
     }
 
     public void testPatientList() throws TooManyCharactersException {
