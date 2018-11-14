@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.mukha.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.Model.Patient;
+import com.example.mukha.picmymedcode.R;
 
 public class newUsernameActivity extends AppCompatActivity {
     @Override

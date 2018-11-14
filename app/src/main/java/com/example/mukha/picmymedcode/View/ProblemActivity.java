@@ -30,14 +30,14 @@ public class ProblemActivity extends AppCompatActivity {
         Problem problem = null;
         try {
             problem = new Problem(date,"Problem","Description");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
         problemList.addProblem(problem);
         Problem problem1 = null;
         try {
             problem1 = new Problem(date,"Problem1","Description1");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
         problemList.addProblem(problem1);

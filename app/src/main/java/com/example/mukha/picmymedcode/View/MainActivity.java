@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mukha.picmymedcode.Model.Login;
+import com.example.mukha.picmymedcode.R;
 
 
 public class MainActivity extends AppCompatActivity {

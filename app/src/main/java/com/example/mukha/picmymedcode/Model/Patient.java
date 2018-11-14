@@ -10,7 +10,7 @@ public class Patient extends User {
     private ProblemList problemList;
 
 
-    public Patient(String username, String email, String phoneNumber) throws TooManyCharactersException {
+    public Patient(String username, String email, String phoneNumber) throws IllegalArgumentException {
 
         super(username);
         this.email = email;
