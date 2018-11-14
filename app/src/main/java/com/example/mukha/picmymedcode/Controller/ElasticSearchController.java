@@ -48,9 +48,9 @@ public class ElasticSearchController {
                     if (result.isSucceeded()) {
                         if (problem.getId() == null) {
                             problem.setId(result.getId());
-                            Log.i("Update", "Elasticsearch performed a problem update");
-                        } else {
                             Log.i("Insert", "Elasticsearch performed a problem insert");
+                        } else {
+                            Log.i("Update", "Elasticsearch performed a problem update");
                         }
                         Log.i("Success", "Elasticsearch successfully added the problem");
                     }
