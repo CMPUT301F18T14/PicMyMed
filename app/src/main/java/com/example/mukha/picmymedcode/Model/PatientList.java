@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
 
 import java.util.ArrayList;
 
@@ -21,6 +21,7 @@ public class PatientList {
             throw new IndexOutOfBoundsException();
         }
     }
+
 
     public void deletePatient(int index) {
         if (index < patientList.size()) {

@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode.ProblemFile;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-import com.example.mukha.picmymedcode.MainActivity;
+import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.mukha.picmymedcode.Model.ProblemList;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,8 +50,6 @@ public class ProblemActivity extends AppCompatActivity {
         Toolbar bottomToolbar = (Toolbar) findViewById(R.id.problemBottom_toolbar);
         setSupportActionBar(bottomToolbar);
 
-
-        mRecyclerView = findViewById(R.id.problem_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);

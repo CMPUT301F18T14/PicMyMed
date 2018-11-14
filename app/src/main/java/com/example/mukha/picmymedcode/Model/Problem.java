@@ -1,8 +1,5 @@
 
-package com.example.mukha.picmymedcode.ProblemFile;
-
-import com.example.mukha.picmymedcode.RecordList;
-import com.example.mukha.picmymedcode.TooManyCharactersException;
+package com.example.mukha.picmymedcode.Model;
 
 import java.util.Date;
 
@@ -10,25 +7,18 @@ public class Problem {
     private Date startDate;
     private String title;
     private String description;
+    private String id;
     private RecordList recordList;
     private static final Integer MAX_PROBLEM_TITLE_LENGTH = 30;
     private static final Integer MAX_PROBLEM_DESCRIPTION_LENGTH = 300;
 
-    public Problem(Date startDate, String title, String description) throws TooManyCharactersException {
+    public Problem(Date startDate, String title, String description) throws IllegalArgumentException {
 
         this.startDate = startDate;
+        this.setTitle(title);
+        this.setDescription(description);
 
-        if (title.length() <= MAX_PROBLEM_TITLE_LENGTH) {
-            this.title = title;
-        } else {
-            throw new TooManyCharactersException();
-        }
-
-        if (description.length() <= MAX_PROBLEM_DESCRIPTION_LENGTH) {
-            this.description = description;
-        } else {
-            throw new TooManyCharactersException();
-        }
+        this.id = null;
 
         this.recordList = new RecordList();
     }
@@ -46,27 +36,38 @@ public class Problem {
         return title;
     }
 
-    public void setTitle(String title) throws TooManyCharactersException {
+    public void setTitle(String title) throws IllegalArgumentException {
+
         if (title.length() <= MAX_PROBLEM_TITLE_LENGTH) {
             this.title = title;
         } else {
-            throw new TooManyCharactersException();
+            throw new IllegalArgumentException(String.format("Problem title should not exceed %s characters!", MAX_PROBLEM_TITLE_LENGTH));
         }
+
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) throws TooManyCharactersException {
+    public void setDescription(String description) throws IllegalArgumentException {
+
         if (description.length() <= MAX_PROBLEM_DESCRIPTION_LENGTH) {
             this.description = description;
         } else {
-            throw new TooManyCharactersException();
+            throw new IllegalArgumentException(String.format("Problem description should not exceed %s characters!", MAX_PROBLEM_DESCRIPTION_LENGTH));
         }
     }
 
     public RecordList getRecordList() {
         return recordList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

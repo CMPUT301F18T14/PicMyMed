@@ -1,6 +1,6 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
 
-import com.example.mukha.picmymedcode.ProblemFile.ProblemList;
+import com.example.mukha.picmymedcode.View.TooManyCharactersException;
 
 public class Patient extends User {
 
@@ -9,7 +9,8 @@ public class Patient extends User {
     private String email;
     private ProblemList problemList;
 
-    public Patient(String username, String email, String phoneNumber) throws TooManyCharactersException {
+
+    public Patient(String username, String email, String phoneNumber) throws IllegalArgumentException {
 
         super(username);
         this.email = email;

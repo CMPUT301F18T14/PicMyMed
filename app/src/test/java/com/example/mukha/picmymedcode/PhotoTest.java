@@ -1,5 +1,7 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.Photo;
+
 import junit.framework.TestCase;
 
 public class PhotoTest extends TestCase {

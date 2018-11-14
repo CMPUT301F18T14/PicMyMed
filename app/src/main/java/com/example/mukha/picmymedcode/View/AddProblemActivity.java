@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode.ProblemFile;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;

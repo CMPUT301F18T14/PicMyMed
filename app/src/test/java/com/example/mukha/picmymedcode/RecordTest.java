@@ -2,6 +2,10 @@ package com.example.mukha.picmymedcode;
 
 import android.location.Location;
 
+import com.example.mukha.picmymedcode.Model.BodyLocation;
+import com.example.mukha.picmymedcode.Model.PhotoList;
+import com.example.mukha.picmymedcode.Model.Record;
+
 import junit.framework.TestCase;
 
 import java.util.Date;
