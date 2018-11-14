@@ -3,6 +3,7 @@ package com.example.mukha.picmymedcode.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -47,9 +48,10 @@ public class ProblemActivity extends AppCompatActivity {
         setContentView(R.layout.problem_activity);
         Toolbar topToolbar = (Toolbar) findViewById(R.id.problemTop_toolbar);
         setSupportActionBar(topToolbar);
-        Toolbar bottomToolbar = (Toolbar) findViewById(R.id.problemBottom_toolbar);
-        setSupportActionBar(bottomToolbar);
+        ActionMenuView bottomToolbar = (ActionMenuView)findViewById(R.id.problemBottom_toolbar);
+        Menu bottomMenu = bottomToolbar.getMenu();
 
+        mRecyclerView = findViewById(R.id.problem_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);

@@ -20,12 +20,12 @@
         android:layout_height="500dp"
         android:scrollbars="vertical" />
 
-    <android.support.v7.widget.Toolbar
+    <android.support.v7.widget.ActionMenuView
         android:id="@+id/problemBottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
+        android:gravity="bottom"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+        android:elevation="4dp" />
 
 </LinearLayout>
