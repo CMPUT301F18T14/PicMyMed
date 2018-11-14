@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.Button;
 
 import com.example.mukha.picmymedcode.MainActivity;
 import com.example.mukha.picmymedcode.R;
+import com.example.mukha.picmymedcode.TooManyCharactersException;
 
 import java.util.Date;
 
@@ -25,9 +27,19 @@ public class ProblemActivity extends AppCompatActivity {
         setContentView(R.layout.problem_activity);
 
         ProblemList problemList = new ProblemList();
-        Problem problem = new Problem(date,"Problem","Description");
+        Problem problem = null;
+        try {
+            problem = new Problem(date,"Problem","Description");
+        } catch (TooManyCharactersException e) {
+            e.printStackTrace();
+        }
         problemList.addProblem(problem);
-        Problem problem1 = new Problem(date,"Problem1","Description1");
+        Problem problem1 = null;
+        try {
+            problem1 = new Problem(date,"Problem1","Description1");
+        } catch (TooManyCharactersException e) {
+            e.printStackTrace();
+        }
         problemList.addProblem(problem1);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.problem_recycle_view);

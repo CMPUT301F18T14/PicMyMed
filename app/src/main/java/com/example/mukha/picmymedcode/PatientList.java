@@ -15,12 +15,18 @@ public class PatientList {
     }
 
     public Patient getPatient(int index) {
-        return this.patientList.get(index);
+        if (index < patientList.size()) {
+            return this.patientList.get(index);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public void deletePatient(int index) {
         if (index < patientList.size()) {
             this.patientList.remove(index);
+        } else {
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -28,7 +34,9 @@ public class PatientList {
         this.patientList.add(patient);
     }
 
-    public boolean hasPatient(Patient patient) { return this.patientList.contains(patient); }
+    public boolean hasPatient(Patient patient) {
+        return this.patientList.contains(patient);
+    }
 
     public int sizeOfPatientList() {
         return this.patientList.size();

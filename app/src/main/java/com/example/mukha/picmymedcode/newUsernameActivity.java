@@ -29,10 +29,18 @@ public class newUsernameActivity extends AppCompatActivity {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
                 if (userType.equals("patient")) {
-                    Patient user = new Patient(username, "", "");
+                    try {
+                        Patient user = new Patient(username, "", "");
+                    } catch (TooManyCharactersException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else if (userType.equals("careProvider")) {
-                    CareProvider user = new CareProvider(username);
+                    try {
+                        CareProvider user = new CareProvider(username);
+                    } catch (TooManyCharactersException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
                 startActivity(problemIntent);

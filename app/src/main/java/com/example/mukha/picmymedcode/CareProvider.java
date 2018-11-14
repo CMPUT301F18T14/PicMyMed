@@ -4,8 +4,9 @@ public class CareProvider extends User {
 
     PatientList patientList;
 
-    public CareProvider(String username) {
+    public CareProvider(String username) throws TooManyCharactersException {
         super(username);
+
         this.patientList = new PatientList();
     }
 
