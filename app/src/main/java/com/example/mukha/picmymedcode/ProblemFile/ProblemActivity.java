@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,8 +44,10 @@ public class ProblemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        Toolbar topToolbar = (Toolbar) findViewById(R.id.problemTop_toolbar);
+        setSupportActionBar(topToolbar);
+        Toolbar bottomToolbar = (Toolbar) findViewById(R.id.problemBottom_toolbar);
+        setSupportActionBar(bottomToolbar);
 
 
 
@@ -58,7 +62,7 @@ public class ProblemActivity extends AppCompatActivity {
 
 
 
-
+/**
         Button addproblembutton = findViewById(R.id.add_problem_button);
         addproblembutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +70,32 @@ public class ProblemActivity extends AppCompatActivity {
                 Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
                 startActivity(problemIntent);
             }
-        });
+        }); **/
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_addProblem:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
+                startActivity(problemIntent);
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     protected void onStart() {
