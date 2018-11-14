@@ -9,17 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.Model.ProblemList;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Comment;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -77,7 +72,7 @@ public class ProblemActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.problem_top_toolbar, menu);
         return true;
     }
 
@@ -89,6 +84,12 @@ public class ProblemActivity extends AppCompatActivity {
                 // as a favorite...
                 Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
                 startActivity(problemIntent);
+
+            case R.id.action_viewProfile:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
 
             default:
                 // If we got here, the user's action was not recognized.
