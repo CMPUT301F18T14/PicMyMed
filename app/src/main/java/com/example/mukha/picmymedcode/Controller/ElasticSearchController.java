@@ -111,12 +111,14 @@ public class ElasticSearchController {
 
         @Override
         protected Void doInBackground(Patient... patients) {
+            Log.i("Elasticsearch:", "Attempting to query...");
             verifySettings();
             Patient patient = patients[0];
+            Log.i("Elasticsearch:", "Creating index...");
             Index index = new Index.Builder(patient).index(indexPath).type("patient").build();
-
             if (patient.getId() != null) {
                 index = new Index.Builder(patient).index(indexPath).type("patient").id(patient.getId()).build();
+                Log.i("Elasticsearch", "... ID exists. Adding ID to index");
             }
 
             try {
@@ -125,14 +127,13 @@ public class ElasticSearchController {
                 if (result.isSucceeded()) {
                     if (patient.getId() == null) {
                         patient.setId(result.getId());
-                        Log.i("Update", "Elasticsearch performed a patient update");
+                        Log.i("Elasticsearch", "Elasticsearch successfully performed a patient insert");
                     } else {
-                        Log.i("Insert", "Elasticsearch performed a patient insert");
+                        Log.i("Elasticsearch", "Elasticsearch successfully performed a patient update");
                     }
-                    Log.i("Success", "Elasticsearch successfully added the patient");
                 }
                 else {
-                    Log.i("Error", "Elasticsearch was not able to add the patient");
+                    Log.i("Elasticsearch", "Elasticsearch failed to execute.");
                 }
             }
             catch (Exception e) {

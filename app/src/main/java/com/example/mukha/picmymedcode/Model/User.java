@@ -1,5 +1,7 @@
 package com.example.mukha.picmymedcode.Model;
 
+import android.util.Log;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -13,8 +15,9 @@ public abstract class User {
 
         if (username.length() == 0) {
             throw new IllegalArgumentException("User ID cannot be empty!");
-        } else if (username.length() <= MAX_USER_ID_LENGTH) {
+        } else if (username.length() > MAX_USER_ID_LENGTH) {
             throw new IllegalArgumentException(String.format("User ID should not exceed %s characters!", String.valueOf(MAX_USER_ID_LENGTH)));
+
         } else {
             this.username = username;
         }
