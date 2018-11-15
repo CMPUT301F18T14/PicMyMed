@@ -12,6 +12,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
+import com.example.mukha.picmymedcode.RecordFile.RecordActivity;
 import com.example.mukha.picmymedcode.SignUpActivity;
 
 

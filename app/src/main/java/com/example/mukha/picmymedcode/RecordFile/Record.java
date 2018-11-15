@@ -1,6 +1,8 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.RecordFile;
 
 import android.location.Location;
+
+import com.example.mukha.picmymedcode.BodyLocation;
 
 import java.util.Date;
 

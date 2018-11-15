@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode.ProblemFile;
+package com.example.mukha.picmymedcode.RecordFile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mukha.picmymedcode.ProblemFile.AddProblemActivity;
+import com.example.mukha.picmymedcode.ProblemFile.Problem;
+import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
+import com.example.mukha.picmymedcode.ProblemFile.ProblemAdapter;
+import com.example.mukha.picmymedcode.ProblemFile.ProblemList;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,52 +26,57 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.util.Date;
 
-public class ProblemActivity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity{
     private static final String FILENAME = "file.sav";
-    public Date date;
-    ProblemList problemList = new ProblemList();
     private RecyclerView mRecyclerView;
-    private ProblemAdapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
-    private View.OnClickListener mListener;
+    RecordList recordList = new RecordList();
+    ProblemList problemList = new ProblemList();
+    int position;
 
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.problem_activity);
+        setContentView(R.layout.record_activity);
+        loadFromFile();
 
-        mRecyclerView = findViewById(R.id.problem_recycle_view);
+        Record record = new Record ("Record");
+        record.setComment("xxxxxxxx");
+        recordList.addRecord(record);
+
+        position = getIntent().getIntExtra("key",0);
+        String name = problemList.getProblem(position).getTitle();
+        getSupportActionBar().setTitle(name);
+
+        manageRecyclerview();
+
+        Button addRecordButton = findViewById(R.id.record_save_button);
+        addRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void manageRecyclerview(){
+        problemList.getProblem(position).getRecordList();
+        mRecyclerView = findViewById(R.id.record_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(ProblemActivity.this,problemList.problemList);
+        mAdapter = new RecordAdapter(recordList.recordList);
         mRecyclerView.setAdapter(mAdapter);
-
-
-
-        Button addproblembutton = findViewById(R.id.problem_save_button);
-        addproblembutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
-                startActivity(problemIntent);
-            }
-        });
-
     }
-
-
-
 
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
-        mAdapter = new ProblemAdapter(ProblemActivity.this,problemList.getProblemList());
-        mRecyclerView.setAdapter(mAdapter);
+        //loadFromFile();
+
 
 
     }
@@ -106,6 +116,5 @@ public class ProblemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
 }

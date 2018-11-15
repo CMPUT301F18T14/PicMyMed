@@ -7,12 +7,12 @@
     android:padding="16dp">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/problem_recycle_view"
+        android:id="@+id/record_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:scrollbars="vertical" />
     <Button
-        android:id="@+id/problem_save_button"
+        android:id="@+id/record_save_button"
         android:layout_width="38dp"
         android:layout_height="38dp" />
 

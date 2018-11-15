@@ -1,9 +1,11 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.RecordFile;
+
+import com.example.mukha.picmymedcode.RecordFile.Record;
 
 import java.util.ArrayList;
 
 public class RecordList {
-    private ArrayList<Record> recordList;
+    public ArrayList<Record> recordList;
 
     public RecordList() {
         this.recordList = new ArrayList<Record>();

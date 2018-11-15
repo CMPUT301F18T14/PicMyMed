@@ -1,8 +1,9 @@
 package com.example.mukha.picmymedcode;
 
-import junit.framework.TestCase;
+import com.example.mukha.picmymedcode.RecordFile.Photo;
+import com.example.mukha.picmymedcode.RecordFile.PhotoList;
 
-import java.util.ArrayList;
+import junit.framework.TestCase;
 
 public class PhotoListTest extends TestCase {
 

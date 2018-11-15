@@ -2,6 +2,9 @@ package com.example.mukha.picmymedcode;
 
 import android.location.Location;
 
+import com.example.mukha.picmymedcode.RecordFile.PhotoList;
+import com.example.mukha.picmymedcode.RecordFile.Record;
+
 import junit.framework.TestCase;
 
 import java.util.Date;

@@ -1,4 +1,6 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.RecordFile;
+
+import com.example.mukha.picmymedcode.RecordFile.Photo;
 
 import java.util.ArrayList;
 

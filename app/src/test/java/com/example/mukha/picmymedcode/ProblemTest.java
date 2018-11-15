@@ -1,6 +1,7 @@
 package com.example.mukha.picmymedcode;
 
 import com.example.mukha.picmymedcode.ProblemFile.Problem;
+import com.example.mukha.picmymedcode.RecordFile.RecordList;
 
 import junit.framework.TestCase;
 

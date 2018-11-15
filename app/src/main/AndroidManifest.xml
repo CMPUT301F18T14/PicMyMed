@@ -18,14 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".newUsernameActivity"
+            android:label="Enter Username"/>
+        <activity android:name=".SignUpActivity"
+            android:label="Sign Up"/>
         <activity android:name=".ProblemFile.ProblemActivity"
             android:label="Problem"/>
         <activity android:name=".ProblemFile.AddProblemActivity"
             android:label="New Problem"/>
-        <activity android:name=".SignUpActivity"
-            android:label="Sign Up"/>
-        <activity android:name=".newUsernameActivity"
-            android:label="Enter Username"/>
+        <activity android:name=".RecordFile.RecordActivity"
+            android:label="Record"/>
+        <activity android:name=".RecordFile.AddRecordActivity"
+            android:label="New Record"/>
     </application>
 
 </manifest>
