@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.View;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -14,10 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
-import com.example.mukha.picmymedcode.SignUpActivity;
+import com.example.mukha.picmymedcode.Model.Login;
+import com.example.mukha.picmymedcode.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -77,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 signupPopUp.cancel();
                 Toast.makeText(MainActivity.this, "User is a patient", Toast.LENGTH_LONG).show();
                 usernamePopUpWindow();
+                //Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
+                //startActivity(problemIntent);
                 setContentView(R.layout.addproblem_activity);
             }
         });
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.newcareprovider_activity);
                 TextView setUserName = (TextView)findViewById(R.id.careProviderName);
                 String welcome = "Welcome " + username ;
-                setUserName.setText(welcome);
+            //    setUserName.setText(welcome);
             }
         });
 

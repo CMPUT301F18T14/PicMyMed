@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
+import com.example.mukha.picmymedcode.Model.CareProvider;
+import com.example.mukha.picmymedcode.Model.Patient;
+import com.example.mukha.picmymedcode.R;
 
 public class newUsernameActivity extends AppCompatActivity {
     @Override
@@ -29,10 +31,18 @@ public class newUsernameActivity extends AppCompatActivity {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
                 if (userType.equals("patient")) {
-                    Patient user = new Patient(username, "", "");
+                    try {
+                        Patient user = new Patient(username, "", "");
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else if (userType.equals("careProvider")) {
-                    CareProvider user = new CareProvider(username);
+                    try {
+                        CareProvider user = new CareProvider(username);
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
                 startActivity(problemIntent);
