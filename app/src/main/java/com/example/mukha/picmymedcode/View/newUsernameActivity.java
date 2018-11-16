@@ -1,10 +1,8 @@
 package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +36,8 @@ public class newUsernameActivity extends AppCompatActivity {
                     try {
                         Patient user = new Patient(username, "", "");
 
-                        ElasticSearchController.AddPatientTask addPatientTask= new ElasticSearchController.AddPatientTask();
-                        addPatientTask.execute(user);
+                        ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
+                        addPatient.execute(user);
 
                     } catch (IllegalArgumentException e) {
 
@@ -49,8 +47,8 @@ public class newUsernameActivity extends AppCompatActivity {
                 else if (userType.equals("careProvider")) {
                     try {
                         CareProvider user = new CareProvider(username);
-                        ElasticSearchController.AddCareProviderTask addCareProviderTask= new ElasticSearchController.AddCareProviderTask();
-                        addCareProviderTask.execute(user);
+                        ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
+                        addCareProvider.execute(user);
                     } catch (IllegalArgumentException e) {
                         e.printStackTrace();
                     }
