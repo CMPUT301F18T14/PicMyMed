@@ -30,6 +30,79 @@ public class ElasticSearchController {
     private static final String careProviderType = "careprovider";
 
 
+    public static class AddPatient extends AsyncTask<Patient, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Patient... patients) {
+            Log.i("AddPatient:", "Attempting to build patient index...");
+            verifySettings();
+            Patient patient = patients[0];
+
+            Index index = new Index.Builder(patient).index(indexPath).type(patientType).build();
+            Log.i("AddPatient:", "Created index...");
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+                if (result.isSucceeded()) {
+                    if (patient.getUserID() == null) {
+                        patient.setUserID(result.getId());
+                        Log.i("AddPatient", "Patient ID " + result.getId() + "generated.");
+                    } else {
+                        Log.i("AddPatient", "Failed to generate Patient ID.");
+                    }
+                    Log.i("AddPatient", "Elasticsearch successfully added the Patient");
+                }
+                else {
+                    Log.i("AddPatient", "Elasticsearch was not able to add the Patient");
+                }
+            }
+            catch (Exception e) {
+                Log.i("AddPatient", "The application failed to build and send the patient");
+            }
+
+
+            return null;
+        }
+    }
+
+    public static class AddCareProvider extends AsyncTask<CareProvider, Void, Void> {
+
+        @Override
+        protected Void doInBackground(CareProvider... careProviders) {
+            Log.i("AddCareProvider:", "Attempting to build careprovider index...");
+            verifySettings();
+
+            CareProvider careProvider = careProviders[0];
+            Index index = new Index.Builder(careProvider).index(indexPath).type(careProviderType).build();
+            Log.i("AddCareProvider:", "Created index...");
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+
+                if (result.isSucceeded()) {
+                    if (careProvider.getUserID() == null) {
+                        careProvider.setUserID(result.getId());
+                        Log.i("AddCareProvider", "Careprovider ID " + result.getId() + "generated.");
+                    } else {
+                        Log.i("AddCareProvider", "Failed to generate Careprovider ID.");
+                    }
+                    Log.i("AddCareProvider", "Elasticsearch successfully added the Careprovider");
+                }
+                else {
+                    Log.i("AddCareProvider", "Elasticsearch was not able to add the Careprovider");
+                }
+            }
+            catch (Exception e) {
+                Log.i("AddCareProvider", "The application failed to build and add the Careprovider");
+            }
+
+
+            return null;
+        }
+    }
+
     public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
 
         @Override
@@ -109,41 +182,7 @@ public class ElasticSearchController {
         }
     }
 
-    public static class AddPatientTask extends AsyncTask<Patient, Void, Void> {
 
-        @Override
-        protected Void doInBackground(Patient... patients) {
-            Log.i("AddPatientTask:", "Attempting to build patient index...");
-            verifySettings();
-            Patient patient = patients[0];
-
-            Index index = new Index.Builder(patient).index(indexPath).type(patientType).build();
-            Log.i("AddPatientTask:", "Created index...");
-
-            try {
-                // where is the client?
-                DocumentResult result = client.execute(index);
-                if (result.isSucceeded()) {
-                    if (patient.getUserID() == null) {
-                        patient.setUserID(result.getId());
-                        Log.i("AddPatientTask", "Patient ID " + result.getId() + "generated.");
-                    } else {
-                        Log.i("AddPatientTask", "Failed to generate Patient ID.");
-                    }
-                    Log.i("AddPatienTask", "Elasticsearch successfully added the Patient");
-                }
-                else {
-                    Log.i("AddPatienTask", "Elasticsearch was not able to add the Patient");
-                }
-            }
-            catch (Exception e) {
-                Log.i("AddPatientTask", "The application failed to build and send the patient");
-            }
-
-
-            return null;
-        }
-    }
 
     public static class GetPatientTask extends AsyncTask<String, Void, ArrayList<Patient>> {
         @Override
@@ -228,42 +267,7 @@ public class ElasticSearchController {
     }
 
 
-    public static class AddCareProvider extends AsyncTask<CareProvider, Void, Void> {
 
-        @Override
-        protected Void doInBackground(CareProvider... careProviders) {
-            Log.i("AddCareProvider:", "Attempting to build careprovider index...");
-            verifySettings();
-
-            CareProvider careProvider = careProviders[0];
-            Index index = new Index.Builder(careProvider).index(indexPath).type(careProviderType).build();
-            Log.i("AddCareProvider:", "Created index...");
-
-            try {
-                // where is the client?
-                DocumentResult result = client.execute(index);
-
-                if (result.isSucceeded()) {
-                    if (careProvider.getUserID() == null) {
-                        careProvider.setUserID(result.getId());
-                        Log.i("AddCareProvider", "Careprovider ID " + result.getId() + "generated.");
-                    } else {
-                        Log.i("AddCareProvider", "Failed to generate Careprovider ID.");
-                    }
-                    Log.i("AddCareProvider", "Elasticsearch successfully added the Careprovider");
-                }
-                else {
-                    Log.i("AddCareProvider", "Elasticsearch was not able to add the Careprovider");
-                }
-            }
-            catch (Exception e) {
-                Log.i("AddCareProvider", "The application failed to build and add the Careprovider");
-            }
-
-
-            return null;
-        }
-    }
 
     public static class GetCareProviderTask extends AsyncTask<String, Void, ArrayList<CareProvider>> {
         @Override
