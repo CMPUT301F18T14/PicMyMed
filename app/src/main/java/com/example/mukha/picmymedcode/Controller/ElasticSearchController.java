@@ -26,6 +26,8 @@ public class ElasticSearchController {
     private static final String serverURI = "http://cmput301.softwareprocess.es:8080/";
     private static final String indexPath = "cmput301f18t14test";
     private static final String querySize = "10";
+    private static final String patientType = "patient";
+    private static final String careProviderType = "careprovider";
 
 
     public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
@@ -116,8 +118,8 @@ public class ElasticSearchController {
             Patient patient = patients[0];
             Log.i("Elasticsearch:", "Creating index...");
             Index index = new Index.Builder(patient).index(indexPath).type("patient").build();
-            if (patient.getId() != null) {
-                index = new Index.Builder(patient).index(indexPath).type("patient").id(patient.getId()).build();
+            if (patient.getUserID() != null) {
+                index = new Index.Builder(patient).index(indexPath).type("patient").id(patient.getUserID()).build();
                 Log.i("Elasticsearch", "... ID exists. Adding ID to index");
             }
 
@@ -125,8 +127,8 @@ public class ElasticSearchController {
                 // where is the client?
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
-                    if (patient.getId() == null) {
-                        patient.setId(result.getId());
+                    if (patient.getUserID() == null) {
+                        patient.setUserID(result.getId());
                         Log.i("Elasticsearch", "Elasticsearch successfully performed a patient insert");
                     } else {
                         Log.i("Elasticsearch", "Elasticsearch successfully performed a patient update");
@@ -226,36 +228,34 @@ public class ElasticSearchController {
             return patients;
         }
     }
-    public static class AddCareProviderTask extends AsyncTask<CareProvider, Void, Void> {
+    public static class AddCareProvider extends AsyncTask<CareProvider, Void, Void> {
 
         @Override
         protected Void doInBackground(CareProvider... careProviders) {
             verifySettings();
-            CareProvider careProvider = careProviders[0];
-            Index index = new Index.Builder(careProvider).index(indexPath).type("careprovider").build();
 
-            if (careProvider.getId() != null) {
-                index = new Index.Builder(careProvider).index(indexPath).type("careprovider").id(careProvider.getId()).build();
-            }
+            CareProvider careProvider = careProviders[0];
+            Index index = new Index.Builder(careProvider).index(indexPath).type(careProviderType).build();
 
             try {
                 // where is the client?
                 DocumentResult result = client.execute(index);
+
                 if (result.isSucceeded()) {
-                    if (careProvider.getId() == null) {
-                        careProvider.setId(result.getId());
-                        Log.i("Update", "Elasticsearch performed careProvider update");
+                    if (careProvider.getUserID() == null) {
+                        careProvider.setUserID(result.getId());
+                        Log.i("AddCareProvider", "Careprovider ID " + result.getId() + "generated.");
                     } else {
-                        Log.i("Insert", "Elasticsearch performed a careProvider insert");
+                        Log.i("AddCareProvider", "Failed to generate Careprovider ID.");
                     }
-                    Log.i("Success", "Elasticsearch successfully added the careProvider");
+                    Log.i("AddCareProvider", "Elasticsearch successfully added the Careprovider");
                 }
                 else {
-                    Log.i("Error", "Elasticsearch was not able to add the careProvider");
+                    Log.i("Error", "Elasticsearch was not able to add the Careprovider");
                 }
             }
             catch (Exception e) {
-                Log.i("Error", "The application failed to build and send the careProvider");
+                Log.i("Error", "The application failed to build and add the Careprovider");
             }
 
 

@@ -37,4 +37,9 @@ public class Patient extends User {
     public ProblemList getProblemList() {
         return problemList;
     }
+
+    @Override
+    public Boolean isPatient() {
+        return Boolean.TRUE;
+    }
 }

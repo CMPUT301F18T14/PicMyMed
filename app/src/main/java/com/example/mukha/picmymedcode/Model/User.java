@@ -1,15 +1,10 @@
 package com.example.mukha.picmymedcode.Model;
 
-import android.util.Log;
-
-import java.util.LinkedList;
-import java.util.Queue;
-
 public abstract class User {
 
     private final String username;
     private static final Integer MAX_USER_ID_LENGTH = 8;
-    private String id;
+    private String userID;
 
     public User(String username) throws IllegalArgumentException {
 
@@ -29,11 +24,14 @@ public abstract class User {
         return this.username;
     }
 
-    public String getId() {
-        return id;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
+
+    public abstract Boolean isPatient();
+
 }
