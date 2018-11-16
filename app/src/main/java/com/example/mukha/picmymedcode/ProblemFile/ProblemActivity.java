@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
@@ -52,7 +56,11 @@ public class ProblemActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();
