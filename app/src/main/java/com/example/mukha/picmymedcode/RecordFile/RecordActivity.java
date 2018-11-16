@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.mukha.picmymedcode.ProblemFile.AddProblemActivity;
 import com.example.mukha.picmymedcode.ProblemFile.Problem;
 import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
 import com.example.mukha.picmymedcode.ProblemFile.ProblemAdapter;
-import com.example.mukha.picmymedcode.ProblemFile.ProblemList;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,14 +24,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class RecordActivity extends AppCompatActivity{
     private static final String FILENAME = "file.sav";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
-    RecordList recordList = new RecordList();
-    ProblemList problemList = new ProblemList();
+    public ArrayList<Problem> arrayListProblem;
+    public ArrayList<Record> arrayListRecord;
     int position;
 
 
@@ -41,41 +40,43 @@ public class RecordActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity);
         loadFromFile();
-
-        Record record = new Record ("Record");
-        record.setComment("xxxxxxxx");
-        recordList.addRecord(record);
+        manageRecyclerview();
+        mRecyclerView = findViewById(R.id.record_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
+        mRecyclerView.setAdapter(mAdapter);
 
         position = getIntent().getIntExtra("key",0);
-        String name = problemList.getProblem(position).getTitle();
+        String name = arrayListProblem.get(position).getTitle();
         getSupportActionBar().setTitle(name);
 
-        manageRecyclerview();
+
 
         Button addRecordButton = findViewById(R.id.record_save_button);
         addRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
+                intent.putExtra("key",position);
+
                 startActivity(intent);
             }
         });
     }
 
     public void manageRecyclerview(){
-        problemList.getProblem(position).getRecordList();
-        mRecyclerView = findViewById(R.id.record_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(recordList.recordList);
-        mRecyclerView.setAdapter(mAdapter);
+
+
     }
 
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        //loadFromFile();
+        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
+        mRecyclerView.setAdapter(mAdapter);
+
 
 
 
@@ -88,9 +89,9 @@ public class RecordActivity extends AppCompatActivity{
             BufferedReader reader = new BufferedReader(isr);
 
             Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ProblemList>() {
+            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
             }.getType();
-            problemList = gson.fromJson(reader, typeListProblem);
+            arrayListProblem = gson.fromJson(reader, typeListProblem);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -107,7 +108,7 @@ public class RecordActivity extends AppCompatActivity{
             BufferedWriter writer = new BufferedWriter(osw);
 
             Gson gson = new Gson();
-            gson.toJson(problemList,osw);
+            gson.toJson(arrayListProblem,osw);
             writer.flush();
             writer.close();
 

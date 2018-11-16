@@ -21,28 +21,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ProblemActivity extends AppCompatActivity {
     private static final String FILENAME = "file.sav";
     public Date date;
-    ProblemList problemList = new ProblemList();
     private RecyclerView mRecyclerView;
     private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     private View.OnClickListener mListener;
+    public ArrayList<Problem> problemArrayList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
-
+        loadFromFile();
+        //to clear my file
+        //problemArrayList.clear();
+        //saveInFile();
         mRecyclerView = findViewById(R.id.problem_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(ProblemActivity.this,problemList.problemList);
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -51,6 +55,7 @@ public class ProblemActivity extends AppCompatActivity {
         addproblembutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
                 startActivity(problemIntent);
             }
@@ -65,7 +70,7 @@ public class ProblemActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        mAdapter = new ProblemAdapter(ProblemActivity.this,problemList.getProblemList());
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -78,9 +83,9 @@ public class ProblemActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(isr);
 
             Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ProblemList>() {
+            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
             }.getType();
-            problemList = gson.fromJson(reader, typeListProblem);
+            problemArrayList = gson.fromJson(reader, typeListProblem);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -97,7 +102,7 @@ public class ProblemActivity extends AppCompatActivity {
             BufferedWriter writer = new BufferedWriter(osw);
 
             Gson gson = new Gson();
-            gson.toJson(problemList,osw);
+            gson.toJson(problemArrayList,osw);
             writer.flush();
             writer.close();
 

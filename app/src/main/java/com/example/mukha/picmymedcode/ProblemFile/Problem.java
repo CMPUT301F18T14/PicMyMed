@@ -1,21 +1,23 @@
 package com.example.mukha.picmymedcode.ProblemFile;
 
-import com.example.mukha.picmymedcode.RecordFile.RecordList;
+import com.example.mukha.picmymedcode.RecordFile.Record;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Problem {
     private Date startDate;
     private String title;
     private String description;
-    private RecordList recordList;
+    //private RecordList recordList;
 
-    public Problem(Date startDate, String title, String description) {
+    public ArrayList<Record> recordArrayList;
+    public Problem(Date startDate, String title, String description, ArrayList<Record> recordArrayList) {
 
         this.startDate = startDate;
         this.title = title;
         this.description = description;
-        this.recordList = new RecordList();
+        this.recordArrayList = recordArrayList;
     }
 
 
@@ -43,7 +45,9 @@ public class Problem {
         this.description = description;
     }
 
-    public RecordList getRecordList() {
-        return recordList;
+    public ArrayList<Record> getRecordArrayList (){
+        return this.recordArrayList;
     }
+
+
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mukha.picmymedcode.R;
+import com.example.mukha.picmymedcode.RecordFile.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,16 +22,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AddProblemActivity extends AppCompatActivity{
     private Date date;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    ProblemList problemList = new ProblemList();
+    public ArrayList<Problem> problemArrayList;
+    public ArrayList<Record> recordsArrayList;
     private static final String FILENAME = "file.sav";
 
     protected void onCreate(Bundle savedInstanceState) {
+        problemArrayList = new ArrayList<>();
+        recordsArrayList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addproblem_activity);
 
@@ -41,11 +46,15 @@ public class AddProblemActivity extends AppCompatActivity{
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
-                problemList.addProblem(problem);
+                //Record record = new Record("hi");
+                //Record record2 = new Record ("bye");
+                //recordsArrayList.add(record);
+                //recordsArrayList.add(record2);
+                Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString(),recordsArrayList);
+                problemArrayList.add(problem);
                 saveInFile();
-                Intent problemIntent = new Intent(AddProblemActivity.this,ProblemActivity.class);
-                startActivity(problemIntent);
+                onBackPressed();//go back to previous activity
+
 
             }
         });
@@ -55,7 +64,7 @@ public class AddProblemActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        mAdapter = new ProblemAdapter(getApplicationContext(),problemList.getProblemList());
+        //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
 
     }
 
@@ -66,9 +75,9 @@ public class AddProblemActivity extends AppCompatActivity{
             BufferedReader reader = new BufferedReader(isr);
 
             Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ProblemList>() {
+            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
             }.getType();
-            problemList = gson.fromJson(reader, typeListProblem);
+            problemArrayList = gson.fromJson(reader, typeListProblem);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -84,7 +93,7 @@ public class AddProblemActivity extends AppCompatActivity{
             BufferedWriter writer = new BufferedWriter(osw);
 
             Gson gson = new Gson();
-            gson.toJson(problemList,osw);
+            gson.toJson(problemArrayList,osw);
 
             writer.close();
 

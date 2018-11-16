@@ -15,13 +15,13 @@
         android:id="@+id/record_title_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Title "/>
+        android:hint="Add Title "/>
 
     <EditText
         android:id="@+id/record_description_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Description "/>
+        android:hint="Add Description "/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

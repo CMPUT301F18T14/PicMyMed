@@ -1,20 +1,22 @@
 package com.example.mukha.picmymedcode;
 
-import com.example.mukha.picmymedcode.ProblemFile.ProblemList;
+import com.example.mukha.picmymedcode.ProblemFile.Problem;
+
+import java.util.ArrayList;
 
 public class Patient extends User {
 
 
     private String phoneNumber;
     private String email;
-    private ProblemList problemList;
+    ArrayList<Problem> problemArrayList;
 
     public Patient(String username, String email, String phoneNumber) {
 
         super(username);
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.problemList = new ProblemList();
+        //this.problemList = new ProblemList();
 
     }
     public String getEmail() {
@@ -33,7 +35,7 @@ public class Patient extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public ProblemList getProblemList() {
-        return problemList;
-    }
+    // public  getProblemList() {
+      //  return problemList;
+    //}
 }
