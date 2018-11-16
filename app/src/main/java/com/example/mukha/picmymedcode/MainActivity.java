@@ -78,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 signupPopUp.cancel();
                 Toast.makeText(MainActivity.this, "User is a patient", Toast.LENGTH_LONG).show();
                 usernamePopUpWindow();
-                setContentView(R.layout.addproblem_activity);
+                //setContentView(R.layout.problem_activity);
+
             }
         });
+
 
         careProvider.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +119,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 usernamePopUp.cancel();
+                Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                startActivity(problemIntent);
+                /*
+                Need to come back here and make it so a care provider goes to the add
+                patient window once user knows if they are a patient or careprovider
+                Intent addPatientIntent = new Intent(MainActivity.this, Patient.class);
+                startActivity(addPatientIntent);
+                 */
             }
         });
         usernamePopUp.show();

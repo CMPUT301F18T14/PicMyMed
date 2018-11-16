@@ -27,7 +27,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class RecordActivity extends AppCompatActivity{
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file2.sav";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;

@@ -31,7 +31,7 @@ public class AddProblemActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     public ArrayList<Problem> problemArrayList;
     public ArrayList<Record> recordsArrayList;
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file2.sav";
 
     protected void onCreate(Bundle savedInstanceState) {
         problemArrayList = new ArrayList<>();

@@ -26,7 +26,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemViewHolder>{
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file2.sav";
 
 
     private ArrayList<Problem> problems;

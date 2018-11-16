@@ -29,7 +29,7 @@ public class AddRecordActivity extends AppCompatActivity{
     //RecordList recordList = new RecordList();
     public ArrayList<Problem> arrayListProblem;
     public ArrayList<Record> recordsArrayList;
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file2.sav";
     int position;
 
     protected void onCreate(Bundle savedInstanceState) {
