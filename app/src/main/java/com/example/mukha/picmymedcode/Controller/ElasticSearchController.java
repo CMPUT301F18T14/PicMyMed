@@ -48,6 +48,13 @@ public class ElasticSearchController {
                     if (patient.getUserID() == null) {
                         patient.setUserID(result.getId());
                         Log.i("AddPatient", "Patient ID " + result.getId() + "generated.");
+                        Log.i("AddPatient", "Updating index of patient ...");
+                        try {
+                            ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
+                            updatePatient.execute(patient);
+                        } catch (Exception e) {
+                            Log.i("AddPatient", "Elasticsearch unable to update newly generated ID of patient");
+                        }
                     } else {
                         Log.i("AddPatient", "Failed to generate Patient ID.");
                     }
@@ -86,6 +93,13 @@ public class ElasticSearchController {
                     if (careProvider.getUserID() == null) {
                         careProvider.setUserID(result.getId());
                         Log.i("AddCareProvider", "Careprovider ID " + result.getId() + "generated.");
+                        Log.i("AddCareProvider", "Updating index of careprovider ...");
+                        try {
+                            ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+                            updateCareProvider.execute(careProvider);
+                        } catch (Exception e) {
+                            Log.i("AddCareProvider", "Elasticsearch unable to update newly generated ID of careprovider");
+                        }
                     } else {
                         Log.i("AddCareProvider", "Failed to generate Careprovider ID.");
                     }
@@ -149,42 +163,107 @@ public class ElasticSearchController {
     public static class GetCareProvider extends AsyncTask<String, Void, ArrayList<CareProvider>> {
         @Override
         protected ArrayList<CareProvider> doInBackground(String... search_parameters) {
+            Log.i("GetCareProvider", "Attempting to build careprovider query...");
             verifySettings();
 
             ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
+            String careProviderName = search_parameters[0];
 
 
-            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String careProviderQuery = "{ \"size\": " + querySize +
                     ", \n" +
                     "    \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + careProviderName + "\" }\n" +
                     "    }\n" +
                     "}" ;
 
             Search search = new Search.Builder(careProviderQuery)
                     .addIndex(indexPath)
-                    .addType("careprovider")
+                    .addType(careProviderType)
                     .build();
+
+            Log.i("GetCareProvider:", "Created query...");
 
             try {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()){
+                    Log.i("GetCareProvider", "Successfully queried elasticsearch server");
                     List<CareProvider> foundCareProviders = result.getSourceAsObjectList(CareProvider.class);
                     careProviders.addAll(foundCareProviders);
                 }
                 else {
-                    Log.i("Error", "The search query failed to find any care providers that matched");
+                    Log.i("GetCareProvider", "The search query failed to find any careproviders that matched");
                 }
             }
             catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("GetCareProvider", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 
             return careProviders;
         }
     }
+    public static class UpdatePatient extends AsyncTask<Patient, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Patient... patients) {
+            Log.i("UpdatePatient:", "Attempting to build patient index...");
+            verifySettings();
+            Patient patient = patients[0];
+
+            Index index = new Index.Builder(patient).index(indexPath).type(patientType).id(patient.getUserID()).build();
+            Log.i("UpdatePatient:", "Created index...");
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+                if (result.isSucceeded()) {
+                    Log.i("UpdatePatient", "Patient ID (" +patient.getUsername()+") " + patient.getUserID() + " updated.");
+                }
+                else {
+                    Log.i("UpdatePatient", "Elasticsearch was not able to update the patient");
+                }
+            }
+            catch (Exception e) {
+                Log.i("UpdatePatient", "The application failed to update the patient");
+            }
+
+
+            return null;
+        }
+    }
+
+
+    public static class UpdateCareProvider extends AsyncTask<CareProvider, Void, Void> {
+
+        @Override
+        protected Void doInBackground(CareProvider... careProviders) {
+            Log.i("UpdateCareProvider:", "Attempting to build patient index...");
+            verifySettings();
+            CareProvider careProvider = careProviders[0];
+
+            Index index = new Index.Builder(careProvider).index(indexPath).type(careProviderType).id(careProvider.getUserID()).build();
+            Log.i("UpdateCareProvider:", "Created index...");
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+                if (result.isSucceeded()) {
+                    Log.i("UpdateCareProvider", "CareProvider ID (" +careProvider.getUsername()+") " + careProvider.getUserID() + " updated.");
+                }
+                else {
+                    Log.i("UpdateCareProvider", "Elasticsearch was not able to update the careprovider");
+                }
+            }
+            catch (Exception e) {
+                Log.i("UpdateCareProvider", "The application failed to update the careprovider");
+            }
+
+
+            return null;
+        }
+    }
+
     public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
 
         @Override
