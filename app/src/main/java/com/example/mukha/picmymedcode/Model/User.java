@@ -9,7 +9,7 @@ public abstract class User {
     public User(String username) throws IllegalArgumentException {
 
         if (username.length() == 0) {
-            throw new IllegalArgumentException("User ID cannot be empty!");
+            throw new IllegalArgumentException("Username cannot be empty!");
         } else if (username.length() > MAX_USER_ID_LENGTH) {
             throw new IllegalArgumentException(String.format("User ID should not exceed %s characters!", String.valueOf(MAX_USER_ID_LENGTH)));
 

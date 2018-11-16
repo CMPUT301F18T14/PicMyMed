@@ -7,10 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mukha.picmymedcode.Controller.ElasticSearchController;
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.Model.Patient;
+import com.example.mukha.picmymedcode.Model.User;
 import com.example.mukha.picmymedcode.R;
 
 public class newUsernameActivity extends AppCompatActivity {
@@ -32,32 +36,29 @@ public class newUsernameActivity extends AppCompatActivity {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
 
-                if (userType.equals("patient")) {
-                    try {
-                        Patient user = new Patient(username, "", "");
-
-                        ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
-                        addPatient.execute(user);
-
-                    } catch (IllegalArgumentException e) {
-
-                        e.printStackTrace();
+                User user = null;
+                try {
+                    if (userType.equals("patient")) {
+                        user = new Patient(username, "", "");
                     }
-                }
-                else if (userType.equals("careProvider")) {
-                    try {
-                        CareProvider user = new CareProvider(username);
-                        ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
-                        addCareProvider.execute(user);
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
+                    else if (userType.equals("careprovider")) {
+                        user = new CareProvider(username);
                     }
+                } catch (Exception e) {
+                    toastMessage(e.getMessage());
                 }
-                Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
-                startActivity(problemIntent);
+                if (user != null && PicMyMedController.createUser(user) != 1) {
+                    toastMessage("Error: Username already exists, please try another one.");
+                } else {
+                    toastMessage("Account successfully created. Please login.");
+                    finish();
+                }
 
             }
         });
 
+    }
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

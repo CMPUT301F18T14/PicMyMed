@@ -66,6 +66,7 @@ public class ElasticSearchController {
         }
     }
 
+
     public static class AddCareProvider extends AsyncTask<CareProvider, Void, Void> {
 
         @Override
@@ -103,6 +104,87 @@ public class ElasticSearchController {
         }
     }
 
+    public static class GetPatient extends AsyncTask<String, Void, ArrayList<Patient>> {
+        @Override
+        protected ArrayList<Patient> doInBackground(String... search_parameters) {
+            Log.i("GetPatient:", "Attempting to build patient query...");
+            verifySettings();
+
+            ArrayList<Patient> patients = new ArrayList<Patient>();
+
+            String patientName = search_parameters[0];
+
+            String patientQuery = "{ \"size\": " + querySize +
+                    ", \n" +
+                    "    \"query\" : {\n" +
+                    "        \"match\" : { \"username\" : \"" + patientName + "\" }\n" +
+                    "    }\n" +
+                    "}" ;
+
+            Search search = new Search.Builder(patientQuery)
+                    .addIndex(indexPath)
+                    .addType(patientType)
+                    .build();
+            Log.i("GetPatient:", "Created query...");
+            try {
+
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    Log.i("GetPatient", "Successfully queried elasticsearch server");
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    patients.addAll(foundPatients);
+                }
+                else {
+                    Log.i("GetPatient", "The search query failed to find any patients that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("GetPatient", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return patients;
+        }
+    }
+
+    public static class GetCareProvider extends AsyncTask<String, Void, ArrayList<CareProvider>> {
+        @Override
+        protected ArrayList<CareProvider> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
+
+
+            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String careProviderQuery = "{ \"size\": " + querySize +
+                    ", \n" +
+                    "    \"query\" : {\n" +
+                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}" ;
+
+            Search search = new Search.Builder(careProviderQuery)
+                    .addIndex(indexPath)
+                    .addType("careprovider")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    List<CareProvider> foundCareProviders = result.getSourceAsObjectList(CareProvider.class);
+                    careProviders.addAll(foundCareProviders);
+                }
+                else {
+                    Log.i("Error", "The search query failed to find any care providers that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return careProviders;
+        }
+    }
     public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
 
         @Override
@@ -184,45 +266,7 @@ public class ElasticSearchController {
 
 
 
-    public static class GetPatientTask extends AsyncTask<String, Void, ArrayList<Patient>> {
-        @Override
-        protected ArrayList<Patient> doInBackground(String... search_parameters) {
-            verifySettings();
 
-            ArrayList<Patient> patients = new ArrayList<Patient>();
-
-
-            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String patientQuery = "{ \"size\": " + querySize +
-                    ", \n" +
-                    "    \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
-                    "    }\n" +
-                    "}" ;
-
-            Search search = new Search.Builder(patientQuery)
-                    .addIndex(indexPath)
-                    .addType("patient")
-                    .build();
-
-            try {
-                // TODO get the results of the query
-                SearchResult result = client.execute(search);
-                if (result.isSucceeded()){
-                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
-                    patients.addAll(foundPatients);
-                }
-                else {
-                    Log.i("Error", "The search query failed to find any patients that matched");
-                }
-            }
-            catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-            }
-
-            return patients;
-        }
-    }
     public static class GetAllPatients extends AsyncTask<Void, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(Void... voids) {
@@ -269,45 +313,7 @@ public class ElasticSearchController {
 
 
 
-    public static class GetCareProviderTask extends AsyncTask<String, Void, ArrayList<CareProvider>> {
-        @Override
-        protected ArrayList<CareProvider> doInBackground(String... search_parameters) {
-            verifySettings();
 
-            ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
-
-
-            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String careProviderQuery = "{ \"size\": " + querySize +
-                    ", \n" +
-                    "    \"query\" : {\n" +
-                    "        \"term\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
-                    "    }\n" +
-                    "}" ;
-
-            Search search = new Search.Builder(careProviderQuery)
-                    .addIndex(indexPath)
-                    .addType("careprovider")
-                    .build();
-
-            try {
-                // TODO get the results of the query
-                SearchResult result = client.execute(search);
-                if (result.isSucceeded()){
-                    List<CareProvider> foundCareProviders = result.getSourceAsObjectList(CareProvider.class);
-                    careProviders.addAll(foundCareProviders);
-                }
-                else {
-                    Log.i("Error", "The search query failed to find any care providers that matched");
-                }
-            }
-            catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-            }
-
-            return careProviders;
-        }
-    }
     public static class GetAllCareProviders extends AsyncTask<Void, Void, ArrayList<CareProvider>> {
         @Override
         protected ArrayList<CareProvider> doInBackground(Void... voids) {
