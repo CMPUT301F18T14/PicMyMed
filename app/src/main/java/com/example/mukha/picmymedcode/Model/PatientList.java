@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class PatientList {
 
-    private final ArrayList<Patient> patientList;
+    private final ArrayList<String> patientList;
 
     public PatientList() {
-        this.patientList = new ArrayList<Patient>();
+        this.patientList = new ArrayList<String>();
     }
 
-    public ArrayList<Patient> getPatientList() {
+    public ArrayList<String> getPatientList() {
         return patientList;
     }
 
-    public Patient getPatient(int index) {
+    public String getPatient(int index) {
         if (index < patientList.size()) {
             return this.patientList.get(index);
         } else {
@@ -31,11 +31,11 @@ public class PatientList {
         }
     }
 
-    public void addPatient(Patient patient) {
+    public void addPatient(String patient) {
         this.patientList.add(patient);
     }
 
-    public boolean hasPatient(Patient patient) {
+    public boolean hasPatient(String patient) {
         return this.patientList.contains(patient);
     }
 
