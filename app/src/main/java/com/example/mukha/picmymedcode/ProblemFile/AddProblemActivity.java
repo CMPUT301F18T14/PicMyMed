@@ -46,16 +46,10 @@ public class AddProblemActivity extends AppCompatActivity{
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Record record = new Record("hi");
-                //Record record2 = new Record ("bye");
-                //recordsArrayList.add(record);
-                //recordsArrayList.add(record2);
                 Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString(),recordsArrayList);
                 problemArrayList.add(problem);
                 saveInFile();
                 onBackPressed();//go back to previous activity
-
-
             }
         });
     }
@@ -65,7 +59,6 @@ public class AddProblemActivity extends AppCompatActivity{
         super.onStart();
         loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
-
     }
 
     private void loadFromFile() {

@@ -32,22 +32,15 @@ public class RecordActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> arrayListProblem;
-    public ArrayList<Record> arrayListRecord;
     int position;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity);
+
         loadFromFile();
         manageRecyclerview();
-        mRecyclerView = findViewById(R.id.record_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
-        mRecyclerView.setAdapter(mAdapter);
-
         position = getIntent().getIntExtra("key",0);
         String name = arrayListProblem.get(position).getTitle();
         getSupportActionBar().setTitle(name);
@@ -67,18 +60,20 @@ public class RecordActivity extends AppCompatActivity{
     }
 
     public void manageRecyclerview(){
-
-
+        mRecyclerView = findViewById(R.id.record_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+        loadFromFile();
         mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
         mRecyclerView.setAdapter(mAdapter);
-
-
-
 
     }
 

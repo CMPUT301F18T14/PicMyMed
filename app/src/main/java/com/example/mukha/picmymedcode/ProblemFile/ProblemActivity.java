@@ -38,17 +38,8 @@ public class ProblemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
-        loadFromFile();
-        //to clear my file
-        //problemArrayList.clear();
-        //saveInFile();
-        mRecyclerView = findViewById(R.id.problem_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
-        mRecyclerView.setAdapter(mAdapter);
 
+        manageRecyclerview();
 
 
         Button addproblembutton = findViewById(R.id.problem_save_button);
@@ -62,9 +53,17 @@ public class ProblemActivity extends AppCompatActivity {
         });
 
     }
-
-
-
+    public void manageRecyclerview(){
+        //to clear my file
+        //problemArrayList.clear();
+        //saveInFile();
+        mRecyclerView = findViewById(R.id.problem_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     protected void onStart() {
         // TODO Auto-generated method stub

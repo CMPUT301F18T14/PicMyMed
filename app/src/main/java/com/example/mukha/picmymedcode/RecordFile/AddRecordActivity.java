@@ -44,13 +44,11 @@ public class AddRecordActivity extends AppCompatActivity{
         recordSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Record record2 = new Record ("bye");
-                //recordsArrayList.add(record2);
                 Record record = new Record (recordTitleEditText.getText().toString());
-                //record.setComment(recordDescriptionEditText.getText().toString());
+                record.setDescription(recordDescriptionEditText.getText().toString());
                 position = getIntent().getIntExtra("key",0);
                 arrayListProblem.get(position).recordArrayList.add(record);
+
                 saveInFile();
                 onBackPressed();//go back to previous activity
             }

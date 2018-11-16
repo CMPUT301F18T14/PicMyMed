@@ -47,7 +47,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordDescriptionTextView = recordViewHolder.recordDescriptionTextView;
         recordTitleTextView.setText(records.get(i).getTitle());
         //recordLocationTextView.setText(records.get(i).getTitle());
-        recordDescriptionTextView.setText(records.get(i).getComment());
+        recordDescriptionTextView.setText(records.get(i).getDescription());
 
     }
 
