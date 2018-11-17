@@ -2,14 +2,21 @@ package com.example.mukha.picmymedcode;
 
 import android.location.Location;
 
-import com.example.mukha.picmymedcode.RecordFile.PhotoList;
-import com.example.mukha.picmymedcode.RecordFile.Record;
+import com.example.mukha.picmymedcode.Model.BodyLocation;
+import com.example.mukha.picmymedcode.Model.PhotoList;
+import com.example.mukha.picmymedcode.Model.Record;
 
 import junit.framework.TestCase;
 
 import java.util.Date;
 
 public class RecordTest extends TestCase {
+
+    public void testConstructor() {
+        //testing that the constructor initialized correctly
+        Record record = new Record("Record");
+        assertEquals("Record", record.getTitle());
+    }
 
     public void testGetTitle (){
         Record record = new Record ("Record");
