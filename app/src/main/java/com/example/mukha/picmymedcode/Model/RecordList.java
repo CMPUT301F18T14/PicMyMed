@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
 
 import java.util.ArrayList;
 
@@ -14,18 +14,28 @@ public class RecordList {
     }
 
     public Record getRecord(int index) {
-        return this.recordList.get(index);
+        if (index < recordList.size()) {
+            return this.recordList.get(index);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public void deleteRecord(int index) {
-        this.recordList.remove(index);
+        if (index < recordList.size()) {
+            this.recordList.remove(index);
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public void addRecord(Record record) {
         this.recordList.add(record);
     }
 
-    public boolean hasRecord(Record record) { return this.recordList.contains(record); }
+    public boolean hasRecord(Record record) {
+        return this.recordList.contains(record);
+    }
 
     public int sizeOfRecordList() {
         return this.recordList.size();

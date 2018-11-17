@@ -1,4 +1,6 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
+
+import com.example.mukha.picmymedcode.View.TooManyCharactersException;
 
 public class Patient extends User {
 

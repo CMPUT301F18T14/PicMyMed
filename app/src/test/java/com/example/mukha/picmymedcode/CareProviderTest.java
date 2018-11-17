@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //// reference: https://stackoverflow.com/questions/12404650/assert-an-object-is-a-specific-type
 //// accessed on 2018-10-27
 //
