@@ -70,6 +70,10 @@
             android:label="Problem"/>
         <activity android:name=".View.AddProblemActivity"
             android:label="New Problem"/>
+        <activity android:name=".View.RecordActivity"
+            android:label="Record"/>
+        <activity android:name=".View.AddRecordActivity"
+            android:label="New Record"/>
         <activity android:name=".View.SignUpActivity"
             android:label="Sign Up"/>
         <activity android:name=".View.newUsernameActivity"

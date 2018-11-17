@@ -6,7 +6,7 @@ import com.example.mukha.picmymedcode.View.TooManyListElementsException;
 
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+import junit.framework.TestCase;
 
 public class PhotoListTest extends TestCase {
 

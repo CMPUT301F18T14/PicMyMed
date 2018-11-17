@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,18 +32,26 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ProblemActivity extends AppCompatActivity {
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file2.sav";
     public Date date;
-    ProblemList problemList = new ProblemList();
-    ArrayList <Problem> p ;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
+    private View.OnClickListener mListener;
+    public ArrayList<Problem> problemArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
+<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
+
+        manageRecyclerview();
+
+
+        Button addproblembutton = findViewById(R.id.problem_save_button);
+=======
         Toolbar topToolbar = (Toolbar) findViewById(R.id.problemTop_toolbar);
         setSupportActionBar(topToolbar);
         ActionMenuView bottomToolbar = (ActionMenuView)findViewById(R.id.problemBottom_toolbar);
@@ -59,9 +70,11 @@ public class ProblemActivity extends AppCompatActivity {
 
 /**
         Button addproblembutton = findViewById(R.id.add_problem_button);
+>>>>>>> development:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
         addproblembutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
                 startActivity(problemIntent);
             }
@@ -91,19 +104,37 @@ public class ProblemActivity extends AppCompatActivity {
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
 
+<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
+
+
+    }
+
+
+    public void manageRecyclerview(){
+        //to clear my file
+        //problemArrayList.clear();
+        //saveInFile();
+        mRecyclerView = findViewById(R.id.problem_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+=======
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
+>>>>>>> development:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
     }
 
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        mAdapter = new ProblemAdapter(problemList.getProblemList());
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -116,9 +147,9 @@ public class ProblemActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(isr);
 
             Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ProblemList>() {
+            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
             }.getType();
-            problemList = gson.fromJson(reader, typeListProblem);
+            problemArrayList = gson.fromJson(reader, typeListProblem);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -135,7 +166,7 @@ public class ProblemActivity extends AppCompatActivity {
             BufferedWriter writer = new BufferedWriter(osw);
 
             Gson gson = new Gson();
-            gson.toJson(problemList,osw);
+            gson.toJson(problemArrayList,osw);
             writer.flush();
             writer.close();
 
