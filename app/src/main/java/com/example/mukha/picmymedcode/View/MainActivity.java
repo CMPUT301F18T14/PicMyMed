@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 signupPopUp.cancel();
                 Toast.makeText(MainActivity.this, "User is a patient", Toast.LENGTH_LONG).show();
                 usernamePopUpWindow();
+                //Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
+                //startActivity(problemIntent);
                 setContentView(R.layout.addproblem_activity);
             }
         });
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.newcareprovider_activity);
                 TextView setUserName = (TextView)findViewById(R.id.careProviderName);
                 String welcome = "Welcome " + username ;
-                setUserName.setText(welcome);
+            //    setUserName.setText(welcome);
             }
         });
 
