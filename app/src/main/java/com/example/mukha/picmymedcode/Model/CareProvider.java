@@ -11,4 +11,9 @@ public class CareProvider extends User {
     public PatientList getPatientList() {
         return this.patientList;
     }
+
+    @Override
+    public Boolean isPatient() {
+        return Boolean.FALSE;
+    }
 }

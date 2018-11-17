@@ -33,6 +33,14 @@ public class Patient extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public ProblemList getProblemList() {
+        return problemList;
+    }
+
+    @Override
+    public Boolean isPatient() {
+        return Boolean.TRUE;
+    }
     // public  getProblemList() {
       //  return problemList;
     //}
