@@ -17,8 +17,9 @@ public abstract class User {
             this.username = username;
         }
 
+    public User(String username) {
+        this.username = username;
     }
-
 
     public String getUsername(){
         return this.username;

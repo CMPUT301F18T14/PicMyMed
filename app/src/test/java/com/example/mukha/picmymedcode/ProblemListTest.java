@@ -2,7 +2,7 @@ package com.example.mukha.picmymedcode;
 
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.Model.ProblemList;
-import com.example.mukha.picmymedcode.View.TooManyCharactersException;
+
 
 import junit.framework.TestCase;
 
@@ -22,7 +22,7 @@ public class ProblemListTest extends TestCase {
         Problem problem = null;
         try {
             problem = new Problem(new Date(), "Title", "Description");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         problemList.addProblem(problem);
@@ -45,13 +45,13 @@ public class ProblemListTest extends TestCase {
         Problem problem1 = null;
         try {
             problem1 = new Problem(new Date(), "Title1", "Description1");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         Problem problem2 = null;
         try {
             problem2 = new Problem(new Date(), "Title2", "Description2");
-        } catch (TooManyCharactersException e){
+        } catch (IllegalArgumentException e){
             fail("Exception shouldn't have been thrown.");
         }
 
@@ -105,7 +105,7 @@ public class ProblemListTest extends TestCase {
         Problem problem = null;
         try {
             problem = new Problem(new Date(), "Title", "Description");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         problemList.addProblem(problem);
@@ -124,7 +124,7 @@ public class ProblemListTest extends TestCase {
         Problem problem = null;
         try {
             problem = new Problem(new Date(), "Title1", "Description1");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
 

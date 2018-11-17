@@ -4,7 +4,6 @@ package com.example.mukha.picmymedcode;
 
 import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.ProblemList;
-import com.example.mukha.picmymedcode.View.TooManyCharactersException;
 
 import junit.framework.TestCase;
 
@@ -16,7 +15,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("username",
                     "test@email.com", "1111111111");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         assertEquals("username", patient.getUsername());
@@ -27,7 +26,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("123456789","test@t.t","111222test");
             fail("Exception that was supposed to be thrown for the username, wasn't.");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             assertTrue("Expected to get here. Username too long.", true);
         }
     }
@@ -37,7 +36,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("username",
                     "test@email.com", "1111111111");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         assertEquals("test@email.com", patient.getEmail());
@@ -49,7 +48,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("username",
                     "test@email.com", "1111111111");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
 
@@ -62,7 +61,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("username",
                     "test@email.com", "1111111111");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         assertEquals("1111111111", patient.getPhoneNumber());
@@ -73,7 +72,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("username",
                     "test@email.com", "1111111111");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         patient.setPhoneNumber("1231231234");
@@ -85,7 +84,7 @@ public class PatientTest extends TestCase {
         try {
             patient = new Patient("username",
                     "test@email.com", "1111111111");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         assertTrue(patient.getProblemList() instanceof ProblemList);

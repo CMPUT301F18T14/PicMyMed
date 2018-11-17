@@ -1,26 +1,21 @@
-
 package com.example.mukha.picmymedcode.Model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Problem {
     private Date startDate;
     private String title;
     private String description;
-    private String id;
-    private RecordList recordList;
-    private static final Integer MAX_PROBLEM_TITLE_LENGTH = 30;
-    private static final Integer MAX_PROBLEM_DESCRIPTION_LENGTH = 300;
+    //private RecordList recordList;
 
-    public Problem(Date startDate, String title, String description) throws IllegalArgumentException {
+    public ArrayList<Record> recordArrayList;
+    public Problem(Date startDate, String title, String description, ArrayList<Record> recordArrayList) {
 
         this.startDate = startDate;
-        this.setTitle(title);
-        this.setDescription(description);
-
-        this.id = null;
-
-        this.recordList = new RecordList();
+        this.title = title;
+        this.description = description;
+        this.recordArrayList = recordArrayList;
     }
 
 
@@ -36,38 +31,21 @@ public class Problem {
         return title;
     }
 
-    public void setTitle(String title) throws IllegalArgumentException {
-
-        if (title.length() <= MAX_PROBLEM_TITLE_LENGTH) {
-            this.title = title;
-        } else {
-            throw new IllegalArgumentException(String.format("Problem title should not exceed %s characters!", MAX_PROBLEM_TITLE_LENGTH));
-        }
-
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) throws IllegalArgumentException {
-
-        if (description.length() <= MAX_PROBLEM_DESCRIPTION_LENGTH) {
-            this.description = description;
-        } else {
-            throw new IllegalArgumentException(String.format("Problem description should not exceed %s characters!", MAX_PROBLEM_DESCRIPTION_LENGTH));
-        }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public RecordList getRecordList() {
-        return recordList;
+    public ArrayList<Record> getRecordArrayList (){
+        return this.recordArrayList;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 }

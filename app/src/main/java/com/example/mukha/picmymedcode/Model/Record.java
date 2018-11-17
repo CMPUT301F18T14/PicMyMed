@@ -8,9 +8,11 @@ public class Record {
 
     private String title;
     private String comment;
-    private String id;
 
+    private String description;
+    private String id;
     private Geolocation geolocation;
+
     private PhotoList photoList;
     private BodyLocation bodyLocation;
     private final Date timeStamp;
@@ -18,8 +20,9 @@ public class Record {
     public Record(String title) {
         this.title = title;
         this.comment = "";  // Avoid null pointer exception
-
+        this.description = "no description";
         this.geolocation = null;
+
         this.photoList = new PhotoList();
         this.bodyLocation = new BodyLocation();
         this.timeStamp = new Date();
@@ -41,6 +44,15 @@ public class Record {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getDescription (){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
 
     public Geolocation getGeolocation() {
         return geolocation;

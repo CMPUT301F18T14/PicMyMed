@@ -2,7 +2,6 @@ package com.example.mukha.picmymedcode;
 
 import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.PatientList;
-import com.example.mukha.picmymedcode.View.TooManyCharactersException;
 
 import junit.framework.TestCase;
 
@@ -40,7 +39,7 @@ public class PatientListTest extends TestCase {
         try {
             patient = new Patient("Daenerys",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
 
@@ -64,7 +63,7 @@ public class PatientListTest extends TestCase {
         try {
             patient = new Patient("Daenerys",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
 
@@ -89,7 +88,7 @@ public class PatientListTest extends TestCase {
         try {
             patient2 = new Patient("Patient",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         patientList.addPatient(patient);
@@ -115,7 +114,7 @@ public class PatientListTest extends TestCase {
         try {
             patient = new Patient("Daenerys",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         patientList.addPatient(patient);
@@ -129,7 +128,7 @@ public class PatientListTest extends TestCase {
         try {
             patient = new Patient("Daenerys",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         patientList.addPatient(patient);
@@ -140,7 +139,7 @@ public class PatientListTest extends TestCase {
         try {
             newPatient = new Patient("Daenerys",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         assertFalse(patientList.hasPatient(newPatient));
@@ -154,7 +153,7 @@ public class PatientListTest extends TestCase {
         try {
             newPatient = new Patient("Daenerys",
                     "motherofdragons@got.ca", "+9-999-999-9999");
-        } catch (TooManyCharactersException e) {
+        } catch (IllegalArgumentException e) {
             fail("Exception shouldn't have been thrown.");
         }
         patientList.addPatient(newPatient);

@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mukha.picmymedcode" >
+    package="com.example.mukha.picmymedcode">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,21 +23,57 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+	android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
-        <activity android:name=".View.MainActivity" >
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_API_key" />
+
+        <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.picmymedmaphandler.MapActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.android.picmymedphotohandler.GalleryActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.android.picmymedphotohandler.SlideshowActivity"
+            android:exported="true" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name="com.example.android.picmymedphotohandler.PhotoEnlargementActivity"></activity>
         <activity android:name=".View.ProblemActivity"
             android:label="Problem"/>
         <activity android:name=".View.AddProblemActivity"
             android:label="New Problem"/>
+        <activity android:name=".View.RecordActivity"
+            android:label="Record"/>
+        <activity android:name=".View.AddRecordActivity"
+            android:label="New Record"/>
         <activity android:name=".View.SignUpActivity"
             android:label="Sign Up"/>
         <activity android:name=".View.newUsernameActivity"
