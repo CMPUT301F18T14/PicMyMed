@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
+import com.example.mukha.picmymedcode.RecordFile.AddRecordActivity;
 import com.example.mukha.picmymedcode.RecordFile.RecordActivity;
 import com.example.mukha.picmymedcode.SignUpActivity;
 
@@ -78,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 signupPopUp.cancel();
                 Toast.makeText(MainActivity.this, "User is a patient", Toast.LENGTH_LONG).show();
                 usernamePopUpWindow();
-                setContentView(R.layout.addproblem_activity);
+
+                //setContentView(R.layout.addproblem_activity);
             }
         });
 
@@ -121,5 +123,6 @@ public class MainActivity extends AppCompatActivity {
         });
         usernamePopUp.show();
         return username;
+
     }
 }
