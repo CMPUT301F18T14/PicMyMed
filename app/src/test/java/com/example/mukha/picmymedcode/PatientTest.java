@@ -2,6 +2,8 @@
 
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.Patient;
+
 import junit.framework.TestCase;
 
 public class PatientTest extends TestCase {

@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode.RecordFile;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.mukha.picmymedcode.ProblemFile.Problem;
-import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
-import com.example.mukha.picmymedcode.ProblemFile.ProblemAdapter;
+import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

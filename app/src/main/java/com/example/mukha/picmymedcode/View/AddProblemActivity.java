@@ -1,18 +1,15 @@
-package com.example.mukha.picmymedcode.ProblemFile;
+package com.example.mukha.picmymedcode.View;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
+import android.widget.EditText;
 
+import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
+import com.example.mukha.picmymedcode.Model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,59 +25,40 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ProblemActivity extends AppCompatActivity {
-    private static final String FILENAME = "file2.sav";
-    public Date date;
+public class AddProblemActivity extends AppCompatActivity{
+    private Date date;
     private RecyclerView mRecyclerView;
-    private ProblemAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManage;
-    private View.OnClickListener mListener;
+    private RecyclerView.Adapter mAdapter;
     public ArrayList<Problem> problemArrayList;
+    public ArrayList<Record> recordsArrayList;
+    private static final String FILENAME = "file2.sav";
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        problemArrayList = new ArrayList<>();
+        recordsArrayList = new ArrayList<>();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.problem_activity);
+        setContentView(R.layout.addproblem_activity);
 
-        manageRecyclerview();
+        final EditText problemTitleEditText = findViewById(R.id.problem_title_edit_text);
+        final EditText problemDescriptionEditText = findViewById(R.id.problem_description_edit_text);
 
-
-        Button addproblembutton = findViewById(R.id.problem_save_button);
-        addproblembutton.setOnClickListener(new View.OnClickListener() {
+        Button problemSaveButton = findViewById(R.id.problem_save_button);
+        problemSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
-                startActivity(problemIntent);
+                Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString(),recordsArrayList);
+                problemArrayList.add(problem);
+                saveInFile();
+                onBackPressed();//go back to previous activity
             }
         });
-
-
-
-    }
-
-
-    public void manageRecyclerview(){
-        //to clear my file
-        //problemArrayList.clear();
-        //saveInFile();
-        mRecyclerView = findViewById(R.id.problem_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
-        mRecyclerView.setAdapter(mAdapter);
-
-
+        //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 
     private void loadFromFile() {
@@ -100,7 +78,6 @@ public class ProblemActivity extends AppCompatActivity {
         }
     }
 
-
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
@@ -110,7 +87,7 @@ public class ProblemActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             gson.toJson(problemArrayList,osw);
-            writer.flush();
+
             writer.close();
 
         } catch (IOException e) {
@@ -118,6 +95,4 @@ public class ProblemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
 }

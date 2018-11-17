@@ -11,24 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-        <activity android:name=".MainActivity" >
+        <activity android:name=".View.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".newUsernameActivity"
+        <activity android:name=".View.newUsernameActivity"
             android:label="Enter Username"/>
-        <activity android:name=".SignUpActivity"
+        <activity android:name=".View.SignUpActivity"
             android:label="Sign Up"/>
-        <activity android:name=".ProblemFile.ProblemActivity"
+        <activity android:name=".View.ProblemActivity"
             android:label="Problem"/>
-        <activity android:name=".ProblemFile.AddProblemActivity"
+        <activity android:name=".View.AddProblemActivity"
             android:label="New Problem"/>
-        <activity android:name=".RecordFile.RecordActivity"
+        <activity android:name=".View.RecordActivity"
             android:label="Record"/>
-        <activity android:name=".RecordFile.AddRecordActivity"
+        <activity android:name=".View.AddRecordActivity"
             android:label="New Record"/>
     </application>
 
