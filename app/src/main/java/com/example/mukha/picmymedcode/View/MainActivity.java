@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.newcareprovider_activity);
                 TextView setUserName = (TextView)findViewById(R.id.careProviderName);
                 String welcome = "Welcome " + username ;
-                setUserName.setText(welcome);
+            //    setUserName.setText(welcome);
             }
         });
 

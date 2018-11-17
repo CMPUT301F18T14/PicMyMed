@@ -8,8 +8,11 @@ public class Record {
 
     private String title;
     private String comment;
+
     private String description;
-    private Location geolocation;
+    private String id;
+    private Geolocation geolocation;
+
     private PhotoList photoList;
     private BodyLocation bodyLocation;
     private final Date timeStamp;
@@ -18,7 +21,8 @@ public class Record {
         this.title = title;
         this.comment = "";  // Avoid null pointer exception
         this.description = "no description";
-        this.geolocation = new Location("");
+        this.geolocation = null;
+
         this.photoList = new PhotoList();
         this.bodyLocation = new BodyLocation();
         this.timeStamp = new Date();
@@ -49,11 +53,20 @@ public class Record {
         this.description = description;
     }
 
-    public Location getGeolocation() {
+
+    public Geolocation getGeolocation() {
         return geolocation;
     }
 
-    public void setLocation(Location location) { this.geolocation = location; }
+    public void setLocation(double xCoordinate, double yCoordinate) {
+
+        if (this.geolocation != null) {
+            this.geolocation = new Geolocation(xCoordinate, yCoordinate);
+        } else {
+            this.geolocation.setxCoordinate(xCoordinate);
+            this.geolocation.setyCoordinate(yCoordinate);
+        }
+    }
 
     public void setPhotoList(PhotoList photoList) { this.photoList = photoList; }
 
@@ -69,5 +82,12 @@ public class Record {
         return timeStamp;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
 

@@ -3,12 +3,18 @@ package com.example.mukha.picmymedcode.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.mukha.picmymedcode.Model.ProblemList;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,11 +45,32 @@ public class ProblemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
+<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
 
         manageRecyclerview();
 
 
         Button addproblembutton = findViewById(R.id.problem_save_button);
+=======
+        Toolbar topToolbar = (Toolbar) findViewById(R.id.problemTop_toolbar);
+        setSupportActionBar(topToolbar);
+        ActionMenuView bottomToolbar = (ActionMenuView)findViewById(R.id.problemBottom_toolbar);
+        Menu bottomMenu = bottomToolbar.getMenu();
+
+        mRecyclerView = findViewById(R.id.problem_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new ProblemAdapter(problemList.getProblemList());
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
+
+
+/**
+        Button addproblembutton = findViewById(R.id.add_problem_button);
+>>>>>>> development:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
         addproblembutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,8 +78,33 @@ public class ProblemActivity extends AppCompatActivity {
                 Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
                 startActivity(problemIntent);
             }
-        });
+        }); **/
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.problem_top_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_addProblem:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
+                startActivity(problemIntent);
+
+            case R.id.action_viewProfile:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+
+<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
 
 
     }
@@ -68,6 +120,14 @@ public class ProblemActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManage);
         mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
+=======
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+>>>>>>> development:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
     }
 
     protected void onStart() {

@@ -7,8 +7,8 @@ public class Geolocation {
     private double yCoordinate;
 
     public Geolocation(double xCoordinate, double yCoordinate) {
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
+        this.setxCoordinate(xCoordinate);
+        this.setyCoordinate(yCoordinate);
     }
 
     public double getxCoordinate() {

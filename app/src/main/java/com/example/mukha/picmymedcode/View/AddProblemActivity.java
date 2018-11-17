@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.mukha.picmymedcode.Model.ProblemList;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Record;
 import com.google.gson.Gson;
