@@ -9,8 +9,7 @@ public class Patient extends User {
     private String email;
     private ProblemList problemList;
 
-
-    public Patient(String username, String email, String phoneNumber) throws IllegalArgumentException {
+    public Patient(String username, String email, String phoneNumber) {
 
         super(username);
         this.email = email;
