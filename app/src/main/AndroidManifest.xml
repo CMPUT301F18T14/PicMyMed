@@ -9,11 +9,10 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,14 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_map_API_key"/>
+            android:value="@string/google_map_API_key" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -41,9 +42,15 @@
         <activity
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
             android:exported="true" />
-
-        <activity android:name="com.example.picmymedmaphandler.MapActivity"
-            android:exported="true"/>
+        <activity
+            android:name="com.example.picmymedmaphandler.MapActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.android.picmymedphotohandler.GalleryActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.android.picmymedphotohandler.SlideshowActivity"
+            android:exported="true" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -55,6 +62,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name="com.example.android.picmymedphotohandler.PhotoEnlargementActivity"></activity>
     </application>
 
 </manifest>

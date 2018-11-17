@@ -11,44 +11,13 @@ tools:context="com.example.android.picmymedphotohandler.PhotoIntentActivity">
     android:id="@+id/camera_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="12dp"
+    android:layout_centerInParent="true"
     android:text="Camera" />
 
 <ImageView
     android:id="@+id/imageView_show1"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    tools:srcCompat="@tools:sample/avatars" />
-
-<ImageView
-    android:id="@+id/imageView_show2"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_toRightOf="@id/imageView_show1"
-    tools:srcCompat="@tools:sample/avatars" />
-
-<ImageView
-    android:id="@+id/imageView_show3"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_toRightOf="@id/imageView_show2"
-    tools:srcCompat="@tools:sample/avatars" />
-
-<ImageView
-    android:id="@+id/imageView_show4"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_below="@id/imageView_show1"
-    tools:srcCompat="@tools:sample/avatars" />
-
-<ImageView
-    android:id="@+id/imageView_show5"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_below="@id/imageView_show2"
-    android:layout_toRightOf="@id/imageView_show4"
     tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>
