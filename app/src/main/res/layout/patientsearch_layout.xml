@@ -3,28 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/addPatientButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Add a new Patient" />
-
     <TextView
-        android:id="@+id/careProviderName"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Enter patient ID to add"
         android:layout_gravity="center_horizontal"
-        android:text="Welcome Care Provider"
-        android:textSize="25sp"
-        android:paddingTop="10dp"/>
+        android:textSize="25sp"/>
 
-    <ListView
-        android:id="@+id/PatientList"
+    <EditText
+        android:id="@+id/enteredPatientID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Eg. John1234"
         android:layout_gravity="center_horizontal"
-        />
+        android:textSize="25sp"/>
 
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

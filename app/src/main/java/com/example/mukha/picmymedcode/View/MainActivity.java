@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
 import com.example.mukha.picmymedcode.RecordFile.AddRecordActivity;
 import com.example.mukha.picmymedcode.RecordFile.RecordActivity;
@@ -119,8 +120,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 usernamePopUp.cancel();
-                Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
-                startActivity(problemIntent);
+                if (Patient.isPatient() == true) {
+                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                    startActivity(problemIntent);
+                }
+                else {
+                    Intent viewPatients = new Intent(MainActivity.this, CareProviderActivity.class);
+                    startActivity(viewPatients);
+                }
                 /*
                 Need to come back here and make it so a care provider goes to the add
                 patient window once user knows if they are a patient or careprovider

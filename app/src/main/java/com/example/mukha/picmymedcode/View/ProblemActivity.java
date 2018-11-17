@@ -45,13 +45,13 @@ public class ProblemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
-<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
+
 
         manageRecyclerview();
 
 
         Button addproblembutton = findViewById(R.id.problem_save_button);
-=======
+
         Toolbar topToolbar = (Toolbar) findViewById(R.id.problemTop_toolbar);
         setSupportActionBar(topToolbar);
         ActionMenuView bottomToolbar = (ActionMenuView)findViewById(R.id.problemBottom_toolbar);
@@ -104,7 +104,7 @@ public class ProblemActivity extends AppCompatActivity {
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
 
-<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
+//<<<<<<< HEAD:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
 
 
     }
@@ -120,14 +120,14 @@ public class ProblemActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManage);
         mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
-=======
+//=======
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
->>>>>>> development:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
+//>>>>>>> development:app/src/main/java/com/example/mukha/picmymedcode/View/ProblemActivity.java
     }
 
     protected void onStart() {
