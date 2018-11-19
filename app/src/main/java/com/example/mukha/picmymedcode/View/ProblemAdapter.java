@@ -1,3 +1,21 @@
+/*
+ * ProblemAdapter
+ *
+ * 1.1
+ *
+ * November 16, 2018
+ *
+ * Copyright 2018 CMPUT301F18T14. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.mukha.picmymedcode.View;
 
 import android.content.Context;
@@ -21,6 +39,14 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+/**
+ * ProblemAdapter extends AppCompat Activity to create an activity for the user to
+ * add a record to a problem
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemViewHolder>{
     private static final String FILENAME = "file.sav";
 
@@ -28,10 +54,18 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
     private ArrayList<Problem> problems;
     Context context;
 
+    /**
+     * Method extends ViewHolder
+     */
     public static class PorblemViewHolder extends RecyclerView.ViewHolder{
         TextView problemTitleTextView;
         TextView problemMoreTextView;
 
+        /**
+         * Method handles how problems are viewed
+         *
+         * @param itemView View
+         */
         public PorblemViewHolder(@NonNull View itemView) {
             super(itemView);
             this.problemTitleTextView = (TextView) itemView.findViewById(R.id.problem_title_text_view);
@@ -39,6 +73,11 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
         }
     }
 
+    /**
+     *
+     * @param context
+     * @param problemsdata
+     */
     public ProblemAdapter(Context context, ArrayList<Problem> problemsdata){
         this.problems = problemsdata;
         this.context = context; //collection of data
