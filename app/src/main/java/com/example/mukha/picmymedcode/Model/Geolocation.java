@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
 
 import android.location.Location;
 

@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode.RecordFile;
+package com.example.mukha.picmymedcode.View;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mukha.picmymedcode.R;
+import com.example.mukha.picmymedcode.Model.Record;
 
 import java.util.ArrayList;
 

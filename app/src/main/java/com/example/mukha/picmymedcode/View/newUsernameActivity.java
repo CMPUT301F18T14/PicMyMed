@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
+import com.example.mukha.picmymedcode.R;
+import com.example.mukha.picmymedcode.Model.CareProvider;
+import com.example.mukha.picmymedcode.Model.Patient;
 
 public class newUsernameActivity extends AppCompatActivity {
     @Override

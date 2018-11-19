@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode.RecordFile;
+package com.example.mukha.picmymedcode.Model;
 
 public class Photo {
     private final String filepath;

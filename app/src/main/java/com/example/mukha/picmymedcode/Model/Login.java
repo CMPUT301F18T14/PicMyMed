@@ -1,4 +1,4 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.Model;
 
 public class Login {
     // Get it from the database and check the password and UserID from there

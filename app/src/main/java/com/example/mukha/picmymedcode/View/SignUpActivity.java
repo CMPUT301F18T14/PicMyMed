@@ -1,12 +1,12 @@
-package com.example.mukha.picmymedcode;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import com.example.mukha.picmymedcode.R;
 
 public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,8 @@
 package com.example.mukha.picmymedcode;
 
+import com.example.mukha.picmymedcode.Model.CareProvider;
+import com.example.mukha.picmymedcode.Model.User;
+
 import junit.framework.TestCase;
 
 public class UserTest extends TestCase {

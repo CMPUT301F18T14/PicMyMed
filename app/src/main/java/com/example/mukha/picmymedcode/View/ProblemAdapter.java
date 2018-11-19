@@ -1,22 +1,18 @@
-package com.example.mukha.picmymedcode.ProblemFile;
+package com.example.mukha.picmymedcode.View;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
-import com.example.mukha.picmymedcode.RecordFile.RecordActivity;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;

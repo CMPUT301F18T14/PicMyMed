@@ -1,17 +1,14 @@
-package com.example.mukha.picmymedcode.RecordFile;
+package com.example.mukha.picmymedcode.View;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
-import com.example.mukha.picmymedcode.ProblemFile.Problem;
-import com.example.mukha.picmymedcode.ProblemFile.ProblemActivity;
-import com.example.mukha.picmymedcode.ProblemFile.ProblemAdapter;
+import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
+import com.example.mukha.picmymedcode.Model.Record;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,55 +23,41 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class RecordActivity extends AppCompatActivity{
-    private static final String FILENAME = "file.sav";
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManage;
+public class AddRecordActivity extends AppCompatActivity{
+    //RecordList recordList = new RecordList();
     public ArrayList<Problem> arrayListProblem;
+    public ArrayList<Record> recordsArrayList;
+    private static final String FILENAME = "file.sav";
     int position;
 
-
     protected void onCreate(Bundle savedInstanceState) {
+        arrayListProblem = new ArrayList<>();
+        recordsArrayList = new ArrayList<>();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.record_activity);
+        setContentView(R.layout.addrecord_activity);
+        final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
+        final EditText recordDescriptionEditText = findViewById(R.id.record_description_edit_text);
 
-        loadFromFile();
-        manageRecyclerview();
-        position = getIntent().getIntExtra("key",0);
-        String name = arrayListProblem.get(position).getTitle();
-        getSupportActionBar().setTitle(name);
-
-
-
-        Button addRecordButton = findViewById(R.id.record_save_button);
-        addRecordButton.setOnClickListener(new View.OnClickListener() {
+        Button recordSaveButton = findViewById(R.id.record_save_button);
+        recordSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
-                intent.putExtra("key",position);
+                Record record = new Record (recordTitleEditText.getText().toString());
+                record.setDescription(recordDescriptionEditText.getText().toString());
+                position = getIntent().getIntExtra("key",0);
+                arrayListProblem.get(position).recordArrayList.add(record);
 
-                startActivity(intent);
+                saveInFile();
+                onBackPressed();//go back to previous activity
             }
         });
-    }
 
-    public void manageRecyclerview(){
-        mRecyclerView = findViewById(R.id.record_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
-        mRecyclerView.setAdapter(mAdapter);
-
     }
 
     private void loadFromFile() {
@@ -112,5 +95,4 @@ public class RecordActivity extends AppCompatActivity{
             e.printStackTrace();
         }
     }
-
 }
