@@ -45,7 +45,7 @@ public class AddProblemActivity extends AppCompatActivity{
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
+                Problem problem = new Problem ("username", date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 problemArrayList.add(problem);
                 saveInFile();
                 onBackPressed();//go back to previous activity

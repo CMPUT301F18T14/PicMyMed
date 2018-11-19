@@ -8,13 +8,16 @@ public class Problem {
     private String title;
     private String description;
     //private RecordList recordList;
-    private int problemID;
+    private String problemID;
+    private String username;
 
 
     public ArrayList<Record> recordList;
 
-    public Problem(Date startDate, String title, String description) {
+    public Problem(String username, Date startDate, String title, String description) {
 
+        this.username = username;
+        this.problemID = null;
         this.startDate = startDate;
         this.title = title;
         this.description = description;
@@ -51,11 +54,19 @@ public class Problem {
     }
 
 
-    public int getProblemID() {
+    public String getProblemID() {
         return problemID;
     }
 
-    public void setProblemID(int problemID) {
+    public void setProblemID(String problemID) {
         this.problemID = problemID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

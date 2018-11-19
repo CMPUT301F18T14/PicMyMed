@@ -26,9 +26,11 @@ public class ElasticSearchController {
     private static final String serverURI = "http://cmput301.softwareprocess.es:8080/";
     private static final String indexPath = "cmput301f18t14test";
     private static final String querySize = "10";
+    private static final String maxQuerySize = "999999";
     private static final String patientType = "patient";
     private static final String careProviderType = "careprovider";
     private static final String problemType = "problem";
+
 
 
     public static class AddPatient extends AsyncTask<Patient, Void, Void> {
@@ -266,56 +268,99 @@ public class ElasticSearchController {
             return null;
         }
     }
-/*
-     public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
+
+     public static class AddProblem extends AsyncTask<Problem, Void, Void> {
 
          @Override
          protected Void doInBackground(Problem... problems) {
              verifySettings();
+             Problem problem = problems[0];
 
-             for (Problem problem : problems) {
+             Index index = new Index.Builder(problem).index(indexPath).type(problemType).build();
 
-                 Index index = new Index.Builder(problem).index(indexPath).type(problemType).build();
+             try {
+                 // where is the client?
+                 DocumentResult result = client.execute(index);
+                 if (result.isSucceeded()) {
 
-                 if (problem.getId() != null) {
-                     index = new Index.Builder(problem).index(indexPath).type("problem").id(problem.getId()).build();
-                 }
-
-                 try {
-                     // where is the client?
-                     DocumentResult result = client.execute(index);
-                     if (result.isSucceeded()) {
-                         if (problem.getId() == null) {
-                             problem.setId(result.getId());
-                             Log.i("DEBUG Insert", "Elasticsearch performed a problem insert");
-                         } else {
-                             Log.i("DEBUG Update", "Elasticsearch performed a problem update");
+                     if (problem.getProblemID() == null) {
+                         problem.setProblemID(result.getId());
+                         Log.i("DEBUG AddProblem", "Problem ID " + result.getId() + "generated.");
+                         Log.i("DEBUG AddProblem", "Updating index of problem ...");
+                         try {
+                             ElasticSearchController.UpdateProblem updateProblem = new ElasticSearchController.UpdateProblem();
+                             updateProblem.execute(problem);
+                         } catch (Exception e) {
+                             Log.i("DEBUG AddProblem", "Elasticsearch unable to update newly generated ID of problem");
                          }
-                         Log.i("DEBUG Success", "Elasticsearch successfully added the problem");
-                     }
-                     else {
-                         Log.i("DEBUG Error", "Elasticsearch was not able to add the problem");
+                         Log.i("DEBUG AddProblem", "Elasticsearch successfully added the problem and updated newly generated index");
+                     } else {
+                         Log.i("DEBUG AddProblem", "Problem ID already exists!");
                      }
                  }
-                 catch (Exception e) {
-                     Log.i("DEBUG Error", "The application failed to build and send the problems");
+                 else {
+                     Log.i("DEBUG AddProblem", "Elasticsearch was not able to add the problem");
                  }
-
              }
+             catch (Exception e) {
+                 Log.i("DEBUG AddProblem", "The application failed to build and add the problem");
+             }
+
              return null;
          }
      }
 
-     public static class GetProblemsTask extends AsyncTask<String, Void, ArrayList<Problem>> {
+    public static class UpdateProblem extends AsyncTask<Problem, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Problem... problems) {
+            Log.i("DEBUG UpdateProblem:", "Attempting to build problem index...");
+            verifySettings();
+            Problem problem = problems[0];
+
+            Index index = new Index.Builder(problem).index(indexPath).type(problemType).id(problem.getProblemID()).build();
+            Log.i("DEBUG UpdateProblem:", "Created index...");
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+                if (result.isSucceeded()) {
+                    Log.i("DEBUG UpdateProblem", "Problem ID (" + problem.getTitle()+") for user "+ problem.getUsername() + " with id " + problem.getProblemID() + " updated.");
+                }
+                else {
+                    Log.i("DEBUG UpdateProblem", "Elasticsearch was not able to update the problem");
+                }
+            }
+            catch (Exception e) {
+                Log.i("DEBUG UpdateProblem", "The application failed to update the problem");
+            }
+
+
+            return null;
+        }
+    }
+/*
+     public static class GetProblemsByUsername extends AsyncTask<String, Void, ArrayList<Problem>> {
          @Override
-         protected ArrayList<Problem> doInBackground(String... search_parameters) {
+         protected ArrayList<Problem> doInBackground(String... usernames) {
              verifySettings();
+
+             String username = usernames[0];
 
              ArrayList<Problem> problems = new ArrayList<Problem>();
 
 
              //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-             String problemQuery = "{ \"size\": " + querySize +
+             String problemQuery =
+             "{" +
+                                "\"size\": " + maxQuerySize + "," +
+                                "\"from\": 0," +
+                                "\"query\": {" +
+                                    "\"match\" : " +
+                                        "{ \"username\" : \"" + username + "\" }" +
+                                "}" +
+              "}";
+              "{ \"size\": " + maxQuerySize +
                      ", \n" +
                      "    \"query\" : {\n" +
                      "        \"term\" : { \"title\" : \"" + search_parameters[0] + "\" }\n" +
