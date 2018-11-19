@@ -172,6 +172,14 @@ public class PicMyMedController {
         }
     }
 
+    public static int updatePatientProfile(String email, String phone) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.setEmail(email);
+        patient.setPhoneNumber(phone);
+        updatePatient(patient);
+        return 1;
+    }
+
     public static int checkLogin(String username) {
 
         Patient patient = null;
