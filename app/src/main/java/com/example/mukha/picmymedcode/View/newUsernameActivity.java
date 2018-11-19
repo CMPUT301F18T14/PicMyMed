@@ -30,17 +30,21 @@ public class newUsernameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
+
+
                 if (userType.equals("patient")) {
                     Patient user = new Patient(username, "", "");
                 }
                 else if (userType.equals("careProvider")) {
                     CareProvider user = new CareProvider(username);
                 }
-                Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
-                startActivity(problemIntent);
+                /*Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
+                startActivity(problemIntent);*/
+
 
             }
         });
 
     }
 }
+

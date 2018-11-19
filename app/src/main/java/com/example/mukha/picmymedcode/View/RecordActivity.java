@@ -62,7 +62,7 @@ public class RecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
+        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -70,7 +70,7 @@ public class RecordActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordArrayList());
+        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
 
     }

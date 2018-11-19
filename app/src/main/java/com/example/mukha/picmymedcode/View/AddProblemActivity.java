@@ -35,7 +35,6 @@ public class AddProblemActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         problemArrayList = new ArrayList<>();
-        recordsArrayList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addproblem_activity);
 
@@ -46,7 +45,7 @@ public class AddProblemActivity extends AppCompatActivity{
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString(),recordsArrayList);
+                Problem problem = new Problem (date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 problemArrayList.add(problem);
                 saveInFile();
                 onBackPressed();//go back to previous activity

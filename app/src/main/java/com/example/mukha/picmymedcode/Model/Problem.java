@@ -9,13 +9,14 @@ public class Problem {
     private String description;
     //private RecordList recordList;
 
-    public ArrayList<Record> recordArrayList;
-    public Problem(Date startDate, String title, String description, ArrayList<Record> recordArrayList) {
+    public ArrayList<Record> recordList;
+
+    public Problem(Date startDate, String title, String description) {
 
         this.startDate = startDate;
         this.title = title;
         this.description = description;
-        this.recordArrayList = recordArrayList;
+        this.recordList = new ArrayList<Record>();
     }
 
 
@@ -43,8 +44,8 @@ public class Problem {
         this.description = description;
     }
 
-    public ArrayList<Record> getRecordArrayList (){
-        return this.recordArrayList;
+    public ArrayList<Record> getRecordList(){
+        return this.recordList;
     }
 
 

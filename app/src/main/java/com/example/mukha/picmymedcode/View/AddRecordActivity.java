@@ -45,7 +45,7 @@ public class AddRecordActivity extends AppCompatActivity{
                 Record record = new Record (recordTitleEditText.getText().toString());
                 record.setDescription(recordDescriptionEditText.getText().toString());
                 position = getIntent().getIntExtra("key",0);
-                arrayListProblem.get(position).recordArrayList.add(record);
+                arrayListProblem.get(position).recordList.add(record);
 
                 saveInFile();
                 onBackPressed();//go back to previous activity

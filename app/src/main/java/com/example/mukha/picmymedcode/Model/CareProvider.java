@@ -1,15 +1,22 @@
 package com.example.mukha.picmymedcode.Model;
 
+
 public class CareProvider extends User {
 
-    PatientList patientList;
+    private PatientList patientList;
 
-    public CareProvider(String username) {
+    public CareProvider(String username) throws IllegalArgumentException {
         super(username);
+
         this.patientList = new PatientList();
     }
 
     public PatientList getPatientList() {
         return this.patientList;
+    }
+
+    @Override
+    public Boolean isPatient() {
+        return Boolean.FALSE;
     }
 }

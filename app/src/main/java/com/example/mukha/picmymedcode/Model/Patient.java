@@ -7,14 +7,14 @@ public class Patient extends User {
 
     private String phoneNumber;
     private String email;
-    ArrayList<Problem> problemArrayList;
+    ArrayList<Problem> problemList;
 
     public Patient(String username, String email, String phoneNumber) {
 
         super(username);
         this.email = email;
         this.phoneNumber = phoneNumber;
-        //this.problemList = new ProblemList();
+        this.problemList = new ArrayList<Problem>();
 
     }
     public String getEmail() {
@@ -33,7 +33,13 @@ public class Patient extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    // public  getProblemList() {
-      //  return problemList;
-    //}
+    public ArrayList<Problem> getProblemList() {
+       return problemList;
+    }
+
+    @Override
+    public Boolean isPatient() {
+        return Boolean.TRUE;
+    }
 }
+
