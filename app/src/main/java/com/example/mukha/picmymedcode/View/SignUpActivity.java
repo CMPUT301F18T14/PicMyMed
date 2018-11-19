@@ -27,7 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
         Button careProviderBtn = (Button) findViewById(R.id.careProviderButton);
         careProviderBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                newUsernameIntent.putExtra("userType", "care provider");
+                newUsernameIntent.putExtra("userType", "careprovider");
                 startActivity(newUsernameIntent);
             }
         });
