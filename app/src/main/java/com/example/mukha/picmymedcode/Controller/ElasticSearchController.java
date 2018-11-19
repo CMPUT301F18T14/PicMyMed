@@ -205,6 +205,7 @@ public class ElasticSearchController {
             return careProviders;
         }
     }
+
     public static class UpdatePatient extends AsyncTask<Patient, Void, Void> {
 
         @Override
@@ -265,7 +266,7 @@ public class ElasticSearchController {
             return null;
         }
     }
-
+/*
      public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
 
          @Override
@@ -304,7 +305,7 @@ public class ElasticSearchController {
              return null;
          }
      }
-    /*
+
      public static class GetProblemsTask extends AsyncTask<String, Void, ArrayList<Problem>> {
          @Override
          protected ArrayList<Problem> doInBackground(String... search_parameters) {

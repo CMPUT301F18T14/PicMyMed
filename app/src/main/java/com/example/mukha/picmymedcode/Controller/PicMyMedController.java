@@ -15,7 +15,44 @@ public class PicMyMedController {
 
 
     public static int createUser(User user) {
-        if (user.isPatient()) {
+        ArrayList<Patient> patients = null;
+        ArrayList<CareProvider> careProviders = null;
+
+        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        getPatient.execute(user.getUsername());
+
+        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+        getCareProvider.execute(user.getUsername());
+
+        try {
+            patients = getPatient.get();
+
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+        }
+        try {
+            careProviders = getCareProvider.get();
+
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No careproviders with the entered username was found");
+        }
+
+        if (patients.size() == 0 && careProviders.size() == 0) {
+            if(user.isPatient()) {
+                Patient patient = (Patient) user;
+                ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
+                addPatient.execute(patient);
+            } else {
+                CareProvider careProvider = (CareProvider) user;
+                ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
+                addCareProvider.execute(careProvider);
+
+            }
+            return 1;
+        }
+        return 0;
+
+       /* if (user.isPatient()) {
 
             ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
             getPatient.execute(user.getUsername());
@@ -62,8 +99,8 @@ public class PicMyMedController {
             }
 
 
-        }
-        return 1;
+        }*/
+
     }
 
     public static ArrayList<Problem> getProblems() {
