@@ -28,6 +28,7 @@ public class ElasticSearchController {
     private static final String querySize = "10";
     private static final String patientType = "patient";
     private static final String careProviderType = "careprovider";
+    private static final String problemType = "problem";
 
 
     public static class AddPatient extends AsyncTask<Patient, Void, Void> {
@@ -265,7 +266,7 @@ public class ElasticSearchController {
         }
     }
 
-    /* public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
+     public static class AddProblemsTask extends AsyncTask<Problem, Void, Void> {
 
          @Override
          protected Void doInBackground(Problem... problems) {
@@ -273,7 +274,7 @@ public class ElasticSearchController {
 
              for (Problem problem : problems) {
 
-                 Index index = new Index.Builder(problem).index(indexPath).type("problem").build();
+                 Index index = new Index.Builder(problem).index(indexPath).type(problemType).build();
 
                  if (problem.getId() != null) {
                      index = new Index.Builder(problem).index(indexPath).type("problem").id(problem.getId()).build();
@@ -303,7 +304,7 @@ public class ElasticSearchController {
              return null;
          }
      }
-
+    /*
      public static class GetProblemsTask extends AsyncTask<String, Void, ArrayList<Problem>> {
          @Override
          protected ArrayList<Problem> doInBackground(String... search_parameters) {

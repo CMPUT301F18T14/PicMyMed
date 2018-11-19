@@ -8,6 +8,8 @@ public class Problem {
     private String title;
     private String description;
     //private RecordList recordList;
+    private int problemID;
+
 
     public ArrayList<Record> recordList;
 
@@ -49,4 +51,11 @@ public class Problem {
     }
 
 
+    public int getProblemID() {
+        return problemID;
+    }
+
+    public void setProblemID(int problemID) {
+        this.problemID = problemID;
+    }
 }

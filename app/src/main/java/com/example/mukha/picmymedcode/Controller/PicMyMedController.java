@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.mukha.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.Model.Patient;
+import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.Model.User;
 
 import java.util.ArrayList;
@@ -65,4 +66,58 @@ public class PicMyMedController {
         return 1;
     }
 
+    public static ArrayList<Problem> getProblems() {
+        /* Needs to be fixed a bit because an empty ArrayList shouldn't be sent if user is null */
+        ArrayList<Problem> problemList = new ArrayList<Problem>();
+        Patient patient = PicMyMedApplication.getPatientUser();
+
+        if (patient != null) {
+            return patient.getProblemList();
+        } else {
+            return problemList;
+
+        }
+
+    }
+
+    public static int addProblem(Problem problem) {
+
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getProblemList().add(problem);
+
+
+        updatePatient(patient);
+
+
+        // push new problem to elastic search
+        // add problem to user
+        // update user elastic search
+        return 1;
+    }
+
+    public static int editProblem(Problem problem) {
+        // push editted problem to elastic search
+        // update user problem list
+        // update user elastic search
+        return 1;
+    }
+
+    public static int deleteProblem(Problem problem) {
+        // push editted problem to elastic search
+        // update user problem list
+        // update user elastic search
+        return 1;
+    }
+
+    public static int updatePatient(Patient patient) {
+        // get user from controller
+        // call elastic search and update
+        try {
+            ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
+            updatePatient.execute(patient);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
