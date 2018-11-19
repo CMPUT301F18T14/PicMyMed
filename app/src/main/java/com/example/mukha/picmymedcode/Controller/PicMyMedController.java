@@ -122,7 +122,6 @@ public class PicMyMedController {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().add(problem);
 
-
         updatePatient(patient);
 
 

@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
+import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Record;
@@ -45,9 +48,10 @@ public class AddProblemActivity extends AppCompatActivity{
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Problem problem = new Problem ("username", date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
-                problemArrayList.add(problem);
-                saveInFile();
+                Problem problem = new Problem (PicMyMedApplication.getUsername(), date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
+                PicMyMedController.addProblem(problem);
+                //problemArrayList.add(problem);
+                //saveInFile();
                 onBackPressed();//go back to previous activity
             }
         });
@@ -56,7 +60,9 @@ public class AddProblemActivity extends AppCompatActivity{
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
+        //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 

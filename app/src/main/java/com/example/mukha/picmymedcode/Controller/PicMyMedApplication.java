@@ -36,4 +36,7 @@ public class PicMyMedApplication {
         CareProvider careProvider = (CareProvider) loggedInUser;
         return careProvider;
     }
+    public static String getUsername() {
+        return getLoggedInUser().getUsername();
+    }
 }
