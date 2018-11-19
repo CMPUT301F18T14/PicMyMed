@@ -133,6 +133,10 @@ public class PicMyMedController {
     }
 
     public static int editProblem(Problem problem) {
+
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getProblemList().remove(problem);
+        updatePatient(patient);
         // push editted problem to elastic search
         // update user problem list
         // update user elastic search
@@ -140,9 +144,9 @@ public class PicMyMedController {
     }
 
     public static int deleteProblem(Problem problem) {
-        // push editted problem to elastic search
-        // update user problem list
-        // update user elastic search
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getProblemList().remove(problem);
+        updatePatient(patient);
         return 1;
     }
 
