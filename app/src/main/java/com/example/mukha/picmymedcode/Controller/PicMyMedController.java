@@ -10,6 +10,7 @@ import com.example.mukha.picmymedcode.Model.Record;
 import com.example.mukha.picmymedcode.Model.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PicMyMedController {
 
@@ -132,10 +133,11 @@ public class PicMyMedController {
         return 1;
     }
 
-    public static int editProblem(Problem problem) {
-
+    public static int editProblem(Problem problem, Date date, String title, String description) {
         Patient patient = PicMyMedApplication.getPatientUser();
-        patient.getProblemList().remove(problem);
+        problem.setStartDate(date);
+        problem.setTitle(title);
+        problem.setDescription(description);
         updatePatient(patient);
         // push editted problem to elastic search
         // update user problem list

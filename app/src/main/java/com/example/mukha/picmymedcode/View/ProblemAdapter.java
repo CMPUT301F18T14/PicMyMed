@@ -86,6 +86,9 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit:
+                                Intent Intent = new Intent(context,EditProblemActivity.class);
+                                Intent.putExtra("key",listPosition);
+                                context.startActivity(Intent);
                                 //handle menu1 click
                                 break;
                             case R.id.delete:
