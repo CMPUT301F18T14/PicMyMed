@@ -157,4 +157,37 @@ public class PicMyMedController {
             return 0;
         }
     }
+
+    public static int checkLogin(String username) {
+
+        Patient patient = null;
+        CareProvider careProvider = null;
+        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        getPatient.execute(username);
+
+        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+        getCareProvider.execute(username);
+
+        try {
+            patient = getPatient.get().get(0);
+            PicMyMedApplication.setLoggedInUser(patient);
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+        }
+
+        try {
+             careProvider = getCareProvider.get().get(0);
+            PicMyMedApplication.setLoggedInUser(careProvider);
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No careproviders with the entered username was found");
+        }
+
+        if (patient == null && careProvider == null) {
+            return 0;
+        }
+        else  {
+            return 1;
+        }
+
+    }
 }

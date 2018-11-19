@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Login;
 
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
                 Login login = new Login();
-                if (login.checkUsername(username)) {
+                if (PicMyMedController.checkLogin(username) == 1) {
                     Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
                     startActivity(problemIntent);
                 } else {
