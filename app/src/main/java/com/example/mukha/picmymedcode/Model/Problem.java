@@ -53,6 +53,9 @@ public class Problem {
         return this.recordList;
     }
 
+    public void addRecord(Record record) {
+        this.recordList.add(record);
+    }
 
     public String getProblemID() {
         return problemID;

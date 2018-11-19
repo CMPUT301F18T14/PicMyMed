@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mukha.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.mukha.picmymedcode.Model.Record;
 import com.example.mukha.picmymedcode.Model.User;
 
 import java.util.ArrayList;
@@ -141,6 +142,20 @@ public class PicMyMedController {
     public static int deleteProblem(Problem problem) {
         // push editted problem to elastic search
         // update user problem list
+        // update user elastic search
+        return 1;
+    }
+
+    public static int addRecord(Problem problem, Record record) {
+
+        Patient patient = PicMyMedApplication.getPatientUser();
+        problem.addRecord(record);
+
+        updatePatient(patient);
+
+
+        // push new problem to elastic search
+        // add problem to user
         // update user elastic search
         return 1;
     }

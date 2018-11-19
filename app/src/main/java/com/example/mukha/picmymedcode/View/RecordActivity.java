@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
@@ -29,7 +32,7 @@ public class RecordActivity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
-    public ArrayList<Problem> arrayListProblem;
+    public ArrayList<Problem> problemArrayList;
     int position;
 
 
@@ -37,10 +40,12 @@ public class RecordActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity);
 
-        loadFromFile();
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
+        //loadFromFile();
         manageRecyclerview();
         position = getIntent().getIntExtra("key",0);
-        String name = arrayListProblem.get(position).getTitle();
+        String name = problemArrayList.get(position).getTitle();
         getSupportActionBar().setTitle(name);
 
 
@@ -62,15 +67,20 @@ public class RecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordList());
+        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     protected void onStart() {
         // TODO Auto-generated method stub
+
         super.onStart();
-        loadFromFile();
-        mAdapter = new RecordAdapter(arrayListProblem.get(position).getRecordList());
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
+
+
+        //loadFromFile();
+        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -84,7 +94,7 @@ public class RecordActivity extends AppCompatActivity{
             Gson gson = new Gson();
             Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
             }.getType();
-            arrayListProblem = gson.fromJson(reader, typeListProblem);
+            problemArrayList = gson.fromJson(reader, typeListProblem);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -101,7 +111,7 @@ public class RecordActivity extends AppCompatActivity{
             BufferedWriter writer = new BufferedWriter(osw);
 
             Gson gson = new Gson();
-            gson.toJson(arrayListProblem,osw);
+            gson.toJson(problemArrayList,osw);
             writer.flush();
             writer.close();
 

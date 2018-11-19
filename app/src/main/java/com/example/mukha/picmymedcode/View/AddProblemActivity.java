@@ -37,7 +37,7 @@ public class AddProblemActivity extends AppCompatActivity{
     private static final String FILENAME = "file.sav";
 
     protected void onCreate(Bundle savedInstanceState) {
-        problemArrayList = new ArrayList<>();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addproblem_activity);
 
