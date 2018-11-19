@@ -12,14 +12,15 @@ public class PicMyMedApplication {
         loggedInUser = user;
     }
 
-    public static void getLoggedInUser() {
+    public static User getLoggedInUser() {
 
-        if (loggedInUser.isPatient()){
+        return loggedInUser;
+       /* if (loggedInUser.isPatient()){
             getPatientUser();
         } else {
             getCareProviderUser();
         }
-
+        */
     }
 
     public static void logoutUser() {

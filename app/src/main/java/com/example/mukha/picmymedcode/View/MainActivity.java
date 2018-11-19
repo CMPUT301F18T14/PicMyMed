@@ -34,8 +34,14 @@ public class MainActivity extends AppCompatActivity {
                 String username = enteredUsername.getText().toString();
                 Login login = new Login();
                 if (PicMyMedController.checkLogin(username) == 1) {
-                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
-                    startActivity(problemIntent);
+                    if(PicMyMedApplication.getLoggedInUser().isPatient()){
+                        Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                        startActivity(problemIntent);
+                    }
+                    else {
+                        toastMessage("Careprovider activity to be implemented.");
+                    }
+
                 } else {
                     Toast.makeText(MainActivity.this, "Invalid username",
                             Toast.LENGTH_LONG).show();
@@ -120,5 +126,8 @@ public class MainActivity extends AppCompatActivity {
         usernamePopUp.show();
         return username;
 
+    }
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
@@ -33,6 +34,7 @@ public class ProblemActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManage;
     private View.OnClickListener mListener;
     public ArrayList<Problem> problemArrayList;
+    
 
 
     @Override
@@ -73,7 +75,8 @@ public class ProblemActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
+        Patient patiPicMyMedApplication.getLoggedInUser();
+        //loadFromFile();
         mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
