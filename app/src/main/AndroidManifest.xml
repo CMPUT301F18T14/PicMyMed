@@ -31,6 +31,8 @@
             android:label="Problem"/>
         <activity android:name=".View.AddProblemActivity"
             android:label="New Problem"/>
+        <activity android:name=".View.EditProblemActivity"
+            android:label="Edit Problem"/>
         <activity android:name=".View.RecordActivity"
             android:label="Record"/>
         <activity android:name=".View.AddRecordActivity"
