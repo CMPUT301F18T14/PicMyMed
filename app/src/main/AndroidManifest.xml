@@ -11,9 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false"/>
 
         <activity android:name=".View.MainActivity" >
             <intent-filter>
@@ -35,6 +32,54 @@
             android:label="Record"/>
         <activity android:name=".View.AddRecordActivity"
             android:label="New Record"/>
+
+        <activity
+            android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
+            android:label="Take Photos"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.picmymedmaphandler.MapActivity"
+            android:label="Map"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.android.picmymedphotohandler.GalleryActivity"
+            android:label="Photo Gallery"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.android.picmymedphotohandler.PhotoEnlargementActivity"
+            android:label="Enlarged Photo"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.android.picmymedphotohandler.SlideshowActivity"
+            android:label="Slide Show"
+            android:exported="true" />
+
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_API_key" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>
