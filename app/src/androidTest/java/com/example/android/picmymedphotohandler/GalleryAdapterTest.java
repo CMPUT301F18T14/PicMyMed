@@ -1,13 +1,7 @@
 package com.example.android.picmymedphotohandler;
 
-import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.example.mukha.picmymedcode.R;
+import android.view.ViewGroup;
 
 import junit.framework.TestCase;
 
@@ -17,13 +11,8 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
-
 public class GalleryAdapterTest extends TestCase {
 
-    @Mock
-    Context mContext;
     @Mock
     ArrayList<GalleryCells> galleryCells;
     @Mock

@@ -62,7 +62,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name="com.example.android.picmymedphotohandler.PhotoEnlargementActivity"></activity>
+        <activity android:name="com.example.android.picmymedphotohandler.PhotoEnlargementActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
