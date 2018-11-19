@@ -31,5 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(newUsernameIntent);
             }
         });
+
+        
     }
 }

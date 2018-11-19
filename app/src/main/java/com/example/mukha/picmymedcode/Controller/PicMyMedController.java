@@ -24,7 +24,7 @@ public class PicMyMedController {
             try {
                 patients = getPatient.get();
             } catch (Exception e) {
-                Log.i("PicMyMedController", "No patients with the entered username was found");
+                Log.i("DEBUG PMMController", "No patients with the entered username was found");
 
             }
 
@@ -47,7 +47,7 @@ public class PicMyMedController {
             try {
                 careProviders = getCareProvider.get();
             } catch (Exception e) {
-                Log.i("PicMyMedController", "No careproviders with the entered username was found");
+                Log.i("DEBUG PMMController", "No careproviders with the entered username was found");
 
             }
 
