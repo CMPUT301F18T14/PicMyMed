@@ -8,12 +8,12 @@
 //public class CareProviderTest extends TestCase {
 //
 //    public void testUsername() {
-//        User user = new CareProvider("test", "123");
+//        User user = new CareProvider("test");
 //        assertTrue("Wrong username", user.getUsername().equals("test"));
 //    }
 //
 //    public void testPassword() {
-//        User user = new CareProvider("test", "123");
+//        User user = new CareProvider("test");
 //        assertTrue("Wrong password", user.getPassword().equals("123"));
 //
 //        String newPassword = "123456";
