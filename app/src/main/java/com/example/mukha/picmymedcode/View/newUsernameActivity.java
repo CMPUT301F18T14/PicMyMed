@@ -3,11 +3,15 @@ package com.example.mukha.picmymedcode.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
+import com.example.mukha.picmymedcode.Model.User;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.Model.Patient;
@@ -32,19 +36,33 @@ public class newUsernameActivity extends AppCompatActivity {
                 String username = enteredUsername.getText().toString();
 
 
-                if (userType.equals("patient")) {
-                    Patient user = new Patient(username, "", "");
-                }
-                else if (userType.equals("careProvider")) {
-                    CareProvider user = new CareProvider(username);
-                }
+                // This was previously done to pass user to problem activity, but we decided to redirect to login page
                 /*Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
                 startActivity(problemIntent);*/
+                User user = null;
+                try {
+                    if (userType.equals("patient")) {
+                        user = new Patient(username, "", "");
+                    } else if (userType.equals("careprovider")) {
+                        user = new CareProvider(username);
+                    }
+                } catch (Exception e) {
+                    toastMessage(e.getMessage());
+                }
+                if (user != null && PicMyMedController.createUser(user) != 1) {
+                    toastMessage("Error: Username already exists, please try another one.");
+                } else {
+                    toastMessage("Account successfully created. Please login.");
+                    finish();
 
+
+                }
 
             }
         });
 
     }
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 }
-
