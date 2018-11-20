@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.R;
 
@@ -24,10 +25,10 @@ public class EditProfileActivity extends AppCompatActivity {
         //TextView showUsername = (TextView)findViewById(R.id.username);
         //showUsername.setText(user.getUsername());
 
-        EditText showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
+        final EditText showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
         showPhoneNumber.setText(user.getPhoneNumber());
 
-        EditText showEmail = (EditText)findViewById(R.id.enteredEmail);
+        final EditText showEmail = (EditText)findViewById(R.id.enteredEmail);
         showEmail.setText(user.getEmail());
 
 
@@ -35,10 +36,11 @@ public class EditProfileActivity extends AppCompatActivity {
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = showEmail.getText().toString();
+                String phone = showPhoneNumber.getText().toString();
+                PicMyMedController.updatePatientProfile(email, phone);
+                finish();
 
-
-                Intent problemIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                startActivity(problemIntent);
             }
         });
     }
