@@ -1,3 +1,22 @@
+/*
+ * AddProblemActivity
+ *
+ * 1.1
+ *
+ * November 16, 2018
+ *
+ * Copyright 2018 CMPUT301F18T14. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.mukha.picmymedcode.View;
 
 import android.os.Bundle;
@@ -28,6 +47,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * AddProblemActivity extends AppCompatActivity to create an activity for the patient to
+ * to add a new problem.
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class AddProblemActivity extends AppCompatActivity{
     private Date date;
     private RecyclerView mRecyclerView;
@@ -36,6 +62,11 @@ public class AddProblemActivity extends AppCompatActivity{
     public ArrayList<Record> recordsArrayList;
     private static final String FILENAME = "file.sav";
 
+    /**
+     * Method initiates the add problem activity
+     *
+     * @param savedInstanceState Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -46,6 +77,11 @@ public class AddProblemActivity extends AppCompatActivity{
 
         Button problemSaveButton = findViewById(R.id.problem_save_button);
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles activity action when user clicks the save problem button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Problem problem = new Problem (PicMyMedApplication.getUsername(), date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
@@ -57,6 +93,9 @@ public class AddProblemActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * Method is started when activity begins to load data from file
+     */
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
@@ -66,6 +105,9 @@ public class AddProblemActivity extends AppCompatActivity{
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 
+    /**
+     * Method loads saved data from file, if it exists
+     */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -83,6 +125,9 @@ public class AddProblemActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Method saves data to file
+     */
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
