@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
@@ -124,13 +125,16 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit:
+                                Intent Intent = new Intent(context,EditProblemActivity.class);
+                                Intent.putExtra("key",listPosition);
+                                context.startActivity(Intent);
                                 //handle menu1 click
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
-                                problems.remove(listPosition);
+                                PicMyMedController.deleteProblem(problems.get(listPosition));
                                 notifyDataSetChanged();
-                                saveInFile();
+                                //saveInFile();
                                 break;
                         }
                         return false;

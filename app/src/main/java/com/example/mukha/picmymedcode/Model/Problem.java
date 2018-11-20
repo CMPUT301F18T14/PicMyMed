@@ -34,19 +34,26 @@ public class Problem {
     private String title;
     private String description;
     //private RecordList recordList;
+    private String problemID;
+    private String username;
+
 
     public ArrayList<Record> recordList;
+
 
     /**
      * Constructor initializes problem class variables
      *
+     * @param username                  String
      * @param startDate                 Date
      * @param title                     String
      * @param description               String
      * @throws IllegalArgumentException throws exception when title or description is too long
      */
-    public Problem(Date startDate, String title, String description) {
+    public Problem(String username, Date startDate, String title, String description) {
 
+        this.username = username;
+        this.problemID = null;
         this.startDate = startDate;
         this.title = title;
         this.description = description;
@@ -111,5 +118,23 @@ public class Problem {
         return this.recordList;
     }
 
+    public void addRecord(Record record) {
+        this.recordList.add(record);
+    }
 
+    public String getProblemID() {
+        return problemID;
+    }
+
+    public void setProblemID(String problemID) {
+        this.problemID = problemID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

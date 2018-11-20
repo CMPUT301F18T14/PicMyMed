@@ -24,6 +24,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
+import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Record;
@@ -52,7 +55,6 @@ import java.util.ArrayList;
 public class AddRecordActivity extends AppCompatActivity{
     //RecordList recordList = new RecordList();
     public ArrayList<Problem> arrayListProblem;
-    public ArrayList<Record> recordsArrayList;
     private static final String FILENAME = "file.sav";
     int position;
 
@@ -62,8 +64,10 @@ public class AddRecordActivity extends AppCompatActivity{
      * @param savedInstanceState    Bundle
      */
     protected void onCreate(Bundle savedInstanceState) {
-        arrayListProblem = new ArrayList<>();
-        recordsArrayList = new ArrayList<>();
+
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        arrayListProblem = user.getProblemList();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_activity);
         final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
@@ -81,9 +85,9 @@ public class AddRecordActivity extends AppCompatActivity{
                 Record record = new Record (recordTitleEditText.getText().toString());
                 record.setDescription(recordDescriptionEditText.getText().toString());
                 position = getIntent().getIntExtra("key",0);
-                arrayListProblem.get(position).recordList.add(record);
-
-                saveInFile();
+                Problem problem = arrayListProblem.get(position);
+                PicMyMedController.addRecord(problem, record);
+                //saveInFile();
                 onBackPressed();//go back to previous activity
             }
         });
@@ -96,7 +100,9 @@ public class AddRecordActivity extends AppCompatActivity{
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        arrayListProblem = user.getProblemList();
+        //loadFromFile();
     }
 
     /**

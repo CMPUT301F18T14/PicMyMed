@@ -29,6 +29,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
+import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Login;
 
@@ -64,9 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
                 Login login = new Login();
-                if (login.checkUsername(username)) {
-                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
-                    startActivity(problemIntent);
+                if (PicMyMedController.checkLogin(username) == 1) {
+                    if(PicMyMedApplication.getLoggedInUser().isPatient()){
+                        Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                        startActivity(problemIntent);
+                    }
+                    else {
+                        toastMessage("Careprovider activity to be implemented.");
+                    }
+
                 } else {
                     Toast.makeText(MainActivity.this, "Invalid username",
                             Toast.LENGTH_LONG).show();
@@ -178,5 +186,8 @@ public class MainActivity extends AppCompatActivity {
         usernamePopUp.show();
         return username;
 
+    }
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
