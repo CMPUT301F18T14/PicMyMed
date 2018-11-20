@@ -20,7 +20,9 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> mainActivityTestRuleActivity =
             new ActivityTestRule<MainActivity>(MainActivity.class);
 
-
+    /**
+     * Testing Login. If the userId already exist, you will receive invalid userId message
+     */
     @Test
     public void TestLoginByUsername(){
 
@@ -35,26 +37,40 @@ public class MainActivityTest {
         Espresso.onView(withId(R.id.loginButton)).perform(ViewActions.click());
     }
 
+    /**
+     * Testing signing up as a patient. If the patient userId already exists, you will
+     * receive user already exists.
+     * Try putting new patientId every time.
+     */
     @Test
     public void TestSignupAsPatient(){
+
+        String patientId = " GucciP";
 
         Espresso.onView(withId(R.id.signUpButton)).perform(ViewActions.click());
 
         Espresso.onView(withId(R.id.patientButton)).perform(ViewActions.click());
 
-        Espresso.onView(withId(R.id.enteredUID)).perform(typeText("GucciP"));
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(patientId));
 
         Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
     }
 
+    /**
+     * Testing signing up as a patient. If the careProvider userId already exists, you will
+     * receive user already exists.
+     * Try putting new careProviderId every time.
+     */
     @Test
     public void TestSignupAsCareProvider(){
+
+        String careProviderId = "GucciD";
 
         Espresso.onView(withId(R.id.signUpButton)).perform(ViewActions.click());
 
         Espresso.onView(withId(R.id.careProviderButton)).perform(ViewActions.click());
 
-        Espresso.onView(withId(R.id.enteredUID)).perform(typeText("GucciD"));
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(careProviderId));
 
         Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
     }

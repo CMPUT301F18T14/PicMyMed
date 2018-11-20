@@ -16,18 +16,45 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 public class SignUpActivityTest {
-/* Reduntant class, might not be used in the whole program. MainActivity has the required tests for this parts.*/
 
-//    @Rule
-//    public ActivityTestRule<SignUpActivity> signUpActivityTestRuleActivity =
-//            new ActivityTestRule<SignUpActivity>(SignUpActivity.class);
-//
-//    @Test
-//    public void TestSignupAsPatient(){
-//
-//        Espresso.onView(withId(R.id.enteredUID)).perform(typeText("GucciP"));
-//
-//        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
-//    }
+    /* Redundant Test: Already Performed in MainActivityTest */
+
+    @Rule
+    public ActivityTestRule<SignUpActivity> signUpActivityTestRuleActivity =
+            new ActivityTestRule<SignUpActivity>(SignUpActivity.class);
+
+    /**
+     * Testing signing up as a patient. If the patient userId already exists, you will
+     * receive user already exists.
+     * Try putting new patientId every time.
+     */
+    @Test
+    public void TestSignupAsPatient(){
+
+        String patientId = " GucciP";
+
+        Espresso.onView(withId(R.id.patientButton)).perform(ViewActions.click());
+
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(patientId));
+
+        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
+    }
+
+    /**
+     * Testing signing up as a patient. If the careProvider userId already exists, you will
+     * receive user already exists.
+     * Try putting new careProviderId every time.
+     */
+    @Test
+    public void TestSignupAsCareProvider(){
+
+        String careProviderId = " GucciD";
+
+        Espresso.onView(withId(R.id.careProviderButton)).perform(ViewActions.click());
+
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(careProviderId));
+
+        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
+    }
 
 }

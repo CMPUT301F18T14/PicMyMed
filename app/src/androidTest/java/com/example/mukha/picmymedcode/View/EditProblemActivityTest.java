@@ -46,6 +46,9 @@ public class EditProblemActivityTest {
 
     @Rule
     public ActivityTestRule<EditProblemActivity> mActivity = new ActivityTestRule<EditProblemActivity>(EditProblemActivity.class){
+        /**
+         * Initializing a patient with a problem before running the activity
+         */
         @Override
         protected void beforeActivityLaunched() {
             //super.beforeActivityLaunched();
@@ -59,44 +62,24 @@ public class EditProblemActivityTest {
     public void testEditingProblem() {
 
 
-
-        // Find a view with id enteredUID and type "username" on that view.
+        // Find a view with id problem_edit_title_edit_text and type "test" on that view.
         Espresso.onView(withId(R.id.problem_edit_title_edit_text)).perform(typeText("test"));
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
         closeSoftKeyboard();
 
-        // Find a view with id enteredUID and type "username" on that view.
+        // Find a view with id problem_edit_description_edit_text and type "What is happening?" on that view.
         Espresso.onView(withId(R.id.problem_edit_description_edit_text)).perform(typeText("What is happening?"));
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
         closeSoftKeyboard();
 
-        // Find a view with id loginButton and clicks on that view.
+        // Find a view with id problem_edit_save_button and clicks on that view.
         Espresso.onView(withId(R.id.problem_edit_save_button)).perform(ViewActions.click());
 
-        assertEquals(problem.getTitle(),"test");
-
-//
-//        try {
-//            /* Passes when the position has a problem stored in it.
-//             * Then it performs longClick action on the view to
-//             * show the item in a new activity. */
-//            Espresso.onView(ViewMatchers.withId(R.id.problem_recycle_view))
-//                    .perform(RecyclerViewActions
-//                            .actionOnItemAtPosition(1, ViewActions.scrollTo()));
-//            Log.d(TAG, "The Problem is at the position.");
-//        } catch(PerformException e) {
-//            Log.d(TAG, "Error performing. Nothing exists at that position on the view.");
-//        }
-//
-//        Espresso.onData(withId(R.menu.problem_menu))
-//                .inAdapterView(withId(R.id.problem_recycle_view))
-//                .atPosition(0)
-//                .perform(ViewActions.click());
+        assertEquals(problem.getTitle(), "test");
     }
-//    }
 
 }

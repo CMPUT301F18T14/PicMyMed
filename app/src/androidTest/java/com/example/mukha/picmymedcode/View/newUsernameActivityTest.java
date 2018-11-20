@@ -20,12 +20,12 @@ public class newUsernameActivityTest {
     public ActivityTestRule<newUsernameActivity> newUsernameActivityTestRuleActivity =
             new ActivityTestRule<newUsernameActivity>(newUsernameActivity.class);
 
+    /**
+     * Testing new signup activity
+     */
     @Test
-    public void TestSignup(){
-        // Will fail unless intent sent from MainActivity
-        // Tested Successfully in MainActivityTest
+    public void testNewSignup(){
 
-        // In this activity, it can only be typed, but can't be set
         Espresso.onView(withId(R.id.enteredUID)).perform(typeText("NewGuc"));
 
         Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
