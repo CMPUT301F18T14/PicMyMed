@@ -1,3 +1,22 @@
+/*
+ * ElasticSearch Controller
+ *
+ * 1.1
+ *
+ * November 16, 2018
+ *
+ * Copyright 2018 CMPUT301F18T14. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.mukha.picmymedcode.Controller;
 
 import android.os.AsyncTask;
@@ -19,6 +38,13 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+/**
+ * ElasticSearchController handles user input, controls background activity
+ * and server connectivity
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class ElasticSearchController {
 
     private static JestDroidClient client;
@@ -32,9 +58,16 @@ public class ElasticSearchController {
     private static final String problemType = "problem";
 
 
-
+    /**
+     * Method extends AsyncTask to add a patient
+     */
     public static class AddPatient extends AsyncTask<Patient, Void, Void> {
-
+        /**
+         * Method adds the patient information to the local device
+         *
+         * @param patients  Patient
+         * @return          null
+         */
         @Override
         protected Void doInBackground(Patient... patients) {
             Log.i("DEBUG AddPatient:", "Attempting to build patient index...");
@@ -76,9 +109,17 @@ public class ElasticSearchController {
         }
     }
 
-
+    /**
+     * Method extends AsyncTask to add a care provider
+     */
     public static class AddCareProvider extends AsyncTask<CareProvider, Void, Void> {
 
+        /**
+         * Method adds care provider data to local device
+         *
+         * @param careProviders CareProvider
+         * @return              null
+         */
         @Override
         protected Void doInBackground(CareProvider... careProviders) {
             Log.i("DEBUG AddCareProvider:", "Attempting to build careprovider index...");
@@ -121,6 +162,9 @@ public class ElasticSearchController {
         }
     }
 
+    /**
+     * Method extends AsyncTask to get a patient using elastic search
+     */
     public static class GetPatient extends AsyncTask<String, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(String... search_parameters) {
@@ -164,6 +208,9 @@ public class ElasticSearchController {
         }
     }
 
+    /**
+     * Method extends Asynctask to get a care provider using elastic search
+     */
     public static class GetCareProvider extends AsyncTask<String, Void, ArrayList<CareProvider>> {
         @Override
         protected ArrayList<CareProvider> doInBackground(String... search_parameters) {
@@ -208,6 +255,11 @@ public class ElasticSearchController {
         }
     }
 
+
+    /**
+     * Method extends AsyncTask to update patient data using elastic search
+     */
+
     public static class UpdatePatient extends AsyncTask<Patient, Void, Void> {
 
         @Override
@@ -239,6 +291,9 @@ public class ElasticSearchController {
     }
 
 
+    /**
+     * Method extends AsyncTask to update care provider using elastic search
+     */
     public static class UpdateCareProvider extends AsyncTask<CareProvider, Void, Void> {
 
         @Override
@@ -560,6 +615,10 @@ public class ElasticSearchController {
          }
      }
  */
+
+    /**
+     * Method verifies server settings are correct 
+     */
     public static void verifySettings() {
         if (client == null) {
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder(serverURI);

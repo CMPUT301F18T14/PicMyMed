@@ -20,6 +20,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 newUsernameIntent.putExtra("userType", "patient");
                 startActivity(newUsernameIntent);
+                finish();
 
             }
         });
@@ -29,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 newUsernameIntent.putExtra("userType", "careprovider");
                 startActivity(newUsernameIntent);
+                finish();
             }
         });
 

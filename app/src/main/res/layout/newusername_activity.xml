@@ -25,11 +25,29 @@
         android:layout_gravity="center_horizontal"
         />
 
+    <EditText
+        android:id="@+id/enteredPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        />
+
+    <EditText
+        android:id="@+id/enteredEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        />
+
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Let's Start"
-        android:layout_gravity="center_horizontal"
+
         />
 </LinearLayout>
