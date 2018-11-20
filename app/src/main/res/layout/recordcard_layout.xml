@@ -26,18 +26,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Record Title"
-            android:textSize="18sp"/>
-        <TextView
-            android:id="@+id/record_location_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="14sp"/>
+            android:textSize="20sp"/>
         <TextView
             android:id="@+id/record_description_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/record_location_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
             android:textSize="14sp"/>
         <TextView
             android:id="@+id/record_time_text_view"

@@ -8,7 +8,7 @@
         android:id="@+id/record_problem_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Problem name"
+        android:text="Enter record details"
         android:textSize="26dp"
         android:gravity="center"/>
     <EditText
