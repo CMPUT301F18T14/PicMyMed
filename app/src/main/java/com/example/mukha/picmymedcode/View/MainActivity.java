@@ -1,3 +1,21 @@
+/*
+ * MainActivity
+ *
+ * 1.1
+ *
+ * November 16, 2018
+ *
+ * Copyright 2018 CMPUT301F18T14. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.mukha.picmymedcode.View;
 
 import android.app.Dialog;
@@ -16,10 +34,20 @@ import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Login;
 
-
+/**
+ * MainActivity extends AppCompatActivity to handle the main activity of the application
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class MainActivity extends AppCompatActivity {
 
-
+    /**
+     * Method initializes the main activity
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginBtn = (Button) findViewById(R.id.loginButton);
         loginBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking the login button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
@@ -53,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button signupBtn = (Button) findViewById(R.id.signUpButton);
         signupBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles the user clicking the sign up button
+             *
+             * @param v View
+             */
             public void onClick(View v) {
                 //signupPopUpWindow();
 
@@ -63,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method starts pop up window to allow user to sign up as patient or caregiver
+     */
     public void signupPopUpWindow() {
         final Dialog signupPopUp = new Dialog(MainActivity.this);
         signupPopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -76,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
         careProvider.setEnabled(true);
 
         patient.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles users selecting they are a patient
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 signupPopUp.cancel();
@@ -87,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         careProvider.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user selecting they are a care provider
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 signupPopUp.cancel();
@@ -104,7 +155,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Method creates popup window for the user to select a username
+     *
+     * @return String username
+     */
     public String usernamePopUpWindow() {
         final Dialog usernamePopUp = new Dialog(MainActivity.this);
         usernamePopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -118,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
         String username = enteredUsername.getText().toString();
 
         submit.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking submit button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 usernamePopUp.cancel();
