@@ -22,9 +22,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
 
-        //TextView showUsername = (TextView)findViewById(R.id.username);
-        //showUsername.setText(user.getUsername());
-
         final EditText showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
         showPhoneNumber.setText(user.getPhoneNumber());
 
