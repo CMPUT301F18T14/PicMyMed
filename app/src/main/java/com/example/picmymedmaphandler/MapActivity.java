@@ -200,6 +200,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     for (int i = 0; i < grantResults.length; i++) {
                         if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+
                             mLocationPermissionGranted = false;
                             Log.d(TAG, "onRequestPermissionResult: permission failed");
                             return;
