@@ -45,6 +45,10 @@
             android:label="Record"/>
         <activity android:name=".View.AddRecordActivity"
             android:label="New Record"/>
+        <activity android:name=".View.ProfileActivity"
+            android:label="Profile"/>
+        <activity android:name=".View.EditProfileActivity"
+            android:label="Edit Profile"/>
 
         <activity
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"

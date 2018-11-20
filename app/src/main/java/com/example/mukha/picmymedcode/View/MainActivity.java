@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
              * @param v View
              */
             public void onClick(View v) {
-              //  signupPopUpWindow();
+                //signupPopUpWindow();
 
                 Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(problemIntent);
-                finish();
+                //finish();
             }
         });
     }

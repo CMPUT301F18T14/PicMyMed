@@ -87,9 +87,17 @@ public class ProblemActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-
                 Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
                 startActivity(problemIntent);
+            }
+        });
+
+        Button profileButton = findViewById(R.id.profile_button);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
             }
         });
 

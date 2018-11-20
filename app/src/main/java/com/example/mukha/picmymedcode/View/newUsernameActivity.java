@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
 import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.Model.User;
 import com.example.mukha.picmymedcode.R;
@@ -51,10 +52,20 @@ public class newUsernameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newusername_activity);
+
         Intent newuserIntent = getIntent();
         final String userType = newuserIntent.getStringExtra("userType");   // get user type
 
         setContentView(R.layout.newusername_activity);
+        if (userType.equals("patient")) {
+
+            EditText email = findViewById(R.id.enteredEmail);
+            EditText phone = findViewById(R.id.enteredPhone);
+
+            email.setVisibility(View.VISIBLE);
+            phone.setVisibility(View.VISIBLE);
+
+        }
         TextView textView = (TextView) findViewById(R.id.textView2);    // for testing
         textView.setText(userType);
 
@@ -77,7 +88,10 @@ public class newUsernameActivity extends AppCompatActivity {
                 User user = null;
                 try {
                     if (userType.equals("patient")) {
-                        user = new Patient(username, "", "");
+                        EditText enteredEmail = (EditText) findViewById(R.id.enteredEmail);
+                        EditText enteredPhone = (EditText) findViewById(R.id.enteredPhone);
+
+                        user = new Patient(username, enteredEmail.getText().toString(), enteredPhone.getText().toString());
                     } else if (userType.equals("careprovider")) {
                         user = new CareProvider(username);
                     }
