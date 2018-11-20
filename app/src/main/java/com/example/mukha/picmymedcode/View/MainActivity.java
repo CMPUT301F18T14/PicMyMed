@@ -33,7 +33,7 @@ import android.widget.Toast;
 import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
 import com.example.mukha.picmymedcode.Controller.PicMyMedController;
 import com.example.mukha.picmymedcode.R;
-import com.example.mukha.picmymedcode.Model.Login;
+
 
 /**
  * MainActivity extends AppCompatActivity to handle the main activity of the application
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
-                Login login = new Login();
+
                 if (PicMyMedController.checkLogin(username) == 1) {
                     if(PicMyMedApplication.getLoggedInUser().isPatient()){
                         Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);

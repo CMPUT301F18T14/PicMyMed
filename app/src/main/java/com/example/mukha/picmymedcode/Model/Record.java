@@ -21,6 +21,7 @@ package com.example.mukha.picmymedcode.Model;
 
 import android.location.Location;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -37,7 +38,7 @@ public class Record {
     private String comment;
     private String description;
     private Location geolocation;
-    private PhotoList photoList;
+    private ArrayList<Photo> photoList;
     private BodyLocation bodyLocation;
     private final Date timeStamp;
 
@@ -51,7 +52,7 @@ public class Record {
         this.comment = "";  // Avoid null pointer exception
         this.description = "no description";
         this.geolocation = new Location("");
-        this.photoList = new PhotoList();
+        this.photoList = new ArrayList<Photo>();
         this.bodyLocation = new BodyLocation();
         this.timeStamp = new Date();
 
@@ -132,14 +133,14 @@ public class Record {
      *
      * @param photoList photoList
      */
-    public void setPhotoList(PhotoList photoList) { this.photoList = photoList; }
+    public void setPhotoList(ArrayList<Photo> photoList) { this.photoList = photoList; }
 
     /**
      * Method gets list of photos
      *
      * @return photoList
      */
-    public PhotoList getPhotoList() {
+    public ArrayList<Photo> getPhotoList() {
         return photoList;
     }
 

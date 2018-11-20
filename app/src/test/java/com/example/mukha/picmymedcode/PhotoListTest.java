@@ -1,73 +1,74 @@
 package com.example.mukha.picmymedcode;
 
 import com.example.mukha.picmymedcode.Model.Photo;
-import com.example.mukha.picmymedcode.Model.PhotoList;
 
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
 
 public class PhotoListTest extends TestCase {
 
     public void testGetPhotoList() {
-        PhotoList photoList = new PhotoList();
-        assertEquals("Did not return ArrayList", photoList.getPhotoList().getClass().getName(), "java.util.ArrayList");
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
+        assertEquals("Did not return ArrayList", photoList.getClass().getName(), "java.util.ArrayList");
     }
 
     public void testAddPhoto() {
-        PhotoList photoList = new PhotoList();
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
         Photo photo = new Photo("filepath");
-        photoList.addPhoto(photo);
-        assertEquals("Photo not added", photoList.getPhoto(0), photo);
+        photoList.add(photo);
+        assertEquals("Photo not added", photoList.get(0), photo);
     }
 
     public void testGetPhoto() {
-        PhotoList photoList = new PhotoList();
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
         Photo photo1 = new Photo("filepath1");
         Photo photo2 = new Photo("filepath2");
-        photoList.addPhoto(photo1);
-        photoList.addPhoto(photo2);
+        photoList.add(photo1);
+        photoList.add(photo2);
 
-        assertEquals("Wrong photo returned", photoList.getPhoto(0), photo1);
-        assertEquals("Wrong photo returned", photoList.getPhoto(1), photo2);
+        assertEquals("Wrong photo returned", photoList.get(0), photo1);
+        assertEquals("Wrong photo returned", photoList.get(1), photo2);
 
         // try invalid index
-        assertNull("Did not return null", photoList.getPhoto(2));
+        assertNull("Did not return null", photoList.get(2));
     }
 
     public void testDeletePhoto() {
-        PhotoList photoList = new PhotoList();
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
         Photo photo = new Photo("filepath");
 
         // delete photo from empty list
-        photoList.deletePhoto(0);
+        photoList.remove(0);
 
         // delete photo
-        photoList.addPhoto(photo);
-        assertEquals("Photo not added", photoList.getPhoto(0), photo);
-        photoList.deletePhoto(0);
-        assertNull("Photo not deleted", photoList.getPhoto(0));
+        photoList.add(photo);
+        assertEquals("Photo not added", photoList.get(0), photo);
+        photoList.remove(0);
+        assertNull("Photo not deleted", photoList.get(0));
 
         // delete photo from incorrect index
-        photoList.addPhoto(photo);
-        assertEquals("Photo not added", photoList.getPhoto(0), photo);
-        photoList.deletePhoto(1);
+        photoList.add(photo);
+        assertEquals("Photo not added", photoList.get(0), photo);
+        photoList.remove(1);
     }
 
     public void testGetSize() {
-        PhotoList photoList = new PhotoList();
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
 
         // check size 0
-        assertEquals("Incorrect size returned", photoList.sizeOfPhotoList(), 0);
+        assertEquals("Incorrect size returned", photoList.size(), 0);
 
         // check size 1
         Photo photo = new Photo("filepath");
-        photoList.addPhoto(photo);
-        assertEquals("Incorrect size returned", photoList.sizeOfPhotoList(), 1);
+        photoList.add(photo);
+        assertEquals("Incorrect size returned", photoList.size(), 1);
 
         // check size 50
         for (int i = 1; i < 50; i++){
             Photo photo1 = new Photo(Integer.toString(i));
-           photoList.addPhoto(photo1);
+           photoList.add(photo1);
         }
-        assertEquals("Incorrect size returned", photoList.sizeOfPhotoList(), 50);
+        assertEquals("Incorrect size returned", photoList.size(), 50);
     }
 }

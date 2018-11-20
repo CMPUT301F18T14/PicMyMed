@@ -2,12 +2,13 @@ package com.example.mukha.picmymedcode;
 
 import android.location.Location;
 
-import com.example.mukha.picmymedcode.Model.PhotoList;
+import com.example.mukha.picmymedcode.Model.Photo;
 import com.example.mukha.picmymedcode.Model.Record;
 import com.example.mukha.picmymedcode.Model.BodyLocation;
 
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class RecordTest extends TestCase {
@@ -50,16 +51,16 @@ public class RecordTest extends TestCase {
     }
 
     public void testSetPhotoList(){
-        PhotoList photoList = new PhotoList();
+        ArrayList<Photo> photoList = new ArrayList<Photo>();
         Record record = new Record ("Record");
         record.setPhotoList(photoList);
-        assertTrue(record.getPhotoList() instanceof PhotoList);
+        assertTrue(record.getPhotoList() instanceof ArrayList);
 
     }
 
     public void testGetPhotoList(){
         Record record = new Record ("Record");
-        assertTrue(record.getPhotoList() instanceof PhotoList);
+        assertTrue(record.getPhotoList() instanceof ArrayList);
     }
 
     public void testBodyLocation(){
