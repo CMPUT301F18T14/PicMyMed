@@ -54,4 +54,6 @@ dependencies {
     // Dependencies for Espresso tools
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+
 }

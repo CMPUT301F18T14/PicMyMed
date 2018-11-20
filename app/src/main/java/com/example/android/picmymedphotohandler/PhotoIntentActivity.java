@@ -85,6 +85,10 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
 
+    private static final int RESIZING_WIDTH = 300;
+
+    private static final int RESIZING_HEIGHT = 300;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +97,16 @@ public class PhotoIntentActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView_show1);
 
         bitmaps = new ArrayList<Bitmap>();
+
+//        if (bitmaps.size() < MAX_NUMBER_OF_PHOTOS) {
+//            //System.out.println(bitmaps.size());
+//            dispatchTakePictureIntent();
+//        }
+//        else {
+//            Toast.makeText(PhotoIntentActivity.this,
+//                    "You can only have 10 photos per records.",
+//                    Toast.LENGTH_LONG).show();
+//        }
 
         cameraButton = (Button) findViewById(R.id.camera_button);
 
@@ -141,7 +155,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
         if (imageFilePath != null) {
 
             // Decodeing the image into bitmap with the ImageView layout dimensions
-            Bitmap bitmap = decodeImageFromFiles(imageFilePath, imageView.getWidth(), imageView.getHeight());
+            Bitmap bitmap = decodeImageFromFiles(imageFilePath, RESIZING_WIDTH, RESIZING_HEIGHT);
 
             if (bitmap.getByteCount() <= maxFileSize) {
                 /* If the number of bytes is less than the maximum bytes,
@@ -308,60 +322,5 @@ public class PhotoIntentActivity extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
-
-//    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(mCurrentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        this.sendBroadcast(mediaScanIntent);
-//    }
-//
-//    private void handleBigCameraPhoto() {
-//
-//        if (mCurrentPhotoPath != null) {
-//            setPic();
-//            galleryAddPic();
-//            mCurrentPhotoPath = null;
-//        }
-//
-//    }
-
-//    private void setPic() {
-//
-//        /* There isn't enough memory to open up more than a couple camera photos */
-//        /* So pre-scale the target bitmap into which the file is decoded */
-//
-//        /* Get the size of the ImageView */
-//        int targetW = imageViews.get(0).getWidth();
-//        int targetH = imageViews.get(0).getHeight();
-//
-//        // Get the dimensions of the original bitmap
-//        System.out.println("File Size before: " + photoFile.length());
-//
-//
-//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-//        // Querying Bitmap without allocating memory
-//        bmOptions.inJustDecodeBounds = true;
-//        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//        int srcWidth = bmOptions.outWidth;
-//        int srcHeight = bmOptions.outHeight;
-//
-//        // Determine how much to scale down the image
-//        int scaleFactor = Math.min(srcWidth/targetW, srcHeight/targetH);
-//
-//        // Decode the image file into a Bitmap sized to fill the View
-//        // Querying Bitmap allocating memory
-//        bmOptions.inJustDecodeBounds = false;
-//        bmOptions.inSampleSize = scaleFactor;
-//        //bmOptions.inPurgeable = true;
-//        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//        System.out.println("File Size after: " + photoFile.length());
-//        System.out.println("In memory: " + bitmap.getByteCount());
-//        bitmaps.add(bitmap);
-//        imageViews.get(bitmaps.size()-1).setImageBitmap(bitmaps.get(bitmaps.size()-1));
-//    }
-
-
 
 }
