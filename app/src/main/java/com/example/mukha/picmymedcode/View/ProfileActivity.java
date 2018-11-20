@@ -12,12 +12,12 @@ import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.R;
 
 public class ProfileActivity extends AppCompatActivity {
-
+    Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
 
         TextView showUsername = (TextView)findViewById(R.id.username);
         showUsername.setText(user.getUsername());
@@ -36,5 +36,19 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(problemIntent);
             }
         });
+    }
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        TextView showUsername = (TextView)findViewById(R.id.username);
+        showUsername.setText(user.getUsername());
+
+        TextView showPhoneNumber = (TextView)findViewById(R.id.phoneNumber);
+        showPhoneNumber.setText(user.getPhoneNumber());
+
+        TextView showEmail = (TextView)findViewById(R.id.email);
+        showEmail.setText(user.getEmail());
+
+
     }
 }

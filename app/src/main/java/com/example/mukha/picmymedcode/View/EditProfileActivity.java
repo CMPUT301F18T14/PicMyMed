@@ -39,7 +39,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 String email = showEmail.getText().toString();
                 String phone = showPhoneNumber.getText().toString();
                 PicMyMedController.updatePatientProfile(email, phone);
-                finish();
+                onBackPressed();
 
             }
         });
