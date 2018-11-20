@@ -4,9 +4,11 @@
 package com.example.mukha.picmymedcode;
 
 import com.example.mukha.picmymedcode.Model.CareProvider;
-import com.example.mukha.picmymedcode.Model.PatientList;
+
 
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
 
 public class CareProviderTest extends TestCase {
 
@@ -25,6 +27,6 @@ public class CareProviderTest extends TestCase {
         // this test cannot resolve with: User user = new CareProvider("test", "123");
         // why?
         CareProvider user = new CareProvider("test");
-        assertTrue("Did not return PatientList", user.getPatientList() instanceof PatientList);
+        assertTrue("Did not return ArrayList<Patient>", user.getPatientList() instanceof ArrayList);
     }
 }

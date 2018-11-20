@@ -19,6 +19,8 @@
  */
 package com.example.mukha.picmymedcode.Model;
 
+import java.util.ArrayList;
+
 /**
  * CareProvider class extends User class to create a CareProvider object with a patient list.
  *
@@ -28,7 +30,7 @@ package com.example.mukha.picmymedcode.Model;
  */
 public class CareProvider extends User {
 
-    private PatientList patientList;
+    private ArrayList<Patient> patientList;
     /**
      * CareProvider constructor to initialize the member variables.
      *
@@ -38,14 +40,14 @@ public class CareProvider extends User {
     public CareProvider(String username) throws IllegalArgumentException {
         super(username);
 
-        this.patientList = new PatientList();
+        this.patientList = new ArrayList<Patient>();
     }
     /**
      * getPatientList returns the patient list
      *
      * @return  patientList
      */
-    public PatientList getPatientList() {
+    public ArrayList<Patient> getPatientList() {
         return this.patientList;
     }
     /**

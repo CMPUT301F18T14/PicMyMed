@@ -34,7 +34,6 @@ import android.widget.Toast;
 import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
 import com.example.mukha.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.PatientList;
 import com.example.mukha.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ import java.util.ArrayList;
 public class CareProviderActivity extends AppCompatActivity {
 
     ListView patientListView;
-    PatientList patientList;
+    ArrayList<Patient> patientList;
 
     /**
      * Method sets the CareProviderActivity state
@@ -71,19 +70,19 @@ public class CareProviderActivity extends AppCompatActivity {
 
 
         patientListView = (ListView) findViewById(R.id.PatientList);
-        patientList = new PatientList();
+        patientList = new ArrayList<Patient>();
         //fake temp data
         Patient patient1 = new Patient("123","123@a.ca","7801112222");
         Patient patient2 = new Patient("bomba","123@a.ca","7801112222");
         Patient patient3 = new Patient("k1tt3n","123@a.ca","7801112222");
-        patientList.addPatient(patient1);
-        patientList.addPatient(patient2);
-        patientList.addPatient(patient3);
+        patientList.add(patient1);
+        patientList.add(patient2);
+        patientList.add(patient3);
 
         ArrayList<String> arrayPatientList = new ArrayList<>();
         //populate the array list with patient fake temp data
-        for (int i = 0; i < patientList.sizeOfPatientList();i++){
-            arrayPatientList.add(i,patientList.getPatient(i).getUsername());
+        for (int i = 0; i < patientList.size();i++){
+            arrayPatientList.add(i,patientList.get(i).getUsername());
         }
 
         ArrayAdapter<String> arrayAdapter =
