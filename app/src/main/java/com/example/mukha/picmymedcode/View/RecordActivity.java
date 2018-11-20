@@ -8,7 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
+import com.example.android.picmymedphotohandler.GalleryActivity;
+import com.example.android.picmymedphotohandler.SlideshowActivity;
 import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
 import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
@@ -38,7 +41,7 @@ public class RecordActivity extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.record_activity);
+        setContentView(R.layout.record_activity_test_scroll);
 
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();
@@ -48,8 +51,6 @@ public class RecordActivity extends AppCompatActivity{
         String name = problemArrayList.get(position).getTitle();
         getSupportActionBar().setTitle(name);
 
-
-
         Button addRecordButton = findViewById(R.id.record_save_button);
         addRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,24 @@ public class RecordActivity extends AppCompatActivity{
                 intent.putExtra("key",position);
 
                 startActivity(intent);
+            }
+        });
+
+        ImageButton galleryButton = findViewById(R.id.gallery_button);
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
+                startActivity(galleryIntent);
+            }
+        });
+
+        ImageButton slideshowButton = findViewById(R.id.slideshow_button);
+        slideshowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
+                startActivity(galleryIntent);
             }
         });
     }
