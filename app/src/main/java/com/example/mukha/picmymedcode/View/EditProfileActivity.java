@@ -21,24 +21,26 @@ public class EditProfileActivity extends AppCompatActivity {
 
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
 
-        TextView showUsername = (TextView)findViewById(R.id.username);
-        showUsername.setText(user.getUsername());
+        //TextView showUsername = (TextView)findViewById(R.id.username);
+        //showUsername.setText(user.getUsername());
 
         EditText showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
         showPhoneNumber.setText(user.getPhoneNumber());
 
         EditText showEmail = (EditText)findViewById(R.id.enteredEmail);
-        showEmail.setHint(user.getEmail());
+        showEmail.setText(user.getEmail());
 
-/*
-        Button editProfileButton = findViewById(R.id.editProfile_button);
+
+        Button editProfileButton = findViewById(R.id.updateButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent problemIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
                 startActivity(problemIntent);
             }
-        }); */
+        });
     }
 
 }
