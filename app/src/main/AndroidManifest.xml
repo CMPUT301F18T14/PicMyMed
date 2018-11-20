@@ -35,6 +35,8 @@
             android:label="Record"/>
         <activity android:name=".View.AddRecordActivity"
             android:label="New Record"/>
+        <activity android:name=".View.CareProviderActivity"
+            android:label="Care Provider"/>
     </application>
 
 </manifest>

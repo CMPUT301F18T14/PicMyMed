@@ -39,6 +39,7 @@ public class newUsernameActivity extends AppCompatActivity {
                 // This was previously done to pass user to problem activity, but we decided to redirect to login page
                 /*Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
                 startActivity(problemIntent);*/
+                Intent logInScreenIntent = new Intent(newUsernameActivity.this, MainActivity.class);
                 User user = null;
                 try {
                     if (userType.equals("patient")) {
@@ -53,9 +54,8 @@ public class newUsernameActivity extends AppCompatActivity {
                     toastMessage("Error: Username already exists, please try another one.");
                 } else {
                     toastMessage("Account successfully created. Please login.");
+                    startActivity(logInScreenIntent);
                     finish();
-
-
                 }
 
             }

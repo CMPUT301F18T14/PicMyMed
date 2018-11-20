@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(problemIntent);
                     }
                     else {
-                        toastMessage("Careprovider activity to be implemented.");
+                        //toastMessage("Careprovider activity to be implemented.");
+                        Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
+                        startActivity(patientIntent);
                     }
 
                 } else {
