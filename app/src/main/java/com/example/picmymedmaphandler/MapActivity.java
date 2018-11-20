@@ -1,11 +1,21 @@
-/**
- * This Class Handles
- *              Drawing the Map,
- *              Selecting Location on the Map
- *              Retriving information from the selected location
- *              Pinpointing all the locations
+/*
+ * MapActivity
  *
- * @Date November 13, 2018
+ * 1.1
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 package com.example.picmymedmaphandler;
@@ -57,6 +67,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MapActivity extends AppCompatActivity and implements OnMapReadyCallback to handle
+ *              Drawing the Map,
+ *              Selecting Location on the Map
+ *              Retrieving information from the selected location
+ *              Pinpointing all the locations
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -88,6 +109,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private PlaceInformation mPlace; // Filtered out location information object
 
+    /**
+     * Method creates the MapActivity state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +128,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * This method gets the permission to access the location.
      * Upon checking for permission it initializes the Map to be drawn on the Layout
      */
-
     private void getLocationPermission() {
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -125,7 +150,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     /**
      * This method initializes all the handler operations.
      */
-
     private void init(){
         Log.d(TAG, "init: initializing");
 
@@ -185,7 +209,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     /**
-     * This Overriden method checks if all the permissions have been granted.
+     * This Overridden method checks if all the permissions have been granted.
+     *
      * @param requestCode the request that has been made
      * @param permissions An array containing all the permission type parameters
      * @param grantResults An array holding the SuccessCode for the granted permissions
@@ -217,6 +242,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * This method draws the device location on the map
+     *
      * @param googleMap instance of GoogleMap object
      */
     @Override
@@ -278,6 +304,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * This method directs the field camera to the appropriate location.
+     *
      * @param latLng Instance of LatLng object that contains the latitude and longitude
      * @param zoom Contains the level of Zooming which is a floating number
      * @param title The title of the location
@@ -334,6 +361,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * This method supposed to check for connection drop
+     *
      * @param connectionResult Checks if connect is intact
      */
     @Override

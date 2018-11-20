@@ -57,6 +57,11 @@ public class GalleryActivity extends AppCompatActivity {
 
     private LoadingImageFiles loadingImageFiles;
 
+    /**
+     * Method loads state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

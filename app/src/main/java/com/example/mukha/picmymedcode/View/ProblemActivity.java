@@ -1,20 +1,19 @@
 /*
  * ProblemActivity
  *
- * 1.1
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
- * November 16, 2018
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * Copyright 2018 CMPUT301F18T14. All rights reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package com.example.mukha.picmymedcode.View;
 
@@ -94,14 +93,17 @@ public class ProblemActivity extends AppCompatActivity {
 
         Button profileButton = findViewById(R.id.profile_button);
         profileButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on profile button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
             }
         });
-
-
 
     }
 
@@ -136,7 +138,8 @@ public class ProblemActivity extends AppCompatActivity {
     }
 
     /**
-     * Method loads data from saved file
+     * Method loads data from saved file. No longer implemented as app loads from
+     * database rather than local now
      */
     private void loadFromFile() {
         try {
@@ -156,7 +159,7 @@ public class ProblemActivity extends AppCompatActivity {
     }
 
     /**
-     * Problem saves data to file
+     * Problem saves data to file. No longer implemented since app saves to database now.
      */
     private void saveInFile() {
         try {

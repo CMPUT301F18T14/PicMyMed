@@ -75,6 +75,11 @@ public class SlideshowActivity extends AppCompatActivity {
 
     private final int PERIOD_TIME = 4000;       // The period time for the handler
 
+    /**
+     * Method loads activity state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

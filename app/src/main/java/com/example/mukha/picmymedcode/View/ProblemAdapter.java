@@ -3,18 +3,19 @@
  *
  * 1.1
  *
- * November 16, 2018
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
- * Copyright 2018 CMPUT301F18T14. All rights reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package com.example.mukha.picmymedcode.View;
 
@@ -41,7 +42,8 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
- * ProblemAdapter extends AppCompat Activity to create an activity for the user to
+ * ProblemAdapter extends ecyclerView.Adapter<ProblemAdapter.PorblemViewHolder>
+ * to create an activity for the user to
  * add a record to a problem
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
@@ -84,20 +86,30 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
         this.context = context; //collection of data
     }
 
-
+    /**
+     * Method checks if the existing view is being reused, otherwise it inflates the view
+     *
+     * @param parent    ViewGroup
+     * @param viewType  viewType
+     * @return          myViewHolder
+     */
     @NonNull
     @Override
     public PorblemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Check if the existing view is being reused, otherwise inflate the view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.problemcard_layout,parent,false);
         PorblemViewHolder myViewHolder = new PorblemViewHolder(view);
         return myViewHolder;
     }
 
+    /**
+     * Method gets element from the dataset at a certain position and replaces contents of the view
+     * with that element
+     *
+     * @param myViewHolder  PorblemViewHolder
+     * @param listPosition  int
+     */
     @Override
     public void onBindViewHolder(@NonNull final PorblemViewHolder myViewHolder, final int listPosition) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         TextView problemTitleTextView = myViewHolder.problemTitleTextView;
         problemTitleTextView.setText(problems.get(listPosition).getTitle());
         myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +124,11 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
 
 
         myViewHolder.problemMoreTextView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on an item in the view
+             *
+             * @param view  View
+             */
             @Override
             public void onClick(View view) {
 
@@ -149,12 +166,19 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
 
     }
 
-
+    /**
+     * Method gets number of problems
+     *
+     * @return  int
+     */
     @Override
     public int getItemCount() {
         return (problems == null) ? 0 : problems.size();
     }
 
+    /**
+     * Method saved data to file. No longer implemented, data now saved to database
+     */
     private void saveInFile() {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME,

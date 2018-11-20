@@ -1,7 +1,9 @@
-package com.example.picmymedmaphandler;
-
 /*
- * Copyright (C) 2015 Google Inc. All Rights Reserved.
+ * PlaceAutocompleteAdapter
+ *
+ * 1.1
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,6 +17,8 @@ package com.example.picmymedmaphandler;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+package com.example.picmymedmaphandler;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -45,7 +49,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Adapter that handles Autocomplete requests from the Places Geo Data Client.
+ * PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePrediction> and implements Filterable
+ * Adapter  handles Autocomplete requests from the Places Geo Data Client.
  * {@link AutocompletePrediction} results from the API are frozen and stored directly in this
  * adapter. (See {@link AutocompletePrediction#freeze()}.)
  */

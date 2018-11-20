@@ -1,3 +1,22 @@
+/*
+ * RecordActivity
+ *
+ * 1.1
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
@@ -30,6 +49,14 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * RecordActivity extends AppCompatActivity to create an activity for the user to
+ * view and manage problems
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class RecordActivity extends AppCompatActivity{
     private static final String FILENAME = "file.sav";
     private RecyclerView mRecyclerView;
@@ -38,7 +65,11 @@ public class RecordActivity extends AppCompatActivity{
     public ArrayList<Problem> problemArrayList;
     int position;
 
-
+    /**
+     * Method initializes RecordActivity state
+     *
+     * @param savedInstanceState    Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity_test_scroll);
@@ -53,6 +84,11 @@ public class RecordActivity extends AppCompatActivity{
 
         Button addRecordButton = findViewById(R.id.record_save_button);
         addRecordButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking add record button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
@@ -64,6 +100,11 @@ public class RecordActivity extends AppCompatActivity{
 
         ImageButton galleryButton = findViewById(R.id.gallery_button);
         galleryButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking gallery button to view photos
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
@@ -73,6 +114,11 @@ public class RecordActivity extends AppCompatActivity{
 
         ImageButton slideshowButton = findViewById(R.id.slideshow_button);
         slideshowButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking slideshow button to view photo slideshow
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
@@ -81,6 +127,9 @@ public class RecordActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * Method manages recycler view to view records
+     */
     public void manageRecyclerview(){
         mRecyclerView = findViewById(R.id.record_recycle_view);
         mRecyclerView.setHasFixedSize(true);
@@ -90,6 +139,9 @@ public class RecordActivity extends AppCompatActivity{
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Method starts the RecordActivity by getting the user and their problems
+     */
     protected void onStart() {
         // TODO Auto-generated method stub
 
@@ -104,6 +156,9 @@ public class RecordActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Method loaded from file. No longer implemented, now loading from database
+     */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -121,7 +176,9 @@ public class RecordActivity extends AppCompatActivity{
         }
     }
 
-
+    /**
+     * Method saved data to file. No longer implemented, now saving to database
+     */
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,

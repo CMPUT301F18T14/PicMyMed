@@ -89,6 +89,11 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private static final int RESIZING_HEIGHT = 300;
 
+    /**
+     * Method loads activity state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +131,13 @@ public class PhotoIntentActivity extends AppCompatActivity {
         });
     }
 
-    // Getting the image back from the camera intent, and processes the image
+    /**
+     * Method gets the image back from the camera intent and processes the image
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {

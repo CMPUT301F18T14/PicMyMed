@@ -53,6 +53,11 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
     private final static String TAG = "PhotoEnlargeActivity: ";
 
+    /**
+     * Method loads activity state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
