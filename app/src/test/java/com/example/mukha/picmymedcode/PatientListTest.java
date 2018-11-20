@@ -30,7 +30,7 @@ public class PatientListTest extends TestCase {
 
     @Test
     public void testGetPatient() {
-        ArrayList<Patient> patientList = new ArrayList<Patient>;
+        ArrayList<Patient> patientList = new ArrayList<Patient>();
         Patient newPatient = new Patient("Daenerys Targaryen", "motherofdragons@got.ca", "+9-999-999-9999");
         patientList.add(newPatient);
 
