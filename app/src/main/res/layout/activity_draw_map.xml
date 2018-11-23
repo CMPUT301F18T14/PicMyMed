@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        tools:context=".MapsActivity" />
 
     <RelativeLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/white_boarder"
-        android:id="@+id/search_bar">
+        android:background="@drawable/white_boarder">
 
         <ImageView
+            android:id="@+id/search_mag_icon"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:id="@+id/search_mag_icon"
             android:layout_centerVertical="true"
-            android:src="@drawable/search_mag_icon" />
+            android:src="@drawable/icon_magnify" />
 
         <AutoCompleteTextView
+            android:id="@+id/input_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/search_mag_icon"
             android:layout_centerVertical="true"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:id="@+id/input_search"
+            android:layout_toRightOf="@id/search_mag_icon"
             android:background="@null"
             android:hint="Enter Address, City or Zip Code"
-            android:imeOptions="actionSearch"/>
+            android:imeOptions="actionSearch"
+            android:textColor="#000"
+            android:textSize="15sp"/>
 
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/icon_gps"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@id/search_bar"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:scaleType="centerCrop"
-        android:id="@+id/icon_gps"
         android:src="@drawable/icon_gps"/>
+
+    <ImageView
+        android:id="@+id/icon_add"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/icon_gps"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_add_1" />
 
 </RelativeLayout>
