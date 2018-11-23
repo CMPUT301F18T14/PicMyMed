@@ -19,6 +19,9 @@
  */
 
 package com.example.mukha.picmymedcode.Model;
+
+import android.graphics.Bitmap;
+
 /**
  * Photo class sets the file path of a photo and returns it
  *
@@ -27,7 +30,9 @@ package com.example.mukha.picmymedcode.Model;
  * @since   1.1
  */
 public class Photo {
-    private final String filepath;
+    private int photoID;
+    private String filepath;
+    private Byte[] bitmapData;
     /**
      * Construct initializes the variables
      *
@@ -36,6 +41,13 @@ public class Photo {
     public Photo(String filepath) {
         this.filepath = filepath;
     }
+
+    /**
+     * Constructor initializes the member variables
+     *
+     * @param bitmapData    Byte[] containing bitmapdata
+     */
+    public Photo(Byte[] bitmapData) { this.bitmapData = bitmapData; }
     /**
      * Method gets the file path of the photo
      *
@@ -43,5 +55,14 @@ public class Photo {
      */
     public String getPhotoPath() {
         return this.filepath;
+    }
+
+    /**
+     * Method gets the byte array of bitmap data
+     *
+     * @return  Byte[]      A byte array of bitmap data
+     */
+    public Byte[] getBitmapData() {
+        return this.bitmapData;
     }
 }
