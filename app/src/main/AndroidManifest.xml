@@ -5,7 +5,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -35,6 +35,8 @@
             android:label="Enter Username"/>
         <activity android:name=".View.SignUpActivity"
             android:label="Sign Up"/>
+        <activity android:name=".View.ScanQR"
+            android:label="ScanQR"/>
         <activity android:name=".View.ProblemActivity"
             android:label="Problem"/>
         <activity android:name=".View.AddProblemActivity"

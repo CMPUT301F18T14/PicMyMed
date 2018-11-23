@@ -43,19 +43,37 @@ import com.example.mukha.picmymedcode.R;
  * @since   1.1
  */
 public class MainActivity extends AppCompatActivity {
-
+    //public static String tvresult = null;
     /**
      * Method initializes the main activity
      *
      * @param savedInstanceState    Bundle
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
+        if (tvresult != null){
+            if (PicMyMedController.checkLogin(tvresult) == 1) {
+                if(PicMyMedApplication.getLoggedInUser().isPatient()){
+                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                    startActivity(problemIntent);
+                }
+                else {
+                    //toastMessage("Careprovider activity to be implemented.");
+                    Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
+                    startActivity(patientIntent);
+                }
 
-
-        Button loginBtn = (Button) findViewById(R.id.loginButton);
+            } else {
+                Toast.makeText(MainActivity.this, "Invalid username",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+*/
+        Button loginBtn = findViewById(R.id.loginButton);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             /**
              * Method handles user clicking the login button
@@ -87,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button signupBtn = (Button) findViewById(R.id.signUpButton);
+        Button signupBtn = findViewById(R.id.signUpButton);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             /**
              * Method handles the user clicking the sign up button
@@ -99,9 +117,17 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(problemIntent);
-                //finish();
             }
         });
+
+        Button scanqrBtn =  findViewById(R.id.scanQR);
+        scanqrBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ScanQR.class));
+            }
+        });
+
     }
 
     /**

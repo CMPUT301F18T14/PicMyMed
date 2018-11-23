@@ -56,4 +56,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
 
+    // Add Zxing library to generate barcode
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    // Add Zxing library to scan barcodeimim
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 }
