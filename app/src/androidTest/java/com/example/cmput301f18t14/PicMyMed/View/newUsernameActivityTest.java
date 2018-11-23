@@ -1,0 +1,32 @@
+package com.example.cmput301f18t14.PicMyMed.View;
+
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.rule.ActivityTestRule;
+
+import com.example.cmput301f18t14.PicMyMed.R;
+
+import org.junit.Rule;
+import org.junit.Test;
+
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
+public class newUsernameActivityTest {
+    @Rule
+    public ActivityTestRule<newUsernameActivity> newUsernameActivityTestRuleActivity =
+            new ActivityTestRule<newUsernameActivity>(newUsernameActivity.class);
+
+    /**
+     * Testing new signup activity
+     */
+    @Test
+    public void testNewSignup(){
+
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText("NewGuc"));
+
+        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
+    }
+
+}

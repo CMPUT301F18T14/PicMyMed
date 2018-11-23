@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.cmput301f18t14.PicMyMed.R;
 
 import java.util.ArrayList;
 

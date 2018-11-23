@@ -26,7 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.cmput301f18t14.PicMyMed.R;
 
 import java.util.ArrayList;
 

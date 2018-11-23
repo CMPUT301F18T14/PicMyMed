@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.cmput301f18t14.PicMyMed.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
