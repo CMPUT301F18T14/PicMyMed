@@ -21,14 +21,17 @@ package com.example.mukha.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
 import com.example.mukha.picmymedcode.Controller.PicMyMedController;
+import com.example.mukha.picmymedcode.Model.Geolocation;
 import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
@@ -60,6 +63,9 @@ public class AddRecordActivity extends AppCompatActivity{
     //RecordList recordList = new RecordList();
     public ArrayList<Problem> arrayListProblem;
     private static final String FILENAME = "file.sav";
+    private static final int LAT_LNG_REQUEST_CODE = 786;
+    private TextView locationNameTextView;
+    private Geolocation geolocation;
     int position;
 
     /**
@@ -74,6 +80,7 @@ public class AddRecordActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_activity);
+        locationNameTextView = (TextView) findViewById(R.id.location_text);
         final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
         final EditText recordDescriptionEditText = findViewById(R.id.record_description_edit_text);
 
@@ -82,7 +89,7 @@ public class AddRecordActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent mapIntent = new Intent(AddRecordActivity.this,DrawMapActivity.class);
-                startActivity(mapIntent);
+                startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
             }
         });
 
@@ -106,6 +113,9 @@ public class AddRecordActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Record record = new Record (recordTitleEditText.getText().toString());
                 record.setDescription(recordDescriptionEditText.getText().toString());
+                if(geolocation!=null) {
+                    record.setLocation(geolocation);
+                }
                 position = getIntent().getIntExtra("key",0);
                 Problem problem = arrayListProblem.get(position);
                 PicMyMedController.addRecord(problem, record);
@@ -167,6 +177,24 @@ public class AddRecordActivity extends AppCompatActivity{
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == LAT_LNG_REQUEST_CODE) {
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longtitude = data.getDoubleExtra("longitude", 0);
+            if (latitude != 0 && longtitude != 0) {
+                geolocation = new Geolocation(latitude, longtitude);
+                try {
+                    geolocation.setLocationName(this.getApplicationContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                locationNameTextView.setText(geolocation.getLocationName());
+            }
         }
     }
 }

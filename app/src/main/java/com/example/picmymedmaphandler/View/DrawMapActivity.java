@@ -1,5 +1,6 @@
 package com.example.picmymedmaphandler.View;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -21,10 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mukha.picmymedcode.R;
+import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
 import com.example.picmymedmaphandler.Model.PlaceInformation;
 import com.example.picmymedmaphandler.View.PlaceAutocompleteAdapter;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -45,6 +48,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DrawMapActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -55,6 +59,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     private final static String TAG = "DrawMapActivity: ";
+    private static final int ERROR_DIALOG_REQUEST = 9001;
     private final static String DEVICE_LOCATION_TITLE = "Current Location";
     private final static float MAP_ZOOM_LEVEL = 10f; // 15: Able to View Streets
     private final static LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(0, 0), new LatLng(0, 0));//new LatLngBounds(new LatLng(85, -180), new LatLng(-85, 180)); // Maximum bound for google Map
@@ -73,7 +78,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_map);
 
-        initialTaskInActivity();
+        if (isServicesOK()) {
+            initialTaskInActivity();
+        }
 
     }
 
@@ -169,6 +176,10 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked Add icon");
                 // There should be more code
+                Intent backToAddRecordActivity = new Intent();
+                backToAddRecordActivity.putExtra("latitude", mLatLng.latitude);
+                backToAddRecordActivity.putExtra("longitude", mLatLng.longitude);
+                setResult(RESULT_OK, backToAddRecordActivity);
                 finish();
 
             }
@@ -285,6 +296,49 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private void hideSoftKeyBoard(){
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
+
+
+    // Checking the version of google play services
+    public boolean isServicesOK() {
+        Log.d(TAG, "isServicesOK: checking google services version");
+
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(DrawMapActivity.this);
+
+        if (available == ConnectionResult.SUCCESS) {
+            // Everything is fine; User can make map request
+            Log.d(TAG, "isServicesOK: GooglePlayServices is working.");
+            return true;
+        }
+
+        else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
+            // An error occurred but can be resolved
+            Log.d(TAG, "isServicesOK: an error occurred but can be fixed.");
+
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(DrawMapActivity.this, available, ERROR_DIALOG_REQUEST);
+            dialog.show();
+        }
+
+        else {
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+//    private String getPlaceName(LatLng latLng) throws IOException {
+//        Geocoder geocoder;
+//        List<Address> addresses;
+//        geocoder = new Geocoder(this, Locale.getDefault());
+//
+//        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+//
+//        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+//        String city = addresses.get(0).getLocality();
+//        String state = addresses.get(0).getAdminArea();
+//        String country = addresses.get(0).getCountryName();
+//        String postalCode = addresses.get(0).getPostalCode();
+//        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+//        return address;
+//    }
 
     /*
         --------------------------- google places API autocomplete suggestions handlers -----------------

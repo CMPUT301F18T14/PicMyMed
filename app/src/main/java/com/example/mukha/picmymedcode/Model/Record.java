@@ -37,7 +37,7 @@ public class Record {
     private String title;
     private String comment;
     private String description;
-    private Location geolocation;
+    private Geolocation geolocation;
     private ArrayList<Photo> photoList;
     private BodyLocation bodyLocation;
     private final Date timeStamp;
@@ -51,7 +51,7 @@ public class Record {
         this.title = title;
         this.comment = "";  // Avoid null pointer exception
         this.description = "no description";
-        this.geolocation = new Location("");
+        this.geolocation = new Geolocation();
         this.photoList = new ArrayList<Photo>();
         this.bodyLocation = new BodyLocation();
         this.timeStamp = new Date();
@@ -117,7 +117,7 @@ public class Record {
      *
      * @return geolocation
      */
-    public Location getGeolocation() {
+    public Geolocation getGeolocation() {
         return geolocation;
     }
 
@@ -126,7 +126,7 @@ public class Record {
      *
      * @param location Location
      */
-    public void setLocation(Location location) { this.geolocation = location; }
+    public void setLocation(Geolocation location) { this.geolocation = location; }
 
     /**
      * Method sets photo list for the record

@@ -27,11 +27,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="camera"/>
-    <Button
-        android:id="@+id/record_geo_button"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="geolocation"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/record_geo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="geolocation"/>
+        <TextView
+            android:id="@+id/location_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"/>
+    </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
