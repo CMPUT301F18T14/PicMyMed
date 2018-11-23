@@ -15,20 +15,15 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mukha.picmymedcode.R;
-import com.example.picmymedmaphandler.Controller.MapButtonActivity;
+import com.example.cmput301f18t14.PicMyMed.R;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
 import com.example.picmymedmaphandler.Model.PlaceInformation;
-import com.example.picmymedmaphandler.View.PlaceAutocompleteAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -48,7 +43,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class DrawMapActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
