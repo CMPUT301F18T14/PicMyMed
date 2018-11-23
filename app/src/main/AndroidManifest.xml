@@ -66,9 +66,9 @@
             android:exported="true"
             android:label="Take Photos" />
         <activity
-            android:name="com.example.picmymedmaphandler.MapActivity"
-            android:exported="true"
-            android:label="Map" />
+            android:name="com.example.picmymedmaphandler.View.DrawMapActivity" />
+        <activity android:name="com.example.picmymedmaphandler.Controller.MapButtonActivity"
+            android:exported="true"/>
         <activity
             android:name="com.example.android.picmymedphotohandler.GalleryActivity"
             android:exported="true"
@@ -103,8 +103,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name="com.example.picmymedmaphandler.DrawMapActivity" />
-        <activity android:name="com.example.picmymedmaphandler.Controller.MapButtonActivity"></activity>
     </application>
 
 </manifest>

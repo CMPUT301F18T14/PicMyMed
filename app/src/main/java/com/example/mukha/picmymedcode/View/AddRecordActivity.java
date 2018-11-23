@@ -33,7 +33,7 @@ import com.example.mukha.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.example.mukha.picmymedcode.Model.Record;
-import com.example.picmymedmaphandler.MapActivity;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -81,7 +81,7 @@ public class AddRecordActivity extends AppCompatActivity{
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mapIntent = new Intent(AddRecordActivity.this,MapActivity.class);
+                Intent mapIntent = new Intent(AddRecordActivity.this,DrawMapActivity.class);
                 startActivity(mapIntent);
             }
         });
