@@ -43,7 +43,8 @@ import com.example.cmput301f18t14.PicMyMed.R;
  * @since   1.1
  */
 public class MainActivity extends AppCompatActivity {
-
+    public static TextView tvresult;
+    private  Button btn;
     /**
      * Method initializes the main activity
      *
@@ -100,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(problemIntent);
                 //finish();
+            }
+        });
+
+        tvresult = (TextView) findViewById(R.id.tvresult);
+
+        btn = (Button) findViewById(R.id.btn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+                startActivity(intent);
             }
         });
     }

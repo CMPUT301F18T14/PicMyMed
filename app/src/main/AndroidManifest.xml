@@ -38,6 +38,9 @@
             android:name="com.example.cmput301f18t14.PicMyMed.View.ProblemActivity"
             android:label="Problem" />
         <activity
+            android:name="com.example.cmput301f18t14.PicMyMed.View.ScanActivity"
+            android:label="Scan Activity" />
+        <activity
             android:name="com.example.cmput301f18t14.PicMyMed.View.AddProblemActivity"
             android:label="New Problem" />
         <activity

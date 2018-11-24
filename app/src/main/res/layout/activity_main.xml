@@ -23,10 +23,24 @@
         android:text="Log in" />
 
     <Button
-        android:id="@+id/signUpButton"
+    android:id="@+id/signUpButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/app_bar"
+    android:text="Sign Up" />
+
+    <Button
+        android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_bar"
         android:text="Sign Up" />
+
+    <TextView
+        android:id="@+id/tvresult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR "/>
+
 
 </LinearLayout>
