@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-path name="PIC_MY_MED_IMAGES" path="Android/data/com.example.mukha.picmymedcode/files/Pictures" />
+    <external-path name="PIC_MY_MED_IMAGES" path="Android/data/com.example.cmput301f18t14.picmymedcode/files/Pictures" />
 </paths>

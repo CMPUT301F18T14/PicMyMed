@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.cmput301f18t14.picmymed.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -89,6 +89,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private static final int RESIZING_HEIGHT = 300;
 
+    private String problemID;
+
     /**
      * Method loads activity state
      *
@@ -112,6 +114,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
 //                    "You can only have 10 photos per records.",
 //                    Toast.LENGTH_LONG).show();
 //        }
+
+        problemID = getIntent().getStringExtra("problemID");
 
         cameraButton = (Button) findViewById(R.id.camera_button);
 

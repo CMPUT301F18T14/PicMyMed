@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mukha.picmymedcode">
+    package="com.example.cmput301f18t14.picmymed">
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -65,10 +66,10 @@
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
             android:exported="true"
             android:label="Take Photos" />
+        <activity android:name="com.example.picmymedmaphandler.View.DrawMapActivity" />
         <activity
-            android:name="com.example.picmymedmaphandler.View.DrawMapActivity" />
-        <activity android:name="com.example.picmymedmaphandler.Controller.MapButtonActivity"
-            android:exported="true"/>
+            android:name="com.example.picmymedmaphandler.Controller.MapButtonActivity"
+            android:exported="true" />
         <activity
             android:name="com.example.android.picmymedphotohandler.GalleryActivity"
             android:exported="true"
@@ -87,6 +88,9 @@
             android:required="false" />
 
         <meta-data
+            android:name="com.google.android.gms.version.DEPENDENCIES"
+            android:value="barcode" />
+        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
@@ -103,6 +107,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity
+            android:name="com.example.QRcode.GeneratorActivity"
+            android:exported="true" />
+        <activity android:name="com.example.QRcode.ScannerActivity"></activity>
     </application>
 
 </manifest>

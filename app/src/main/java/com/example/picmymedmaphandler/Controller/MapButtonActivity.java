@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.cmput301f18t14.picmymed.R;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
