@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.QRcode.GeneratorActivity;
 import com.example.cmput301f18t14.PicMyMed.Controller.PicMyMedApplication;
 import com.example.cmput301f18t14.PicMyMed.Controller.PicMyMedController;
 import com.example.cmput301f18t14.PicMyMed.R;
@@ -99,6 +100,22 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(problemIntent);
+                //finish();
+            }
+        });
+
+        Button QRBtn = (Button) findViewById(R.id.qrButton);
+        QRBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles the user clicking the sign up button
+             *
+             * @param v View
+             */
+            public void onClick(View v) {
+                //signupPopUpWindow();
+
+                Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
+                startActivity(qrIntent);
                 //finish();
             }
         });
