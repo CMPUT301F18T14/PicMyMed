@@ -28,7 +28,7 @@ import android.widget.EditText;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 /**
  * EditProfileActivity extends AppCompatActivity and

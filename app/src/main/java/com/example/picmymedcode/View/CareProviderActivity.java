@@ -34,7 +34,7 @@ import android.widget.Toast;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 

@@ -32,7 +32,7 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Problem;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;

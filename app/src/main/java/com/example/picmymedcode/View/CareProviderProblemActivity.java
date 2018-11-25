@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.CareProvider;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 /**
  * CareProviderProblemActivity extends AppCompatActivity
