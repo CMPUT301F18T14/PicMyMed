@@ -154,6 +154,7 @@ public class PicMyMedController {
 
     }
 
+
     /**
      * Method adds new problems to elastic search. problem is added to the user
      * Database is updated
@@ -289,5 +290,29 @@ public class PicMyMedController {
             return 1;
         }
 
+    }
+    public static ArrayList<Patient> getAllPatients() {
+        ArrayList<Patient> patients = null;
+        ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
+        getAllPatients.execute();
+        try {
+            patients = getAllPatients.get();
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+
+        }
+        return patients;
+    }
+    public static ArrayList<CareProvider> getAllCareProviders() {
+        ArrayList<CareProvider> careProviders = null;
+        ElasticSearchController.GetAllCareProviders getAllCareProviders = new ElasticSearchController.GetAllCareProviders();
+        getAllCareProviders.execute();
+        try {
+            careProviders = getAllCareProviders.get();
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+
+        }
+        return careProviders;
     }
 }
