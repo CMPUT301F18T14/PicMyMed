@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".View.MainActivity">
+        <activity android:name="com.example.picmymedcode.View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,37 +29,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.newUsernameActivity"
+            android:name="com.example.picmymedcode.View.newUsernameActivity"
             android:label="Enter Username" />
         <activity
-            android:name=".View.SignUpActivity"
+            android:name="com.example.picmymedcode.View.SignUpActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".View.ProblemActivity"
+            android:name="com.example.picmymedcode.View.ProblemActivity"
             android:label="Problem" />
         <activity
-            android:name=".View.AddProblemActivity"
+            android:name="com.example.picmymedcode.View.AddProblemActivity"
             android:label="New Problem" />
         <activity
-            android:name=".View.EditProblemActivity"
+            android:name="com.example.picmymedcode.View.EditProblemActivity"
             android:label="Edit Problem" />
         <activity
-            android:name=".View.RecordActivity"
+            android:name="com.example.picmymedcode.View.RecordActivity"
             android:label="Record" />
         <activity
-            android:name=".View.AddRecordActivity"
+            android:name="com.example.picmymedcode.View.AddRecordActivity"
             android:label="New Record" />
         <activity
-            android:name=".View.ProfileActivity"
+            android:name="com.example.picmymedcode.View.ProfileActivity"
             android:label="Profile" />
         <activity
-            android:name=".View.EditProfileActivity"
+            android:name="com.example.picmymedcode.View.EditProfileActivity"
             android:label="Edit Profile" />
         <activity
-            android:name=".View.CareProviderActivity"
+            android:name="com.example.picmymedcode.View.CareProviderActivity"
             android:label="Care Provider" />
         <activity
-            android:name=".View.CareProviderProblemActivity"
+            android:name="com.example.picmymedcode.View.CareProviderProblemActivity"
             android:label="Patient&apos;s Problems" />
         <activity
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"

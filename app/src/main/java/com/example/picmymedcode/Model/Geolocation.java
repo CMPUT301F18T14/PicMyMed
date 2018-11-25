@@ -17,14 +17,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.Model;
+package com.example.picmymedcode.Model;
 
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.List;

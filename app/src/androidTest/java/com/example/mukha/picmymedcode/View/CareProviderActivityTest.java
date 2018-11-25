@@ -1,23 +1,16 @@
 package com.example.mukha.picmymedcode.View;
 
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.PerformException;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
-import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
-import com.example.mukha.picmymedcode.Model.CareProvider;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.CareProvider;
 import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.View.CareProviderActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.util.Date;
 
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 

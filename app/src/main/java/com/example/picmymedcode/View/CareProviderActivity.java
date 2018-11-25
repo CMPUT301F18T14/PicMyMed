@@ -17,7 +17,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.View;
+package com.example.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,9 +31,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
-import com.example.mukha.picmymedcode.Model.CareProvider;
-import com.example.mukha.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.CareProvider;
+import com.example.picmymedcode.Model.Patient;
 import com.example.mukha.picmymedcode.R;
 
 import java.util.ArrayList;

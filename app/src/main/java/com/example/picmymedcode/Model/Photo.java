@@ -18,9 +18,7 @@
  *  limitations under the License.
  */
 
-package com.example.mukha.picmymedcode.Model;
-
-import android.graphics.Bitmap;
+package com.example.picmymedcode.Model;
 
 /**
  * Photo class sets the file path of a photo and returns it

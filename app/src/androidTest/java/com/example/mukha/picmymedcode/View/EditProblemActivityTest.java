@@ -1,39 +1,25 @@
 package com.example.mukha.picmymedcode.View;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.PerformException;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
-import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.Problem;
-import com.example.mukha.picmymedcode.Model.User;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.View.EditProblemActivity;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Date;
-
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
 public class EditProblemActivityTest {

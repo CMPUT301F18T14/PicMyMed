@@ -3,7 +3,7 @@
 
 package com.example.mukha.picmymedcode;
 
-import com.example.mukha.picmymedcode.Model.CareProvider;
+import com.example.picmymedcode.Model.CareProvider;
 
 
 import junit.framework.TestCase;

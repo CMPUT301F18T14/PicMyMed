@@ -2,9 +2,9 @@ package com.example.mukha.picmymedcode;
 
 import android.location.Location;
 
-import com.example.mukha.picmymedcode.Model.Photo;
-import com.example.mukha.picmymedcode.Model.Record;
-import com.example.mukha.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.Photo;
+import com.example.picmymedcode.Model.Record;
+import com.example.picmymedcode.Model.BodyLocation;
 
 import junit.framework.TestCase;
 

@@ -18,7 +18,7 @@
  *  limitations under the License.
  */
 
-package com.example.mukha.picmymedcode.Model;
+package com.example.picmymedcode.Model;
 
 import java.util.ArrayList;
 
