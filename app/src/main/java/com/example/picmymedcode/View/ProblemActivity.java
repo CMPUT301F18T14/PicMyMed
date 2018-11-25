@@ -1,7 +1,5 @@
 /*
- * RecordActivity
- *
- * 1.1
+ * ProblemActivity
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -17,23 +15,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.View;
+package com.example.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-import com.example.android.picmymedphotohandler.GalleryActivity;
-import com.example.android.picmymedphotohandler.SlideshowActivity;
-import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,116 +42,103 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * RecordActivity extends AppCompatActivity to create an activity for the user to
+ * ProblemActivity extends AppCompatActivity to create an activity for the user to
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class RecordActivity extends AppCompatActivity{
+public class ProblemActivity extends AppCompatActivity {
     private static final String FILENAME = "file.sav";
+    public Date date;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
+    private View.OnClickListener mListener;
+    public Patient patient;
     public ArrayList<Problem> problemArrayList;
-    int position;
 
     /**
-     * Method initializes RecordActivity state
+     * Method initiates problem activity
      *
-     * @param savedInstanceState    Bundle
+     * @param savedInstanceState Bundle
      */
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.record_activity_test_scroll);
+        setContentView(R.layout.problem_activity);
 
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
-        //loadFromFile();
         manageRecyclerview();
-        position = getIntent().getIntExtra("key",0);
-        String name = problemArrayList.get(position).getTitle();
-        getSupportActionBar().setTitle(name);
 
-        Button addRecordButton = findViewById(R.id.record_save_button);
-        addRecordButton.setOnClickListener(new View.OnClickListener() {
+
+        Button addproblembutton = findViewById(R.id.problem_save_button);
+        addproblembutton.setOnClickListener(new View.OnClickListener() {
             /**
-             * Method handles user clicking add record button
+             * Method handles user clicking add problem button
              *
              * @param v View
              */
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
-                intent.putExtra("key",position);
-
-                startActivity(intent);
+                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
+                startActivity(problemIntent);
             }
         });
 
-        ImageButton galleryButton = findViewById(R.id.gallery_button);
-        galleryButton.setOnClickListener(new View.OnClickListener() {
+        Button profileButton = findViewById(R.id.profile_button);
+        profileButton.setOnClickListener(new View.OnClickListener() {
             /**
-             * Method handles user clicking gallery button to view photos
+             * Method handles user clicking on profile button
              *
              * @param v View
              */
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
-                startActivity(galleryIntent);
+                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
             }
         });
 
-        ImageButton slideshowButton = findViewById(R.id.slideshow_button);
-        slideshowButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking slideshow button to view photo slideshow
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent galleryIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
-                startActivity(galleryIntent);
-            }
-        });
     }
 
     /**
-     * Method manages recycler view to view records
+     * Method manages problem view layout
      */
     public void manageRecyclerview(){
-        mRecyclerView = findViewById(R.id.record_recycle_view);
+        //to clear my file
+        //problemArrayList.clear();
+        //saveInFile();
+        mRecyclerView = findViewById(R.id.problem_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     /**
-     * Method starts the RecordActivity by getting the user and their problems
+     * Method starts problem activity
      */
     protected void onStart() {
         // TODO Auto-generated method stub
-
         super.onStart();
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();
-
-
         //loadFromFile();
-        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
+        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
+
 
     }
 
     /**
-     * Method loaded from file. No longer implemented, now loading from database
+     * Method loads data from saved file. No longer implemented as app loads from
+     * database rather than local now
      */
     private void loadFromFile() {
         try {
@@ -177,7 +158,7 @@ public class RecordActivity extends AppCompatActivity{
     }
 
     /**
-     * Method saved data to file. No longer implemented, now saving to database
+     * Problem saves data to file. No longer implemented since app saves to database now.
      */
     private void saveInFile() {
         try {
@@ -196,5 +177,6 @@ public class RecordActivity extends AppCompatActivity{
             e.printStackTrace();
         }
     }
+
 
 }

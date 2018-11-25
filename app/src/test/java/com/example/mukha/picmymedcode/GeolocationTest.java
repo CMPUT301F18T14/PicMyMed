@@ -1,6 +1,6 @@
 package com.example.mukha.picmymedcode;
 
-import com.example.mukha.picmymedcode.Model.Geolocation;
+import com.example.picmymedcode.Model.Geolocation;
 
 import junit.framework.TestCase;
 

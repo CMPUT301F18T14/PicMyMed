@@ -17,7 +17,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.View;
+package com.example.picmymedcode.View;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mukha.picmymedcode.R;
-import com.example.mukha.picmymedcode.Model.Record;
+import com.example.picmymedcode.Model.Record;
 
 import java.util.ArrayList;
 

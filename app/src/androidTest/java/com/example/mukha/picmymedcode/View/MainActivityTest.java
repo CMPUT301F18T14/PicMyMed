@@ -5,6 +5,7 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.View.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

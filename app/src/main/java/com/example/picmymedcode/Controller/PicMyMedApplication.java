@@ -17,11 +17,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.Controller;
+package com.example.picmymedcode.Controller;
 
-import com.example.mukha.picmymedcode.Model.CareProvider;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.User;
+import com.example.picmymedcode.Model.CareProvider;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.User;
 
 /**
  * PicMyMedApplication handles the logged in user and their type (patient or care provider)

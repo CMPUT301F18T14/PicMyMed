@@ -8,10 +8,11 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
-import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.View.ProblemActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

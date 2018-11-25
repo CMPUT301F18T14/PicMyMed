@@ -17,7 +17,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.View;
+package com.example.picmymedcode.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,13 +29,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
-import com.example.mukha.picmymedcode.Controller.PicMyMedApplication;
-import com.example.mukha.picmymedcode.Controller.PicMyMedController;
-import com.example.mukha.picmymedcode.Model.Geolocation;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.Geolocation;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.mukha.picmymedcode.R;
-import com.example.mukha.picmymedcode.Model.Record;
+import com.example.picmymedcode.Model.Record;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

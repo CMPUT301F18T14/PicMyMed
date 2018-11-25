@@ -17,9 +17,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.example.mukha.picmymedcode.Model;
-
-import android.location.Location;
+package com.example.picmymedcode.Model;
 
 import java.util.ArrayList;
 import java.util.Date;

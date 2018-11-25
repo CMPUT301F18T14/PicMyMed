@@ -18,15 +18,14 @@
  *  limitations under the License.
  */
 
-package com.example.mukha.picmymedcode.Controller;
+package com.example.picmymedcode.Controller;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.mukha.picmymedcode.Model.CareProvider;
-import com.example.mukha.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.Model.Record;
-import com.example.mukha.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.CareProvider;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;

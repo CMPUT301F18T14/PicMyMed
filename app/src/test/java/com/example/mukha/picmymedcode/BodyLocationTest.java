@@ -1,7 +1,7 @@
 
 package com.example.mukha.picmymedcode;
 
-import com.example.mukha.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.BodyLocation;
 
 import junit.framework.TestCase;
 

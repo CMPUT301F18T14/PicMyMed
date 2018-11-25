@@ -1,11 +1,11 @@
 package com.example.mukha.picmymedcode.View;
 
-import android.app.Activity;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.View.SignUpActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import org.junit.Test;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.*;
 
 public class SignUpActivityTest {
 
