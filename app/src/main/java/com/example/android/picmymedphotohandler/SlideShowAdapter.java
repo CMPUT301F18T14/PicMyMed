@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 

@@ -21,7 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
 import com.example.picmymedmaphandler.Model.PlaceInformation;

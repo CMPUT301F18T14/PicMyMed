@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 import java.io.File;
 

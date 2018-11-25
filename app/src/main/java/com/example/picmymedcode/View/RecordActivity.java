@@ -33,7 +33,7 @@ import com.example.android.picmymedphotohandler.SlideshowActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

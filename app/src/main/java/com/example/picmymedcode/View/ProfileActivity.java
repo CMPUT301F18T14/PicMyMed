@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 /**
  * ProfileActivity extends AppCompatActivity to show a users phone and email and edit it

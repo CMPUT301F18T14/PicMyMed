@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 
 
 /**

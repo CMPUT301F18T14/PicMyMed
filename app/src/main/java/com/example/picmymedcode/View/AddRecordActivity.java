@@ -34,7 +34,7 @@ import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;

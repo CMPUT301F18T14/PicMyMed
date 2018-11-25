@@ -26,7 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mukha.picmymedcode.R;
+import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
 import java.util.ArrayList;
