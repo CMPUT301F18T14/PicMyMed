@@ -19,9 +19,15 @@
  */
 package com.example.picmymedcode.Controller;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.User;
+
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 /**
  * PicMyMedApplication handles the logged in user and their type (patient or care provider)
@@ -88,5 +94,17 @@ public class PicMyMedApplication {
      */
     public static String getUsername() {
         return getLoggedInUser().getUsername();
+    }
+
+    /**
+     * Checks for internet connectivity
+     * Obtained from https://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
+     * author: Sandeep Reddy M
+     * @return
+     */
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkStatus = connManager.getActiveNetworkInfo();
+        return networkStatus != null && networkStatus.isConnected();
     }
 }
