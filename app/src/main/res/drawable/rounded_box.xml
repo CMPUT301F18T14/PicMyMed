@@ -1,0 +1,14 @@
+<!--https://www.android-examples.com/add-rounded-corners-border-to-edittext-android-using-xml/ -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ffffff"/>
+            <corners android:radius="10dp" />
+            <stroke
+                android:width="5dp"
+                android:height="10dp"
+                android:color="#3EE3BC"
+                />
+        </shape>
+    </item>
+</selector>
