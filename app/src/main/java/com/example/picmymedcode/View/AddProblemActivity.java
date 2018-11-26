@@ -106,26 +106,7 @@ public class AddProblemActivity extends AppCompatActivity{
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 
-    /**
-     * Method loads saved data from file, if it exists
-     * Used prior to implementation of elastic search
-     */
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
 
-            Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
-            }.getType();
-            problemArrayList = gson.fromJson(reader, typeListProblem);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Method saves data to file

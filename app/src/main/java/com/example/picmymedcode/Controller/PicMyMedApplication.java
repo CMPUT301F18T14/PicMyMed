@@ -26,6 +26,15 @@ import android.net.NetworkInfo;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getSystemService;
 
@@ -37,6 +46,7 @@ import static android.support.v4.content.ContextCompat.getSystemService;
  * @since   1.1
  */
 public class PicMyMedApplication {
+    public final static String FILENAME = "PicMyMedData.sav";
 
     static User loggedInUser;
 
@@ -106,5 +116,25 @@ public class PicMyMedApplication {
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkStatus = connManager.getActiveNetworkInfo();
         return networkStatus != null && networkStatus.isConnected();
+    }
+
+    /**
+     * Method loads saved data from file, if it exists
+     * Used prior to implementation of elastic search
+     */
+    private void loadLocalUser() {
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
+
+            Gson gson = new Gson();
+            Type typeListProblem = new TypeToken<ArrayList<User>>() {}.getType();
+            problemArrayList = gson.fromJson(reader, typeListProblem);
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
