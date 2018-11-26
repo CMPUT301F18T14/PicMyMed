@@ -3,5 +3,10 @@
     <string name="careProviderWelcomeAndName">Welcome </string>
     <string name="google_map_API_key">AIzaSyDPPjS7TfjTA25Ono1-TqBStYa9G_UNE1E</string>
     <string name="picmymed_record_photos">PicMyMed Record Photos</string>
+    <string name="signUpButtonText">Create Account</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="sign_up_text_display">Sign Up</string>
 
 </resources>

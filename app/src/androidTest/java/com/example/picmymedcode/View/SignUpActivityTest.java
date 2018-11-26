@@ -1,3 +1,4 @@
+/*
 package com.example.picmymedcode.View;
 
 import android.support.test.espresso.Espresso;
@@ -16,17 +17,21 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class SignUpActivityTest {
 
-    /* Redundant Test: Already Performed in MainActivityTest */
+    */
+/* Redundant Test: Already Performed in MainActivityTest *//*
+
 
     @Rule
     public ActivityTestRule<SignUpActivity> signUpActivityTestRuleActivity =
             new ActivityTestRule<SignUpActivity>(SignUpActivity.class);
 
-    /**
+    */
+/**
      * Testing signing up as a patient. If the patient userId already exists, you will
      * receive user already exists.
      * Try putting new patientId every time.
-     */
+     *//*
+
     @Test
     public void TestSignupAsPatient(){
 
@@ -39,11 +44,13 @@ public class SignUpActivityTest {
         Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
     }
 
-    /**
+    */
+/**
      * Testing signing up as a patient. If the careProvider userId already exists, you will
      * receive user already exists.
      * Try putting new careProviderId every time.
-     */
+     *//*
+
     @Test
     public void TestSignupAsCareProvider(){
 
@@ -56,4 +63,4 @@ public class SignUpActivityTest {
         Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
     }
 
-}
+}*/

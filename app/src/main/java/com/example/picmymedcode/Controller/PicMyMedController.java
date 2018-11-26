@@ -20,6 +20,7 @@
 package com.example.picmymedcode.Controller;
 
 
+import android.os.Build;
 import android.util.Log;
 
 import com.example.picmymedcode.Model.CareProvider;
@@ -30,6 +31,7 @@ import com.example.picmymedcode.Model.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * PicMyMedController creates a user
@@ -41,12 +43,12 @@ public class PicMyMedController {
 
 
     /**
-     * Method creates a new user
+     * Method to check if username exists in database
      *
      * @param user  user
      * @return      int
      */
-    public static int createUser(User user) {
+    public static int checkValidUser(User user) {
         ArrayList<Patient> patients = null;
         ArrayList<CareProvider> careProviders = null;
 
@@ -70,16 +72,6 @@ public class PicMyMedController {
         }
 
         if (patients.size() == 0 && careProviders.size() == 0) {
-            if(user.isPatient()) {
-                Patient patient = (Patient) user;
-                ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
-                addPatient.execute(patient);
-            } else {
-                CareProvider careProvider = (CareProvider) user;
-                ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
-                addCareProvider.execute(careProvider);
-
-            }
             return 1;
         }
         return 0;
@@ -134,6 +126,25 @@ public class PicMyMedController {
         }*/
 
     }
+    public static int createUser(User user) {
+        try {
+            if (user.isPatient()) {
+                Patient patient = (Patient) user;
+                ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
+                addPatient.execute(patient);
+            } else {
+                CareProvider careProvider = (CareProvider) user;
+                ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
+                addCareProvider.execute(careProvider);
+
+            }
+            return 1;
+
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", e.getMessage());
+            return 0;
+        }
+    }
 
     /**
      * Method returns the users problems. Needs to be fized to address if the array list is empty
@@ -154,6 +165,42 @@ public class PicMyMedController {
 
     }
 
+    /**
+     * Return pseudo unique ID
+     * @return ID
+     */
+    public static String getUniquePsuedoID() {
+        // If all else fails, if the user does have lower than API 9 (lower
+        // than Gingerbread), has reset their device or 'Secure.ANDROID_ID'
+        // returns 'null', then simply the ID returned will be solely based
+        // off their Android device information. This is where the collisions
+        // can happen.
+        // Thanks http://www.pocketmagic.net/?p=1662!
+        // Try not to use DISPLAY, HOST or ID - these items could change.
+        // If there are collisions, there will be overlapping data
+        String m_szDevIDShort = "35" + (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10) + (Build.CPU_ABI.length() % 10) + (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length() % 10) + (Build.PRODUCT.length() % 10);
+
+        // Thanks to @Roman SL!
+        // https://stackoverflow.com/a/4789483/950427
+        // Only devices with API >= 9 have android.os.Build.SERIAL
+        // http://developer.android.com/reference/android/os/Build.html#SERIAL
+        // If a user upgrades software or roots their device, there will be a duplicate entry
+        String serial = null;
+        try {
+            serial = android.os.Build.class.getField("SERIAL").get(null).toString();
+
+            // Go ahead and return the serial for api => 9
+            return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+        } catch (Exception exception) {
+            // String needs to be initialized
+            serial = "serial"; // some value
+        }
+
+        // Thanks @Joe!
+        // https://stackoverflow.com/a/2853253/950427
+        // Finally, combine the values we have found by using the UUID class to create a unique identifier
+        return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+    }
 
     /**
      * Method adds new problems to elastic search. problem is added to the user

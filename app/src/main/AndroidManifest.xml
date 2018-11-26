@@ -30,11 +30,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.picmymedcode.View.newUsernameActivity"
-            android:label="Enter Username" />
-        <activity
             android:name="com.example.picmymedcode.View.SignUpActivity"
-            android:label="Sign Up" />
+            android:label="Enter Username" />
         <activity
             android:name="com.example.picmymedcode.View.ProblemActivity"
             android:label="Problem" />

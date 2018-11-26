@@ -30,8 +30,10 @@ package com.example.picmymedcode.Model;
 public abstract class User {
 
     private final String username;
-    private static final Integer MAX_USER_ID_LENGTH = 8;
+    private static final Integer MIN_USER_ID_LENGTH = 8;
     private String userID;
+    private String phoneNumber;
+    private String email;
 
     /**
      * Initializes the username, verifying that it is a correct length
@@ -39,18 +41,16 @@ public abstract class User {
      * @param username                  String
      * @throws IllegalArgumentException throws an exception when the username is empty or too long
      */
-    public User(String username) throws IllegalArgumentException {
+    public User(String username, String email, String phoneNumber) throws IllegalArgumentException {
 
-        if (username.length() == 0) {
-            throw new IllegalArgumentException("Username cannot be empty!");
-        } else if (username.length() > MAX_USER_ID_LENGTH) {
-            throw new IllegalArgumentException(String.format("User ID should not exceed %s characters!", String.valueOf(MAX_USER_ID_LENGTH)));
-
+        if (username.length() < MIN_USER_ID_LENGTH) {
+            throw new IllegalArgumentException(String.format("User ID should be at least %s characters!", String.valueOf(MIN_USER_ID_LENGTH)));
         } else {
             this.username = username;
+            setEmail(email);
+            setPhoneNumber(phoneNumber);
         }
     }
-
     /**
      * Method gets username
      *
@@ -75,7 +75,56 @@ public abstract class User {
      * @param userID String
      */
     public void setUserID(String userID) {
+
         this.userID = userID;
+    }
+    /**
+     * Method gets user email
+     *
+     * @return  String email
+     */
+    public String getEmail() {
+        return email;
+    }
+    /**
+     * Method sets user email
+     *
+     * @param email String email
+     */
+    public void setEmail(String email) {
+        if (email.length() == 0) {
+            throw new IllegalArgumentException("Email cannot be empty!");
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            throw new IllegalArgumentException("Invalid email address!");
+        } else {
+            this.email = email;
+        }
+
+    }
+    /**
+     * Method gets user phone number
+     *
+     * @return String phone number
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    /**
+     * Method sets user phone number
+     *
+     * @param phoneNumber   String phone number
+     */
+    public void setPhoneNumber(String phoneNumber) {
+
+        if (phoneNumber.length() == 0) {
+            throw new IllegalArgumentException("Phone number cannot be empty!");
+        } else if (!phoneNumber.matches("^[+]?[0-9]{10,13}$")) {
+            throw new IllegalArgumentException(("Phone number is invalid!"));
+        } else {
+            this.phoneNumber = phoneNumber;
+        }
+
+
     }
 
     /**

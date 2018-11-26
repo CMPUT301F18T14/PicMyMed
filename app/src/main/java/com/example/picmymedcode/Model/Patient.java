@@ -32,8 +32,6 @@ import java.util.ArrayList;
 public class Patient extends User {
 
 
-    private String phoneNumber;
-    private String email;
     ArrayList<Problem> problemList;
 
     /**
@@ -46,43 +44,9 @@ public class Patient extends User {
      */
     public Patient(String username, String email, String phoneNumber) {
 
-        super(username);
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        super(username, email, phoneNumber);
         this.problemList = new ArrayList<Problem>();
 
-    }
-    /**
-     * Method gets user email
-     *
-     * @return  String email
-     */
-    public String getEmail() {
-        return email;
-    }
-    /**
-     * Method sets user email
-     *
-     * @param email String email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    /**
-     * Method gets user phone number
-     *
-     * @return String phone number
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    /**
-     * Method sets user phone number
-     *
-     * @param phoneNumber   String phone number
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
     /**
      * Method gets user problem list
