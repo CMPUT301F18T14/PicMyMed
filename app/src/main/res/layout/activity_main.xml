@@ -29,4 +29,11 @@
         android:layout_below="@+id/app_bar"
         android:text="Sign Up" />
 
+    <Button
+        android:id="@+id/qrButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUpButton"
+        android:text="QR Code" />
+
 </LinearLayout>
