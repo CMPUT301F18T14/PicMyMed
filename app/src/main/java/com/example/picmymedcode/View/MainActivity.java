@@ -44,6 +44,8 @@ import com.example.picmymedcode.R;
  */
 public class MainActivity extends AppCompatActivity {
 
+    Button loginBtn;
+
     /**
      * Method initializes the main activity
      *
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button loginBtn = (Button) findViewById(R.id.loginButton);
+        loginBtn = (Button) findViewById(R.id.loginButton);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             /**
              * Method handles user clicking the login button
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(problemIntent);
-                
+
             }
         });
     }
