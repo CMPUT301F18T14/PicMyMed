@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Controller.Utility;
@@ -35,7 +34,6 @@ import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 
-import static java.lang.String.valueOf;
 
 /**
  * SignUpActivity extends AppCompatActivity to create an activity for a new user to sign up
@@ -46,13 +44,14 @@ import static java.lang.String.valueOf;
  */
 public class SignUpActivity extends AppCompatActivity {
 
+    private static final Integer MIN_USER_ID_LENGTH = 8;
     EditText enteredUsername;
     EditText enteredEmail;
     EditText enteredPhone;
     Button signUpBtn;
     RadioGroup radioGroupUserProfile;
     RadioButton radioButtonUserProfileType;
-    private static final Integer MIN_USER_ID_LENGTH = 8;
+
 
 
     /**
