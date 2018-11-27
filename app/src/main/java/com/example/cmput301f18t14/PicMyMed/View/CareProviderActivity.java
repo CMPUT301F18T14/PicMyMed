@@ -103,11 +103,13 @@ public class CareProviderActivity extends AppCompatActivity {
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.patientsearch_layout);
-                EditText enteredPatient = (EditText) findViewById(R.id.enteredPatientID);
-                String patientToAdd = enteredPatient.getText().toString();
-                Toast.makeText(getApplicationContext(), patientToAdd,
-                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CareProviderActivity.this,CareProviderAddPatientActivity.class);
+                startActivity(intent);
+                //setContentView(R.layout.patientsearch_layout);
+                //EditText enteredPatient = (EditText) findViewById(R.id.enteredPatientID);
+                //String patientToAdd = enteredPatient.getText().toString();
+                //Toast.makeText(getApplicationContext(), patientToAdd,
+                //        Toast.LENGTH_LONG).show();
                 //Need to implement try catch to take username and search if it's available
 
             }

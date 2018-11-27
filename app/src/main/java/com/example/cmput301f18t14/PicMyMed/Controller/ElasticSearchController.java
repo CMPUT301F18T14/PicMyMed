@@ -400,6 +400,50 @@ public class ElasticSearchController {
             return null;
         }
     }
+    public static class GetAllPatients extends AsyncTask<Void, Void, ArrayList<Patient>> {
+        @Override
+        protected ArrayList<Patient> doInBackground(Void... voids) {
+            verifySettings();
+
+            ArrayList<Patient> patients = new ArrayList<>();
+
+            String patientsQuery =
+                    "{" +
+                            "\"size\": " + querySize + "," +
+                            "\"query\": {" +
+                            "\"match_all\" : {}" +
+                            "}" +
+                            "}";
+
+
+
+            Search search = new Search.Builder(patientsQuery)
+                    .addIndex(indexPath)
+                    .addType("patient")
+                    .build();
+
+            try {
+                // Send request to the server to get the user
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+
+                    //Log.i("DEBUG DeBug", "Succeeded in finding a user");
+
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    patients.addAll(foundPatients);
+                }
+                else{
+                    Log.i("DEBUG Error", "The search query failed to find any patients that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("DEBUG Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return patients;
+        }
+    }
+
 /*
      public static class GetProblemsByUsername extends AsyncTask<String, Void, ArrayList<Problem>> {
          @Override
