@@ -290,6 +290,23 @@ public class PicMyMedController {
         }
 
     }
+    public static ArrayList<String> getAllPatients() {
+        ArrayList<String> patientUsernames = new ArrayList<String>();
+        ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
+        getAllPatients.execute();
+
+        try {
+            for (Patient patient : getAllPatients.get()) {
+                if (!patientUsernames.contains(patient.getUsername())) {
+                    patientUsernames.add(patient.getUsername());
+                }
+            }
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "Error retrieving patients");
+        }
+        return patientUsernames;
+    }
+
     public static Patient getPatient(String username) {
 
         Patient patient = null;
