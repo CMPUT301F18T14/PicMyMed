@@ -1,7 +1,55 @@
 <resources>
-    <string name="app_name">PicMyMed</string>
+    <string name="app_name">PicMyMedCode</string>
     <string name="careProviderWelcomeAndName">Welcome </string>
     <string name="google_map_API_key">AIzaSyDPPjS7TfjTA25Ono1-TqBStYa9G_UNE1E</string>
     <string name="picmymed_record_photos">PicMyMed Record Photos</string>
+    <string name="scan">Scan</string>
+    <string name="scanned_qr_code">Scanned QR Text</string>
+    <string name="generate_qr_code">GENERATE</string>
+    <string name="log_in">Log In</string>
+    <string name="user_id">User ID</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="qr_code">QR Code</string>
+    <string name="map">Map</string>
+    <string name="camera">Camera</string>
+    <string name="scan_the_qr_code">Scan The QR Code</string>
+    <string name="problem_name">Problem Name</string>
+    <string name="Problem_Description">Problem Description</string>
+    <string name="Add">ADD</string>
+    <string name="Enter_Record_Details">Enter Record Details</string>
+    <string name="Add_Title">Add Title</string>
+    <string name="Add_Description">Add Description</string>
+    <string name="Geolocation">Geolocation</string>
+    <string name="Body_Location">Body Location</string>
+    <string name="Username">Username</string>
+    <string name="Phone_Number">Phone Number</string>
+    <string name="Email">Email</string>
+    <string name="Edit_Profile">Edit Profile</string>
+    <string name="Update_Profile">Update Profile</string>
+    <string name="Add_New_Patient">Add A New Patient</string>
+    <string name="Welcome">Welcome</string>
+    <string name="Pick_Username">Pick A Username</string>
+    <string name="Lets_Start">Let\'s Start</string>
+    <string name="Search_Username">Search Username</string>
+    <string name="Search">Search</string>
+    <string name="Create_Problem">Create Problem</string>
+    <string name="Profile">Profile</string>
+    <string name="Problem_Title">Problem Title</string>
+    <string name="description">Description</string>
+    <string name="time">Time</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="record_title">Record Title</string>
+    <string name="location">Location</string>
+    <string name="keyword_search">Enter Keyword To Search</string>
+    <string name="geolocation">geo-location</string>
+    <string name="bodylocation">body-location</string>
+    <string name="are_you_a">Are You A . . .</string>
+    <string name="patient">Patient</string>
+    <string name="care_provider">Care Provider</string>
+
+
+
+    
+
 
 </resources>
