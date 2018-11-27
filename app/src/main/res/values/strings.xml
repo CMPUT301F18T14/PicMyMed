@@ -3,7 +3,7 @@
     <string name="careProviderWelcomeAndName">Welcome </string>
     <string name="google_map_API_key">AIzaSyDPPjS7TfjTA25Ono1-TqBStYa9G_UNE1E</string>
     <string name="picmymed_record_photos">PicMyMed Record Photos</string>
-    <string name="scan">Scan</string>
+    <string name="scan">SCAN</string>
     <string name="scanned_qr_code">Scanned QR Text</string>
     <string name="generate_qr_code">GENERATE</string>
     <string name="log_in">Log In</string>
@@ -24,7 +24,6 @@
     <string name="Username">Username</string>
     <string name="Phone_Number">Phone Number</string>
     <string name="Email">Email</string>
-    <string name="Edit_Profile">Edit Profile</string>
     <string name="Update_Profile">Update Profile</string>
     <string name="Add_New_Patient">Add A New Patient</string>
     <string name="Welcome">Welcome</string>
@@ -46,5 +45,8 @@
     <string name="are_you_a">Are You A . . .</string>
     <string name="patient">Patient</string>
     <string name="care_provider">Care Provider</string>
+    <string name="problem_name_semicolon">Problem Name:</string>
+    <string name="problem_description_colon">Description:</string>
+    <string name="time_colon">Time:</string>
 
 </resources>

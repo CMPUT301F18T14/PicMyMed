@@ -5,22 +5,23 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical">
+
     <EditText
         android:id="@+id/problem_title_edit_text"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="Problem Name" />
+        android:hint="@string/problem_name" />
 
     <EditText
         android:id="@+id/problem_description_edit_text"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="Problem Description"/>
+        android:hint="@string/Problem_Description" />
 
     <Button
         android:id="@+id/problem_save_button"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="Add"/>
+        android:text="@string/Add" />
 
 </LinearLayout>
