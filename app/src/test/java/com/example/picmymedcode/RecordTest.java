@@ -2,6 +2,7 @@ package com.example.picmymedcode;
 
 import android.location.Location;
 
+import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.Model.BodyLocation;
@@ -42,7 +43,7 @@ public class RecordTest extends TestCase {
 
 
     public void testSetGeolocation (){
-        Location location = new Location("google");
+        Geolocation location = new Geolocation();
         Record record = new Record ("Record");
         record.setLocation(location);
         assertFalse("Wrong Location", record.getGeolocation().equals(""));

@@ -87,6 +87,8 @@
             android:name="com.example.QRCode.GeneratorActivity"
             android:exported="true" />
         <activity android:name="com.example.QRCode.ScannerActivity" />
+        <activity android:name=".View.BodyLocationPhotoManagerActivity"
+            android:label="Body Location Photo Manager"/>
 
         <uses-library
             android:name="org.apache.http.legacy"
