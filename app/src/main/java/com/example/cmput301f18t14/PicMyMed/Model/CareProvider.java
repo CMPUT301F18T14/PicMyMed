@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class CareProvider extends User {
 
-    private ArrayList<Patient> patientList;
+    private ArrayList<String> patientList;
     /**
      * CareProvider constructor to initialize the member variables.
      *
@@ -40,14 +40,14 @@ public class CareProvider extends User {
     public CareProvider(String username) throws IllegalArgumentException {
         super(username);
 
-        this.patientList = new ArrayList<Patient>();
+        this.patientList = new ArrayList<String>();
     }
     /**
      * getPatientList returns the patient list
      *
      * @return  patientList
      */
-    public ArrayList<Patient> getPatientList() {
+    public ArrayList<String> getPatientList() {
         return this.patientList;
     }
     /**

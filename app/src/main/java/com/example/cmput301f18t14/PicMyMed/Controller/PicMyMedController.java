@@ -290,4 +290,18 @@ public class PicMyMedController {
         }
 
     }
+    public static Patient getPatient(String username) {
+
+        Patient patient = null;
+
+        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        getPatient.execute(username);
+        try {
+            patient = getPatient.get().get(0);
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+        }
+        return patient;
+    }
+
 }
