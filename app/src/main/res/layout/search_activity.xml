@@ -8,23 +8,23 @@
         android:id="@+id/keywordSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter keyword to search"
+        android:layout_gravity="center"
         android:paddingBottom="10dp"
-        android:layout_gravity="center"/>
+        android:text="@string/keyword_search" />
 
     <ToggleButton
         android:id="@+id/geolocationSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="geo-location"
+        android:layout_gravity="center"
         android:paddingBottom="10dp"
-        android:layout_gravity="center"/>
+        android:text="@string/geolocation" />
 
     <ToggleButton
         android:id="@+id/bodyLocationSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="body-location"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:text="@string/bodylocation" />
 
 </LinearLayout>

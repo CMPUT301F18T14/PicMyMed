@@ -24,7 +24,6 @@
     <string name="Username">Username</string>
     <string name="Phone_Number">Phone Number</string>
     <string name="Email">Email</string>
-    <string name="Edit_Profile">Edit Profile</string>
     <string name="Update_Profile">Update Profile</string>
     <string name="Add_New_Patient">Add A New Patient</string>
     <string name="Welcome">Welcome</string>
@@ -46,10 +45,10 @@
     <string name="are_you_a">Are You A . . .</string>
     <string name="patient">Patient</string>
     <string name="care_provider">Care Provider</string>
+    <string name="problem_name_semicolon">Problem Name:</string>
+    <string name="problem_description_colon">Description:</string>
+    <string name="time_colon">Time:</string>
 
-
-
-    
 
 
 </resources>

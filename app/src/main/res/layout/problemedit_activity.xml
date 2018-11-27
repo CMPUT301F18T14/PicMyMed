@@ -8,51 +8,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Problem Name:"/>
+            android:text="@string/problem_name_semicolon" />
+
         <EditText
             android:id="@+id/problem_edit_title_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="problemname"/>
+            android:hint="@string/problem_name" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description:"/>
+            android:text="@string/problem_description_colon" />
+
         <EditText
             android:id="@+id/problem_edit_description_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Description"/>
+            android:hint="@string/description" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time:"/>
+            android:text="@string/time_colon" />
+
         <EditText
             android:id="@+id/problem_edit_time_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="time"/>
+            android:hint="@string/time" />
 
     </LinearLayout>
+
     <Button
         android:id="@+id/problem_edit_save_button"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="Add"/>
+        android:text="@string/Add" />
 
 </LinearLayout>

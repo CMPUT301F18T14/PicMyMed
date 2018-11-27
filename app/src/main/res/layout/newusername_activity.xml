@@ -13,41 +13,38 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pick a Username"
         android:layout_gravity="center_horizontal"
-        android:textSize="25sp"/>
+        android:text="@string/Pick_Username"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/enteredUID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Username"
         android:layout_gravity="center_horizontal"
-        />
+        android:hint="@string/Username" />
 
     <EditText
         android:id="@+id/enteredPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Phone Number"
         android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
-        />
+        android:hint="@string/Phone_Number"
+        android:visibility="invisible" />
 
     <EditText
         android:id="@+id/enteredEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Email"
         android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
-        />
+        android:hint="@string/Email"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let's Start"
+        android:text="@string/Lets_Start"
 
         />
 </LinearLayout>
