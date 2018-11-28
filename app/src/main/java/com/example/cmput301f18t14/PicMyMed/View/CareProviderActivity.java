@@ -22,18 +22,19 @@ package com.example.cmput301f18t14.PicMyMed.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cmput301f18t14.PicMyMed.Controller.PicMyMedApplication;
 import com.example.cmput301f18t14.PicMyMed.Model.CareProvider;
 import com.example.cmput301f18t14.PicMyMed.Model.Patient;
+import com.example.cmput301f18t14.PicMyMed.Model.Problem;
 import com.example.cmput301f18t14.PicMyMed.R;
 
 import java.util.ArrayList;
@@ -48,9 +49,14 @@ import java.util.ArrayList;
  */
 public class CareProviderActivity extends AppCompatActivity {
 
-    ListView patientListView;
-    ArrayList<String> patientList;
+
+
     ArrayAdapter<String> arrayAdapter;
+    private RecyclerView mRecyclerView;
+    private CareProviderAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManage;
+    private View.OnClickListener mListener;
+    public ArrayList<String> patientArrayList;
 
     /**
      * Method sets the CareProviderActivity state
@@ -69,9 +75,9 @@ public class CareProviderActivity extends AppCompatActivity {
                 + " " + user.getUsername();
         careProviderName.setText(welcomeText);
 
-
-        patientListView = (ListView) findViewById(R.id.PatientList);
-        patientList = new ArrayList<String>();
+        manageRecyclerview();
+        //patientListView = (ListView) findViewById(R.id.PatientList_recycle_view);
+        //patientList = new ArrayList<String>();
         //fake temp data
         /*Patient patient1 = new Patient("123","123@a.ca","7801112222");
         Patient patient2 = new Patient("bomba","123@a.ca","7801112222");
@@ -86,17 +92,16 @@ public class CareProviderActivity extends AppCompatActivity {
             arrayPatientList.add(i,patientList.get(i).getUsername());
         } */
 
-        arrayAdapter = new ArrayAdapter<String>(this,R.layout.patientlist_layout, patientList);
-        patientListView.setAdapter(arrayAdapter);
 
-        patientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        /*mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CareProviderActivity.this,CareProviderProblemActivity.class);
                 intent.putExtra("position",position);
                 startActivity(intent);
             }
-        });
+        }); */
 
         //search for new patient button
         Button addPatientButton = findViewById(R.id.addPatientButton);
@@ -116,12 +121,38 @@ public class CareProviderActivity extends AppCompatActivity {
         });
 
     }
+
+
+    public void manageRecyclerview(){
+        //to clear my file
+        //problemArrayList.clear();
+        //saveInFile();
+        mRecyclerView = findViewById(R.id.PatientList_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new CareProviderAdapter(CareProviderActivity.this, patientArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+       // CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
+        //patientList = user.getPatientList();
+       // arrayAdapter = new ArrayAdapter<String>(this,R.layout.patientlist_layout, patientList);
+        //patientListView.setAdapter(arrayAdapter);
+       // arrayAdapter.notifyDataSetChanged();
+
+
+        super.onStart();
         CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
-        patientList = user.getPatientList();
-        arrayAdapter.notifyDataSetChanged();
+        patientArrayList = user.getPatientList();
+        //loadFromFile();
+        mAdapter = new CareProviderAdapter(CareProviderActivity.this, patientArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+
+
         //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }

@@ -58,6 +58,7 @@
         <activity
             android:name="com.example.cmput301f18t14.PicMyMed.View.CareProviderActivity"
             android:label="Care Provider" />
+
         <activity
             android:name="com.example.cmput301f18t14.PicMyMed.View.CareProvierAddPatientActivity"
             android:label="Add Patient" />
