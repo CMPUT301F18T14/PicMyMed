@@ -8,9 +8,9 @@
         android:id="@+id/keywordSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter keyword to search"
+        android:layout_gravity="center"
         android:paddingBottom="10dp"
-        android:layout_gravity="center"/>
+        android:text="@string/keyword_search" />
 
     <ToggleButton
         android:id="@+id/geolocationSearch"

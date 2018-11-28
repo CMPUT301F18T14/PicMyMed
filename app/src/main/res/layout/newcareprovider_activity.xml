@@ -8,16 +8,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Add a new Patient" />
+        android:text="@string/Add_New_Patient" />
 
     <TextView
         android:id="@+id/careProviderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Welcome Care Provider"
-        android:textSize="25sp"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:text="@string/Welcome"
+        android:textSize="25sp" />
 
     <ListView
         android:id="@+id/PatientList"

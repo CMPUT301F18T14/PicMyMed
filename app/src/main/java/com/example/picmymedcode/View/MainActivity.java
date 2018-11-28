@@ -33,7 +33,7 @@ import android.widget.Toast;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.R;
-
+import com.example.QRCode.GeneratorActivity;
 
 /**
  * MainActivity extends AppCompatActivity to handle the main activity of the application
@@ -83,6 +83,21 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+
+        Button QRBtn = (Button) findViewById(R.id.qrButton);
+        QRBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles the user clicking the sign up button
+             *
+             * @param v View
+             */
+            public void onClick(View v) {
+                //signupPopUpWindow();
+                Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
+                startActivity(qrIntent);
+                //finish();
             }
         });
 

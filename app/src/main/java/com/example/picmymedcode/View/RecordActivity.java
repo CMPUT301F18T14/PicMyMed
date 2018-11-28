@@ -79,7 +79,7 @@ public class RecordActivity extends AppCompatActivity{
         manageRecyclerview();
         position = getIntent().getIntExtra("key",0);
         String name = problemArrayList.get(position).getTitle();
-        getSupportActionBar().setTitle(name);
+      //  getSupportActionBar().setTitle(name);
 
         Button addRecordButton = findViewById(R.id.record_save_button);
         addRecordButton.setOnClickListener(new View.OnClickListener() {
