@@ -7,7 +7,7 @@
     <string name="scanned_qr_code">Scanned QR Text</string>
     <string name="generate_qr_code">GENERATE</string>
     <string name="log_in">Log In</string>
-    <string name="user_id">User ID</string>
+    <string name="user_id">Enter User ID</string>
     <string name="sign_up">Sign Up</string>
     <string name="qr_code">QR Code</string>
     <string name="map">Map</string>
