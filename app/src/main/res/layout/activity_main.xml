@@ -16,11 +16,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:maxWidth="100dp"
-        android:maxHeight="300dp"
         android:scaleType="fitCenter"
         android:layout_above="@+id/enteredUID"
-        android:src="@drawable/aladdin" />
+        android:src="@drawable/logo" />
 
     <EditText
         android:id="@+id/enteredUID"
@@ -51,7 +49,7 @@
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginButton"
         android:layout_marginTop="5dp"
@@ -63,7 +61,7 @@
 
     <Button
         android:id="@+id/qrButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpButton"
         android:layout_centerHorizontal="true"
