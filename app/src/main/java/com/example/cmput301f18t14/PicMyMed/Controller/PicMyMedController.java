@@ -263,10 +263,14 @@ public class PicMyMedController {
     public static int addPatientToCareProvider(String patientUsername) {
 
         CareProvider careProvider = PicMyMedApplication.getCareProviderUser();
-        careProvider.getPatientList().add(patientUsername);
-        updateCareProvider(careProvider);
+        if (!careProvider.getPatientList().contains(patientUsername)){
+            careProvider.getPatientList().add(patientUsername);
+            updateCareProvider(careProvider);
+            return 1;
+        }
+        return 0;
 
-        return 1;
+
     }
     /**
      * Method updates the patients proifle with an email and phone then updates the database
