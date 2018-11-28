@@ -53,7 +53,7 @@ public class CareProvierAddPatientActivity extends AppCompatActivity implements 
                 CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
                 String name = user.getUsername();
                 Toast.makeText(CareProvierAddPatientActivity.this, patientName.get(position)+" is added "+name, Toast.LENGTH_SHORT).show();
-                user.getPatientList().add(patientName.get(position));
+                PicMyMedController.addPatientToCareProvider(patientName.get(position));
                 //UpdateCareProvider();
                 onBackPressed();//go back to previous activity
 
