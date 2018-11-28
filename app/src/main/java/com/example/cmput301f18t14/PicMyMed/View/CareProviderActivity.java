@@ -50,6 +50,7 @@ public class CareProviderActivity extends AppCompatActivity {
 
     ListView patientListView;
     ArrayList<String> patientList;
+    ArrayAdapter<String> arrayAdapter;
 
     /**
      * Method sets the CareProviderActivity state
@@ -85,8 +86,7 @@ public class CareProviderActivity extends AppCompatActivity {
             arrayPatientList.add(i,patientList.get(i).getUsername());
         } */
 
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this,R.layout.patientlist_layout, patientList);
+        arrayAdapter = new ArrayAdapter<String>(this,R.layout.patientlist_layout, patientList);
         patientListView.setAdapter(arrayAdapter);
 
         patientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,6 +121,7 @@ public class CareProviderActivity extends AppCompatActivity {
         super.onStart();
         CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
         patientList = user.getPatientList();
+        arrayAdapter.notifyDataSetChanged();
         //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
