@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -62,7 +63,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
      */
     public static class PorblemViewHolder extends RecyclerView.ViewHolder{
         TextView problemTitleTextView;
-        TextView problemMoreTextView;
+        ImageView problemMoreImageView;
 
         /**
          * Method handles how problems are viewed
@@ -72,7 +73,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
         public PorblemViewHolder(@NonNull View itemView) {
             super(itemView);
             this.problemTitleTextView = (TextView) itemView.findViewById(R.id.problem_title_text_view);
-            this.problemMoreTextView = (TextView) itemView.findViewById(R.id.problem_more_bar);
+            this.problemMoreImageView = (ImageView) itemView.findViewById(R.id.problem_more_bar);
         }
     }
 
@@ -123,7 +124,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
         });
 
 
-        myViewHolder.problemMoreTextView.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.problemMoreImageView.setOnClickListener(new View.OnClickListener() {
             /**
              * Method handles user clicking on an item in the view
              *
@@ -133,7 +134,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
             public void onClick(View view) {
 
                 //creating a popup menu
-                PopupMenu popup = new PopupMenu(context, myViewHolder.problemMoreTextView);
+                PopupMenu popup = new PopupMenu(context, myViewHolder.problemMoreImageView);
                 //inflating menu from xml resource
                 popup.inflate(R.menu.problem_menu);
                 //adding click listener

@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    android:id="@+id/problem_card_view"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/problem_card_view"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="5dp"
-    card_view:cardUseCompatPadding="true"
-    >
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/purple_gradient">
+        android:background="@drawable/purple_gradient"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/problem_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="18dp"
             android:text="Problem Title"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/problem_more_bar"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:scaleType="fitEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:scaleType="fitEnd"
             android:src="@drawable/more_vert"
-            android:tint="#ffffff"
-            android:textAppearance="?android:textAppearanceLarge" />
+            android:textAppearance="?android:textAppearanceLarge"
+            android:tint="#ffffff" />
 
 
     </RelativeLayout>
