@@ -49,7 +49,7 @@ import java.util.ArrayList;
 public class CareProviderActivity extends AppCompatActivity {
 
     ListView patientListView;
-    ArrayList<Patient> patientList;
+    ArrayList<String> patientList;
 
     /**
      * Method sets the CareProviderActivity state
@@ -70,9 +70,9 @@ public class CareProviderActivity extends AppCompatActivity {
 
 
         patientListView = (ListView) findViewById(R.id.PatientList);
-        patientList = new ArrayList<Patient>();
+        patientList = new ArrayList<String>();
         //fake temp data
-        Patient patient1 = new Patient("123","123@a.ca","7801112222");
+        /*Patient patient1 = new Patient("123","123@a.ca","7801112222");
         Patient patient2 = new Patient("bomba","123@a.ca","7801112222");
         Patient patient3 = new Patient("k1tt3n","123@a.ca","7801112222");
         patientList.add(patient1);
@@ -83,10 +83,10 @@ public class CareProviderActivity extends AppCompatActivity {
         //populate the array list with patient fake temp data
         for (int i = 0; i < patientList.size();i++){
             arrayPatientList.add(i,patientList.get(i).getUsername());
-        }
+        } */
 
         ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this,R.layout.patientlist_layout, arrayPatientList);
+                new ArrayAdapter<String>(this,R.layout.patientlist_layout, patientList);
         patientListView.setAdapter(arrayAdapter);
 
         patientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,16 +103,26 @@ public class CareProviderActivity extends AppCompatActivity {
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.patientsearch_layout);
-                EditText enteredPatient = (EditText) findViewById(R.id.enteredPatientID);
-                String patientToAdd = enteredPatient.getText().toString();
-                Toast.makeText(getApplicationContext(), patientToAdd,
-                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CareProviderActivity.this,CareProvierAddPatientActivity.class);
+                startActivity(intent);
+                //setContentView(R.layout.patientsearch_layout);
+                //EditText enteredPatient = (EditText) findViewById(R.id.enteredPatientID);
+                //String patientToAdd = enteredPatient.getText().toString();
+                //Toast.makeText(getApplicationContext(), patientToAdd,
+                //       Toast.LENGTH_LONG).show();
                 //Need to implement try catch to take username and search if it's available
 
             }
         });
 
+    }
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
+        patientList = user.getPatientList();
+        //loadFromFile();
+        //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 
 
