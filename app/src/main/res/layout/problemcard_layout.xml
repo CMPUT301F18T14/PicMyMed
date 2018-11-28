@@ -25,15 +25,13 @@
             android:text="Problem Title"
             android:textAppearance="?android:textAppearanceLarge"/>
 
-        <ImageView
+        <TextView
             android:id="@+id/problem_more_bar"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:scaleType="fitEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/more_vert"
-            android:tint="#ffffff"
+            android:text="menu;"
             android:textAppearance="?android:textAppearanceLarge" />
 
 
