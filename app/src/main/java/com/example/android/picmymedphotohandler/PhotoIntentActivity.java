@@ -19,7 +19,9 @@
 
 package com.example.android.picmymedphotohandler;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -27,13 +29,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.R;
 
 import java.io.ByteArrayOutputStream;
@@ -77,6 +83,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private File photoFile = null;
 
+    private final static int PERMISSION_REQUEST = 200;
+
     private final static int MAX_FILE_SIZE = 65536;
 
     private final static int MAX_NUMBER_OF_PHOTOS = 10;
@@ -89,6 +97,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private static final int RESIZING_HEIGHT = 300;
 
+    private Photo photo;
+
     /**
      * Method loads activity state
      *
@@ -99,19 +109,13 @@ public class PhotoIntentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_intent);
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
+        }
+
         imageView = (ImageView) findViewById(R.id.imageView_show1);
 
         bitmaps = new ArrayList<Bitmap>();
-
-//        if (bitmaps.size() < MAX_NUMBER_OF_PHOTOS) {
-//            //System.out.println(bitmaps.size());
-//            dispatchTakePictureIntent();
-//        }
-//        else {
-//            Toast.makeText(PhotoIntentActivity.this,
-//                    "You can only have 10 photos per records.",
-//                    Toast.LENGTH_LONG).show();
-//        }
 
         cameraButton = (Button) findViewById(R.id.camera_button);
 
@@ -140,12 +144,20 @@ public class PhotoIntentActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        System.out.println("onActivityResult(int requestCode = " + requestCode + ", int resultCode = " + resultCode);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             try {
                 handleBigCameraPhoto(photoFile, imageView, MAX_FILE_SIZE);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Could not carryout the operation!", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == 0) {
+            if (photoFile.exists()) {
+                Log.d(TAG, "The file size is = " + photoFile.length());
+                photoFile.delete();
+                galleryAddPic(photoFile);
             }
         }
     }
@@ -163,6 +175,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
         // Getting the absolute path of the image
         String imageFilePath = imageFile.getAbsolutePath();
 
+        Log.d(TAG, "The file size is = " + imageFile.length());
+
         if (imageFilePath != null) {
 
             // Decodeing the image into bitmap with the ImageView layout dimensions
@@ -173,7 +187,11 @@ public class PhotoIntentActivity extends AppCompatActivity {
                  * then save the image with 100% quality */
                 byte[] bitmapData = convertBitmapToJPEG(bitmap, 100);
 
+                Log.d(TAG, "The file size is = " + imageFile.length());
+
                 File fileToBeStored = writingByteArrayToFile(imageFile, bitmapData);
+
+                Log.d(TAG, "The file size is = " + fileToBeStored.length());
 
                 galleryAddPic(fileToBeStored);
 
@@ -188,6 +206,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
                 }
 
                 File fileToBeStored = writingByteArrayToFile(imageFile, bitmapData);
+
+                Log.d(TAG, "The file size is = " + fileToBeStored.length());
 
                 galleryAddPic(fileToBeStored);
             }
@@ -224,7 +244,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            // File photoFile = null;
+            //File photoFile = null;
             try {
                 photoFile = createPlaceHolderFile();
             } catch (IOException ex) {
