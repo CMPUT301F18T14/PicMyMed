@@ -104,6 +104,20 @@ public class ProblemActivity extends AppCompatActivity {
             }
         });
 
+        Button bodyLocationPhotosButton = findViewById(R.id.bodylocationphotos_button);
+        bodyLocationPhotosButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on profile button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
+                startActivity(bodyLocationPhotoManagerIntent);
+            }
+        });
+
     }
 
     /**

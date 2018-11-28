@@ -35,6 +35,7 @@ public class Patient extends User {
     private String phoneNumber;
     private String email;
     ArrayList<Problem> problemList;
+    ArrayList<BodyLocationPhoto> bodyLocationPhotoList;
 
     /**
      * This method constructor initializes the username, email and phone number for Patient
@@ -100,6 +101,13 @@ public class Patient extends User {
     @Override
     public Boolean isPatient() {
         return Boolean.TRUE;
+    }
+
+    public ArrayList<BodyLocationPhoto> getBodyLocationPhotoList() {
+        return bodyLocationPhotoList;
+    }
+    public void setBodyLocationPhotoList(ArrayList<BodyLocationPhoto> bodyLocationPhotoList) {
+        this.bodyLocationPhotoList = bodyLocationPhotoList;
     }
 }
 

@@ -23,5 +23,10 @@
         android:layout_width="250dp"
         android:layout_height="38dp"
         android:text="@string/Profile" />
+    <Button
+        android:id="@+id/bodylocationphotos_button"
+        android:layout_width="250dp"
+        android:layout_height="38dp"
+        android:text="@string/Add_Body_Location_Photo" />
 
 </LinearLayout>
