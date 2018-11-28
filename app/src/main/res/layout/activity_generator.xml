@@ -7,14 +7,18 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="com.example.QRCode.GeneratorActivity">
+    tools:context="com.example.QRCode.GeneratorActivity"
+    android:background= "@drawable/background_gradient">
 
-    <Button
+
+<Button
         android:id="@+id/scan_button"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/scan" />
+        android:text="@string/scan"
+        android:background="@drawable/rounded_box"
+    />
     <TextView
         android:id="@+id/scanned_textview"
         android:layout_width="match_parent"
@@ -23,17 +27,19 @@
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:textSize="25sp"
-        android:hint="@string/scan_the_qr_code"
+        android:text="@string/scan_the_qr_code"
         android:padding="5dp"
         android:gravity="center_horizontal"/>
 
     <Button
         android:id="@+id/generate_button"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="@string/generate_qr_code" />
+        android:text="@string/generate_qr_code"
+        android:background="@drawable/rounded_box"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
