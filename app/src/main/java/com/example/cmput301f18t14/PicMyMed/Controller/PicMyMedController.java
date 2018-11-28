@@ -238,6 +238,37 @@ public class PicMyMedController {
     }
 
     /**
+     * Method gets user from the controller and calls elastic search and updates the database
+     *
+     * @param careProvider   CareProvider
+     * @return               int
+     */
+    public static int updateCareProvider(CareProvider careProvider) {
+
+        try {
+            ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+            updateCareProvider.execute(careProvider);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Method adds patient to careprovider
+     *
+     * @param patientName   String
+     * @return               int
+     */
+    public static int addPatientToCareProvider(String patientUsername) {
+
+        CareProvider careProvider = PicMyMedApplication.getCareProviderUser();
+        careProvider.getPatientList().add(patientUsername);
+        updateCareProvider(careProvider);
+
+        return 1;
+    }
+    /**
      * Method updates the patients proifle with an email and phone then updates the database
      *
      * @param email String
