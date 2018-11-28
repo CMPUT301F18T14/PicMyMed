@@ -88,15 +88,15 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.cmput3
         patientNameTextView.setText(patientnameData.get(listPosition));
 
 
-        /*myViewHolder.patientNameTextView.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.patientNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             //onClick to go to next activity
             public void onClick(View v) {
-                Intent Intent = new Intent(context,RecordActivity.class);
-                Intent.putExtra("key",listPosition);
+                Intent Intent = new Intent(context,CareProviderProblemActivity.class);
+                Intent.putExtra("name",patientnameData.get(listPosition));
                 context.startActivity(Intent);
             }
-        }); */
+        });
 
 
        // myViewHolder.problemMoreTextView.setOnClickListener(new View.OnClickListener() {

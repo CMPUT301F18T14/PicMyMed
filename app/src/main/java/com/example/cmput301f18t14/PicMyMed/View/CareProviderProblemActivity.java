@@ -1,75 +1,59 @@
-/*
- * CareProviderProblemActivity
- *
- * 1.1
- *
- * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package com.example.cmput301f18t14.PicMyMed.View;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
-import com.example.cmput301f18t14.PicMyMed.Controller.PicMyMedApplication;
-import com.example.cmput301f18t14.PicMyMed.Model.CareProvider;
+import com.example.cmput301f18t14.PicMyMed.Controller.PicMyMedController;
+import com.example.cmput301f18t14.PicMyMed.Model.Patient;
 import com.example.cmput301f18t14.PicMyMed.R;
 
-/**
- * CareProviderProblemActivity extends AppCompatActivity
- * and handles displaying a care provider's patient's problems
- *
- * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
- * @since   1.1
- */
-public class CareProviderProblemActivity extends AppCompatActivity {
-
-    TextView patientName;
-    TextView patientPhoneNumber;
-    TextView patientEmail;
-
-    int position;
-
-    /**
-     * Creates the CareProviderProblemActivity state
-     *
-     * @param savedInstanceState    Bundle
-     */
-    protected void onCreate(Bundle savedInstanceState){
+public class CareProviderProblemActivity extends Activity{
+    String name;//pass intent name
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.careproviderproblem_activity);
+        setContentView(R.layout.careproviderpatient_activity);
+        //get patient name from intent
+        name = getIntent().getStringExtra("name");
+        //patient object
+        final Patient patient = PicMyMedController.getPatient(name);
 
-        Intent intentData = getIntent();
-        position = intentData.getIntExtra("position",0);
+        //set name text view
+        TextView patientName = findViewById(R.id.careproviderpation_name_text_view);
+        patientName.setText(name);
 
-        patientName = (TextView) findViewById(R.id.PatientUsername);
-        patientPhoneNumber = (TextView) findViewById(R.id.PatientPhoneNumber);
-        patientEmail = (TextView) findViewById(R.id.PatientEmail);
+        //set phone number text view
+        TextView patientPhone = findViewById(R.id.careproviderpation_phone_text_view);
+        patientPhone.setText(patient.getPhoneNumber());
+        //wow factor pass intent to call
+        patientPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                // Send phone number to intent as data
+                intent.setData(Uri.parse("tel:" + patient.getPhoneNumber()));
+                // Start the dialer app activity with number
+                startActivity(intent);
+            }
+        });
 
-
-        CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
-
-        /* fails due to using dummy variables in previous activity
-        Patient patient = user.getPatientList().getPatient(position);
-
-        patientName.setText(patient.getUsername());
-        patientPhoneNumber.setText(patient.getPhoneNumber());
-        patientEmail.setText(patient.getEmail());*/
-
+        //set phone number text view
+        TextView patientEmail = findViewById(R.id.careproviderpation_email_text_view);
+        patientEmail.setText(patient.getEmail());
+        patientEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setType("message/rfc822"); //specifies message for email app.
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "email content"); //adds the actual content of the email by calling the method previously defined
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "email subject"); //adds the subject by calling the method previously defined.
+                startActivity(Intent.createChooser(emailIntent, "Title of the dialog chooser"));
+            }
+        });
 
     }
 }
