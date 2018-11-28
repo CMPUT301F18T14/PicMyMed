@@ -2,16 +2,20 @@
 
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.android.picmymedphotohandler.GalleryAdapter;
 import com.example.android.picmymedphotohandler.GalleryCells;
 import com.example.android.picmymedphotohandler.LoadingImageFiles;
+import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -36,6 +40,20 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location_photo_manager);
+
+        Button takePhotoButton = findViewById(R.id.take_photo_button);
+        takePhotoButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking add problem button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent photoIntent = new Intent(BodyLocationPhotoManagerActivity.this,PhotoIntentActivity.class);
+                startActivity(photoIntent);
+            }
+        });
 
         startActivity();
     }
