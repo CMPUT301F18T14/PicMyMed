@@ -21,6 +21,7 @@ package com.example.picmymedcode.View;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,6 +45,8 @@ import com.example.QRCode.GeneratorActivity;
  */
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
+
     /**
      * Method initializes the main activity
      *
@@ -54,6 +57,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Creating a SharedPreferences database to store logged status
+        sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+
+        // Checking if the logged in status is true
+        if(sharedPreferences.getBoolean("login", false)) {
+
+            // Checking if the username can be used to create login profiles after checking elasticSearch database
+            if (PicMyMedController.checkLogin(sharedPreferences.getString("userID", "Not Found")) == 1) {
+                // If the user is a patient or a careprovider to run respective activity
+                if(PicMyMedApplication.getLoggedInUser().isPatient()){
+                    Intent problemIntentDirect = new Intent(MainActivity.this, ProblemActivity.class);
+                    startActivity(problemIntentDirect);
+                }
+                else {
+                    Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
+                    startActivity(patientIntent);
+                }
+
+            } else {
+                Toast.makeText(MainActivity.this, "Invalid username",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
 
         Button loginBtn = (Button) findViewById(R.id.loginButton);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
+
+                // Upon 1st time logged in the sharedPreferences stores the logged in status
+                sharedPreferences.edit().putBoolean("login", true).apply();
+                // Upon 1st time logged in the sharedPreferences stores the username
+                sharedPreferences.edit().putString("userID", username).apply();
 
                 if (PicMyMedController.checkLogin(username) == 1) {
                     if(PicMyMedApplication.getLoggedInUser().isPatient()){
