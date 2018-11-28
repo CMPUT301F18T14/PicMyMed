@@ -5,7 +5,6 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    card_view:cardBackgroundColor="#FFFFFF"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true"
@@ -14,7 +13,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/purple_gradient">
+
         <TextView
             android:id="@+id/problem_title_text_view"
             android:layout_width="match_parent"
