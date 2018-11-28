@@ -45,7 +45,6 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="5dp"
         style="?android:attr/borderlessButtonStyle"
-        />
         android:background="@drawable/signupbtn"
         android:text="@string/log_in"
         android:textColor="#ffff" />

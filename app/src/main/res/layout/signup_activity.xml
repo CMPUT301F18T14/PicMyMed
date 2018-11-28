@@ -32,20 +32,18 @@
         android:gravity="center"
         android:layout_centerInParent="true"
         android:background="@drawable/rounded_box"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/patient" />
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:id="@+id/careProviderButton"
         android:layout_marginTop="10dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/care_provide"
+        android:text="@string/care_provider"
         android:layout_centerInParent="true"
         android:layout_below="@+id/patientButton"
         android:background="@drawable/rounded_box"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/care_provider" />
+        android:layout_gravity="center_horizontal" />
 
 </RelativeLayout>
 
