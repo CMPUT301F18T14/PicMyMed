@@ -67,7 +67,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
      */
     private ArrayList<GalleryCells> preparedData() {
         ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.convertingToBitmap();
+        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
         ArrayList<String> filePaths = loadingImageFiles.absoluteFilePaths();
 
         for(int i = 0; i < bitmaps.size(); i++){
