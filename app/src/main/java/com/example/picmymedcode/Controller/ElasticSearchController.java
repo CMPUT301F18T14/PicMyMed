@@ -489,6 +489,7 @@ public class ElasticSearchController {
             return careProviders;
         }
     }
+
 /*
      public static class GetProblemsByUsername extends AsyncTask<String, Void, ArrayList<Problem>> {
          @Override

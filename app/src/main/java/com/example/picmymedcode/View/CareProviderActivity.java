@@ -22,6 +22,8 @@ package com.example.picmymedcode.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,8 +50,14 @@ import java.util.ArrayList;
  */
 public class CareProviderActivity extends AppCompatActivity {
 
-    ListView patientListView;
-    ArrayList<Patient> patientList;
+
+
+    ArrayAdapter<String> arrayAdapter;
+    private RecyclerView mRecyclerView;
+    private CareProviderAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManage;
+    private View.OnClickListener mListener;
+    public ArrayList<String> patientArrayList;
 
     /**
      * Method sets the CareProviderActivity state
@@ -68,51 +76,55 @@ public class CareProviderActivity extends AppCompatActivity {
                 + " " + user.getUsername();
         careProviderName.setText(welcomeText);
 
+        manageRecyclerview();
 
-        patientListView = (ListView) findViewById(R.id.PatientList);
-        patientList = new ArrayList<Patient>();
-        //fake temp data
-        Patient patient1 = new Patient("123","123@a.ca","7801112222");
-        Patient patient2 = new Patient("bomba","123@a.ca","7801112222");
-        Patient patient3 = new Patient("k1tt3n","123@a.ca","7801112222");
-        patientList.add(patient1);
-        patientList.add(patient2);
-        patientList.add(patient3);
-
-        ArrayList<String> arrayPatientList = new ArrayList<>();
-        //populate the array list with patient fake temp data
-        for (int i = 0; i < patientList.size();i++){
-            arrayPatientList.add(i,patientList.get(i).getUsername());
-        }
-
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this,R.layout.patientlist_layout, arrayPatientList);
-        patientListView.setAdapter(arrayAdapter);
-
-        patientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CareProviderActivity.this,CareProviderProblemActivity.class);
-                intent.putExtra("position",position);
-                startActivity(intent);
-            }
-        });
 
         //search for new patient button
         Button addPatientButton = findViewById(R.id.addPatientButton);
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.patientsearch_layout);
-                EditText enteredPatient = (EditText) findViewById(R.id.enteredPatientID);
-                String patientToAdd = enteredPatient.getText().toString();
-                Toast.makeText(getApplicationContext(), patientToAdd,
-                        Toast.LENGTH_LONG).show();
-                //Need to implement try catch to take username and search if it's available
+                Intent intent = new Intent(CareProviderActivity.this,CareProvierAddPatientActivity.class);
+                startActivity(intent);
 
             }
         });
 
+    }
+
+
+    public void manageRecyclerview(){
+        //to clear my file
+        //problemArrayList.clear();
+        //saveInFile();
+        mRecyclerView = findViewById(R.id.PatientList_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new CareProviderAdapter(CareProviderActivity.this, patientArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        // CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
+        //patientList = user.getPatientList();
+        // arrayAdapter = new ArrayAdapter<String>(this,R.layout.patientlist_layout, patientList);
+        //patientListView.setAdapter(arrayAdapter);
+        // arrayAdapter.notifyDataSetChanged();
+
+
+        super.onStart();
+        CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
+        patientArrayList = user.getPatientList();
+        //loadFromFile();
+        mAdapter = new CareProviderAdapter(CareProviderActivity.this, patientArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+        //loadFromFile();
+        //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 
 
