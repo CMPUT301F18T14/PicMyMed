@@ -20,10 +20,12 @@
 package com.example.picmymedcode.Controller;
 
 
+import android.util.AtomicFile;
 import android.util.Log;
 
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.Model.User;
@@ -370,5 +372,9 @@ public class PicMyMedController {
 
         }
         return careProviders;
+    }
+
+    public static ArrayList<Photo> getPhotoList(int problemIndex, int recordIndex) {
+        return PicMyMedApplication.getPatientUser().getProblemList().get(problemIndex).getRecordList().get(recordIndex).getPhotoList();
     }
 }
