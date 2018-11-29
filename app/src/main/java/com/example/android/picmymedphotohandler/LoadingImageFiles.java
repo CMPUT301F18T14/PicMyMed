@@ -21,6 +21,9 @@ package com.example.android.picmymedphotohandler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import com.example.picmymedcode.Model.Photo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,11 +61,30 @@ public class LoadingImageFiles {
     }
 
     /**
+     * This method converts the Base64String into a Bitmap.
+     *
+     * @return  an array list of bitmaps
+     */
+    public ArrayList<Bitmap> base65ToBitmap(ArrayList<Photo> photos) {
+
+        byte[] decodedString;
+        Bitmap decodedByte;
+        for (int i = 0; i < photos.size(); i++) {
+            // Converting to byte array
+            decodedString = Base64.decode(photos.get(i).getBase64EncodedString(), Base64.DEFAULT);
+            // Converting to Bitmap
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            bitmaps.add(decodedByte);
+        }
+        return bitmaps;
+    }
+
+    /**
      * This method converts the file into bitmap using the absolute path of the file.
      *
      * @return  an array of bitmap files
      */
-    public ArrayList<Bitmap> convertingToBitmap(){
+    public ArrayList<Bitmap> jpegToBitmap(){
         for (int i = 0; i < files.length; i++){
             File imageFile = new File(files[i].getAbsolutePath());
 
