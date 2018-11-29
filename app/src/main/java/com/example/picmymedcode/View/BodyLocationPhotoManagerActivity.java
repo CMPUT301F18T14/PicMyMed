@@ -19,6 +19,7 @@ import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -67,12 +68,13 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     private ArrayList<GalleryCells> preparedData() {
         ArrayList<GalleryCells> imagesModified = new ArrayList<>();
         ArrayList<Bitmap> bitmaps = loadingImageFiles.convertingToBitmap();
+        ArrayList<String> filePaths = loadingImageFiles.absoluteFilePaths();
 
         for(int i = 0; i < bitmaps.size(); i++){
             GalleryCells galleryCells = new GalleryCells();
             galleryCells.setTitle(""+(i + 1));
             galleryCells.setBitmap(bitmaps.get(i));
-            galleryCells.setFilepath(loadingImageFiles.absolutePath(i));
+            galleryCells.setFilepath(filePaths.get(i));
             imagesModified.add(galleryCells);
         }
         return imagesModified;

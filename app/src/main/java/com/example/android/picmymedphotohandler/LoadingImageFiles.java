@@ -24,6 +24,7 @@ import android.graphics.BitmapFactory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class loads images stored in the internal disk space of the application,
@@ -41,6 +42,8 @@ public class LoadingImageFiles {
 
     private ArrayList<Bitmap> bitmaps;
 
+    private ArrayList<String> filePaths;
+
     /**
      * Constructor for the class. It initializes the member variables.
      *
@@ -51,6 +54,7 @@ public class LoadingImageFiles {
         directory = directoryFile;
         files = directory.listFiles();
         bitmaps = new ArrayList<Bitmap>();
+        filePaths = new ArrayList<String>();
     }
 
     /**
@@ -60,9 +64,10 @@ public class LoadingImageFiles {
      */
     public ArrayList<Bitmap> convertingToBitmap(){
         for (int i = 0; i < files.length; i++){
-            File imageFile = new File(absolutePath(i));
+            File imageFile = new File(files[i].getAbsolutePath());
 
-            if (imageFile.exists()){
+            if (imageFile.exists() && imageFile.length() != 0){
+                filePaths.add(imageFile.getAbsolutePath());
                 Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 bitmaps.add(bitmap);
             }
@@ -74,10 +79,9 @@ public class LoadingImageFiles {
      * This method returns the absolute path of the file stored in
      * a File type array using an index
      *
-     * @param   index index of the array
-     * @return  String of absolute path of the file
+     * @return  List of String containing absolute paths of the files
      */
-    public String absolutePath(int index){
-        return files[index].getAbsolutePath();
+    public ArrayList<String> absoluteFilePaths(){
+        return filePaths;
     }
 }

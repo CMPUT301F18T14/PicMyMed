@@ -1,11 +1,15 @@
 package com.example.picmymedmaphandler.View;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,6 +94,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         mGps = (ImageView) findViewById(R.id.icon_gps);
 
         mAdd = (ImageView) findViewById(R.id.icon_add);
+        // Hiding the Add button
+        mAdd.setVisibility(View.INVISIBLE);
 
         longitudeLatitude = new LongitudeLatitude(DrawMapActivity.this);
 
@@ -103,6 +109,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                     gettingCurrentLatLon();
                     // Drawing the map
                     initMap();
+                    // Making the Add button visible after the location is set
+                    mAdd.setVisibility(View.VISIBLE);
                     // Searching Location
                     initSearch();
                 } catch (NullPointerException e) {
@@ -111,6 +119,10 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                             "Location is not synced. Turn on the GPS, and try again.",
                             Toast.LENGTH_SHORT).show();
                     // Creating intent, and calling the activity again
+                    longitudeLatitude = null;
+                    mAdd = null;
+                    mGps = null;
+                    searchText = null;
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);

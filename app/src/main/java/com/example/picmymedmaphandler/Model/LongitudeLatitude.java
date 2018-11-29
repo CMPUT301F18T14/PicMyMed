@@ -139,16 +139,6 @@ public class LongitudeLatitude {
 //    @Override
 //    public void onRequestPermissionsResul(int requestCode, @NonNull String[] permissions,
 //                                           @NonNull int[] grantResults) {
-//        if (requestCode == REQUEST_PERMISSIONS_LAST_LOCATION_REQUEST_CODE) {
-//            if (grantResults.length <= 0) {
-//// If user interaction was interrupted, the permission request is cancelled and you
-//// receive empty arrays.
-//                Log.i(TAG, "User interaction was cancelled.");
-//            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//// Permission granted.
-//                getLastLocation();
-//            }
-//        }
 //
 //        if (requestCode == REQUEST_PERMISSIONS_CURRENT_LOCATION_REQUEST_CODE) {
 //            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -156,25 +146,6 @@ public class LongitudeLatitude {
 //            }
 //        }
 //    }
-
-    @SuppressWarnings("MissingPermission")
-    private void getLastLocation() {
-
-        mFusedLocationClient.getLastLocation()
-                .addOnCompleteListener(activity, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            mLastLocation = task.getResult();
-
-                            latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-
-                        } else {
-                            //showSnackbar("No Last known location found. Try current location..!");
-                        }
-                    }
-                });
-    }
 
     public void callCurrentLocation() {
         Log.d(TAG, "callCurrentLocation: Begins!");
@@ -216,30 +187,6 @@ public class LongitudeLatitude {
 
         } catch (Exception ex) {
             Log.d(TAG, "callCurrentLocation: Exception caught.");
-            ex.printStackTrace();
-        }
-    }
-
-    public void callLastKnownLocation() {
-        try {
-            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                // ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                // public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                // int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                requestPermissions(REQUEST_PERMISSIONS_LAST_LOCATION_REQUEST_CODE);
-                return;
-            }
-
-            getLastLocation();
-
-        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
