@@ -20,7 +20,6 @@ import com.example.android.picmymedphotohandler.LoadingImageFiles;
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
-import com.example.picmymedcode.Model.BodyLocation;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -79,20 +78,20 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
      *
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
-    private ArrayList<GalleryCells> preparedData() {
-        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
-        ArrayList<String> filePaths = loadingImageFiles.absoluteFilePaths();
-
-        for(int i = 0; i < bitmaps.size(); i++){
-            GalleryCells galleryCells = new GalleryCells();
-            galleryCells.setTitle(""+(i + 1));
-            galleryCells.setBitmap(bitmaps.get(i));
-            galleryCells.setFilepath(filePaths.get(i));
-            imagesModified.add(galleryCells);
-        }
-        return imagesModified;
-    }
+//    private ArrayList<GalleryCells> preparedData() {
+//        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
+//        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
+//        ArrayList<String> filePaths = loadingImageFiles.absoluteFilePaths();
+//
+//        for(int i = 0; i < bitmaps.size(); i++){
+//            GalleryCells galleryCells = new GalleryCells();
+//            galleryCells.setTitle(""+(i + 1));
+//            galleryCells.setBitmap(bitmaps.get(i));
+//            galleryCells.setFilepath(filePaths.get(i));
+//            imagesModified.add(galleryCells);
+//        }
+//        return imagesModified;
+//    }
 
     /**
      * This method initiates all the required things to show the gallery.
@@ -111,7 +110,8 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Prepare the data for adapter compatibility
-        galleryCells = preparedData();
+        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        galleryCells = preparedDataFromBase64(user.getBodyLocationPhotoList());
         // Initialize the adapter
         galleryAdapter = new GalleryAdapter(galleryCells, com.example.picmymedcode.View.BodyLocationPhotoManagerActivity.this);
 
@@ -144,6 +144,26 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
                 Log.d("DEBUG BodyLocation", e.getMessage());
             }
         }
+    }
+
+    /**
+     * This method performs operation on the data
+     * to make it viewable under the defined adapter setting.
+     *
+     * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
+     */
+    private ArrayList<GalleryCells> preparedDataFromBase64(ArrayList<BodyLocationPhoto> bodyLocationPhotos) {
+        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
+
+        ArrayList<Bitmap> bitmaps = loadingImageFiles.base65ToBitmap((ArrayList<Photo>)(ArrayList<?>) bodyLocationPhotos);
+
+        for(int i = 0; i < bitmaps.size(); i++){
+            GalleryCells galleryCells = new GalleryCells();
+            galleryCells.setTitle(""+(i + 1));
+            galleryCells.setBitmap(bitmaps.get(i));
+            imagesModified.add(galleryCells);
+        }
+        return imagesModified;
     }
 }
 

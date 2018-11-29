@@ -324,6 +324,7 @@ public class PicMyMedController {
     }
 
     public static int addBodyLocationPhoto(BodyLocationPhoto photo) {
+        Log.d ("addBodyLocationPhoto", "in controller");
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.addToBodyLocationPhotoList(photo);
 
