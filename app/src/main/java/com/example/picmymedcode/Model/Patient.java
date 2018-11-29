@@ -51,6 +51,7 @@ public class Patient extends User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.problemList = new ArrayList<Problem>();
+        this.bodyLocationPhotoList = new ArrayList<BodyLocationPhoto>();
 
     }
     /**
@@ -108,6 +109,10 @@ public class Patient extends User {
     }
     public void setBodyLocationPhotoList(ArrayList<BodyLocationPhoto> bodyLocationPhotoList) {
         this.bodyLocationPhotoList = bodyLocationPhotoList;
+    }
+
+    public void addToBodyLocationPhotoList(BodyLocationPhoto photo) {
+        this.bodyLocationPhotoList.add(photo);
     }
 }
 

@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +18,11 @@ import com.example.android.picmymedphotohandler.GalleryAdapter;
 import com.example.android.picmymedphotohandler.GalleryCells;
 import com.example.android.picmymedphotohandler.LoadingImageFiles;
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -32,6 +39,10 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
 
     private LoadingImageFiles loadingImageFiles;
 
+    private static final int CAMERA_REQUEST_CODE = 333;
+    private BodyLocationPhoto bodyLocationPhoto;
+    //private Patient user;
+
     /**
      * Method loads state
      *
@@ -41,6 +52,8 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location_photo_manager);
+
+        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
 
         Button takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +65,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent photoIntent = new Intent(BodyLocationPhotoManagerActivity.this,PhotoIntentActivity.class);
-                startActivity(photoIntent);
+                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
             }
         });
 
@@ -67,7 +80,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
      */
     private ArrayList<GalleryCells> preparedData() {
         ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.convertingToBitmap();
+        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
         ArrayList<String> filePaths = loadingImageFiles.absoluteFilePaths();
 
         for(int i = 0; i < bitmaps.size(); i++){
@@ -112,6 +125,17 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startActivity();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            try {
+                bodyLocationPhoto = (BodyLocationPhoto) data.getSerializableExtra("photoObject");
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto);
+            } catch (Exception e) {
+            }
+        }
     }
 }
 
