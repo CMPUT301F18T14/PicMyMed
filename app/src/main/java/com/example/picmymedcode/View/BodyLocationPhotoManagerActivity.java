@@ -20,6 +20,7 @@ import com.example.android.picmymedphotohandler.LoadingImageFiles;
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -40,7 +41,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     private LoadingImageFiles loadingImageFiles;
 
     private static final int CAMERA_REQUEST_CODE = 333;
-    private BodyLocationPhoto bodyLocationPhoto;
+    // private BodyLocationPhoto bodyLocationPhoto;
     //private Patient user;
 
     /**
@@ -131,9 +132,16 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CAMERA_REQUEST_CODE) {
             try {
-                bodyLocationPhoto = (BodyLocationPhoto) data.getSerializableExtra("photoObject");
+                Log.d("DEBUG BodyLocation","BodyLocation is being fetched!!!");
+                Photo photo = (Photo) data.getSerializableExtra("photoObject");
+
+                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(photo.getPhotoPath());
+                bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
+
+                Log.d("BodyLocation is here!!!", photo.getPhotoPath());
                 PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto);
             } catch (Exception e) {
+                Log.d("DEBUG BodyLocation", e.getMessage());
             }
         }
     }
