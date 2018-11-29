@@ -35,7 +35,6 @@ import java.io.Serializable;
 public class Photo implements Serializable{
     private int photoID;
     private String filepath;
-    private byte[] bitmapData;
     private String base64EncodedString;
     /**
      * Construct initializes the variables
@@ -46,12 +45,7 @@ public class Photo implements Serializable{
         this.filepath = filepath;
     }
 
-    /**
-     * Constructor initializes the member variables
-     *
-     * @param bitmapData    byte[] containing bitmapdata
-     */
-    public void setBitmapData(byte[] bitmapData) { this.bitmapData = bitmapData; }
+
     /**
      * Method gets the file path of the photo
      *
@@ -62,18 +56,17 @@ public class Photo implements Serializable{
     }
 
     /**
-     * Method gets the byte array of bitmap data
-     *
-     * @return  Byte[]      A byte array of bitmap data
+     * Method gets the string representation of the photo
+     * @return
      */
-    public byte[] getBitmapData() {
-        return this.bitmapData;
-    }
-
     public String getBase64EncodedString() {
         return base64EncodedString;
     }
 
+    /**
+     * Method sets the string representation of the photo
+     * @param base64EncodedString
+     */
     public void setBase64EncodedString(String base64EncodedString) {
         this.base64EncodedString = base64EncodedString;
     }
