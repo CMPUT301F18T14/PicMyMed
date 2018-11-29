@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/problem_card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="#FFFFFF"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="5dp"
+    card_view:cardUseCompatPadding="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/cp_problem_title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:text="Problem Title"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/cp_problem_date_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="Date"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/cp_problem_record_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="Number of record"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/cp_problem_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="Description"
+            android:textColor="#000000"
+            android:textAppearance="?android:textAppearanceLarge"/>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

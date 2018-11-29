@@ -8,23 +8,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/Add_New_Patient" />
+        android:text="Add a new Patient" />
 
     <TextView
         android:id="@+id/careProviderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:text="@string/Welcome"
-        android:textSize="25sp" />
+        android:text="Welcome Care Provider"
+        android:textSize="25sp"
+        android:paddingTop="10dp"/>
 
-    <ListView
-        android:id="@+id/PatientList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/PatientList_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:scrollbars="vertical" />
 
 
 </LinearLayout>

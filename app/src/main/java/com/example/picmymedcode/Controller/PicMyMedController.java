@@ -140,6 +140,8 @@ public class PicMyMedController {
      *
      * @return  problemList
      */
+
+
     public static ArrayList<Problem> getProblems() {
         /* Needs to be fixed a bit because an empty ArrayList shouldn't be sent if user is null */
         ArrayList<Problem> problemList = new ArrayList<Problem>();
@@ -152,6 +154,37 @@ public class PicMyMedController {
 
         }
 
+    }
+
+    public static ArrayList<String> getAllPatients() {
+        ArrayList<String> patientUsernames = new ArrayList<String>();
+        ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
+        getAllPatients.execute();
+
+        try {
+            for (Patient patient : getAllPatients.get()) {
+                if (!patientUsernames.contains(patient.getUsername())) {
+                    patientUsernames.add(patient.getUsername());
+                }
+            }
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "Error retrieving patients");
+        }
+        return patientUsernames;
+    }
+
+    public static Patient getPatient(String username) {
+
+        Patient patient = null;
+
+        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        getPatient.execute(username);
+        try {
+            patient = getPatient.get().get(0);
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+        }
+        return patient;
     }
 
 
@@ -239,6 +272,40 @@ public class PicMyMedController {
     }
 
     /**
+     * Method gets user from the controller and calls elastic search and updates the database
+     *
+     * @param careProvider   CareProvider
+     * @return               int
+     */
+    public static int updateCareProvider(CareProvider careProvider) {
+
+        try {
+            ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+            updateCareProvider.execute(careProvider);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Method adds patient to careprovider
+     *
+     * @param patientName   String
+     * @return               int
+     */
+    public static int addPatientToCareProvider(String patientUsername) {
+
+        CareProvider careProvider = PicMyMedApplication.getCareProviderUser();
+        if (!careProvider.getPatientList().contains(patientUsername)){
+            careProvider.getPatientList().add(patientUsername);
+            updateCareProvider(careProvider);
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
      * Method updates the patients proifle with an email and phone then updates the database
      *
      * @param email String
@@ -291,18 +358,7 @@ public class PicMyMedController {
         }
 
     }
-    public static ArrayList<Patient> getAllPatients() {
-        ArrayList<Patient> patients = null;
-        ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
-        getAllPatients.execute();
-        try {
-            patients = getAllPatients.get();
-        } catch (Exception e) {
-            Log.i("DEBUG PMMController", "No patients with the entered username was found");
 
-        }
-        return patients;
-    }
     public static ArrayList<CareProvider> getAllCareProviders() {
         ArrayList<CareProvider> careProviders = null;
         ElasticSearchController.GetAllCareProviders getAllCareProviders = new ElasticSearchController.GetAllCareProviders();
