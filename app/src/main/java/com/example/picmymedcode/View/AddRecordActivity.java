@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
@@ -61,11 +63,14 @@ import java.util.ArrayList;
  */
 public class AddRecordActivity extends AppCompatActivity{
     //RecordList recordList = new RecordList();
+    public static final String TAG = "AddRecordActivity: ";
     public ArrayList<Problem> arrayListProblem;
     private static final String FILENAME = "file.sav";
     private static final int LAT_LNG_REQUEST_CODE = 786;
+    private static final int CAMERA_REQUEST_CODE = 787;
     private TextView locationNameTextView;
     private Geolocation geolocation;
+    private Photo photo;
     int position;
 
     /**
@@ -98,7 +103,7 @@ public class AddRecordActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent photoIntent = new Intent(AddRecordActivity.this,PhotoIntentActivity.class);
-                startActivity(photoIntent);
+                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
             }
         });
 
@@ -115,6 +120,11 @@ public class AddRecordActivity extends AppCompatActivity{
                 record.setDescription(recordDescriptionEditText.getText().toString());
                 if(geolocation!=null) {
                     record.setLocation(geolocation);
+                }
+                if (photo != null){
+                    record.addToPhotoList(photo);
+                    System.out.println("I'm printing the phoro");
+                    System.out.println(photo.getBase64EncodedString().length());
                 }
                 position = getIntent().getIntExtra("key",0);
                 Problem problem = arrayListProblem.get(position);
@@ -194,6 +204,15 @@ public class AddRecordActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
                 locationNameTextView.setText(geolocation.getLocationName());
+            }
+        }
+
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            try {
+                photo = (Photo) data.getSerializableExtra("photoObject");
+                Log.d(TAG, "seccessfuly fetched photo");
+            } catch (Exception e) {
+                Log.d(TAG, "fetching photo failed!");
             }
         }
     }

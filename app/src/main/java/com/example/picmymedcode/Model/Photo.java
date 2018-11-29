@@ -20,6 +20,11 @@
 
 package com.example.picmymedcode.Model;
 
+import android.graphics.Bitmap;
+
+import java.io.File;
+import java.io.Serializable;
+
 /**
  * Photo class sets the file path of a photo and returns it
  *
@@ -27,10 +32,11 @@ package com.example.picmymedcode.Model;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class Photo {
+public class Photo implements Serializable{
     private int photoID;
     private String filepath;
-    private Byte[] bitmapData;
+    private byte[] bitmapData;
+    private String base64EncodedString;
     /**
      * Construct initializes the variables
      *
@@ -43,9 +49,9 @@ public class Photo {
     /**
      * Constructor initializes the member variables
      *
-     * @param bitmapData    Byte[] containing bitmapdata
+     * @param bitmapData    byte[] containing bitmapdata
      */
-    public Photo(Byte[] bitmapData) { this.bitmapData = bitmapData; }
+    public void setBitmapData(byte[] bitmapData) { this.bitmapData = bitmapData; }
     /**
      * Method gets the file path of the photo
      *
@@ -60,7 +66,15 @@ public class Photo {
      *
      * @return  Byte[]      A byte array of bitmap data
      */
-    public Byte[] getBitmapData() {
+    public byte[] getBitmapData() {
         return this.bitmapData;
+    }
+
+    public String getBase64EncodedString() {
+        return base64EncodedString;
+    }
+
+    public void setBase64EncodedString(String base64EncodedString) {
+        this.base64EncodedString = base64EncodedString;
     }
 }

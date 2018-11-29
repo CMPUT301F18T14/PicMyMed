@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +34,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -149,6 +151,12 @@ public class PhotoIntentActivity extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             try {
                 handleBigCameraPhoto(photoFile, imageView, MAX_FILE_SIZE);
+                Intent backToAddRecordActivity = new Intent();
+                Log.i(TAG, "before passing photoObject");
+                backToAddRecordActivity.putExtra("photoObject", photo);
+                Log.i(TAG, "after passing photoObject");
+                setResult(RESULT_OK, backToAddRecordActivity);
+                finish();
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Could not carryout the operation!", Toast.LENGTH_SHORT).show();
@@ -172,8 +180,13 @@ public class PhotoIntentActivity extends AppCompatActivity {
      */
     private void handleBigCameraPhoto(File imageFile, ImageView imageView, int maxFileSize) throws IOException {
 
+
         // Getting the absolute path of the image
         String imageFilePath = imageFile.getAbsolutePath();
+
+        String base64Image;
+
+        photo = new Photo(imageFilePath);
 
         Log.d(TAG, "The file size is = " + imageFile.length());
 
@@ -193,6 +206,10 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
                 Log.d(TAG, "The file size is = " + fileToBeStored.length());
 
+                base64Image = Base64.encodeToString(bitmapData, Base64.DEFAULT);
+
+                photo.setBase64EncodedString(base64Image);
+
                 galleryAddPic(fileToBeStored);
 
             } else {
@@ -208,6 +225,10 @@ public class PhotoIntentActivity extends AppCompatActivity {
                 File fileToBeStored = writingByteArrayToFile(imageFile, bitmapData);
 
                 Log.d(TAG, "The file size is = " + fileToBeStored.length());
+
+                base64Image = Base64.encodeToString(bitmapData, Base64.DEFAULT);
+
+                photo.setBase64EncodedString(base64Image);
 
                 galleryAddPic(fileToBeStored);
             }
@@ -241,6 +262,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
      */
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra("android.intent.extras.LENS_FACING_BACK", Camera.CameraInfo.CAMERA_FACING_BACK);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go

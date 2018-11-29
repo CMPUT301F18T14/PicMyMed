@@ -160,5 +160,18 @@ public class Record {
         return timeStamp;
     }
 
+    /**
+     * Method adds photos to photolist for the record
+     *
+     * @param photo A photo object
+     */
+    public void addToPhotoList(Photo photo) throws IllegalArgumentException {
+        if (photoList.size() <= 10) {
+            this.photoList.add(photo);
+        } else {
+            throw new IllegalArgumentException("Maximum number of photos added for a record!");
+        }
+    }
+
 }
 
