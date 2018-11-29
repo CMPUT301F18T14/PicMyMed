@@ -146,7 +146,7 @@ public class SlideshowActivity extends AppCompatActivity {
      */
     private ArrayList<GalleryCells> preparedData(){
         ArrayList<GalleryCells> imagesModifed = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.convertingToBitmap();
+        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
 
         for(int i = 0; i < bitmaps.size(); i++){
             GalleryCells galleryCells = new GalleryCells();
