@@ -107,6 +107,7 @@ public class RecordActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
+                galleryIntent.putExtra("problemIndex", position);
                 startActivity(galleryIntent);
             }
         });

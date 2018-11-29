@@ -19,6 +19,7 @@
 
 package com.example.android.picmymedphotohandler;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,6 +27,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
+import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -58,6 +63,10 @@ public class GalleryActivity extends AppCompatActivity {
 
     private LoadingImageFiles loadingImageFiles;
 
+    private Record record;
+
+    private Patient user;
+
     /**
      * Method loads state
      *
@@ -67,6 +76,8 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
 
         startActivity();
     }
@@ -79,7 +90,7 @@ public class GalleryActivity extends AppCompatActivity {
      */
     private ArrayList<GalleryCells> preparedData() {
         ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.convertingToBitmap();
+        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
         ArrayList<String> filePaths = loadingImageFiles.absoluteFilePaths();
 
         for(int i = 0; i < bitmaps.size(); i++){
@@ -96,6 +107,26 @@ public class GalleryActivity extends AppCompatActivity {
      * This method initiates all the required things to show the gallery.
      */
     private void startActivity() {
+
+        int receivedIntentFrom = getIntent().getIntExtra("intentSender", 0);
+
+        if (receivedIntentFrom == 1) {                  // From Record Activity
+            int problemIndex = getIntent().getIntExtra("problemIndex", 0);
+            int recordIndex = getIntent().getIntExtra("recordIndex", 0);
+            record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
+
+            // Prepare the data for adapter compatibility
+            galleryCells = preparedDataFromBase64(record.getPhotoList());
+
+        } else if (receivedIntentFrom == 2) {           // From BodyLocation Activity
+            int problemIndex = getIntent().getIntExtra("problemIndex", 0);
+            int recordIndex = getIntent().getIntExtra("recordIndex", 0);
+            record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
+
+            // Prepare the data for adapter compatibility
+            galleryCells = preparedDataFromBase64(record.getPhotoList());
+        }
+
         // Load the image files
         loadingImageFiles = new LoadingImageFiles(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
 
@@ -108,13 +139,31 @@ public class GalleryActivity extends AppCompatActivity {
         // Set the layout in the recycler view
         recyclerView.setLayoutManager(layoutManager);
 
-        // Prepare the data for adapter compatibility
-        galleryCells = preparedData();
         // Initialize the adapter
         galleryAdapter = new GalleryAdapter(galleryCells, GalleryActivity.this);
 
         // Set the adapter to the recycler view
         recyclerView.setAdapter(galleryAdapter);
+    }
+
+    /**
+     * This method performs operation on the data
+     * to make it viewable under the defined adapter setting.
+     *
+     * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
+     */
+    private ArrayList<GalleryCells> preparedDataFromBase64(ArrayList<Photo> photos) {
+        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
+        ArrayList<Bitmap> bitmaps = loadingImageFiles.base65ToBitmap(photos);
+
+
+        for(int i = 0; i < bitmaps.size(); i++){
+            GalleryCells galleryCells = new GalleryCells();
+            galleryCells.setTitle(""+(i + 1));
+            galleryCells.setBitmap(bitmaps.get(i));
+            imagesModified.add(galleryCells);
+        }
+        return imagesModified;
     }
 
     /**
