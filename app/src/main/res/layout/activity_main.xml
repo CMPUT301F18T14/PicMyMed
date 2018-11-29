@@ -18,7 +18,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:layout_above="@+id/enteredUID"
-        android:src="@drawable/logo_small" />
+        android:src="@drawable/aladdin" />
 
     <EditText
         android:id="@+id/enteredUID"
