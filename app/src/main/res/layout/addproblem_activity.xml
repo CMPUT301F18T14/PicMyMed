@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    android:background="@drawable/white_border">
+    android:background="#ffff">
 
     <EditText
         android:id="@+id/problem_title_edit_text"
