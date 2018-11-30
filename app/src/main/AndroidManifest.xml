@@ -66,6 +66,9 @@
             android:name="com.example.picmymedcode.View.CareProviderRecordActivity"
             android:label="Record" />
         <activity
+            android:name="com.example.picmymedcode.View.CareProviderAddComment"
+            android:label="Add Commet" />
+        <activity
             android:name="com.example.picmymedcode.View.CareProviderProblemActivity"
             android:label="Patient&apos;s Problems" />
         <activity
