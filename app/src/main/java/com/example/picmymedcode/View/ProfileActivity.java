@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.qr_code_image_view);
 
         // to generate QR code
-        String text=user.getUsername();
+        String text = user.getRandomPasscode();
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE,200,200);

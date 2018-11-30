@@ -19,12 +19,11 @@
  */
 package com.example.picmymedcode.Controller;
 
-
-
 import android.os.Build;
 import android.util.AtomicFile;
 import android.util.Log;
 
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -262,7 +261,7 @@ public class PicMyMedController {
     /**
      * Method adds patient to careprovider
      *
-     * @param patientName   String
+     * @param patientUsername   String
      * @return               int
      */
     public static int addPatientToCareProvider(String patientUsername) {
@@ -287,6 +286,31 @@ public class PicMyMedController {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.setEmail(email);
         patient.setPhoneNumber(phone);
+        updatePatient(patient);
+        return 1;
+    }
+
+    public static int addBodyLocationPhoto(BodyLocationPhoto photo) {
+        Log.d ("addBodyLocationPhoto", "in controller");
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.addBodyLocationPhoto(photo);
+
+        updatePatient(patient);
+        return 1;
+    }
+
+    public static int removeBodyLocationPhoto(int index) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getBodyLocationPhotoList().remove(index);
+
+        updatePatient(patient);
+        return 1;
+    }
+
+    public static int updateBodyLocationPhoto(int index, String label) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getBodyLocationPhotoList().get(index).setLabel(label);
+
         updatePatient(patient);
         return 1;
     }
