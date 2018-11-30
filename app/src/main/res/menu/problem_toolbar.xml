@@ -21,7 +21,7 @@
         android:orderInCategory="3"
         android:icon="@drawable/body_location_photo"
         app:showAsAction="always|withText"
-        android:actionLayout="layout/pro"
+        android:actionLayout="@layout/problem_activity"
         />
 
 
