@@ -2,6 +2,7 @@ package com.example.picmymedcode.View;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,6 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      */
     public static class CareProviderViewHolder extends RecyclerView.ViewHolder{
         TextView patientNameTextView;
-
 
         /**
          * Method handles how problems are viewed
