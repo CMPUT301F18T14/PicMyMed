@@ -154,6 +154,7 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString());
+                        getSupportActionBar().setTitle(writeLabel.getText().toString());
                         labellingDialog.cancel();
                     }
                 });

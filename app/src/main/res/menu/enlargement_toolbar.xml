@@ -25,13 +25,6 @@
         app:showAsAction="always|withText"/>
 
 
-    <item
-        android:id="@+id/edit_text_menu"
-        android:orderInCategory="1"
-        android:title="Label"
-        android:actionLayout="@layout/activity_photo_enlargement"
-        app:showAsAction="always|withText"
-        />
 
 
 </menu>
