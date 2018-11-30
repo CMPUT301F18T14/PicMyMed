@@ -37,10 +37,8 @@ public class Problem {
     //private RecordList recordList;
     private String problemID;
     private String username;
-
-
-    public ArrayList<Record> recordList;
-
+    private ArrayList<Record> recordList;
+    private ArrayList<String> commentList;
 
     /**
      * Constructor initializes problem class variables
@@ -59,6 +57,7 @@ public class Problem {
         this.title = title;
         this.description = description;
         this.recordList = new ArrayList<Record>();
+        this.commentList = new ArrayList<String> ();
     }
 
     /**
@@ -169,5 +168,21 @@ public class Problem {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * Method gets the commentList associated with a problem
+     * @return
+     */
+    public ArrayList<String> getCommentList() {
+        return commentList;
+    }
+
+    /**
+     * Method sets the commentList associated with a problem
+     * @param commentList
+     */
+    public void setCommentList(ArrayList<String> commentList) {
+        this.commentList = commentList;
     }
 }

@@ -9,24 +9,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.picmymedcode.Model.temporary;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
+import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmymedcode.View.CareProviderAdapter.CareProviderViewHolder> {
-
+public class CareProviderProblemAdapter extends RecyclerView.Adapter<CareProviderProblemAdapter.PorblemViewHolder>{
     private static final String FILENAME = "file.sav";
 
 
-    private ArrayList<String> patientnameData;
+    private ArrayList<Problem> problems;
     Context context;
 
     /**
      * Method extends ViewHolder
      */
-    public static class CareProviderViewHolder extends RecyclerView.ViewHolder{
-        TextView patientNameTextView;
+    public static class PorblemViewHolder extends RecyclerView.ViewHolder{
+        TextView problemTitleTextView;
+        TextView problemDateTextView;
+        TextView numberofRecordTextView;
+        TextView descriptionTextView;
 
 
         /**
@@ -34,19 +41,21 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
          *
          * @param itemView View
          */
-        public CareProviderViewHolder (@NonNull View itemView) {
+        public PorblemViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.patientNameTextView = (TextView) itemView.findViewById(R.id.patientlist_name_text_view);
+            this.problemTitleTextView = itemView.findViewById(R.id.cp_problem_title_text_view);
+            this.problemDateTextView = itemView.findViewById(R.id.cp_problem_date_text_view);
+            this.descriptionTextView = itemView.findViewById(R.id.cp_problem_description_text_view);
         }
     }
 
     /**
      *
      * @param context
-     * @param patientnameData
+     * @param problemsdata
      */
-    public CareProviderAdapter (Context context, ArrayList<String> patientnameData){
-        this.patientnameData = patientnameData;
+    public CareProviderProblemAdapter(Context context, ArrayList<Problem> problemsdata){
+        this.problems = problemsdata;
         this.context = context; //collection of data
     }
 
@@ -59,13 +68,11 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      */
     @NonNull
     @Override
-    public CareProviderAdapter.CareProviderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.patientnamecard_layout,parent,false);
-        CareProviderAdapter.CareProviderViewHolder myViewHolder = new CareProviderAdapter.CareProviderViewHolder(view);
+    public CareProviderProblemAdapter.PorblemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.careproviderproblemcard_layout,parent,false);
+        CareProviderProblemAdapter.PorblemViewHolder myViewHolder = new CareProviderProblemAdapter.PorblemViewHolder(view);
         return myViewHolder;
     }
-
-
 
     /**
      * Method gets element from the dataset at a certain position and replaces contents of the view
@@ -75,23 +82,33 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      * @param listPosition  int
      */
     @Override
-    public void onBindViewHolder(@NonNull final CareProviderAdapter.CareProviderViewHolder myViewHolder, final int listPosition) {
-        TextView patientNameTextView = myViewHolder.patientNameTextView;
-        patientNameTextView.setText(patientnameData.get(listPosition));
+    public void onBindViewHolder(@NonNull final CareProviderProblemAdapter.PorblemViewHolder myViewHolder, final int listPosition) {
+        //set title
+        TextView problemTitleTextView = myViewHolder.problemTitleTextView;
+        problemTitleTextView.setText(problems.get(listPosition).getTitle());
+        //set date
+        TextView problemDateTextView = myViewHolder.problemDateTextView;
+        //TODO set date has issue
+       // problemDateTextView.setText(problems.get(listPosition).getStartDate().toString());
+        //TODO set number of record
 
 
-        myViewHolder.patientNameTextView.setOnClickListener(new View.OnClickListener() {
+        //set description
+        TextView DescriptionTextView = myViewHolder.descriptionTextView;
+        DescriptionTextView.setText(problems.get(listPosition).getDescription());
+
+        myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             //onClick to go to next activity
             public void onClick(View v) {
-                Intent Intent = new Intent(context,CareProviderProblemActivity.class);
-                Intent.putExtra("name",patientnameData.get(listPosition));
+                Intent Intent = new Intent(context,CareProviderRecordActivity.class);
+                Intent.putExtra("key",listPosition);
                 context.startActivity(Intent);
             }
         });
+    problems.get(listPosition).getRecordList();
 
-
-        // myViewHolder.problemMoreTextView.setOnClickListener(new View.OnClickListener() {
+        //myViewHolder.problemMoreTextView.setOnClickListener(new View.OnClickListener() {
         /**
          * Method handles user clicking on an item in the view
          *
@@ -141,13 +158,13 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      */
     @Override
     public int getItemCount() {
-        return (patientnameData == null) ? 0 : patientnameData.size();
+        return (problems == null) ? 0 : problems.size();
     }
 
     /**
      * Method saved data to file. No longer implemented, data now saved to database
      */
-    /*private void saveInFile() {
+    private void saveInFile() {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME,
                     0);
@@ -163,5 +180,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    } */
+    }
+
+
 }

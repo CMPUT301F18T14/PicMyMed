@@ -33,7 +33,6 @@ import java.util.Date;
 public class Record {
 
     private String title;
-    private String comment;
     private String description;
     private Geolocation geolocation;
     private ArrayList<Photo> photoList;
@@ -47,7 +46,6 @@ public class Record {
      */
     public Record(String title) {
         this.title = title;
-        this.comment = "";  // Avoid null pointer exception
         this.description = "no description";
         this.geolocation = new Geolocation();
         this.photoList = new ArrayList<Photo>();
@@ -74,23 +72,6 @@ public class Record {
         this.title = title;
     }
 
-    /**
-     * Method gets the comment of a record
-     *
-     * @return  String
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Method sets comment for a record
-     *
-     * @param comment   String
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
     /**
      * Method gets comment description

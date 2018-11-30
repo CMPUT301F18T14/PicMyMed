@@ -146,8 +146,6 @@ public class ProblemActivity extends AppCompatActivity {
         //loadFromFile();
         mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
 
     /**
