@@ -13,7 +13,8 @@
         android:gravity="center"
         android:text="@string/Enter_Record_Details"
         android:textColor="#D3D3D3"
-        android:textSize="26dp" />
+        android:textSize="26dp"
+        android:paddingTop="20dp"/>
 
     <EditText
         android:id="@+id/record_title_edit_text"
@@ -23,6 +24,7 @@
         android:hint="@string/Add_Title"
         android:paddingLeft="10dp"
         android:textColorHint="#D3D3D3"
+        android:textColor="#16BBE5"
         />
 
     <EditText
@@ -35,6 +37,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:textColorHint="#D3D3D3"
+        android:textColor="#16BBE5"
         />
 
     <Button
@@ -89,8 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/signupbtn"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/signupbtn1"
+        android:paddingHorizontal="50dp"
         android:text="@string/Add" />
 
 </RelativeLayout>
