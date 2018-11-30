@@ -2,47 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/white_border">
+    android:background="@drawable/white_border"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/problemToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@drawable/blue_gradient">
+        android:background="@drawable/blue_gradient"
+        android:minHeight="?attr/actionBarSize">
 
     </android.support.v7.widget.Toolbar>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/problem_recycle_view"
-        android:layout_below="@+id/problemToolbar"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:layout_below="@+id/problemToolbar"
         android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/problem_save_button"
         android:layout_width="250dp"
         android:layout_height="38dp"
-        android:text="@string/Create_Problem"
-        android:layout_above="@+id/profile_button"/>
+        android:layout_above="@+id/profile_button"
+        android:text="@string/Create_Problem" />
     />
 
     <Button
         android:id="@+id/profile_button"
         android:layout_width="250dp"
         android:layout_height="38dp"
-        android:text="@string/Profile"
-        android:layout_above="@+id/bodylocationphotos_button"/>
+        android:layout_above="@+id/bodylocationphotos_button"
+        android:text="@string/Profile" />
+
     <Button
         android:id="@+id/bodylocationphotos_button"
         android:layout_width="250dp"
         android:layout_height="38dp"
-        android:text="@string/Add_Body_Location_Photo"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:text="@string/Add_Body_Location_Photo" />
 
 </RelativeLayout>

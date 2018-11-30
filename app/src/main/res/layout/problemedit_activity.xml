@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/reverse_page"
@@ -51,9 +50,9 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_with_outline"
         android:gravity="center"
-        android:textColor="#000000"
         android:hint="@string/description"
         android:padding="20dp"
+        android:textColor="#000000"
         android:textColorHint="#000000" />
 
     <TextView
@@ -73,10 +72,9 @@
         android:layout_below="@+id/problem_edit_time"
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_with_outline"
-        android:textColor="#000000"
         android:gravity="center"
-        android:padding="20dp" />
-
+        android:padding="20dp"
+        android:textColor="#000000" />
 
 
     <Button
@@ -86,8 +84,8 @@
         android:layout_below="@+id/problem_edit_time_text_view"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
-        android:paddingHorizontal="30dp"
         android:background="@drawable/signupbtn1"
+        android:paddingHorizontal="30dp"
         android:text="@string/update_prob" />
 
 </RelativeLayout>

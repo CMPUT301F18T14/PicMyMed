@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="#fff"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/addPatientButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Add a new Patient"
-        android:paddingHorizontal="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_box_purple"/>
+        android:background="@drawable/rounded_box_purple"
+        android:paddingHorizontal="20dp"
+        android:text="Add a new Patient" />
 
     <TextView
         android:id="@+id/careProviderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Welcome Care Provider"
-        android:textSize="25sp"
-        android:textColor="#16BBE5"
+        android:layout_marginBottom="10dp"
         android:paddingTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:text="Welcome Care Provider"
+        android:textColor="#16BBE5"
+        android:textSize="25sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/PatientList_recycle_view"

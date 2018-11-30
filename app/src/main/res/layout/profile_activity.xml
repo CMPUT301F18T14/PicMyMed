@@ -8,28 +8,28 @@
 
     <ImageView
         android:id="@+id/qr_code_image_view"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
         android:layout_width="200dp"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/phoneNumber"
         android:layout_centerHorizontal="true"
-        android:textColor="#16BBE5"
-        android:layout_above="@id/phoneNumber" />
+        android:textColor="#16BBE5" />
 
     <ImageView
         android:id="@+id/profileIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/phoneIcon"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_toStartOf="@id/username"
         android:layout_toLeftOf="@id/username"
-        android:layout_above="@id/phoneIcon"
         android:background="@drawable/user"
         android:backgroundTint="#000" />
 
@@ -70,12 +70,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/email"
-        android:background="@drawable/email"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:backgroundTint="#000"
-        android:layout_toLeftOf="@+id/email" />
+        android:layout_toStartOf="@+id/email"
+        android:layout_toLeftOf="@+id/email"
+        android:background="@drawable/email"
+        android:backgroundTint="#000" />
 
     <Button
         android:id="@+id/editProfile_button"

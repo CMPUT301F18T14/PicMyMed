@@ -2,28 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/addProblem"
-        android:title="Add"
-        android:orderInCategory="1"
+    <item
+        android:id="@+id/addProblem"
         android:icon="@drawable/plus_sign"
-        app:showAsAction="always|withText"
-        />
+        android:orderInCategory="1"
+        android:title="Add"
+        app:showAsAction="always|withText" />
 
-    <item android:id="@+id/profile"
-        android:title="Profile"
-        android:orderInCategory="2"
+    <item
+        android:id="@+id/profile"
         android:icon="@drawable/user"
-        app:showAsAction="always|withText"
-        />
+        android:orderInCategory="2"
+        android:title="Profile"
+        app:showAsAction="always|withText" />
 
-    <item android:id="@+id/bodylocationphotos"
-        android:title="Body Photos"
-        android:orderInCategory="3"
-        android:icon="@drawable/body_location_photo"
-        app:showAsAction="always|withText"
+    <item
+        android:id="@+id/bodylocationphotos"
         android:actionLayout="layout/pro"
-        />
-
+        android:icon="@drawable/body_location_photo"
+        android:orderInCategory="3"
+        android:title="Body Photos"
+        app:showAsAction="always|withText" />
 
 
 </menu>
