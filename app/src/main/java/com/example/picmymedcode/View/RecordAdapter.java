@@ -31,7 +31,10 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
@@ -114,7 +117,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
-        recordTimeTextView.setText(records.get(i).getTimeStamp());
+        //recordTimeTextView.setText(records.get(i).getTimeStamp());
 
         recordViewHolder.reocrdMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +139,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                             case R.id.delete:
                                 //handle menu2 click
                                 //TODO delete
-                                //PicMyMedCon(records.get(i));
+                                //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                                //ArrayList<Problem> problemArrayList;
+                                //problemArrayList = user.getProblemList();
+                                //problemArrayList.get(RecordActivity.position).getRecordList().remove(i);
+                                //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
                                 break;

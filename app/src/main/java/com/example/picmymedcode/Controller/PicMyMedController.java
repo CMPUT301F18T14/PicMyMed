@@ -248,7 +248,6 @@ public class PicMyMedController {
 
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.addRecord(record);
-
         updatePatient(patient);
 
         return 1;

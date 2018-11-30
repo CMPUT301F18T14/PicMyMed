@@ -19,10 +19,8 @@
  */
 package com.example.picmymedcode.Model;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Record class creates a record object with a title, comment, id, geolocation,
@@ -39,8 +37,7 @@ public class Record {
     private Geolocation geolocation;
     private ArrayList<Photo> photoList;
     private BodyLocation bodyLocation;
-    SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
-    private String timeStamp;
+    private final Date timeStamp;
 
     /**
      * Constructor initializes variables for Record
@@ -53,8 +50,7 @@ public class Record {
         this.geolocation = new Geolocation();
         this.photoList = new ArrayList<Photo>();
         this.bodyLocation = new BodyLocation();
-        final String timeStamp = mSimpleDateFormat.format(new Date());
-        this.timeStamp = timeStamp;
+        this.timeStamp = new Date();
 
     }
 
@@ -141,7 +137,7 @@ public class Record {
      *
      * @return  timeStamp
      */
-    public String getTimeStamp() {
+    public Date getTimeStamp() {
         return timeStamp;
     }
 

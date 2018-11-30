@@ -62,7 +62,7 @@ public class RecordActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
-    int position;
+    static int position;
 
     /**
      * Method initializes RecordActivity state
@@ -92,7 +92,6 @@ public class RecordActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
                 intent.putExtra("key",position);
-
                 startActivity(intent);
             }
         });
@@ -128,7 +127,7 @@ public class RecordActivity extends AppCompatActivity{
 
         //view comment button
         Button viewCommentButton = findViewById(R.id.view_comment_button);
-        addRecordButton.setOnClickListener(new View.OnClickListener() {
+        viewCommentButton.setOnClickListener(new View.OnClickListener() {
             /**
              * Method handles user clicking add record button
              *
@@ -136,9 +135,8 @@ public class RecordActivity extends AppCompatActivity{
              */
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
+                Intent intent = new Intent(RecordActivity.this,CommentActivity.class);
                 intent.putExtra("key",position);
-
                 startActivity(intent);
             }
         });

@@ -152,6 +152,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
                                 //handle menu2 click
                                 PicMyMedController.deleteProblem(problems.get(listPosition));
                                 notifyDataSetChanged();
+
                                 //saveInFile();
                                 break;
                         }

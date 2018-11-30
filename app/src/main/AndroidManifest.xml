@@ -54,6 +54,9 @@
             android:name="com.example.picmymedcode.View.AddRecordActivity"
             android:label="New Record" />
         <activity
+            android:name="com.example.picmymedcode.View.CommentActivity"
+            android:label="Comment" />
+        <activity
             android:name="com.example.picmymedcode.View.ProfileActivity"
             android:label="Profile" />
         <activity
