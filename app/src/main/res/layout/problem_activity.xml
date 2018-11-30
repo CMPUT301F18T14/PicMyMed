@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="@drawable/white_border">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/problemToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@drawable/blue_gradient">
+
+    </android.support.v7.widget.Toolbar>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/problem_recycle_view"
+        android:layout_below="@+id/problemToolbar"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:scrollbars="vertical" />

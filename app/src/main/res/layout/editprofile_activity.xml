@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.picmymedcode.View.newUsernameActivity"
-    android:background="#ffffff"
+    android:background="@drawable/reverse_page"
     android:padding="10dp">
 
 

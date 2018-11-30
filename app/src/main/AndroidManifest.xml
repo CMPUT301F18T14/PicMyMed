@@ -79,7 +79,7 @@
             android:label="Patient&apos;s Problems" />
         <activity
             android:name="com.example.picmymedcode.View.CareProvierAddPatientActivity"
-            android:label="Add patient" />
+            android:label="Add patient"/>
 
         <activity
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
