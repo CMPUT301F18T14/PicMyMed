@@ -49,26 +49,26 @@ import java.util.ArrayList;
 public class CareProviderProblemActivity extends Activity {
 
     private RecyclerView mRecyclerView;
-    private ProblemAdapter mAdapter;
+    private CareProviderProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
-    String name;
+    static String name;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.careproviderpatient_activity);
 
         //get patient name from intent
-        String name = getIntent().getStringExtra("name");;//pass intent name
+        String name = getIntent().getStringExtra("name");//pass intent name
         //patient object
         final Patient patient = PicMyMedController.getPatient(name);
 
         //set name text view
-        TextView patientName = findViewById(R.id.careproviderpation_name_text_view);
+        TextView patientName = findViewById(R.id.careprovider_problem_name_text_view);
         patientName.setText(name);
 
         //set phone number text view
-        TextView patientPhone = findViewById(R.id.careproviderpation_phone_text_view);
+        TextView patientPhone = findViewById(R.id.careprovider_problem_phone_text_view);
         patientPhone.setText(patient.getPhoneNumber());
         //wow factor pass intent to call
         patientPhone.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,7 @@ public class CareProviderProblemActivity extends Activity {
         });
 
         //set phone number text view
-        TextView patientEmail = findViewById(R.id.careproviderpation_email_text_view);
+        TextView patientEmail = findViewById(R.id.careprovider_problem_email_text_view);
         patientEmail.setText(patient.getEmail());
         //wow factor pass intent email
         patientEmail.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class CareProviderProblemActivity extends Activity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
+        mAdapter = new CareProviderProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -115,11 +115,13 @@ public class CareProviderProblemActivity extends Activity {
         // TODO Auto-generated method stub
         super.onStart();
         //get patient name from intent
-        String name = getIntent().getStringExtra("name");;//pass intent name
+        name = getIntent().getStringExtra("name");;//pass intent name
         //patient object
         final Patient patient = PicMyMedController.getPatient(name);
         problemArrayList = patient.getProblemList();
-        mAdapter = new ProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
+        // problemPosition = position cicked
+
+        mAdapter = new CareProviderProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
         //loadFromFile();
         mRecyclerView.setAdapter(mAdapter);
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
