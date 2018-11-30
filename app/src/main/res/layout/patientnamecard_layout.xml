@@ -14,6 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/purple_gradient"
         android:orientation="vertical">
         <TextView
             android:id="@+id/patientlist_name_text_view"
@@ -22,7 +23,7 @@
             android:gravity="center"
             android:textSize="18dp"
             android:text="Patient Name"
-            android:textColor="#000000"
+            android:textColor="#ffff"
             android:textAppearance="?android:textAppearanceLarge"/>
 
 
