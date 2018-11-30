@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.Model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -35,6 +36,7 @@ public abstract class User {
     private static final Integer MAX_USER_ID_LENGTH = 8;
     private String userID;
     private String randomPasscode;
+    private ArrayList<String> authorizedDevices;
 
     /**
      * Initializes the username, verifying that it is a correct length
@@ -52,6 +54,7 @@ public abstract class User {
         } else {
             this.username = username;
             this.randomPasscode = setRandomPasscode();
+            this.authorizedDevices = new ArrayList<String>();
         }
     }
 
@@ -118,7 +121,19 @@ public abstract class User {
 
         return randomString;
     }
+    public void addAuthorizedDevice(String deviceID) {
+        this.authorizedDevices.add(deviceID);
+    }
 
+    public int checkDeviceAuthorized(String deviceID) {
+
+        for (String authorizedDevice: this.authorizedDevices) {
+            if (authorizedDevice.equals(deviceID)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
     /**
      * Method to be implemented by subclasses, and will return
      * true if the user is a patient

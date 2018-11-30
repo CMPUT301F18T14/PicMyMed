@@ -20,6 +20,7 @@
 package com.example.picmymedcode.Controller;
 
 
+import android.os.Build;
 import android.util.AtomicFile;
 import android.util.Log;
 
@@ -32,6 +33,7 @@ import com.example.picmymedcode.Model.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * PicMyMedController creates a user
@@ -72,6 +74,7 @@ public class PicMyMedController {
         }
 
         if (patients.size() == 0 && careProviders.size() == 0) {
+            addAuthorizedDevice(Boolean.FALSE);
             if(user.isPatient()) {
                 Patient patient = (Patient) user;
                 ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
@@ -86,57 +89,22 @@ public class PicMyMedController {
         }
         return 0;
 
-       /* if (user.isPatient()) {
-
-            ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
-            getPatient.execute(user.getUsername());
-
-            ArrayList<Patient> patients = null;
-
-            try {
-                patients = getPatient.get();
-            } catch (Exception e) {
-                Log.i("DEBUG PMMController", "No patients with the entered username was found");
-
-            }
-
-            if (patients.size() == 0) {
-                Patient patient = (Patient) user;
-                ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
-                addPatient.execute(patient);
-            } else {
-                return 0;
-            }
-
-
-        } else {
-
-            ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
-            getCareProvider.execute(user.getUsername());
-
-            ArrayList<CareProvider> careProviders = null;
-
-            try {
-                careProviders = getCareProvider.get();
-            } catch (Exception e) {
-                Log.i("DEBUG PMMController", "No careproviders with the entered username was found");
-
-            }
-
-            if (careProviders.size() == 0) {
-                CareProvider careProvider = (CareProvider) user;
-                ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
-                addCareProvider.execute(careProvider);
-            } else {
-
-                return 0;
-            }
-
-
-        }*/
-
     }
-
+    public static int addAuthorizedDevice(Boolean refresh) {
+        User user = PicMyMedApplication.getLoggedInUser();
+        if (user != null) {
+            PicMyMedApplication.getLoggedInUser().addAuthorizedDevice(getUniquePsuedoID());
+            if (refresh) {
+                if (user.isPatient()) {
+                    updatePatient((Patient) user);
+                } else {
+                    updateCareProvider((CareProvider) user);
+                }
+            }
+            return 1;
+        }
+        return 0;
+    }
     /**
      * Method returns the users problems. Needs to be fized to address if the array list is empty
      *
@@ -361,6 +329,10 @@ public class PicMyMedController {
 
     }
 
+    public static int checkAuthorizedDevice() {
+        return PicMyMedApplication.getLoggedInUser().checkDeviceAuthorized(getUniquePsuedoID());
+    }
+
     public static ArrayList<CareProvider> getAllCareProviders() {
         ArrayList<CareProvider> careProviders = null;
         ElasticSearchController.GetAllCareProviders getAllCareProviders = new ElasticSearchController.GetAllCareProviders();
@@ -376,5 +348,38 @@ public class PicMyMedController {
 
     public static ArrayList<Photo> getPhotoList(int problemIndex, int recordIndex) {
         return PicMyMedApplication.getPatientUser().getProblemList().get(problemIndex).getRecordList().get(recordIndex).getPhotoList();
+    }
+    /**
+     * Return pseudo unique ID
+     * @return ID
+     */
+    public static String getUniquePsuedoID() {
+        // If all else fails, if the user does have lower than API 9 (lower
+        // than Gingerbread), has reset their device or 'Secure.ANDROID_ID'
+        // returns 'null', then simply the ID returned will be solely based
+        // off their Android device information. This is where the collisions
+        // can happen.
+        // Thanks http://www.pocketmagic.net/?p=1662!
+        // Try not to use DISPLAY, HOST or ID - these items could change.
+        // If there are collisions, there will be overlapping data
+        String m_szDevIDShort = "35" + (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10) + (Build.CPU_ABI.length() % 10) + (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length() % 10) + (Build.PRODUCT.length() % 10);
+        // Thanks to @Roman SL!
+        // https://stackoverflow.com/a/4789483/950427
+        // Only devices with API >= 9 have android.os.Build.SERIAL
+        // http://developer.android.com/reference/android/os/Build.html#SERIAL
+        // If a user upgrades software or roots their device, there will be a duplicate entry
+        String serial = null;
+        try {
+            serial = android.os.Build.class.getField("SERIAL").get(null).toString();
+            // Go ahead and return the serial for api => 9
+            return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+        } catch (Exception exception) {
+            // String needs to be initialized
+            serial = "serial"; // some value
+        }
+        // Thanks @Joe!
+        // https://stackoverflow.com/a/2853253/950427
+        // Finally, combine the values we have found by using the UUID class to create a unique identifier
+        return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
     }
 }
