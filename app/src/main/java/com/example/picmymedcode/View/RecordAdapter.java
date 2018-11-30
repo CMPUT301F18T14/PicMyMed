@@ -63,6 +63,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordDescriptionTextView;
         TextView recordTimeTextView;
         ImageView reocrdMoreImageView;
+        TextView recordTimeStampView;
+
         /**
          * Method takes itemView and assigns it the record title and description
          *
@@ -75,6 +77,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
             this.reocrdMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
+            this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
+
         }
     }
 
@@ -115,6 +119,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordDescriptionTextView = recordViewHolder.recordDescriptionTextView;
         TextView recordTimeTextView = recordViewHolder.recordTimeTextView;
 
+        TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
         //recordTimeTextView.setText(records.get(i).getTimeStamp());
@@ -158,6 +163,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         });
 
 
+        recordTimeStampTextView.setText(records.get(i).getDate().toString());
 
     }
 
