@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
@@ -30,6 +31,7 @@ public class CareProviderAddComment extends AppCompatActivity{
                 TextView commentEditText = (TextView)findViewById(R.id.comment_edit_text);
                 String result = commentEditText.getText().toString();
                 problemArrayList.get(position).addCommentList(result);
+                PicMyMedController.updatePatient(patient);
                 onBackPressed();
                 // TODO Auto-generated method stub
             }
