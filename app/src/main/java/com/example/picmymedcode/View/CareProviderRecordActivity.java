@@ -61,7 +61,7 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(problemArrayList.get(problemPosition).getRecordList());
+        mAdapter = new RecordAdapter(CareProviderRecordActivity.this, problemArrayList.get(problemPosition).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -75,7 +75,7 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         problemArrayList = patient.getProblemList();
         problemArrayList.get(problemPosition).getRecordList();
         //loadFromFile();
-        mAdapter = new RecordAdapter(problemArrayList.get(problemPosition).getRecordList());
+        mAdapter = new RecordAdapter(CareProviderRecordActivity.this, problemArrayList.get(problemPosition).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
 
     }

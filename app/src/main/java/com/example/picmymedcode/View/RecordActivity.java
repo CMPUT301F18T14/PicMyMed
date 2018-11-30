@@ -125,6 +125,23 @@ public class RecordActivity extends AppCompatActivity{
                 startActivity(galleryIntent);
             }
         });
+
+        //view comment button
+        Button viewCommentButton = findViewById(R.id.view_comment_button);
+        addRecordButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking add record button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
+                intent.putExtra("key",position);
+
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -135,7 +152,7 @@ public class RecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
+        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -151,7 +168,7 @@ public class RecordActivity extends AppCompatActivity{
 
 
         //loadFromFile();
-        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
+        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
 
     }
