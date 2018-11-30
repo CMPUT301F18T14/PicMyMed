@@ -70,7 +70,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      * Method gets element from the dataset at a certain position and replaces contents of the view
      * with that element
      *
-     * @param myViewHolder  PorblemViewHolder
+     * @param myViewHolder  ProblemViewHolder
      * @param listPosition  int
      */
     @Override

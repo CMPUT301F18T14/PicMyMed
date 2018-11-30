@@ -20,7 +20,6 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,10 +30,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.example.picmymedcode.Controller.PicMyMedApplication;
-import com.example.picmymedcode.Controller.PicMyMedController;
-import com.example.picmymedcode.Model.Patient;
-import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
@@ -62,7 +57,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         //TextView recordLocationTextView;
         TextView recordDescriptionTextView;
         TextView recordTimeTextView;
-        ImageView reocrdMoreImageView;
+        ImageView recordMoreImageView;
         TextView recordTimeStampView;
 
         /**
@@ -76,7 +71,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             //this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
-            this.reocrdMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
+            this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
 
         }
@@ -124,12 +119,14 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordDescriptionTextView.setText(records.get(i).getDescription());
         //recordTimeTextView.setText(records.get(i).getTimeStamp());
 
-        recordViewHolder.reocrdMoreImageView.setOnClickListener(new View.OnClickListener() {
+        recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                
+
                 //creating a popup menu
-                PopupMenu popup = new PopupMenu(context, recordViewHolder.reocrdMoreImageView);
+                PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
                 //inflating menu from xml resource
                 popup.inflate(R.menu.problem_menu);
                 //adding click listener
