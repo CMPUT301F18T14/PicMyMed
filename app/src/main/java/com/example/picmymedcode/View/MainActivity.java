@@ -20,7 +20,6 @@
 package com.example.picmymedcode.View;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,10 +32,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.QRCode.ScannerActivity;
@@ -205,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 barcode = data.getParcelableExtra("barcode");
                 if (barcode != null) {
                     Log.d("DEBUG", barcode.displayValue);
-                    Log.d("DEBUG",PicMyMedApplication.getLoggedInUser().getRandomPasscode());
-                    if (PicMyMedApplication.getLoggedInUser().getRandomPasscode().equals(barcode.displayValue)) {
+                    Log.d("DEBUG",PicMyMedApplication.getLoggedInUser().getRandomUserID());
+                    if (PicMyMedApplication.getLoggedInUser().getRandomUserID().equals(barcode.displayValue)) {
                         Toast.makeText(getApplicationContext(), "Authorization successful", Toast.LENGTH_LONG).show();
                         PicMyMedController.addAuthorizedDevice(Boolean.TRUE);
                         login();

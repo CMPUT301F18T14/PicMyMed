@@ -34,8 +34,8 @@ public abstract class User {
 
     private final String username;
     private static final Integer MAX_USER_ID_LENGTH = 8;
-    private String userID;
-    private String randomPasscode;
+    private String elasticSearchID;
+    private String randomUserID;
     private ArrayList<String> authorizedDevices;
 
     /**
@@ -53,7 +53,7 @@ public abstract class User {
 
         } else {
             this.username = username;
-            this.randomPasscode = setRandomPasscode();
+            this.randomUserID = setRandomPasscode();
             this.authorizedDevices = new ArrayList<String>();
         }
     }
@@ -72,26 +72,26 @@ public abstract class User {
      *
      * @return userid String
      */
-    public String getUserID() {
-        return userID;
+    public String getElasticSearchID() {
+        return elasticSearchID;
     }
 
     /**
      * Method sets the userid
      *
-     * @param userID String
+     * @param elasticSearchID String
      */
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setElasticSearchID(String elasticSearchID) {
+        this.elasticSearchID = elasticSearchID;
     }
 
     /**
-     * Method returns the randomPasscode
+     * Method returns the randomUserID
      *
      * @return
      */
-    public String getRandomPasscode() {
-        return randomPasscode;
+    public String getRandomUserID() {
+        return randomUserID;
     }
 
     /**

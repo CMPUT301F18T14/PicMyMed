@@ -112,7 +112,19 @@ public class PicMyMedController {
      * @return  problemList
      */
 
+    public static String getUsernameByID(String randomUserID) {
 
+        String username = new String();
+
+        ElasticSearchController.GetUsernameByID getUsernameByID= new ElasticSearchController.GetUsernameByID();
+        getUsernameByID.execute(randomUserID);
+        try {
+            username = getUsernameByID.get();
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No users with the QR Code was found");
+        }
+        return username;
+    }
     public static ArrayList<Problem> getProblems() {
         /* Needs to be fixed a bit because an empty ArrayList shouldn't be sent if user is null */
         ArrayList<Problem> problemList = new ArrayList<Problem>();

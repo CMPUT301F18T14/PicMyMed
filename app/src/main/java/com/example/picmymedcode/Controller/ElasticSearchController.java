@@ -26,6 +26,7 @@ import android.util.Log;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -82,8 +83,8 @@ public class ElasticSearchController {
                 // where is the client?
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
-                    if (patient.getUserID() == null) {
-                        patient.setUserID(result.getId());
+                    if (patient.getElasticSearchID() == null) {
+                        patient.setElasticSearchID(result.getId());
                         Log.i("DEBUG AddPatient", "Patient ID " + result.getId() + "generated.");
                         Log.i("DEBUG AddPatient", "Updating index of patient ...");
                         try {
@@ -135,8 +136,8 @@ public class ElasticSearchController {
                 DocumentResult result = client.execute(index);
 
                 if (result.isSucceeded()) {
-                    if (careProvider.getUserID() == null) {
-                        careProvider.setUserID(result.getId());
+                    if (careProvider.getElasticSearchID() == null) {
+                        careProvider.setElasticSearchID(result.getId());
                         Log.i("DEBUG AddCareProvider", "Careprovider ID " + result.getId() + "generated.");
                         Log.i("DEBUG AddCareProvider", "Updating index of careprovider ...");
                         try {
@@ -256,6 +257,51 @@ public class ElasticSearchController {
         }
     }
 
+    /**
+     * Method extends Asynctask to get a care provider using elastic search
+     */
+    public static class GetUsernameByID extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... search_parameters) {
+            Log.i("DEBUG GetUsernameByID", "Attempting to build careprovider query...");
+            verifySettings();
+
+            String username = new String();
+            String randomUserID = search_parameters[0];
+
+
+            String getUserByIDQuery = "{ \"size\": " + querySize +
+                    ", \n" +
+                    "    \"query\" : {\n" +
+                    "        \"match\" : { \"randomUserID\" : \"" + randomUserID + "\" }\n" +
+                    "    }\n" +
+                    "}" ;
+
+            Search search = new Search.Builder(getUserByIDQuery)
+                    .addIndex(indexPath)
+                    .build();
+
+            Log.i("DEBUG GetUsernameByID:", "Created query...");
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    Log.i("DEBUG GetUserByID", "Successfully queried elasticsearch server");
+                    List<User> foundUsers = result.getSourceAsObjectList(User.class);
+                    username = foundUsers.get(0).getUsername();
+                }
+                else {
+                    Log.i("DEBUG GetUsernameByID", "The search query failed to find any careproviders that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("DEBUG GetUsernameByID", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return username;
+        }
+    }
 
     /**
      * Method extends AsyncTask to update patient data using elastic search
@@ -268,14 +314,14 @@ public class ElasticSearchController {
             verifySettings();
             Patient patient = patients[0];
 
-            Index index = new Index.Builder(patient).index(indexPath).type(patientType).id(patient.getUserID()).build();
+            Index index = new Index.Builder(patient).index(indexPath).type(patientType).id(patient.getElasticSearchID()).build();
             Log.i("DEBUG UpdatePatient:", "Created index...");
 
             try {
                 // where is the client?
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
-                    Log.i("DEBUG UpdatePatient", "Patient ID (" +patient.getUsername()+") " + patient.getUserID() + " updated.");
+                    Log.i("DEBUG UpdatePatient", "Patient ID (" +patient.getUsername()+") " + patient.getElasticSearchID() + " updated.");
                 }
                 else {
                     Log.i("DEBUG UpdatePatient", "Elasticsearch was not able to update the patient");
@@ -302,14 +348,14 @@ public class ElasticSearchController {
             verifySettings();
             CareProvider careProvider = careProviders[0];
 
-            Index index = new Index.Builder(careProvider).index(indexPath).type(careProviderType).id(careProvider.getUserID()).build();
+            Index index = new Index.Builder(careProvider).index(indexPath).type(careProviderType).id(careProvider.getElasticSearchID()).build();
             Log.i("DEBUG UpdateCP:", "Created index...");
 
             try {
                 // where is the client?
                 DocumentResult result = client.execute(index);
                 if (result.isSucceeded()) {
-                    Log.i("DEBUG UpdateCP", "CareProvider ID (" +careProvider.getUsername()+") " + careProvider.getUserID() + " updated.");
+                    Log.i("DEBUG UpdateCP", "CareProvider ID (" +careProvider.getUsername()+") " + careProvider.getElasticSearchID() + " updated.");
                 }
                 else {
                     Log.i("DEBUG UpdateCP", "Elasticsearch was not able to update the careprovider");

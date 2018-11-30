@@ -23,8 +23,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.util.Random;
-
 public class GeneratorActivity extends AppCompatActivity {
 
     private String randomText;
@@ -69,7 +67,7 @@ public class GeneratorActivity extends AppCompatActivity {
         generateQRcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                randomText = user.getRandomPasscode();
+                randomText = user.getRandomUserID();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 scannedQRTextView.setText(randomText);
                 try {
