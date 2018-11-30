@@ -19,11 +19,17 @@
  */
 package com.example.picmymedcode.View;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -31,8 +37,11 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * EditProblemActivity extends AppCompatActivity and handles a patient editing a problem
@@ -44,7 +53,15 @@ import java.util.Date;
 public class EditProblemActivity extends AppCompatActivity {
     public ArrayList<Problem> problemArrayList;
     int position;
-    Date date;
+    String date;
+    EditText problemTitleEditText;
+    EditText problemDescriptionEditText;
+    private TextView problemTimeEditText;
+    private SimpleDateFormat mSimpleDateFormat;
+    private Calendar mCalendar;
+    private Activity mActivity;
+    private String mDate;
+
 
     /**
      * Method sets EditProblemActivity state
@@ -52,17 +69,24 @@ public class EditProblemActivity extends AppCompatActivity {
      * @param savedInstanceState    Bundle
      */
     protected void onCreate(Bundle savedInstanceState) {
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problemedit_activity);
-        position = getIntent().getIntExtra("key",0);
-        final EditText problemTitleEditText = findViewById(R.id.problem_edit_title_edit_text);
-        final EditText problemDescriptionEditText = findViewById(R.id.problem_edit_description_edit_text);
-        final EditText problemTimeEditText = findViewById(R.id.problem_edit_time_edit_text);
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
 
-        problemTitleEditText.setHint(problemArrayList.get(position).getTitle());
-        problemDescriptionEditText.setHint(problemArrayList.get(position).getDescription());
+        position = getIntent().getIntExtra("key",0);
+        problemTitleEditText = findViewById(R.id.problem_edit_title_edit_text);
+        problemDescriptionEditText = findViewById(R.id.problem_edit_description_edit_text);
+        problemTimeEditText = findViewById(R.id.problem_edit_time_text_view);
+
+        problemTitleEditText.setText(problemArrayList.get(position).getTitle());
+        problemDescriptionEditText.setText(problemArrayList.get(position).getDescription());
+        problemTimeEditText.setText(problemArrayList.get(position).getStartDate());
+
+        //System.out.println("FUCK"+problemArrayList.get(position).getStartDate());
+        mActivity = this;
+        mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
+        problemTimeEditText.setOnClickListener(textListener);
 
 
         Button problemSaveButton = findViewById(R.id.problem_edit_save_button);
@@ -76,7 +100,7 @@ public class EditProblemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Problem problem = problemArrayList.get(position);
-                PicMyMedController.editProblem(problem, date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
+                PicMyMedController.editProblem(problem, mDate,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                // Problem problem = new Problem (PicMyMedApplication.getUsername(),date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 //PicMyMedController.addProblem(problem);
                 //problemArrayList.add(problem);
@@ -85,6 +109,38 @@ public class EditProblemActivity extends AppCompatActivity {
             }
         });
     }
+
+    /* Define the onClickListener, and start the DatePickerDialog with users current time */
+    private final View.OnClickListener textListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mCalendar = Calendar.getInstance();
+            new DatePickerDialog(mActivity, mDateDataSet, mCalendar.get(Calendar.YEAR),
+                    mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        }
+    };
+
+    /* After user decided on a date, store those in our calendar variable and then start the TimePickerDialog immediately */
+    private final DatePickerDialog.OnDateSetListener mDateDataSet = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, monthOfYear);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            new TimePickerDialog(mActivity, mTimeDataSet, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), false).show();
+        }
+    };
+
+    /* After user decided on a time, save them into our calendar instance, and now parse what our calendar has into the TextView */
+    private final TimePickerDialog.OnTimeSetListener mTimeDataSet = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            mCalendar.set(Calendar.MINUTE, minute);
+            problemTimeEditText.setText(mSimpleDateFormat.format(mCalendar.getTime()));
+            mDate = mSimpleDateFormat.format(mCalendar.getTime());
+        }
+    };
 
     /**
      * Method starts the activity by getting the user and the problem list

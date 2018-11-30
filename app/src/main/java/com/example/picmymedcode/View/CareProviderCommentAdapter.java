@@ -81,7 +81,6 @@ public static class ProblemViewHolder extends RecyclerView.ViewHolder{
     public void onBindViewHolder(@NonNull final CareProviderCommentAdapter.ProblemViewHolder myViewHolder, final int listPosition) {
         //set title
         TextView commentTextView = myViewHolder.commentTextView;
-        System.out.println("FUck"+problemsdata.get(listPosition));
         commentTextView.setText(problemsdata.get(listPosition));
 
     }

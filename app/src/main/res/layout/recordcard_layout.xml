@@ -12,13 +12,13 @@
     card_view:contentPadding="5dp">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/record_image_view"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher"/>
@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="@string/record_title"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_below="@+id/record_image_view"/>
 
         <TextView
             android:id="@+id/record_description_text_view"
@@ -37,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="@string/description"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_below="@+id/record_title_text_view"/>
 
         <TextView
             android:id="@+id/record_location_text_view"
@@ -45,7 +47,8 @@
             android:layout_height="wrap_content"
             android:text="@string/location"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_below="@+id/record_description_text_view"/>
 
         <TextView
             android:id="@+id/record_time_text_view"
@@ -53,7 +56,19 @@
             android:layout_height="wrap_content"
             android:text="@string/time"
             android:textColor="#000000"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:textSize="14sp"
+            android:layout_below="@+id/record_location_text_view"/>
+
+        <ImageView
+            android:id="@+id/record_more_bar"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/record_description_text_view"
+            android:scaleType="fitEnd"
+            android:src="@drawable/more_vert"
+            android:textAppearance="?android:textAppearanceLarge" />
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
