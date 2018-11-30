@@ -16,13 +16,17 @@
         android:maxSdkVersion="18" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name="com.example.picmymedcode.View.MainActivity">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name="com.example.picmymedcode.View.MainActivity"
+            android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,6 +55,9 @@
             android:name="com.example.picmymedcode.View.AddRecordActivity"
             android:label="New Record" />
         <activity
+            android:name="com.example.picmymedcode.View.CommentActivity"
+            android:label="Comment" />
+        <activity
             android:name="com.example.picmymedcode.View.ProfileActivity"
             android:label="Profile" />
         <activity
@@ -60,16 +67,29 @@
             android:name="com.example.picmymedcode.View.CareProviderActivity"
             android:label="Care Provider" />
         <activity
+            android:name="com.example.picmymedcode.View.CareProviderCommentActivity"
+            android:label="Add patient" />
+        <activity
+            android:name="com.example.picmymedcode.View.CareProviderRecordActivity"
+            android:label="Record" />
+        <activity
+            android:name="com.example.picmymedcode.View.CareProviderAddComment"
+            android:label="Add Commet" />
+        <activity
             android:name="com.example.picmymedcode.View.CareProviderProblemActivity"
             android:label="Patient&apos;s Problems" />
+        <activity
+            android:name="com.example.picmymedcode.View.CareProvierAddPatientActivity"
+            android:label="Add patient" />
+
         <activity
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
             android:exported="true"
             android:label="Take Photos" />
+        <activity android:name="com.example.picmymedmaphandler.View.DrawMapActivity" />
         <activity
-            android:name="com.example.picmymedmaphandler.View.DrawMapActivity" />
-        <activity android:name="com.example.picmymedmaphandler.Controller.MapButtonActivity"
-            android:exported="true"/>
+            android:name="com.example.picmymedmaphandler.Controller.MapButtonActivity"
+            android:exported="true" />
         <activity
             android:name="com.example.android.picmymedphotohandler.GalleryActivity"
             android:exported="true"
@@ -86,6 +106,10 @@
             android:name="com.example.QRCode.GeneratorActivity"
             android:exported="true" />
         <activity android:name="com.example.QRCode.ScannerActivity" />
+        <activity
+            android:name=".View.BodyLocationPhotoManagerActivity"
+            android:exported="true"
+            android:label="Body Location Photo Manager" />
 
         <uses-library
             android:name="org.apache.http.legacy"

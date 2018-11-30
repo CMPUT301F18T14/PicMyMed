@@ -45,8 +45,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * AddProblemActivity extends AppCompatActivity to create an activity for the patient to
@@ -56,7 +60,6 @@ import java.util.Date;
  * @since   1.1
  */
 public class AddProblemActivity extends AppCompatActivity{
-    private Date date;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     public ArrayList<Problem> problemArrayList;
@@ -69,6 +72,9 @@ public class AddProblemActivity extends AppCompatActivity{
      * @param savedInstanceState Bundle
      */
     protected void onCreate(Bundle savedInstanceState) {
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
+        final String date = mSimpleDateFormat.format(new Date());
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addproblem_activity);
@@ -85,7 +91,7 @@ public class AddProblemActivity extends AppCompatActivity{
              */
             @Override
             public void onClick(View v) {
-                Problem problem = new Problem (PicMyMedApplication.getUsername(), date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
+                Problem problem = new Problem (PicMyMedApplication.getUsername(),date ,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 PicMyMedController.addProblem(problem);
                 //problemArrayList.add(problem);
                 //saveInFile();

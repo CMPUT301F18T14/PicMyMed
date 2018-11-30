@@ -1,58 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
+    android:background="@drawable/reverse_page"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/ProbName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Problem Name:"/>
-        <EditText
-            android:id="@+id/problem_edit_title_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="problemname"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/problem_name_semicolon"
+        android:textColor="#16BBE5" />
 
-    </LinearLayout>
-    <LinearLayout
+    <EditText
+        android:id="@+id/problem_edit_title_edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ProbName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/box_with_outline"
+        android:gravity="center"
+        android:hint="@string/problem_name"
+        android:padding="20dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
+
+    <TextView
+        android:id="@+id/problem_description_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description:"/>
-        <EditText
-            android:id="@+id/problem_edit_description_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Description"/>
+        android:layout_below="@+id/problem_edit_title_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/problem_description_colon"
+        android:textColor="#16BBE5" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/problem_edit_description_edit_text"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time:"/>
-        <EditText
-            android:id="@+id/problem_edit_time_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="time"/>
+        android:layout_below="@+id/problem_description_title"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/box_with_outline"
+        android:gravity="center"
+        android:hint="@string/description"
+        android:padding="20dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/problem_edit_time"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/problem_edit_description_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/time_colon"
+        android:textColor="#16BBE5" />
+
+    <TextView
+        android:id="@+id/problem_edit_time_text_view"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/problem_edit_time"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/box_with_outline"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#000000" />
+
+
     <Button
         android:id="@+id/problem_edit_save_button"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"/>
+        android:layout_below="@+id/problem_edit_time_text_view"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/signupbtn1"
+        android:paddingHorizontal="30dp"
+        android:text="@string/update_prob" />
 
-</LinearLayout>
+</RelativeLayout>

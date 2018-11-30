@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/addProblem"
+        android:icon="@drawable/plus_sign"
+        android:orderInCategory="1"
+        android:title="Add"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/user"
+        android:orderInCategory="2"
+        android:title="Profile"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/bodylocationphotos"
+        android:icon="@drawable/body_location_photo"
+        android:orderInCategory="3"
+        android:title="Body Photos"
+        app:showAsAction="always|withText" />
+
+
+</menu>

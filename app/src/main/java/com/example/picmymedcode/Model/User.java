@@ -19,6 +19,9 @@
  */
 package com.example.picmymedcode.Model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * User is an abstract class that provides the common functionality
  * of a Patient and Careprovider (username and userid)
@@ -32,6 +35,8 @@ public abstract class User {
     private final String username;
     private static final Integer MAX_USER_ID_LENGTH = 8;
     private String userID;
+    private String randomPasscode;
+    private ArrayList<String> authorizedDevices;
 
     /**
      * Initializes the username, verifying that it is a correct length
@@ -48,6 +53,8 @@ public abstract class User {
 
         } else {
             this.username = username;
+            this.randomPasscode = setRandomPasscode();
+            this.authorizedDevices = new ArrayList<String>();
         }
     }
 
@@ -78,6 +85,55 @@ public abstract class User {
         this.userID = userID;
     }
 
+    /**
+     * Method returns the randomPasscode
+     *
+     * @return
+     */
+    public String getRandomPasscode() {
+        return randomPasscode;
+    }
+
+    /**
+     * This methods creates a random String.
+     *
+     * @return      String of random characters
+     */
+    private String setRandomPasscode() {
+
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        final int LENGTH_OF_THE_RANDOM_STRING = 18;
+
+        StringBuilder stringBuilder = new StringBuilder();   // Builds the string
+        Random random = new Random();               // Generates random numbers
+
+        // Keeps on adding random numbers until the string is filled
+        while (stringBuilder.length() < LENGTH_OF_THE_RANDOM_STRING) { // length of the random string
+            // Randomly picks a character from CHARACTERS by randomly choosing index
+            int index = (int) (random.nextFloat() * CHARACTERS.length());
+
+            // Appending the random character to the String builder
+            stringBuilder.append(CHARACTERS.charAt(index));
+        }
+
+        // Converting the object to String
+        String randomString = stringBuilder.toString();
+
+        return randomString;
+    }
+    public void addAuthorizedDevice(String deviceID) {
+        this.authorizedDevices.add(deviceID);
+    }
+
+    public int checkDeviceAuthorized(String deviceID) {
+
+        for (String authorizedDevice: this.authorizedDevices) {
+            if (authorizedDevice.equals(deviceID)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
     /**
      * Method to be implemented by subclasses, and will return
      * true if the user is a patient

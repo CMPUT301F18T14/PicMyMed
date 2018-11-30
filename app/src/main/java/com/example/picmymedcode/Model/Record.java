@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.Model;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,26 +34,24 @@ import java.util.Date;
 public class Record {
 
     private String title;
-    private String comment;
     private String description;
     private Geolocation geolocation;
     private ArrayList<Photo> photoList;
     private BodyLocation bodyLocation;
-    private final Date timeStamp;
+    private Date timeStamp;
 
     /**
      * Constructor initializes variables for Record
      *
      * @param title String
      */
-    public Record(String title) {
+    public Record(String title, Date timeStamp) {
         this.title = title;
-        this.comment = "";  // Avoid null pointer exception
         this.description = "no description";
         this.geolocation = new Geolocation();
         this.photoList = new ArrayList<Photo>();
         this.bodyLocation = new BodyLocation();
-        this.timeStamp = new Date();
+        this.timeStamp = timeStamp;
 
     }
 
@@ -74,23 +73,6 @@ public class Record {
         this.title = title;
     }
 
-    /**
-     * Method gets the comment of a record
-     *
-     * @return  String
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Method sets comment for a record
-     *
-     * @param comment   String
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
     /**
      * Method gets comment description
@@ -158,6 +140,27 @@ public class Record {
      */
     public Date getTimeStamp() {
         return timeStamp;
+    }
+
+    /**
+     * Method adds photos to photolist for the record
+     *
+     * @param photo A photo object
+     */
+    public void addToPhotoList(Photo photo) throws IllegalArgumentException {
+        if (photoList.size() <= 10) {
+            this.photoList.add(photo);
+        } else {
+            throw new IllegalArgumentException("Maximum number of photos added for a record!");
+        }
+    }
+
+    public void setDate(Date date) {
+        this.timeStamp = date;
+    }
+
+    public Date getDate() {
+        return this.timeStamp;
     }
 
 }

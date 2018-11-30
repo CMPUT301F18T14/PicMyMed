@@ -6,6 +6,8 @@ import com.example.picmymedcode.Model.Patient;
 
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+
 public class PatientTest extends TestCase {
 
     public void testConstructor() {
@@ -42,6 +44,6 @@ public class PatientTest extends TestCase {
 
     public void testGetProblemList() {
         Patient patient = new Patient("username", "test@email.com", "1111111111");
-        assertTrue(patient.getProblemList() instanceof ProblemList);
+        assertTrue(patient.getProblemList() instanceof ArrayList);
     }
 }

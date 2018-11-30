@@ -21,9 +21,13 @@ package com.example.android.picmymedphotohandler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import com.example.picmymedcode.Model.Photo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class loads images stored in the internal disk space of the application,
@@ -41,6 +45,8 @@ public class LoadingImageFiles {
 
     private ArrayList<Bitmap> bitmaps;
 
+    private ArrayList<String> filePaths;
+
     /**
      * Constructor for the class. It initializes the member variables.
      *
@@ -51,6 +57,26 @@ public class LoadingImageFiles {
         directory = directoryFile;
         files = directory.listFiles();
         bitmaps = new ArrayList<Bitmap>();
+        filePaths = new ArrayList<String>();
+    }
+
+    /**
+     * This method converts the Base64String into a Bitmap.
+     *
+     * @return  an array list of bitmaps
+     */
+    public ArrayList<Bitmap> base65ToBitmap(ArrayList<Photo> photos) {
+
+        byte[] decodedString;
+        Bitmap decodedByte;
+        for (int i = 0; i < photos.size(); i++) {
+            // Converting to byte array
+            decodedString = Base64.decode(photos.get(i).getBase64EncodedString(), Base64.DEFAULT);
+            // Converting to Bitmap
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            bitmaps.add(decodedByte);
+        }
+        return bitmaps;
     }
 
     /**
@@ -58,11 +84,12 @@ public class LoadingImageFiles {
      *
      * @return  an array of bitmap files
      */
-    public ArrayList<Bitmap> convertingToBitmap(){
+    public ArrayList<Bitmap> jpegToBitmap(){
         for (int i = 0; i < files.length; i++){
-            File imageFile = new File(absolutePath(i));
+            File imageFile = new File(files[i].getAbsolutePath());
 
-            if (imageFile.exists()){
+            if (imageFile.exists() && imageFile.length() != 0){
+                filePaths.add(imageFile.getAbsolutePath());
                 Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                 bitmaps.add(bitmap);
             }
@@ -74,10 +101,9 @@ public class LoadingImageFiles {
      * This method returns the absolute path of the file stored in
      * a File type array using an index
      *
-     * @param   index index of the array
-     * @return  String of absolute path of the file
+     * @return  List of String containing absolute paths of the files
      */
-    public String absolutePath(int index){
-        return files[index].getAbsolutePath();
+    public ArrayList<String> absoluteFilePaths(){
+        return filePaths;
     }
 }

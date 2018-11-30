@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <EditText
         android:id="@+id/keywordSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter keyword to search"
+        android:layout_gravity="center"
         android:paddingBottom="10dp"
-        android:layout_gravity="center"/>
+        android:text="@string/keyword_search" />
 
     <ToggleButton
         android:id="@+id/geolocationSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="geo-location"
+        android:layout_gravity="center"
         android:paddingBottom="10dp"
-        android:layout_gravity="center"/>
+        android:text="geo-location" />
 
     <ToggleButton
         android:id="@+id/bodyLocationSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="body-location"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:text="body-location" />
 
 </LinearLayout>

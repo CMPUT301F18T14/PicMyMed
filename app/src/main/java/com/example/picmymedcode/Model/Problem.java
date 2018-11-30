@@ -31,16 +31,14 @@ import java.util.Date;
  * @since   1.1
  */
 public class Problem {
-    private Date startDate;
+    private String startDate;
     private String title;
     private String description;
     //private RecordList recordList;
     private String problemID;
     private String username;
-
-
-    public ArrayList<Record> recordList;
-
+    private ArrayList<Record> recordList;
+    private ArrayList<String> commentList;
 
     /**
      * Constructor initializes problem class variables
@@ -51,7 +49,7 @@ public class Problem {
      * @param description               String
      * @throws IllegalArgumentException throws exception when title or description is too long
      */
-    public Problem(String username, Date startDate, String title, String description) {
+    public Problem(String username, String startDate, String title, String description) {
 
         this.username = username;
         this.problemID = null;
@@ -59,6 +57,7 @@ public class Problem {
         this.title = title;
         this.description = description;
         this.recordList = new ArrayList<Record>();
+        this.commentList = new ArrayList<String> ();
     }
 
     /**
@@ -67,7 +66,7 @@ public class Problem {
      * @return  Date
      */
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
     /**
@@ -76,7 +75,7 @@ public class Problem {
      * @param startDate Date
      */
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     /**
@@ -169,5 +168,21 @@ public class Problem {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * Method gets the commentList associated with a problem
+     * @return
+     */
+    public ArrayList<String> getCommentList() {
+        return commentList;
+    }
+
+    /**
+     * Method sets the commentList associated with a problem
+     * @param commentList
+     */
+    public void addCommentList(String commentList) {
+        this.commentList.add(commentList);
     }
 }

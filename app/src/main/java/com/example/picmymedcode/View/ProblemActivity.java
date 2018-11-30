@@ -18,12 +18,17 @@
 package com.example.picmymedcode.View;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.support.v7.widget.Toolbar;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
@@ -53,6 +58,7 @@ import java.util.Date;
  * @since   1.1
  */
 public class ProblemActivity extends AppCompatActivity {
+    android.support.v7.widget.Toolbar toolbar;
     private static final String FILENAME = "file.sav";
     public Date date;
     private RecyclerView mRecyclerView;
@@ -68,10 +74,15 @@ public class ProblemActivity extends AppCompatActivity {
      * @param savedInstanceState Bundle
      */
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.problemToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         manageRecyclerview();
 
@@ -104,6 +115,45 @@ public class ProblemActivity extends AppCompatActivity {
             }
         });
 
+        Button bodyLocationPhotosButton = findViewById(R.id.bodylocationphotos_button);
+        bodyLocationPhotosButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on profile button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
+                startActivity(bodyLocationPhotoManagerIntent);
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.problem_toolbar,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addProblem:
+                Intent problemIntent = new Intent(ProblemActivity.this, AddProblemActivity.class);
+                startActivity(problemIntent);
+                break;
+            case R.id.bodylocationphotos:
+                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
+                startActivity(bodyLocationPhotoManagerIntent);
+                break;
+            case R.id.profile:
+                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -132,8 +182,6 @@ public class ProblemActivity extends AppCompatActivity {
         //loadFromFile();
         mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
 
     /**
