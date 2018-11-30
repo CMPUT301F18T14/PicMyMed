@@ -22,27 +22,6 @@
         android:layout_height="400dp"
         android:layout_below="@+id/problemToolbar"
         android:scrollbars="vertical" />
-
-    <Button
-        android:id="@+id/problem_save_button"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:layout_above="@+id/profile_button"
-        android:text="@string/Create_Problem" />
-    />
-
-    <Button
-        android:id="@+id/profile_button"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:layout_above="@+id/bodylocationphotos_button"
-        android:text="@string/Profile" />
-
-    <Button
-        android:id="@+id/bodylocationphotos_button"
-        android:layout_width="250dp"
-        android:layout_height="38dp"
-        android:layout_alignParentBottom="true"
-        android:text="@string/Add_Body_Location_Photo" />
+    
 
 </RelativeLayout>

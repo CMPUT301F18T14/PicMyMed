@@ -87,49 +87,6 @@ public class ProblemActivity extends AppCompatActivity {
 
         manageRecyclerview();
 
-
-        Button addproblembutton = findViewById(R.id.problem_save_button);
-        addproblembutton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking add problem button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent problemIntent = new Intent(ProblemActivity.this,AddProblemActivity.class);
-                startActivity(problemIntent);
-            }
-        });
-
-        Button profileButton = findViewById(R.id.profile_button);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking on profile button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
-                startActivity(profileIntent);
-            }
-        });
-
-        Button bodyLocationPhotosButton = findViewById(R.id.bodylocationphotos_button);
-        bodyLocationPhotosButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking on profile button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
-                startActivity(bodyLocationPhotoManagerIntent);
-            }
-        });
-
     }
 
     @Override
