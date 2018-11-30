@@ -159,7 +159,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
 
         for(int i = 0; i < bitmaps.size(); i++){
             GalleryCells galleryCells = new GalleryCells();
-            galleryCells.setTitle(""+(i + 1));
+            galleryCells.setTitle(bodyLocationPhotos.get(i).getLabel());
             galleryCells.setBitmap(bitmaps.get(i));
             galleryCells.setBase64(bodyLocationPhotos.get(i).getBase64EncodedString());
             imagesModified.add(galleryCells);

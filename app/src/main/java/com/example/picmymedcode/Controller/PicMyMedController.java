@@ -339,6 +339,14 @@ public class PicMyMedController {
         return 1;
     }
 
+    public static int updateBodyLocationPhoto(int index, String label) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getBodyLocationPhotoList().get(index).setLabel(label);
+
+        updatePatient(patient);
+        return 1;
+    }
+
     /**
      * Method checks if username provided matches a user in the database and returns the user type
      *
