@@ -45,7 +45,7 @@ public class ProblemTest extends TestCase {
          }
 
         public void testSetDate() {
-            Date date = new Date();
+            String date = new Date();
             Problem testProblem = new Problem("user", new Date(), "testProblem", "test description");
             testProblem.setStartDate(date);
             assertEquals(testProblem.getStartDate(), date);

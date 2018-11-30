@@ -30,7 +30,8 @@
         android:gravity="center"
         android:hint="@string/problem_name"
         android:padding="20dp"
-        android:textColorHint="#515050" />
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
 
     <TextView
         android:id="@+id/problem_description_title"
@@ -50,12 +51,13 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_with_outline"
         android:gravity="center"
+        android:textColor="#000000"
         android:hint="@string/description"
         android:padding="20dp"
-        android:textColorHint="#515050" />
+        android:textColorHint="#000000" />
 
     <TextView
-        android:id="@+id/problem_edit_time_text"
+        android:id="@+id/problem_edit_time"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/problem_edit_description_edit_text"
@@ -64,23 +66,24 @@
         android:text="@string/time_colon"
         android:textColor="#16BBE5" />
 
-    <EditText
-        android:id="@+id/problem_edit_time_edit_text"
+    <TextView
+        android:id="@+id/problem_edit_time_text_view"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/problem_edit_time_text"
+        android:layout_below="@+id/problem_edit_time"
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_with_outline"
+        android:textColor="#000000"
         android:gravity="center"
-        android:text="@string/time"
-        android:padding="20dp"
-        android:textColor="#515050" />
+        android:padding="20dp" />
+
+
 
     <Button
         android:id="@+id/problem_edit_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/problem_edit_time_edit_text"
+        android:layout_below="@+id/problem_edit_time_text_view"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
         android:paddingHorizontal="30dp"

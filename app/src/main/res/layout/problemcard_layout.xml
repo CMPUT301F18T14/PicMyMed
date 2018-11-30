@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Problem Title"
-            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#FFFFFF"
             android:textSize="18dp" />
 
         <ImageView

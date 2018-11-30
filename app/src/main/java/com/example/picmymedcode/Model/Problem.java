@@ -31,7 +31,7 @@ import java.util.Date;
  * @since   1.1
  */
 public class Problem {
-    private Date startDate;
+    private String startDate;
     private String title;
     private String description;
     //private RecordList recordList;
@@ -49,7 +49,7 @@ public class Problem {
      * @param description               String
      * @throws IllegalArgumentException throws exception when title or description is too long
      */
-    public Problem(String username, Date startDate, String title, String description) {
+    public Problem(String username, String startDate, String title, String description) {
 
         this.username = username;
         this.problemID = null;
@@ -66,7 +66,7 @@ public class Problem {
      * @return  Date
      */
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
     /**
@@ -75,7 +75,7 @@ public class Problem {
      * @param startDate Date
      */
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     /**

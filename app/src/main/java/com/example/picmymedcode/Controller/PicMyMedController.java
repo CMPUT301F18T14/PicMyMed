@@ -20,7 +20,6 @@
 package com.example.picmymedcode.Controller;
 
 
-import android.util.AtomicFile;
 import android.util.Log;
 
 import com.example.picmymedcode.Model.CareProvider;
@@ -31,7 +30,6 @@ import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.Model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * PicMyMedController creates a user
@@ -216,7 +214,7 @@ public class PicMyMedController {
      * @param description   String
      * @return              int
      */
-    public static int editProblem(Problem problem, Date date, String title, String description) {
+    public static int editProblem(Problem problem, String date, String title, String description) {
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.setStartDate(date);
         problem.setTitle(title);
