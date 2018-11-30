@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
@@ -151,6 +152,10 @@ public class ProblemActivity extends AppCompatActivity {
             case R.id.profile:
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
+                break;
+            case R.id.map:
+                Toast.makeText(getApplicationContext(), "Show a map of all records for all problems",
+                        Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

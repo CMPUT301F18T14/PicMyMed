@@ -21,7 +21,14 @@
         android:icon="@drawable/body_location_photo"
         android:orderInCategory="3"
         android:title="Body Photos"
-        app:showAsAction="always|withText" />
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/photomap"
+        android:icon="@drawable/map"
+        android:orderInCategory="4"
+        android:title="Map of all Records"
+        app:showAsAction="always|withText"/>
 
 
 </menu>
