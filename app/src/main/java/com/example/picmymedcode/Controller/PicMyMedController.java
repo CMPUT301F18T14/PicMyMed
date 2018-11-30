@@ -76,7 +76,7 @@ public class PicMyMedController {
         }
 
         if (patients.size() == 0 && careProviders.size() == 0) {
-            addAuthorizedDevice(Boolean.FALSE);
+            user.addAuthorizedDevice(getUniquePsuedoID());
             if(user.isPatient()) {
                 Patient patient = (Patient) user;
                 ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
