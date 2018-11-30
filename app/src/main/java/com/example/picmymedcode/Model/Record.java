@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.Model;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,20 +38,20 @@ public class Record {
     private Geolocation geolocation;
     private ArrayList<Photo> photoList;
     private BodyLocation bodyLocation;
-    private final Date timeStamp;
+    private Date timeStamp;
 
     /**
      * Constructor initializes variables for Record
      *
      * @param title String
      */
-    public Record(String title) {
+    public Record(String title, Date timeStamp) {
         this.title = title;
         this.description = "no description";
         this.geolocation = new Geolocation();
         this.photoList = new ArrayList<Photo>();
         this.bodyLocation = new BodyLocation();
-        this.timeStamp = new Date();
+        this.timeStamp = timeStamp;
 
     }
 
@@ -152,6 +153,14 @@ public class Record {
         } else {
             throw new IllegalArgumentException("Maximum number of photos added for a record!");
         }
+    }
+
+    public void setDate(Date date) {
+        this.timeStamp = date;
+    }
+
+    public Date getDate() {
+        return this.timeStamp;
     }
 
 }

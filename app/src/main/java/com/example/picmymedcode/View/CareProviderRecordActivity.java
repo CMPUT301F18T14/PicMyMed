@@ -1,9 +1,13 @@
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -18,7 +22,7 @@ public class CareProviderRecordActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
-    int position;
+    static int problemPosition;
     Patient patient;
 
 
@@ -30,6 +34,24 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         manageRecyclerview();
 
 
+        ImageView addRecordImageView = (ImageView) findViewById(R.id.add_record_image_view);
+        addRecordImageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent problemIntent = new Intent(CareProviderRecordActivity.this,CareProviderAddComment.class);
+                problemIntent.putExtra("key2",problemPosition);
+                startActivity(problemIntent);
+
+            }
+        });
+
+        ImageView careproviderViewCommentImageView = (ImageView) findViewById(R.id.careprovider_view_comment_image_view);
+        careproviderViewCommentImageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent problemIntent = new Intent(CareProviderRecordActivity.this,CareProviderCommentActivity.class);
+                startActivity(problemIntent);
+
+            }
+        });
 
 
     }
@@ -39,7 +61,7 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
+        mAdapter = new RecordAdapter(problemArrayList.get(problemPosition).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -48,14 +70,15 @@ public class CareProviderRecordActivity extends AppCompatActivity{
      */
     protected void onStart() {
         // TODO Auto-generated method stub
-        position = getIntent().getIntExtra("key",0);
+        problemPosition = getIntent().getIntExtra("key",0);
         super.onStart();
         problemArrayList = patient.getProblemList();
-        problemArrayList.get(position).getRecordList();
+        problemArrayList.get(problemPosition).getRecordList();
         //loadFromFile();
-        mAdapter = new RecordAdapter(problemArrayList.get(position).getRecordList());
+        mAdapter = new RecordAdapter(problemArrayList.get(problemPosition).getRecordList());
         mRecyclerView.setAdapter(mAdapter);
 
     }
+
 
 }

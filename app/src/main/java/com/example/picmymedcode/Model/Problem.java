@@ -182,7 +182,7 @@ public class Problem {
      * Method sets the commentList associated with a problem
      * @param commentList
      */
-    public void setCommentList(ArrayList<String> commentList) {
-        this.commentList = commentList;
+    public void addCommentList(String commentList) {
+        this.commentList.add(commentList);
     }
 }

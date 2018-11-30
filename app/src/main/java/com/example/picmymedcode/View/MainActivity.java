@@ -70,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Creating a SharedPreferences database to store logged status
-        /*sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+
+        /*// Creating a SharedPreferences database to store logged status
+        sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+
 
         // Checking if the logged in status is true
         if(sharedPreferences.getBoolean("login", false)) {
@@ -92,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Invalid username",
                         Toast.LENGTH_LONG).show();
             }
-        }*/
+
+        }
+       */
 
         Button loginBtn = (Button) findViewById(R.id.loginButton);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -105,11 +109,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
                 String username = enteredUsername.getText().toString();
-
-                /*// Upon 1st time logged in the sharedPreferences stores the logged in status
+/*
+                // Upon 1st time logged in the sharedPreferences stores the logged in status
                 sharedPreferences.edit().putBoolean("login", true).apply();
                 // Upon 1st time logged in the sharedPreferences stores the username
-                sharedPreferences.edit().putString("userID", username).apply();*/
+                sharedPreferences.edit().putString("userID", username).apply();
+*/
 
                 if (PicMyMedController.checkLogin(username) == 1) {
                     if (PicMyMedController.checkAuthorizedDevice() != 1) {

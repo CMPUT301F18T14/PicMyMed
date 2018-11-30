@@ -51,7 +51,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * AddRecordActivity extends AppCompatActivity to create an activity for the user to
@@ -116,7 +119,9 @@ public class AddRecordActivity extends AppCompatActivity{
              */
             @Override
             public void onClick(View v) {
-                Record record = new Record (recordTitleEditText.getText().toString());
+                Record record = new Record (recordTitleEditText.getText().toString(), Calendar.getInstance().getTime());
+                //Date timeStamp = Calendar.getInstance().getTime();
+                //record.setDate(timeStamp);
                 record.setDescription(recordDescriptionEditText.getText().toString());
                 if(geolocation!=null) {
                     record.setLocation(geolocation);
