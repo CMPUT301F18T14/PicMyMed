@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.example.picmymedcode.View.MainActivity"
-    android:background = "@drawable/background">
+    tools:context="com.example.picmymedcode.View.MainActivity">
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/enteredUID"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:layout_above="@+id/enteredUID"
+        android:maxWidth="800dp"
+        android:maxHeight="102dp"
+        android:scaleType="fitEnd"
         android:src="@drawable/web_hi_res_512_circular" />
 
     <EditText
         android:id="@+id/enteredUID"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_centerInParent="true"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/rounded_box"
+        android:background="@drawable/outlined_textbox"
         android:gravity="center"
-        android:layout_centerInParent="true"
-        android:textColor="#000000"
-        android:textColorHint="#ffff"
         android:hint="@string/user_id"
-        />
+        android:textColor="#16BBE5"
+        android:textColorHint="#16BBE5" />
 
     <Button
         android:id="@+id/loginButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enteredUID"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="5dp"
-        style="?android:attr/borderlessButtonStyle"
-        android:background="@drawable/signupbtn"
+        android:background="@drawable/signupbtn1"
         android:text="@string/log_in"
         android:textColor="#ffff" />
 
@@ -52,9 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginButton"
-        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:text="@string/sign_up"
         android:textColor="#16BBE5" />
@@ -67,9 +67,9 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@android:color/transparent"
-        android:textColor="#16BBE5"
-        android:text="@string/qr_code" />
-  
+        android:text="@string/qr_code"
+        android:textColor="#16BBE5" />
+
 </RelativeLayout>
 
    

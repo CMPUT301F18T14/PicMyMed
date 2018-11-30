@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,18 +7,17 @@
     tools:context="com.example.android.picmymedphotohandler.SlideshowActivity">
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/viewPager_id" />
+        android:layout_weight="1" />
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/circleIndicator_id"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@id/viewPager_id"
-        android:background="?attr/colorPrimary"/>
-
+        android:background="?attr/colorPrimary" />
 
 
 </LinearLayout>

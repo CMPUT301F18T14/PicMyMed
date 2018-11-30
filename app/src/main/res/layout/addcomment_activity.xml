@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/comment_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box_with_outline"
+        android:gravity="center"
+        android:hint="Add Comment"
+        android:padding="10dp"
+        android:textColor="#16BBE5"
+        android:textColorHint="#D3D3D3" />
+
+
+    <Button
+        android:id="@+id/comment_save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comment_edit_text"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/signupbtn1"
+
+        android:text="@string/Add" />
+
+
+</RelativeLayout>

@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@drawable/reverse_page"
     android:orientation="vertical"
-    android:background="#ffff">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/problem_title_edit_text"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-
-        android:hint="@string/problem_name"
-        android:textColorHint="#D3D3D3"
-        android:gravity="center"
         android:background="@drawable/box_with_outline"
+
+        android:gravity="center"
+        android:hint="@string/problem_name"
+        android:padding="10dp"
         android:textColor="#16BBE5"
-        />
+        android:textColorHint="#D3D3D3" />
 
     <EditText
         android:id="@+id/problem_description_edit_text"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/problem_title_edit_text"
         android:layout_marginTop="5dp"
-        android:padding="10dp"
+        android:background="@drawable/box_with_outline"
         android:gravity="center"
         android:hint="@string/Problem_Description"
-        android:textColorHint="#D3D3D3"
-        android:layout_below="@+id/problem_title_edit_text"
-        android:background="@drawable/box_with_outline"
-        android:textColor="#16BBE5"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLines="4"
-        />
+        android:padding="10dp"
+        android:textColor="#16BBE5"
+        android:textColorHint="#D3D3D3" />
 
     <Button
         android:id="@+id/problem_save_button"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="@string/Add"
+        android:layout_below="@+id/problem_description_edit_text"
         android:layout_marginTop="5dp"
 
-        android:background="@drawable/signupbtn"
-        android:layout_below="@+id/problem_description_edit_text"/>
+        android:background="@drawable/signupbtn1"
+        android:text="@string/Add" />
 
 
 </RelativeLayout>

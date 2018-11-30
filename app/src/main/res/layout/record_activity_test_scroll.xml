@@ -6,8 +6,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:orientation="vertical"
         android:padding="16dp">
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/record_recycle_view"
@@ -37,6 +39,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_slideshow" />
+
+            <Button
+                android:id="@+id/view_comment_button"
+                android:layout_width="38dp"
+                android:layout_height="38dp" />
 
         </LinearLayout>
 

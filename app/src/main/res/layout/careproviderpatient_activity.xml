@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/careproviderproblem"
-    android:padding="16dp"
-    android:orientation="vertical">
+    android:padding="16dp">
 
 
     <TextView
-        android:id="@+id/careproviderpation_name_text_view"
-        android:layout_weight="1"
+        android:id="@+id/careprovider_problem_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="25sp"
+        android:layout_weight="1"
         android:text="Name"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textSize="25sp" />
+
     <TextView
-        android:id="@+id/careproviderpation_phone_text_view"
-        android:layout_weight="1"
+        android:id="@+id/careprovider_problem_phone_text_view"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:textSize="15sp"
+        android:layout_below="@+id/careprovider_problem_name_text_view"
+        android:layout_weight="1"
         android:text="Phone"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
     <TextView
-        android:id="@+id/careproviderpation_email_text_view"
-        android:layout_weight="1"
+        android:id="@+id/careprovider_problem_email_text_view"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:textSize="15sp"
+        android:layout_height="58dp"
+        android:layout_below="@+id/careprovider_problem_phone_text_view"
+        android:layout_weight="1"
         android:text="Emial"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_weight="10"
         android:id="@+id/careprovider_problem_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:layout_below="@+id/careprovider_problem_email_text_view"
+        android:layout_weight="10"
         android:scrollbars="vertical" />
 
-</LinearLayout>
+</RelativeLayout>
