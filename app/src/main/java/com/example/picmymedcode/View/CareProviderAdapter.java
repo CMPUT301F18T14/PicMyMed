@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.picmymedcode.Model.temporary;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
