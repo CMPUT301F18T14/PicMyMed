@@ -96,7 +96,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             public void onClick(View view){
                 // Upon click Adapter will send an intent to a different activity
                 Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
-                intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
+                //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
+                intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
+                intentPhotoEnlarge.putExtra("index", i);
                 view.getContext().startActivity(intentPhotoEnlarge);
             }
         });

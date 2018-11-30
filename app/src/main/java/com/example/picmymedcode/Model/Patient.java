@@ -107,12 +107,17 @@ public class Patient extends User {
     public ArrayList<BodyLocationPhoto> getBodyLocationPhotoList() {
         return bodyLocationPhotoList;
     }
+
     public void setBodyLocationPhotoList(ArrayList<BodyLocationPhoto> bodyLocationPhotoList) {
         this.bodyLocationPhotoList = bodyLocationPhotoList;
     }
 
-    public void addToBodyLocationPhotoList(BodyLocationPhoto photo) {
+    public void addBodyLocationPhoto(BodyLocationPhoto photo) {
         this.bodyLocationPhotoList.add(photo);
+    }
+
+    public void removeBodyLocationPhoto(int index) {
+        this.bodyLocationPhotoList.remove(index);
     }
 }
 

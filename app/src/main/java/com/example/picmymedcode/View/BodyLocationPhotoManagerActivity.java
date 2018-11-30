@@ -53,7 +53,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location_photo_manager);
 
-        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
 
         Button takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +161,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
             GalleryCells galleryCells = new GalleryCells();
             galleryCells.setTitle(""+(i + 1));
             galleryCells.setBitmap(bitmaps.get(i));
+            galleryCells.setBase64(bodyLocationPhotos.get(i).getBase64EncodedString());
             imagesModified.add(galleryCells);
         }
         return imagesModified;

@@ -23,13 +23,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
+import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * This class enlarges the photo selected from the GalleryActivity. It decodes the path again and
@@ -51,7 +57,17 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
     private File file;
 
+    private String base64;
+
+    private byte[] decodedString;
+
+    private int index;
+
+    private Bitmap bitmap;
+
     private final static String TAG = "PhotoEnlargeActivity: ";
+
+    private ArrayList<BodyLocationPhoto> bodyLocationPhotos;
 
     /**
      * Method loads activity state
@@ -63,14 +79,23 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_enlargement);
 
-        // Getting filePath sent from previous activity
-        filePath = getIntent().getStringExtra("filePath");
+        Patient patient = (Patient) PicMyMedApplication.getLoggedInUser();
+        bodyLocationPhotos = patient.getBodyLocationPhotoList();
 
+        // Getting filePath sent from previous activity
+        // filePath = getIntent().getStringExtra("filePath");
+        base64 = getIntent().getStringExtra("base64String");
+
+        index = getIntent().getIntExtra("index", 0);
         // Creating a file object
-        file = new File(filePath);
+        //file = new File(filePath);
 
         // Decoding the file into a Bitmap
-        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+        // Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+        decodedString = Base64.decode(base64, Base64.DEFAULT);
+        // Converting to Bitmap
+        bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         deleteButton = (ImageButton) findViewById(R.id.button_delete);
 
@@ -84,13 +109,18 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (file.exists()){
-                    // Deletes the file
-                    file.delete();
+                PicMyMedController.removeBodyLocationPhoto(index);
+                finish();
 
-                    // Finishes the activity and returns to previous activity
-                    finish();
-                }
+//                if (file.exists()){
+//                    // Deletes the file
+//                    file.delete();
+//
+//                    // Finishes the activity and returns to previous activity
+//                    finish();
+//                }
+
+
             }
         });
     }

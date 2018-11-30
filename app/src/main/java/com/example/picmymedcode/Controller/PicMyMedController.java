@@ -20,7 +20,6 @@
 package com.example.picmymedcode.Controller;
 
 
-import android.util.AtomicFile;
 import android.util.Log;
 
 import com.example.picmymedcode.Model.BodyLocationPhoto;
@@ -326,7 +325,15 @@ public class PicMyMedController {
     public static int addBodyLocationPhoto(BodyLocationPhoto photo) {
         Log.d ("addBodyLocationPhoto", "in controller");
         Patient patient = PicMyMedApplication.getPatientUser();
-        patient.addToBodyLocationPhotoList(photo);
+        patient.addBodyLocationPhoto(photo);
+
+        updatePatient(patient);
+        return 1;
+    }
+
+    public static int removeBodyLocationPhoto(int index) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        patient.getBodyLocationPhotoList().remove(index);
 
         updatePatient(patient);
         return 1;
