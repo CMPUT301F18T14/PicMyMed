@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/reverse_page"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -30,7 +30,7 @@
         android:gravity="center"
         android:hint="@string/problem_name"
         android:padding="20dp"
-        android:textColorHint="#D3D3D3" />
+        android:textColorHint="#515050" />
 
     <TextView
         android:id="@+id/problem_description_title"
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:hint="@string/description"
         android:padding="20dp"
-        android:textColorHint="#D3D3D3" />
+        android:textColorHint="#515050" />
 
     <TextView
         android:id="@+id/problem_edit_time_text"
@@ -72,9 +72,9 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_with_outline"
         android:gravity="center"
-        android:hint="@string/time"
+        android:text="@string/time"
         android:padding="20dp"
-        android:textColorHint="#D3D3D3" />
+        android:textColor="#515050" />
 
     <Button
         android:id="@+id/problem_edit_save_button"
@@ -83,7 +83,8 @@
         android:layout_below="@+id/problem_edit_time_edit_text"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
-        android:background="@drawable/signupbtn"
+        android:paddingHorizontal="30dp"
+        android:background="@drawable/signupbtn1"
         android:text="@string/update_prob" />
 
 </RelativeLayout>
