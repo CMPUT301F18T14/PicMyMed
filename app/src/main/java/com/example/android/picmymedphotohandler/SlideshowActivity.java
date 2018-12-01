@@ -180,11 +180,11 @@ public class SlideshowActivity extends AppCompatActivity {
      */
     private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
         ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
-        GalleryCells galleryCells = new GalleryCells();
         byte[] decodedString;
         Bitmap decodedByte;
 
         for (Photo photo : photos) {
+            GalleryCells galleryCells = new GalleryCells();
             decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             galleryCells.setBitmap(decodedByte);

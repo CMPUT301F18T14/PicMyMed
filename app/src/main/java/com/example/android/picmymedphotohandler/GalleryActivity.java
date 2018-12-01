@@ -24,17 +24,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
+import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +77,10 @@ public class GalleryActivity extends AppCompatActivity {
 
     private Patient user;
 
+    private ImageButton addButton;
+
+    private static final int CAMERA_REQUEST_CODE = 333;
+
     /**
      * Method loads state
      *
@@ -80,6 +91,8 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        addButton = findViewById(R.id.take_photo_button);
+        addButton.setVisibility(View.INVISIBLE);
         user = (Patient)PicMyMedApplication.getLoggedInUser();
 
         startActivity();
@@ -123,6 +136,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         } else if (receivedIntentFrom == 2) {           // From BodyLocation Activity
             // Prepare the data for adapter compatibility
+            addButton.setVisibility(View.VISIBLE);
             galleryCells = preparedData((ArrayList<Photo>)(ArrayList<?>) user.getBodyLocationPhotoList());
         }
 
@@ -143,6 +157,19 @@ public class GalleryActivity extends AppCompatActivity {
 
         // Set the adapter to the recycler view
         recyclerView.setAdapter(galleryAdapter);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking add problem button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent photoIntent = new Intent(GalleryActivity.this,PhotoIntentActivity.class);
+                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
+            }
+        });
     }
 
     /**
@@ -153,11 +180,11 @@ public class GalleryActivity extends AppCompatActivity {
      */
     private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
         ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
-        GalleryCells galleryCells = new GalleryCells();
         byte[] decodedString;
         Bitmap decodedByte;
 
         for (Photo photo : photos) {
+            GalleryCells galleryCells = new GalleryCells();
             decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             galleryCells.setBitmap(decodedByte);
@@ -165,6 +192,24 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         return galleryCellsArrayList;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            try {
+                Log.d("DEBUG BodyLocation","BodyLocation is being fetched!!!");
+                Photo photo = (Photo) data.getSerializableExtra("photoObject");
+
+                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(photo.getPhotoPath());
+                bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
+
+                Log.d("BodyLocation is here!!!", photo.getPhotoPath());
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto);
+            } catch (Exception e) {
+                Log.d("DEBUG BodyLocation", e.getMessage());
+            }
+        }
     }
 
     /**
