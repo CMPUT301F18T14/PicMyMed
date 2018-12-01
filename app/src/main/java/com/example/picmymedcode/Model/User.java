@@ -39,6 +39,9 @@ public abstract class User {
     private ArrayList<String> authorizedDevices;
     private String phoneNumber;
     private String email;
+    private String lastDeviceUsed;
+
+    private Boolean requiresSync;
 
     /**
      * Initializes the username, verifying that it is a correct length
@@ -189,6 +192,22 @@ public abstract class User {
         }
 
 
+    }
+
+    public String getLastDeviceUsed() {
+        return lastDeviceUsed;
+    }
+
+    public void setLastDeviceUsed(String lastDeviceUsed) {
+        this.lastDeviceUsed = lastDeviceUsed;
+    }
+
+    public Boolean getRequiresSync() {
+        return requiresSync;
+    }
+
+    public void setRequiresSync(Boolean requiresSync) {
+        this.requiresSync = requiresSync;
     }
 
 }

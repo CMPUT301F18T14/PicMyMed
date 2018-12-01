@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.picmymedcode">
 
     <uses-feature
@@ -22,7 +23,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:ignore="HardcodedDebugMode">
         <activity
             android:name="com.example.picmymedcode.View.MainActivity"
             android:windowSoftInputMode="adjustResize">
@@ -40,7 +42,7 @@
             android:name="com.example.picmymedcode.View.UserProfileTypeActivity"
             android:label="Sign Up" />
         <activity
-            android:name="com.example.picmymedcode.View.ProblemActivity"
+            android:name="com.example.picmymedcode.View.PatientActivity"
             android:label="Problem" />
         <activity
             android:name="com.example.picmymedcode.View.AddProblemActivity"

@@ -31,19 +31,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
-import com.example.picmymedcode.View.AddProblemActivity;
-import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
-import com.example.picmymedcode.View.ProblemActivity;
-import com.example.picmymedcode.View.ProfileActivity;
 
 import java.io.File;
 import java.util.ArrayList;

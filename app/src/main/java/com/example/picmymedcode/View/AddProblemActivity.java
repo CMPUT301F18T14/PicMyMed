@@ -23,14 +23,17 @@ package com.example.picmymedcode.View;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 import com.google.gson.Gson;
@@ -60,6 +63,7 @@ import java.util.Locale;
  * @since   1.1
  */
 public class AddProblemActivity extends AppCompatActivity{
+    private User user;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     public ArrayList<Problem> problemArrayList;
@@ -72,12 +76,13 @@ public class AddProblemActivity extends AppCompatActivity{
      * @param savedInstanceState Bundle
      */
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.addproblem_activity);
+
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
         final String date = mSimpleDateFormat.format(new Date());
 
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.addproblem_activity);
+        user = PicMyMedApplication.getLoggedInUser();
 
         final EditText problemTitleEditText = findViewById(R.id.problem_title_edit_text);
         final EditText problemDescriptionEditText = findViewById(R.id.problem_description_edit_text);
@@ -91,11 +96,15 @@ public class AddProblemActivity extends AppCompatActivity{
              */
             @Override
             public void onClick(View v) {
-                Problem problem = new Problem (PicMyMedApplication.getUsername(),date ,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
-                PicMyMedController.addProblem(problem);
-                //problemArrayList.add(problem);
-                //saveInFile();
-                onBackPressed();//go back to previous activity
+                if (user != null) {
+                    Problem problem = new Problem(user.getUsername(), date, problemTitleEditText.getText().toString(), problemDescriptionEditText.getText().toString());
+                    PicMyMedController.addProblem(problem);
+                    //problemArrayList.add(problem);
+                    //saveInFile();
+                    onBackPressed();//go back to previous activity
+                } else {
+                    Log.d("DEBUG AddProblemActivit", "User is null!");
+                }
             }
         });
     }
@@ -112,8 +121,18 @@ public class AddProblemActivity extends AppCompatActivity{
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
 
+    /** Copy paste function and replace activity **/
+    protected void onResume() {
 
-
+        super.onResume();
+        if (user == null) {
+            user = PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(AddProblemActivity.this );
+        }
+    }
     /**
      * Method saves data to file
      * Used prior to implementation of elastic search

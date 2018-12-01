@@ -22,7 +22,6 @@ package com.example.picmymedcode.View;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -30,7 +29,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -189,12 +187,15 @@ public class MainActivity extends AppCompatActivity {
                     PicMyMedController.addAuthorizedDevice(user);
                 }
                 PicMyMedApplication.setLoggedInUser(user);
+                PicMyMedController.updateLastDeviceUsed(user);
                 if (user.isPatient()) {
-                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                    Intent problemIntent = new Intent(MainActivity.this, PatientActivity.class);
                     startActivity(problemIntent);
+                    finish();
                 } else {
                     Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
                     startActivity(patientIntent);
+                    finish();
                 }
             }
         } catch(Exception e) {

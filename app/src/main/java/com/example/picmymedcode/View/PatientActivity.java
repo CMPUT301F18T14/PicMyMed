@@ -1,5 +1,5 @@
 /*
- * ProblemActivity
+ * PatientActivity
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -17,18 +17,20 @@
  */
 package com.example.picmymedcode.View;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
@@ -51,14 +53,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * ProblemActivity extends AppCompatActivity to create an activity for the user to
+ * PatientActivity extends AppCompatActivity to create an activity for the user to
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class ProblemActivity extends AppCompatActivity {
+public class PatientActivity extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     private static final String FILENAME = "file.sav";
     public Date date;
@@ -99,15 +101,15 @@ public class ProblemActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addProblem:
-                Intent problemIntent = new Intent(ProblemActivity.this, AddProblemActivity.class);
+                Intent problemIntent = new Intent(PatientActivity.this, AddProblemActivity.class);
                 startActivity(problemIntent);
                 break;
             case R.id.bodylocationphotos:
-                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
+                Intent bodyLocationPhotoManagerIntent = new Intent(PatientActivity.this, BodyLocationPhotoManagerActivity.class);
                 startActivity(bodyLocationPhotoManagerIntent);
                 break;
             case R.id.profile:
-                Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
+                Intent profileIntent = new Intent(PatientActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
                 break;
             case R.id.map:
@@ -129,7 +131,7 @@ public class ProblemActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
+        mAdapter = new ProblemAdapter(PatientActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -142,7 +144,7 @@ public class ProblemActivity extends AppCompatActivity {
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();
         //loadFromFile();
-        mAdapter = new ProblemAdapter(ProblemActivity.this, problemArrayList);
+        mAdapter = new ProblemAdapter(PatientActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -186,6 +188,22 @@ public class ProblemActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        PicMyMedApplication.logoutDialog(PatientActivity.this);
+
+    }
+    /**
+     * Method creates toast message to display on device
+     *
+     * @param message   String
+     */
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 

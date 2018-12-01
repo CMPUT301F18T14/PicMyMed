@@ -12,7 +12,6 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
-import com.example.picmymedcode.View.ProblemActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,9 +20,9 @@ import java.util.Date;
 
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-public class ProblemActivityTest {
+public class PatientActivityTest {
 
-    private final static String TAG = "ProblemActivityTest: ";
+    private final static String TAG = "PatientActivityTest: ";
 
     Patient patient = new Patient("mockuser","adsfa","5656");
 
@@ -31,8 +30,8 @@ public class ProblemActivityTest {
 
 
     @Rule
-    public ActivityTestRule<ProblemActivity> problemActivityTestRuleActivity =
-            new ActivityTestRule<ProblemActivity>(ProblemActivity.class) {
+    public ActivityTestRule<PatientActivity> problemActivityTestRuleActivity =
+            new ActivityTestRule<PatientActivity>(PatientActivity.class) {
                 /**
                  * Initializing a patient with a problem before running the activity
                  */

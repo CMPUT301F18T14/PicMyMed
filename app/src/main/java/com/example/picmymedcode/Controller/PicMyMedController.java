@@ -421,6 +421,31 @@ public class PicMyMedController {
     public static ArrayList<Photo> getPhotoList(int problemIndex, int recordIndex) {
         return PicMyMedApplication.getPatientUser().getProblemList().get(problemIndex).getRecordList().get(recordIndex).getPhotoList();
     }
+
+    public static int checkIfSameDevice(User user) {
+
+        try {
+            if (user != null && user.getLastDeviceUsed().equals(getUniquePsuedoID())) {
+                return 1;
+            }
+        } catch (Exception e) {
+            Log.i("DEBUG PMC", "Could not update last device used!");
+            Log.i("DEBUG PMC", e.getMessage());
+        }
+        return 0;
+    }
+
+    public static int updateLastDeviceUsed(User user) {
+        try {
+            user.setLastDeviceUsed(getUniquePsuedoID());
+            updateUser(user);
+            return 1;
+        } catch (Exception e) {
+            Log.i("DEBUG PMC", "Could not update last device used!");
+            Log.i("DEBUG PMC", e.getMessage());
+        }
+        return 0;
+    }
     /**
      * Return pseudo unique ID
      * @return ID
