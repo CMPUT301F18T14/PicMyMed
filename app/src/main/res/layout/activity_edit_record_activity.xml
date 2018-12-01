@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/record_problem_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:text="@string/Enter_Record_Details"
+        android:textColor="#D3D3D3"
+        android:textSize="26dp" />
+
+    <EditText
+        android:id="@+id/record_title_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/record_problem_title_text_view"
+        android:hint="@string/Add_Title"
+        android:paddingLeft="10dp"
+        android:textColor="#16BBE5"
+        android:textColorHint="#D3D3D3" />
+
+    <EditText
+        android:id="@+id/record_description_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/record_title_edit_text"
+        android:hint="@string/Add_Description"
+        android:inputType="textCapSentences|textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:textColor="#16BBE5"
+        android:textColorHint="#D3D3D3" />
+
+    <Button
+        android:id="@+id/record_camera_button"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bodyLocation"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/baseline_camera_alt_black_18dp" />
+
+    <Button
+        android:id="@+id/record_geo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/record_save_button"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@+id/centerPoint"
+        android:background="@drawable/box_with_outline"
+        android:padding="20dp"
+        android:text="@string/Geolocation"
+        android:textColor="#16BBE5" />
+
+    <TextView
+        android:id="@+id/location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp" />
+
+    <Button
+        android:id="@+id/bodyLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/record_save_button"
+        android:layout_marginBottom="5dp"
+        android:layout_toLeftOf="@+id/centerPoint"
+        android:background="@drawable/box_with_outline"
+        android:padding="20dp"
+        android:text="@string/Body_Location"
+        android:textColor="#16BBE5" />
+
+    <TextView
+        android:id="@+id/centerPoint"
+        android:layout_width="10dip"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+
+    <Button
+        android:id="@+id/record_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/signupbtn1"
+        android:paddingHorizontal="50dp"
+        android:text="@string/Add" />
+
+</RelativeLayout>
