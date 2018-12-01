@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -22,7 +23,9 @@ import java.util.ArrayList;
 
 
 public class EditRecordActivity extends AppCompatActivity {
-    private Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+    private Patient user;
+    private Problem problem;
+    private Record record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +37,10 @@ public class EditRecordActivity extends AppCompatActivity {
         String problemIndex = editRecordIntent.getStringExtra("problem index");
         int recordIndex = editRecordIntent.getIntExtra("record index", 0);
 
-        final Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        user = (Patient) PicMyMedApplication.getLoggedInUser();
         ArrayList<Problem> problemArrayList = user.getProblemList();
-        final Problem problem = problemArrayList.get(RecordActivity.position);
-        final Record record = problem.getRecordList().get((int) recordIndex);
+        problem = problemArrayList.get(RecordActivity.position);
+        record = problem.getRecordList().get((int) recordIndex);
 
         final EditText editTitle = (EditText) findViewById(R.id.record_title_edit_text);
         editTitle.setText(record.getTitle());
@@ -55,6 +58,18 @@ public class EditRecordActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void onResume() {
+
+        super.onResume();
+        if (user == null) {
+            user = (Patient) PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(EditRecordActivity.this );
+        }
     }
 
 }
