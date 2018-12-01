@@ -53,6 +53,6 @@
     <string name="time_colon">Time:</string>
     <string name="Add_Body_Location_Photo">Body Location Photo Manager</string>
     <string name="Save">Save</string>
-    <string name="Edit_Record_Details">Edit Record</string>
+    <string name="edit_Record_Details">Edit Record</string>
 
 </resources>
