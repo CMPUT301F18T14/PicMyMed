@@ -110,7 +110,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         int receivedIntentFrom = getIntent().getIntExtra("intentSender", 0);
 
-        if (receivedIntentFrom == 1) {                  // From Record Activity
+        if (receivedIntentFrom == 1) {                  // From AddRecordActivity
             int problemIndex = getIntent().getIntExtra("problemIndex", 0);
             int recordIndex = getIntent().getIntExtra("recordIndex", 0);
             record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
