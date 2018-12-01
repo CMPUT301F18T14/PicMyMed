@@ -20,6 +20,7 @@
     <string name="update_prob">Update Problem</string>
     <string name="Enter_Record_Details">Enter Record Details</string>
     <string name="Add_Title">Add Title</string>
+    <string name= "view_comments">View Comments</string>
     <string name="Add_Description">Add Description</string>
     <string name="Geolocation">Geolocation</string>
     <string name="Body_Location">Body Location</string>
