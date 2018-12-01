@@ -157,7 +157,7 @@ public class PicMyMedController {
     public static int checkAuthorizedDevice(User user) {
         return user.checkDeviceAuthorized(getUniquePsuedoID());
     }
-    
+
     public static int addAuthorizedDevice(User user) {
 
         try {

@@ -53,7 +53,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_CODE = 100;
-    private final static int PERMISSION_REQUEST = 200;
+    private final static int CAMERA_PERMISSION_REQUEST = 200;
     private final static String barcodeID = "barcode";
 
     private Button loginBtn;
@@ -176,12 +176,13 @@ public class MainActivity extends AppCompatActivity {
 
     };
     private void scanQRCode() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
-        }
-        Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
-        startActivityForResult(scannerIntent, REQUEST_CODE);
 
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+        } else {
+            Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
+            startActivityForResult(scannerIntent, REQUEST_CODE);
+        }
     }
 
 
@@ -224,6 +225,28 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 toastMessage("Login was unsuccessful!");
             }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSION_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // camera related task you need to do.
+                    Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
+                    startActivityForResult(scannerIntent, REQUEST_CODE);
+                } else {
+                    toastMessage("Cannot scan QR Code if you don't give camera permissions, you bum bum!");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
         }
     }
     /**
