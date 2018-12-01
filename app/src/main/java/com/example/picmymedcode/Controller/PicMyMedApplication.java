@@ -122,7 +122,7 @@ public class PicMyMedApplication {
      * Method loads saved data from file, if it exists
      * Used prior to implementation of elastic search
      */
-    private void loadLocalUser() {
+   /* private void loadLocalUser() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
             InputStreamReader isr = new InputStreamReader(fis);
@@ -136,5 +136,5 @@ public class PicMyMedApplication {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
+    }*/
 }

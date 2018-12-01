@@ -34,7 +34,7 @@ public class CareProviderAddComment extends AppCompatActivity{
                 User user = PicMyMedApplication.getLoggedInUser();
                 String result2 = result+"\n commented by "+ user.getUsername().toString();
                 problemArrayList.get(position).addCommentList(result2);
-                PicMyMedController.updatePatient(patient);
+                PicMyMedController.updateUser(patient);
                 onBackPressed();
                 // TODO Auto-generated method stub
             }

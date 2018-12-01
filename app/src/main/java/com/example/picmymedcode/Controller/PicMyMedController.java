@@ -245,10 +245,12 @@ public class PicMyMedController {
      */
     public static int addProblem(Problem problem) {
 
+
+
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().add(problem);
 
-        updatePatient(patient);
+        updateUser(patient);
 
         return 1;
     }
@@ -267,7 +269,7 @@ public class PicMyMedController {
         problem.setStartDate(date);
         problem.setTitle(title);
         problem.setDescription(description);
-        updatePatient(patient);
+        updateUser(patient);
 
         return 1;
     }
@@ -281,7 +283,7 @@ public class PicMyMedController {
     public static int deleteProblem(Problem problem) {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().remove(problem);
-        updatePatient(patient);
+        updateUser(patient);
         return 1;
     }
 
@@ -296,7 +298,7 @@ public class PicMyMedController {
 
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.addRecord(record);
-        updatePatient(patient);
+        updateUser(patient);
 
         return 1;
     }
@@ -304,7 +306,7 @@ public class PicMyMedController {
     public static int deleteRecord(Problem problem, Record record) {
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.removeRecord(record);
-        updatePatient(patient);
+        updateUser(patient);
 
         return 1;
     }
@@ -354,7 +356,7 @@ public class PicMyMedController {
         CareProvider careProvider = PicMyMedApplication.getCareProviderUser();
         if (!careProvider.getPatientList().contains(patientUsername)){
             careProvider.getPatientList().add(patientUsername);
-            updateCareProvider(careProvider);
+            updateUser(careProvider);
             return 1;
         }
         return 0;
@@ -371,7 +373,7 @@ public class PicMyMedController {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.setEmail(email);
         patient.setPhoneNumber(phone);
-        updatePatient(patient);
+        updateUser(patient);
         return 1;
     }
 
@@ -380,7 +382,7 @@ public class PicMyMedController {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.addBodyLocationPhoto(photo);
 
-        updatePatient(patient);
+        updateUser(patient);
         return 1;
     }
 
@@ -388,7 +390,7 @@ public class PicMyMedController {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getBodyLocationPhotoList().remove(index);
 
-        updatePatient(patient);
+        updateUser(patient);
         return 1;
     }
 
@@ -396,7 +398,7 @@ public class PicMyMedController {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getBodyLocationPhotoList().get(index).setLabel(label);
 
-        updatePatient(patient);
+        updateUser(patient);
         return 1;
     }
 
