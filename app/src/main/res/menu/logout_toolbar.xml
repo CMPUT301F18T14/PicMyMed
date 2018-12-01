@@ -2,14 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item
         android:id="@+id/logout"
         android:orderInCategory="5"
         android:icon="@drawable/logout_white"
         android:title="@string/logout"
-        app:showAsAction="always|withText"/>
-    <item android:id="@+id/edit"
-        android:title="Edit" />
-    <item android:id="@+id/delete"
-        android:title="Delete" />
+        app:showAsAction="ifRoom|withText"/>
+
 </menu>

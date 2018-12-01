@@ -54,5 +54,9 @@
     <string name="Add_Body_Location_Photo">Body Location Photo Manager</string>
     <string name="Save">Save</string>
     <string name="edit_Record_Details">Edit Record</string>
+    <string name="searchKeyword">Enter keyword for search</string>
+    <string name="geolocationSearch">Geolocation search</string>
+    <string name="logout">Logout</string>
+
 
 </resources>

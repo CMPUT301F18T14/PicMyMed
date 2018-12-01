@@ -37,5 +37,12 @@
         android:title="Add Record"
         app:showAsAction="always|withText" />
 
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="5"
+        android:icon="@drawable/logout_white"
+        android:title="@string/logout"
+        app:showAsAction="ifRoom|withText"/>
+
 
 </menu>

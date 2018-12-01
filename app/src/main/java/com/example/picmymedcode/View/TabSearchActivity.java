@@ -1,31 +1,68 @@
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.SearchView;
+import android.widget.Switch;
+import android.widget.ToggleButton;
 
 import com.example.picmymedcode.R;
 
+import io.searchbox.core.Search;
+
 public class TabSearchActivity extends AppCompatActivity {
+    android.support.v7.widget.Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
+    private SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabsearch_activity);
 
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.Tab_Search_Toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Search Records and Problems");
+
+        final Switch geoSwitch = (Switch) findViewById(R.id.GeoSwitch);
+        final SearchView geoSearch = findViewById(R.id.searchGeo);
+
+
+
+        searchView = findViewById(R.id.searchRecords);
+        //searchView.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
+
         tabLayout=(TabLayout)findViewById(R.id.tabLayout);
+
         viewPager=(ViewPager)findViewById(R.id.viewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Problem"));
         tabLayout.addTab(tabLayout.newTab().setText("Record"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+
+
         final TabSearchAdapter adapter = new TabSearchAdapter(this,getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        geoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //geoSwitch.setVisibility(View.GONE);
+                    geoSearch.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

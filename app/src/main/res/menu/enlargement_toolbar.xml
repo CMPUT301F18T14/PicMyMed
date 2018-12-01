@@ -24,6 +24,13 @@
         android:title="Take a new photo"
         app:showAsAction="always|withText"/>
 
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="5"
+        android:icon="@drawable/logout_white"
+        android:title="@string/logout"
+        app:showAsAction="always|withText"/>
+
 
 
 
