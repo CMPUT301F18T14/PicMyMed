@@ -110,6 +110,8 @@
             android:name=".View.BodyLocationPhotoManagerActivity"
             android:exported="true"
             android:label="Body Location Photo Manager" />
+      
+        <activity android:name=".View.XOnBodyLocationActivity" />
         <activity android:name=".View.EditRecordActivity" />
 
         <uses-library
