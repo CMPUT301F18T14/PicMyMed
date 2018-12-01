@@ -68,6 +68,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     private ArrayList<Record> records;
     private int problemIndex;
     Context context;
+    //Nested Photo recyclerView
     GalleryAdapter galleryAdapter;
     private ArrayList<GalleryCells> galleryCells;
     RecyclerView.LayoutManager layoutManager;
@@ -194,7 +195,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 //            @Override
 //            //onClick to go to next activity
 //            public void onClick(View v) {
-//                Intent Intent = new Intent(context,EditRecordActivity.class);
+//                Intent Intent = new Intent(context,ViewRecordActivity.class);
 //                Intent.putExtra("key", i);
 //                context.startActivity(Intent);
 //            }
