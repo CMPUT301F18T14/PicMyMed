@@ -258,50 +258,52 @@ public class ElasticSearchController {
     }
 
     /**
-     * Method extends Asynctask to get a care provider using elastic search
+     * Method extends AsyncTask to get a patient using elastic search
      */
     public static class GetUsernameByID extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... search_parameters) {
-            Log.i("DEBUG GetUsernameByID", "Attempting to build careprovider query...");
+            Log.i("DEBUG GetUsernameByID:", "Attempting to build query...");
             verifySettings();
 
             String username = new String();
+
             String randomUserID = search_parameters[0];
 
-
-            String getUserByIDQuery = "{ \"size\": " + querySize +
+            String patientQuery = "{ \"size\": " + querySize +
                     ", \n" +
                     "    \"query\" : {\n" +
                     "        \"match\" : { \"randomUserID\" : \"" + randomUserID + "\" }\n" +
                     "    }\n" +
                     "}" ;
-
-            Search search = new Search.Builder(getUserByIDQuery)
+            Log.d("QUERY", patientQuery);
+            Search search = new Search.Builder(patientQuery)
                     .addIndex(indexPath)
+                    .addType(patientType)
                     .build();
-
-            Log.i("DEBUG GetUsernameByID:", "Created query...");
-
+            Log.i("DEBUG GetPatient:", "Created query...");
             try {
-                // TODO get the results of the query
+
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()){
-                    Log.i("DEBUG GetUserByID", "Successfully queried elasticsearch server");
-                    List<User> foundUsers = result.getSourceAsObjectList(User.class);
-                    username = foundUsers.get(0).getUsername();
+                    Log.i("DEBUG GetPatient", "Successfully queried elasticsearch server");
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    username = foundPatients.get(0).getUsername();
+
                 }
                 else {
-                    Log.i("DEBUG GetUsernameByID", "The search query failed to find any careproviders that matched");
+                    Log.i("DEBUG GetPatient", "The search query failed to find any patients that matched");
                 }
             }
             catch (Exception e) {
-                Log.i("DEBUG GetUsernameByID", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("DEBUG GetPatient", "Something went wrong when we tried to communicate with the elasticsearch server!");
+
             }
 
             return username;
         }
     }
+
 
     /**
      * Method extends AsyncTask to update patient data using elastic search

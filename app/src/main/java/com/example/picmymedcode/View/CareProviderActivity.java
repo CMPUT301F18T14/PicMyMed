@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -72,10 +73,14 @@ public class CareProviderActivity extends AppCompatActivity {
         //creates the welcome care provider text at the top
         CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
         TextView careProviderName = (TextView) findViewById(R.id.careProviderName);
-        String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
-                + " " + user.getUsername();
-        careProviderName.setText(welcomeText);
-
+        try {
+            String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
+                    + " " + user.getUsername();
+            careProviderName.setText(welcomeText);
+        } catch (Exception e) {
+            Log.d("DEBUG CPA", e.getMessage());
+            String welcomeText = "Unknown";
+        }
         manageRecyclerview();
 
 
