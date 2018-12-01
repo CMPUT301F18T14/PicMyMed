@@ -1,5 +1,6 @@
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,6 +38,8 @@ public class CareProviderAddComment extends AppCompatActivity{
                 PicMyMedController.updatePatient(patient);
                 onBackPressed();
                 // TODO Auto-generated method stub
+
+
             }
         });
 
