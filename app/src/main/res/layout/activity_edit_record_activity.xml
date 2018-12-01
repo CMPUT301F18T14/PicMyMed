@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/reverse_page"
     android:orientation="vertical">
 
     <TextView
@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="20dp"
-        android:text="@string/Enter_Record_Details"
-        android:textColor="#D3D3D3"
+        android:layout_marginTop="30dp"
+        android:text="@string/edit_Record_Details"
+        android:textColor="#515050"
         android:textSize="26dp" />
 
     <EditText
@@ -21,9 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/record_problem_title_text_view"
         android:text="@string/Add_Title"
-        android:paddingLeft="10dp"
+        android:hint="Title"
         android:textColor="#16BBE5"
-        android:textColorHint="#D3D3D3" />
+        android:textColorHint="#D3D3D3"
+        android:background="@drawable/box_with_outline"
+        android:padding="20dp"
+        android:paddingHorizontal="10dp"
+        android:layout_marginHorizontal="20dp"
+        />
 
     <EditText
         android:id="@+id/record_description_edit_text"
@@ -31,11 +36,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/record_title_edit_text"
         android:text="@string/Add_Description"
+        android:hint="Description"
         android:inputType="textCapSentences|textMultiLine"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="50dp"
         android:textColor="#16BBE5"
-        android:textColorHint="#D3D3D3" />
+        android:textColorHint="#D3D3D3"
+        android:background="@drawable/box_with_outline"
+        android:padding="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        />
 
     <Button
         android:id="@+id/record_save_button"
