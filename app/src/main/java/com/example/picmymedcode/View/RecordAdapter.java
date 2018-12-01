@@ -76,8 +76,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             //this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
-            this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
+
+            this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
+            if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+                recordMoreImageView .setVisibility(View.INVISIBLE);
+            }
 
         }
     }
