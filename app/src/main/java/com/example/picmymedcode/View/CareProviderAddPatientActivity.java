@@ -25,7 +25,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
 
-public class CareProvierAddPatientActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class CareProviderAddPatientActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private final static int REQUEST_CODE = 100;
     private final static int CAMERA_PERMISSION_REQUEST = 200;
@@ -84,9 +84,9 @@ public class CareProvierAddPatientActivity extends AppCompatActivity implements 
         imageView.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CareProvierAddPatientActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+                    ActivityCompat.requestPermissions(CareProviderAddPatientActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
                 } else {
-                    Intent scannerIntent = new Intent(CareProvierAddPatientActivity.this, ScannerActivity.class);
+                    Intent scannerIntent = new Intent(CareProviderAddPatientActivity.this, ScannerActivity.class);
                     startActivityForResult(scannerIntent, REQUEST_CODE);
                 }
 
@@ -137,7 +137,7 @@ public class CareProvierAddPatientActivity extends AppCompatActivity implements 
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // camera related task you need to do.
-                    Intent scannerIntent = new Intent(CareProvierAddPatientActivity.this, ScannerActivity.class);
+                    Intent scannerIntent = new Intent(CareProviderAddPatientActivity.this, ScannerActivity.class);
                     startActivityForResult(scannerIntent, REQUEST_CODE);
                 } else {
                     toastMessage("Cannot scan QR Code if you don't give camera permissions, you bum bum!");
@@ -159,11 +159,11 @@ public class CareProvierAddPatientActivity extends AppCompatActivity implements 
     }
 
     public void sessionExpired() {
-        Intent mainActivityIntent = new Intent(CareProvierAddPatientActivity.this, MainActivity.class);
+        Intent mainActivityIntent = new Intent(CareProviderAddPatientActivity.this, MainActivity.class);
         toastMessage("User session expire. Please login again.");
         startActivity(mainActivityIntent);
     }
-    
+
     /**
      * Method creates toast message to display on device
      *

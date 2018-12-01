@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -128,7 +129,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
-        recordLocationTextView.setText(records.get(i).getGeolocation().getLocationName());
+        Geolocation geolocation = records.get(i).getGeolocation();
+        if (geolocation != null) {
+            recordLocationTextView.setText(geolocation.getLocationName());
+        }
 
         Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
         ArrayList<Problem> problemArrayList = user.getProblemList();
