@@ -22,10 +22,12 @@ package com.example.picmymedcode.View;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -157,7 +159,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         layoutManager = new GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, true);
         // Set the layout in the recycler view
         recordPhotoSlider.setLayoutManager(layoutManager);
-        galleryCells = preparedDataFromBase64(i);
+        galleryCells = preparedDataFromRecord(records.get(i));
         galleryAdapter = new GalleryAdapter(galleryCells, context);
         recordPhotoSlider.setAdapter(galleryAdapter);
         recordPhotoSlider.setOnClickListener(null);
@@ -248,17 +250,31 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
      *
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
-    private ArrayList<GalleryCells> preparedDataFromBase64(int index) {
-        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = records.get(index).base65ToBitmap(records.get(index).getPhotoList());
+    private ArrayList<GalleryCells> preparedDataFromRecord(Record record) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        galleryCellsArrayList = preparedData(record.getPhotoList());
+        return galleryCellsArrayList;
+    }
 
+    /**
+     * This method performs operation on the data
+     * to make it viewable under the defined adapter setting.
+     *
+     * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
+     */
+    private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        GalleryCells galleryCells = new GalleryCells();
+        byte[] decodedString;
+        Bitmap decodedByte;
 
-        for(int i = 0; i < bitmaps.size(); i++){
-            GalleryCells galleryCells = new GalleryCells();
-            galleryCells.setTitle("");
-            galleryCells.setBitmap(bitmaps.get(i));
-            imagesModified.add(galleryCells);
+        for (Photo photo : photos) {
+            decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            galleryCells.setBitmap(decodedByte);
+            galleryCellsArrayList.add(galleryCells);
         }
-        return imagesModified;
+
+        return galleryCellsArrayList;
     }
 }
