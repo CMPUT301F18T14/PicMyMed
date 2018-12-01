@@ -115,8 +115,8 @@ public class AddProblemActivity extends AppCompatActivity{
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
+        //Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
         //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
@@ -131,6 +131,9 @@ public class AddProblemActivity extends AppCompatActivity{
         if (PicMyMedController.checkIfSameDevice(user) == 0) {
             Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
             PicMyMedApplication.logout(AddProblemActivity.this );
+        }
+        else {
+            problemArrayList = ((Patient) user).getProblemList();
         }
     }
     /**
