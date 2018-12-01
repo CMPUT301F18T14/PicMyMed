@@ -27,7 +27,7 @@ public class CareProviderAddPatientAdapter extends AppCompatActivity implements 
         setContentView(R.layout.patientsearch_activity);
 
         //Load all data to array
-        patientName = PicMyMedController.getAllPatients();
+        patientName = PicMyMedController.getAllPatientUsernames();
         mListView = findViewById(R.id.patient_listview);
 
         //passing array into PatientListViewAdapter
@@ -48,7 +48,6 @@ public class CareProviderAddPatientAdapter extends AppCompatActivity implements 
                 String name = user.getUsername();
                 Toast.makeText(CareProviderAddPatientAdapter.this, patientName.get(position)+" is added "+name, Toast.LENGTH_SHORT).show();
                 PicMyMedController.addPatientToCareProvider(patientName.get(position));
-                //UpdateCareProvider();
                 onBackPressed();//go back to previous activity
 
             }

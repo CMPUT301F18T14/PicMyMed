@@ -187,7 +187,7 @@ public class PicMyMedController {
 
     public static String getUsernameByID(String randomUserID) {
 
-        String username = new String();
+        String username = null;
 
         ElasticSearchController.GetUsernameByID getUsernameByID= new ElasticSearchController.GetUsernameByID();
         getUsernameByID.execute(randomUserID);
@@ -212,7 +212,7 @@ public class PicMyMedController {
 
     }
 
-    public static ArrayList<String> getAllPatients() {
+    public static ArrayList<String> getAllPatientUsernames() {
         ArrayList<String> patientUsernames = new ArrayList<String>();
         ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
         getAllPatients.execute();
@@ -413,6 +413,7 @@ public class PicMyMedController {
         }
         return careProviders;
     }
+
 
     public static ArrayList<Photo> getPhotoList(int problemIndex, int recordIndex) {
         return PicMyMedApplication.getPatientUser().getProblemList().get(problemIndex).getRecordList().get(recordIndex).getPhotoList();
