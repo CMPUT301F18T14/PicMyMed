@@ -89,9 +89,10 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         searchText.setVisibility(View.INVISIBLE);
 
         mGps = (ImageView) findViewById(R.id.icon_gps);
+        mAdd = (ImageView) findViewById(R.id.icon_add);
         mAdd.setVisibility(View.INVISIBLE);
 
-        mAdd = (ImageView) findViewById(R.id.icon_add);
+
         // Hiding the Add button
         mAdd.setVisibility(View.INVISIBLE);
 
