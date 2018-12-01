@@ -16,85 +16,78 @@ import com.example.picmymedcode.R;
 
 public class DrawView extends View {
 
+    private static final String TAG = "DrawViewStuff";
+
     private Paint paint;
     private Path path;
     private Canvas canvas;
+    private Bitmap immutable;
     private Bitmap bitmap;
-
-//    public DrawView(Context context) {
-//        super(context);
-//    }
+    boolean mark = false; //to see if there's already an x on the canvas
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupDrawing();
     }
-    //
-//    public DrawView(Context context, AttributeSet attrs, int defStyleAttr) {
-//        super(context, attrs, defStyleAttr);
-//        init(attrs, defStyleAttr);
-//    }
-//
+
     private void setupDrawing(){
+        Log.d(TAG,"Reached setupDrawing");
         path = new Path();
         paint = new Paint();
         paint.setColor(Color.RED);
 //        paint.setAntiAlias(true);
-//        paint.setStyle(Paint.Style.STROKE);
         paint.setTextSize(40F);
+        immutable = BitmapFactory.decodeResource(getResources(),R.drawable.aladdin);
+        bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        Log.d(TAG,"Reached onSizeChanged");
         super.onSizeChanged(w,h,oldw,oldh);
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.aladdin);
-//        int inX = bitmap.getWidth();
-//        int inY = bitmap.getHeight();
-//        int scaleFactor = inY/h;
-//        int newX = inX / scaleFactor;
-
-        bitmap = bitmap.createScaledBitmap(bitmap,w,h,false);
         canvas = new Canvas(bitmap);
     }
 
     @Override
     public void onDraw(Canvas canvas){
-//        super.onDraw(canvas);
+        Log.d(TAG,"Reached onDraw");
+        super.onDraw(canvas);
         canvas.drawBitmap(bitmap,0,0,paint);
-        canvas.drawPath(path,paint);
+    }
 
+    @Override
+    public final void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+        int sizew = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeh = MeasureSpec.getSize(heightMeasureSpec);
+
+        Log.d(TAG,"onMeasure: view w: "+sizew+"; view h: "+sizeh);
+        int desiredWidth = immutable.getWidth();
+        int desiredHeight = immutable.getHeight();
+
+        setMeasuredDimension(desiredWidth,desiredHeight);
     }
 
     @Override
     public  boolean onTouchEvent(MotionEvent event){
+        Log.d(TAG,"Reached onTouchEvent");
         float x = event.getX();
         float y = event.getY();
-//        Log.d("Label","x");
 
-//        if(event.getAction()==MotionEvent.ACTION_DOWN){
-//            path.moveTo(x,y);
-//        }else if(event.getAction()==MotionEvent.ACTION_MOVE) {
-//            path.moveTo(x,y);
-//        }else if(event.getAction()==MotionEvent.ACTION_UP){
-//        }
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-//                path.moveTo(x, y);
-                Log.d("Label","x: "+x+" y: "+y);
-                canvas.drawText("X", x-6,y+15,paint);
-                break;
-//            case MotionEvent.ACTION_MOVE:
-//                path.lineTo(x, y);
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                canvas.drawPath(path, paint);
-//                path.reset();
-//                break;
-//            default:
-//                return false;
+      if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (!mark){
+                canvas.drawText("X", x - 6, y + 15, paint);
+                Log.d(TAG, "TOUCH x: " + x + " y: " + y + "  mark: false");
+                mark=true;
+                invalidate();
+            } else {
+                bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
+                canvas = new Canvas(bitmap);
+                canvas.drawBitmap(bitmap,0,0,paint);
+                canvas.drawText("X", x - 6, y + 15, paint);
+                Log.d(TAG, "TOUCH x: " + x + " y: " + y + "  mark: true");
+                invalidate();
+            }
         }
-
-        invalidate();
         return true;
     }
 }
