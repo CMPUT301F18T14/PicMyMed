@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/careprovider_problem_name_text_view"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="Name"
         android:textColor="#ffffff"
@@ -23,6 +23,7 @@
         android:layout_toRightOf="@+id/phoneIcon"
         android:layout_weight="1"
         android:text="Phone"
+        android:layout_marginBottom="10dp"
         android:textColor="#ffffff"
         android:textSize="15sp" />
 
@@ -33,6 +34,7 @@
         android:layout_marginRight="3dp"
         android:layout_below="@+id/careprovider_problem_name_text_view"
         android:background="@drawable/phone"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#fff" />
 
     <TextView
@@ -42,7 +44,7 @@
         android:layout_toRightOf="@+id/emailIcon"
         android:layout_below="@+id/careprovider_problem_phone_text_view"
         android:layout_weight="1"
-        android:text="Emial"
+        android:text="Email"
         android:textColor="#ffffff"
         android:textSize="15sp" />
 
