@@ -122,7 +122,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
-        //recordTimeTextView.setText(records.get(i).getTimeStamp());
+        recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+
+        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        ArrayList<Problem> problemArrayList = user.getProblemList();
+        final Problem problem = problemArrayList.get(RecordActivity.position);
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -140,6 +144,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
 
 
+
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
                 //inflating menu from xml resource
@@ -152,7 +157,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                             case R.id.edit:
                                 //TODO edit
                                 Intent Intent = new Intent(context,EditRecordActivity.class);
-                                Intent.putExtra("index", i);
+                                Intent.putExtra("problem index", RecordActivity.position);
+                                Intent.putExtra("record index", i);
                                 context.startActivity(Intent);
                                 break;
                             case R.id.delete:
@@ -165,9 +171,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
-                                Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-                                ArrayList<Problem> problemArrayList = user.getProblemList();
-                                Problem problem = problemArrayList.get(RecordActivity.position);
                                 PicMyMedController.deleteRecord(problem, records.get(i));
                                 notifyDataSetChanged();
 
