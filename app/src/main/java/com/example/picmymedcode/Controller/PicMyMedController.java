@@ -224,6 +224,14 @@ public class PicMyMedController {
         return 1;
     }
 
+    public static int deleteRecord(Problem problem, Record record) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        problem.removeRecord(record);
+        updatePatient(patient);
+
+        return 1;
+    }
+
     /**
      * Method gets user from the controller and calls elastic search and updates the database
      *

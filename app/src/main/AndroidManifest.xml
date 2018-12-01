@@ -110,6 +110,7 @@
             android:name=".View.BodyLocationPhotoManagerActivity"
             android:exported="true"
             android:label="Body Location Photo Manager" />
+        <activity android:name=".View.EditRecordActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

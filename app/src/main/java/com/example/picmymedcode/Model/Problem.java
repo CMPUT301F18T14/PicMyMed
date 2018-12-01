@@ -134,6 +134,10 @@ public class Problem {
         this.recordList.add(record);
     }
 
+    public void removeRecord(Record record) {
+        this.recordList.remove(record);
+    }
+
     /**
      * Method gets the ID of the problem
      *

@@ -20,6 +20,7 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,10 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
@@ -119,11 +124,21 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordDescriptionTextView.setText(records.get(i).getDescription());
         //recordTimeTextView.setText(records.get(i).getTimeStamp());
 
+//        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            //onClick to go to next activity
+//            public void onClick(View v) {
+//                Intent Intent = new Intent(context,EditRecordActivity.class);
+//                Intent.putExtra("key", i);
+//                context.startActivity(Intent);
+//            }
+//        });
+
         recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                
+
 
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
@@ -136,7 +151,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                         switch (item.getItemId()) {
                             case R.id.edit:
                                 //TODO edit
-                                //handle menu1 click
+                                Intent Intent = new Intent(context,EditRecordActivity.class);
+                                Intent.putExtra("index", i);
+                                context.startActivity(Intent);
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
@@ -148,6 +165,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
+                                Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                                ArrayList<Problem> problemArrayList = user.getProblemList();
+                                Problem problem = problemArrayList.get(RecordActivity.position);
+                                PicMyMedController.deleteRecord(problem, records.get(i));
+                                notifyDataSetChanged();
+
                                 break;
                         }
                         return false;
