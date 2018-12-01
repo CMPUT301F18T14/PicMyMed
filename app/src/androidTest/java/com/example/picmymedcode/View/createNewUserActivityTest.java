@@ -15,8 +15,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class createNewUserActivityTest {
     @Rule
-    public ActivityTestRule<CreateNewUserActivity> newUsernameActivityTestRuleActivity =
-            new ActivityTestRule<CreateNewUserActivity>(CreateNewUserActivity.class);
+    public ActivityTestRule<SignUpActivity> newUsernameActivityTestRuleActivity =
+            new ActivityTestRule<SignUpActivity>(SignUpActivity.class);
 
     /**
      * Testing new signup activity

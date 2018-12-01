@@ -45,13 +45,7 @@ import java.util.UUID;
 public class PicMyMedController {
 
 
-    /**
-     * Method creates a new user
-     *
-     * @param user  user
-     * @return      int
-     */
-    public static int createUser(User user) {
+    public static int checkValidUser(User user) {
         ArrayList<Patient> patients = null;
         ArrayList<CareProvider> careProviders = null;
 
@@ -75,8 +69,22 @@ public class PicMyMedController {
         }
 
         if (patients.size() == 0 && careProviders.size() == 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Method creates a new user
+     *
+     * @param user  user
+     * @return      int
+     */
+    public static int createUser(User user) {
+        try {
             user.addAuthorizedDevice(getUniquePsuedoID());
-            if(user.isPatient()) {
+
+            if (user.isPatient()) {
                 Patient patient = (Patient) user;
                 ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
                 addPatient.execute(patient);
@@ -87,8 +95,11 @@ public class PicMyMedController {
 
             }
             return 1;
+
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", e.getMessage());
+            return 0;
         }
-        return 0;
 
     }
     public static int addAuthorizedDevice() {

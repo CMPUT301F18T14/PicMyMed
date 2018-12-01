@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
     android:orientation="vertical"
-    tools:context="com.example.picmymedcode.View.CreateNewUserActivity">
+    tools:context="com.example.picmymedcode.View.SignUpActivity">
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/staticSignUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -26,17 +26,20 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/Username" />
+        android:hint="@string/Username"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/enteredPhone"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/enteredEmail"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/Phone_Number" />
+        android:hint="@string/Phone_Number"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/enteredEmail"
@@ -46,7 +49,8 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="Email" />
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/signUpButton"

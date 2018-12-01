@@ -41,7 +41,6 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
-import com.example.QRCode.GeneratorActivity;
 import com.google.android.gms.vision.barcode.Barcode;
 
 /**
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
              */
             public void onClick(View v) {
 
-                Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
+                Intent problemIntent = new Intent(MainActivity.this, UserProfileTypeActivity.class);
                 startActivity(problemIntent);
                 //finish();
             }
