@@ -21,15 +21,18 @@ package com.example.android.picmymedphotohandler;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
 
@@ -116,15 +119,11 @@ public class GalleryActivity extends AppCompatActivity {
             record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
 
             // Prepare the data for adapter compatibility
-            galleryCells = preparedDataFromBase64(record.getPhotoList());
+            galleryCells = preparedData(record.getPhotoList());
 
         } else if (receivedIntentFrom == 2) {           // From BodyLocation Activity
-            int problemIndex = getIntent().getIntExtra("problemIndex", 0);
-            int recordIndex = getIntent().getIntExtra("recordIndex", 0);
-            record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
-
             // Prepare the data for adapter compatibility
-            galleryCells = preparedDataFromBase64(record.getPhotoList());
+            galleryCells = preparedData((ArrayList<Photo>)(ArrayList<?>) user.getBodyLocationPhotoList());
         }
 
         // Load the image files
@@ -152,18 +151,20 @@ public class GalleryActivity extends AppCompatActivity {
      *
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
-    private ArrayList<GalleryCells> preparedDataFromBase64(ArrayList<Photo> photos) {
-        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.base65ToBitmap(photos);
+    private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        GalleryCells galleryCells = new GalleryCells();
+        byte[] decodedString;
+        Bitmap decodedByte;
 
-
-        for(int i = 0; i < bitmaps.size(); i++){
-            GalleryCells galleryCells = new GalleryCells();
-            galleryCells.setTitle(""+(i + 1));
-            galleryCells.setBitmap(bitmaps.get(i));
-            imagesModified.add(galleryCells);
+        for (Photo photo : photos) {
+            decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            galleryCells.setBitmap(decodedByte);
+            galleryCellsArrayList.add(galleryCells);
         }
-        return imagesModified;
+
+        return galleryCellsArrayList;
     }
 
     /**

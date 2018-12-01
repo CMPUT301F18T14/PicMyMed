@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.android.picmymedphotohandler.GalleryAdapter;
 import com.example.android.picmymedphotohandler.GalleryCells;
 import com.example.android.picmymedphotohandler.SlideShowAdapter;
@@ -65,6 +66,7 @@ import java.util.ArrayList;
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
 
     private ArrayList<Record> records;
+    private int problemIndex;
     Context context;
     GalleryAdapter galleryAdapter;
     private ArrayList<GalleryCells> galleryCells;
@@ -79,6 +81,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordDescriptionTextView;
         TextView recordTimeTextView;
         ImageView recordMoreImageView;
+        ImageView galleryIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
 
@@ -96,6 +99,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
+            this.galleryIcon = itemView.findViewById(R.id.record_gallery);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -113,6 +117,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     public RecordAdapter(Context context, ArrayList<Record> recordsdata) {
         this.records = recordsdata;
         this.context = context;
+    }
+
+    /**
+     * Method handles record data
+     *
+     * @param recordsdata   ArrayList<Record>
+     */
+    public RecordAdapter(Context context, ArrayList<Record> recordsdata, int problemIndex) {
+        this.records = recordsdata;
+        this.context = context;
+        this.problemIndex = problemIndex;
     }
 
     /**
@@ -162,7 +177,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         galleryCells = preparedDataFromRecord(records.get(i));
         galleryAdapter = new GalleryAdapter(galleryCells, context);
         recordPhotoSlider.setAdapter(galleryAdapter);
-        recordPhotoSlider.setOnClickListener(null);
+
+        recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryActivityIntent = new Intent(context, GalleryActivity.class);
+                galleryActivityIntent.putExtra("problemIndex", problemIndex);
+                galleryActivityIntent.putExtra("recordIndex", i);
+                galleryActivityIntent.putExtra("intentSender", 1);
+                context.startActivity(galleryActivityIntent);
+            }
+        });
 
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
