@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -41,15 +42,28 @@ public class ProblemFragment extends Fragment{
         //to clear my file
         //problemArrayList.clear();
         //saveInFile();
+        if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+            final Patient patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
+            problemArrayList = patient.getProblemList();
+            mRecyclerView = v.findViewById(R.id.fragment_problem_recycle_view);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManage = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManage);
+            //mAdapter = new CareProviderProblemAdapter(getContext(), problemArrayList);
+            mRecyclerView.setAdapter(mAdapter);
 
-        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
-        mRecyclerView = v.findViewById(R.id.fragment_problem_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new ProblemAdapter(getContext(), problemArrayList);
-        mRecyclerView.setAdapter(mAdapter);
+        }else{
+            Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+            problemArrayList = user.getProblemList();
+            mRecyclerView = v.findViewById(R.id.fragment_problem_recycle_view);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManage = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManage);
+            mAdapter = new ProblemAdapter(getContext(), problemArrayList);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+
     }
 
 }

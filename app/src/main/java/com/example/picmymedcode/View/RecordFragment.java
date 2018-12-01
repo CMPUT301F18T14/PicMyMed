@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -20,6 +21,7 @@ public class RecordFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
+    Patient patient;
     View v;
 
     public RecordFragment() {
@@ -36,14 +38,28 @@ public class RecordFragment extends Fragment {
     }
 
     public void manageRecyclerview(){
-        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
-        mRecyclerView = v.findViewById(R.id.fragment_record_recycle_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManage = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(getContext(),problemArrayList.get(RecordActivity.position).getRecordList());
-        mRecyclerView.setAdapter(mAdapter);
+
+        if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+            patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
+            problemArrayList = patient.getProblemList();
+            problemArrayList.get(CareProviderRecordActivity.problemPosition).getRecordList();
+            mRecyclerView = v.findViewById(R.id.fragment_record_recycle_view);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManage = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManage);
+            mAdapter = new RecordAdapter(getContext(), problemArrayList.get(CareProviderRecordActivity.problemPosition).getRecordList());
+            mRecyclerView.setAdapter(mAdapter);
+        }else{
+            Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+            problemArrayList = user.getProblemList();
+            mRecyclerView = v.findViewById(R.id.fragment_record_recycle_view);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManage = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManage);
+            mAdapter = new RecordAdapter(getContext(),problemArrayList.get(RecordActivity.position).getRecordList());
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
 
     }
 
