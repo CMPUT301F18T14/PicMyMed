@@ -128,9 +128,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
 
-//        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-//        ArrayList<Problem> problemArrayList = user.getProblemList();
-//        final Problem problem = problemArrayList.get(RecordActivity.position);
+
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -157,14 +155,19 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
+                        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                        ArrayList<Problem> problemArrayList = user.getProblemList();
+                        final Problem problem = problemArrayList.get(RecordActivity.position);
+
                         switch (item.getItemId()) {
                             case R.id.edit:
                                 //TODO edit
-//                                Intent Intent = new Intent(context,EditRecordActivity.class);
-//                                Intent.putExtra("problem index", RecordActivity.position);
-//                                Intent.putExtra("record index", i);
-//                                context.startActivity(Intent);
-//                                break;
+                                Intent Intent = new Intent(context,EditRecordActivity.class);
+                                Intent.putExtra("problem index", RecordActivity.position);
+                                Intent.putExtra("record index", i);
+                                context.startActivity(Intent);
+                                break;
                             case R.id.delete:
                                 //handle menu2 click
                                 //TODO delete
@@ -177,8 +180,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //saveInFile();
 
 
-//                                PicMyMedController.deleteRecord(problem, records.get(i));
-//                                notifyDataSetChanged();
+                                PicMyMedController.deleteRecord(problem, records.get(i));
+                                notifyDataSetChanged();
 
                                 break;
                         }
