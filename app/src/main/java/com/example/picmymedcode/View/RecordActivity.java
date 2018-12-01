@@ -88,7 +88,6 @@ public class RecordActivity extends AppCompatActivity{
         manageRecyclerview();
         position = getIntent().getIntExtra("key",0);
         String name = problemArrayList.get(position).getTitle();
-      //  getSupportActionBar().setTitle(name);
 
 
     }
