@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
                         user = new CareProvider(username, email, phoneNumber);
                     }
 
-                    if (PicMyMedController.checkValidUser(user) != 1 && user != null) {
+                    if (PicMyMedController.checkValidUser(username) != 0 && user != null) {
                         toastMessage("Error: Username already exists, please try another one.");
                     } else {
                         PicMyMedController.createUser(user);

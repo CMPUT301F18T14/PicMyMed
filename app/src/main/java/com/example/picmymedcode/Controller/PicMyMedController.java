@@ -45,15 +45,15 @@ import java.util.UUID;
 public class PicMyMedController {
 
 
-    public static int checkValidUser(User user) {
+    public static int checkValidUser(String username) {
         ArrayList<Patient> patients = null;
         ArrayList<CareProvider> careProviders = null;
 
         ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
-        getPatient.execute(user.getUsername());
+        getPatient.execute(username);
 
         ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
-        getCareProvider.execute(user.getUsername());
+        getCareProvider.execute(username);
 
         try {
             patients = getPatient.get();
@@ -69,9 +69,9 @@ public class PicMyMedController {
         }
 
         if (patients.size() == 0 && careProviders.size() == 0) {
-            return 1;
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     /**
@@ -102,22 +102,81 @@ public class PicMyMedController {
         }
 
     }
-    public static int addAuthorizedDevice() {
-        User user = PicMyMedApplication.getLoggedInUser();
-        if (user != null) {
-            String randomUserID = getUniquePsuedoID();
-            if (user.checkDeviceAuthorized(randomUserID) == 0 ) {
-                PicMyMedApplication.getLoggedInUser().addAuthorizedDevice(getUniquePsuedoID());
+
+    /**
+     * Method checks if username provided matches a user in the database and returns the user type
+     *
+     * @param username  String
+     * @return          int
+     */
+    public static User getUser(String username) {
+
+        User user = null;
+        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        getPatient.execute(username);
+
+        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+        getCareProvider.execute(username);
+
+        try {
+            user = getPatient.get().get(0);
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No patients with the entered username was found");
+        }
+
+        if (user == null) {
+            try {
+                user = getCareProvider.get().get(0);
+            } catch (Exception e) {
+                Log.i("DEBUG PMMController", "No careproviders with the entered username was found");
+            }
+        }
+
+        return user;
+
+    }
+    public static int updateUser(User user) {
+        try {
+            if (user != null) {
                 if (user.isPatient()) {
                     updatePatient((Patient) user);
                 } else {
                     updateCareProvider((CareProvider) user);
                 }
                 return 1;
-            } else {
+            }
+        } catch (Exception e) {
+                Log.d("DEBUG PMC", "Error updating user");
+                Log.d("Error message", e.getMessage());
+        }
+        return 0;
+
+
+    }
+
+    public static int checkAuthorizedDevice(User user) {
+        return user.checkDeviceAuthorized(getUniquePsuedoID());
+    }
+    
+    public static int addAuthorizedDevice(User user) {
+
+        try {
+            if (user != null) {
+                String deviceID = getUniquePsuedoID();
+                if (user.checkDeviceAuthorized(deviceID) == 0) {
+                    user.addAuthorizedDevice(deviceID);
+                    Log.d("DEBUG", "Trying to add device to authorized list");
+                    updateUser(user);
+                } else {
+                    Log.d("DEBUG PMC", "Device already authorized!");
+                }
                 return 1;
             }
+        } catch (Exception e) {
+            Log.d("DEBUG PMC", "Error adding authorized device");
+            Log.d("Error message", e.getMessage());
         }
+
         return 0;
     }
     /**
@@ -171,16 +230,7 @@ public class PicMyMedController {
     }
 
     public static Patient getPatient(String username) {
-
-        Patient patient = null;
-
-        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
-        getPatient.execute(username);
-        try {
-            patient = getPatient.get().get(0);
-        } catch (Exception e) {
-            Log.i("DEBUG PMMController", "No patients with the entered username was found");
-        }
+        Patient patient = (Patient) getUser(username);
         return patient;
     }
 
@@ -349,48 +399,7 @@ public class PicMyMedController {
         return 1;
     }
 
-    /**
-     * Method checks if username provided matches a user in the database and returns the user type
-     *
-     * @param username  String
-     * @return          int
-     */
-    public static int checkLogin(String username) {
 
-        Patient patient = null;
-        CareProvider careProvider = null;
-        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
-        getPatient.execute(username);
-
-        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
-        getCareProvider.execute(username);
-
-        try {
-            patient = getPatient.get().get(0);
-            PicMyMedApplication.setLoggedInUser(patient);
-        } catch (Exception e) {
-            Log.i("DEBUG PMMController", "No patients with the entered username was found");
-        }
-
-        try {
-             careProvider = getCareProvider.get().get(0);
-            PicMyMedApplication.setLoggedInUser(careProvider);
-        } catch (Exception e) {
-            Log.i("DEBUG PMMController", "No careproviders with the entered username was found");
-        }
-
-        if (patient == null && careProvider == null) {
-            return 0;
-        }
-        else  {
-            return 1;
-        }
-
-    }
-
-    public static int checkAuthorizedDevice() {
-        return PicMyMedApplication.getLoggedInUser().checkDeviceAuthorized(getUniquePsuedoID());
-    }
 
     public static ArrayList<CareProvider> getAllCareProviders() {
         ArrayList<CareProvider> careProviders = null;
