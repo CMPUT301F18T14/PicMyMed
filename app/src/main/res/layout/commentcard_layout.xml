@@ -18,12 +18,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/comment_show_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Comment"
+            android:textStyle="bold"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/careprovider_comment_text_view"
