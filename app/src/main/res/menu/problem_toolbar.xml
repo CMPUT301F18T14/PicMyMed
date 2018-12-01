@@ -5,14 +5,14 @@
     <item
         android:id="@+id/addProblem"
         android:icon="@drawable/plus_sign"
-        android:orderInCategory="4"
+        android:orderInCategory="5"
         android:title="Add"
         app:showAsAction="always|withText" />
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/user"
-        android:orderInCategory="2"
+        android:orderInCategory="4"
         android:title="Profile"
         app:showAsAction="always|withText" />
 
@@ -25,6 +25,13 @@
 
     <item
         android:id="@+id/photomap"
+        android:icon="@drawable/map"
+        android:orderInCategory="2"
+        android:title="Map of all Records"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/search"
         android:icon="@drawable/map"
         android:orderInCategory="1"
         android:title="Map of all Records"

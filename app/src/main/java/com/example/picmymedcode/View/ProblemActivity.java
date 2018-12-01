@@ -114,6 +114,10 @@ public class ProblemActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Show a map of all records for all problems",
                         Toast.LENGTH_LONG).show();
                 break;
+            case R.id.search:
+                Intent tabIntent = new Intent(ProblemActivity.this, TabSearchActivity.class);
+                startActivity(tabIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
