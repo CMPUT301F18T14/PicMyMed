@@ -43,7 +43,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
- * ProblemAdapter extends ecyclerView.Adapter<ProblemAdapter.PorblemViewHolder>
+ * ProblemAdapter extends ecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>
  * to create an activity for the user to
  * add a record to a problem
  *
@@ -51,7 +51,7 @@ import java.util.ArrayList;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemViewHolder>{
+public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>{
     private static final String FILENAME = "file.sav";
 
 
@@ -61,7 +61,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
     /**
      * Method extends ViewHolder
      */
-    public static class PorblemViewHolder extends RecyclerView.ViewHolder{
+    public static class ProblemViewHolder extends RecyclerView.ViewHolder{
         TextView problemTitleTextView;
         ImageView problemMoreImageView;
 
@@ -70,7 +70,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
          *
          * @param itemView View
          */
-        public PorblemViewHolder(@NonNull View itemView) {
+        public ProblemViewHolder(@NonNull View itemView) {
             super(itemView);
             this.problemTitleTextView = (TextView) itemView.findViewById(R.id.problem_title_text_view);
             this.problemMoreImageView = (ImageView) itemView.findViewById(R.id.problem_more_bar);
@@ -96,9 +96,9 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
      */
     @NonNull
     @Override
-    public PorblemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProblemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.problemcard_layout,parent,false);
-        PorblemViewHolder myViewHolder = new PorblemViewHolder(view);
+        ProblemViewHolder myViewHolder = new ProblemViewHolder(view);
         return myViewHolder;
     }
 
@@ -106,11 +106,11 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.PorblemV
      * Method gets element from the dataset at a certain position and replaces contents of the view
      * with that element
      *
-     * @param myViewHolder  PorblemViewHolder
+     * @param myViewHolder  ProblemViewHolder
      * @param listPosition  int
      */
     @Override
-    public void onBindViewHolder(@NonNull final PorblemViewHolder myViewHolder, final int listPosition) {
+    public void onBindViewHolder(@NonNull final ProblemViewHolder myViewHolder, final int listPosition) {
         TextView problemTitleTextView = myViewHolder.problemTitleTextView;
         problemTitleTextView.setText(problems.get(listPosition).getTitle());
         myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {

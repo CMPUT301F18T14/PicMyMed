@@ -99,6 +99,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
                 intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
                 intentPhotoEnlarge.putExtra("index", i);
+                intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
                 view.getContext().startActivity(intentPhotoEnlarge);
             }
         });

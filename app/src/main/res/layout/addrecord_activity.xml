@@ -12,7 +12,7 @@
         android:gravity="center"
         android:paddingTop="20dp"
         android:text="@string/Enter_Record_Details"
-        android:textColor="#D3D3D3"
+        android:textColor="#16BBE5"
         android:textSize="26dp" />
 
     <EditText
@@ -30,6 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/record_title_edit_text"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:gravity="top"
         android:hint="@string/Add_Description"
         android:inputType="textCapSentences|textMultiLine"
         android:paddingLeft="10dp"
@@ -41,7 +44,7 @@
         android:id="@+id/record_camera_button"
         android:layout_width="54dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bodyLocation"
+        android:layout_below="@+id/record_description_edit_text"
         android:layout_marginLeft="10dp"
         android:background="@drawable/baseline_camera_alt_black_18dp" />
 
@@ -49,7 +52,7 @@
         android:id="@+id/record_geo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/record_save_button"
+        android:layout_below="@id/record_camera_button"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@+id/centerPoint"
         android:background="@drawable/box_with_outline"
@@ -67,7 +70,7 @@
         android:id="@+id/bodyLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/record_save_button"
+        android:layout_below="@+id/record_camera_button"
         android:layout_marginBottom="5dp"
         android:layout_toLeftOf="@+id/centerPoint"
         android:background="@drawable/box_with_outline"
@@ -86,9 +89,9 @@
         android:id="@+id/record_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
+        android:layout_below="@id/bodyLocation"
         android:background="@drawable/signupbtn1"
         android:paddingHorizontal="50dp"
         android:text="@string/Add" />
