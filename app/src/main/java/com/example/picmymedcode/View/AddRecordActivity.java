@@ -19,15 +19,20 @@
  */
 package com.example.picmymedcode.View;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
@@ -96,9 +101,13 @@ public class AddRecordActivity extends AppCompatActivity{
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mapIntent = new Intent(AddRecordActivity.this,DrawMapActivity.class);
-                mapIntent.putExtra("callingActivity", "AddRecordActivity");
-                startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(AddRecordActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LAT_LNG_REQUEST_CODE);
+                } else {
+                    Intent mapIntent = new Intent(AddRecordActivity.this, DrawMapActivity.class);
+                    mapIntent.putExtra("callingActivity", "AddRecordActivity");
+                    startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
+                }
             }
         });
 
@@ -195,7 +204,29 @@ public class AddRecordActivity extends AppCompatActivity{
             e.printStackTrace();
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case LAT_LNG_REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // lat_lng related task you need to do.
+                    Intent mapIntent = new Intent(AddRecordActivity.this, DrawMapActivity.class);
+                    mapIntent.putExtra("callingActivity", "AddRecordActivity");
+                    startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
+                } else {
+                    toastMessage("Cannot get location if you don't give location permissions, you bum bum!");
+                }
+                return;
+            }
 
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -221,5 +252,14 @@ public class AddRecordActivity extends AppCompatActivity{
                 Log.d(TAG, "fetching photo failed!");
             }
         }
+
+    }
+    /**
+     * Method creates toast message to display on device
+     *
+     * @param message   String
+     */
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
