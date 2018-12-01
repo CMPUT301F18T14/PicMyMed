@@ -21,19 +21,27 @@ package com.example.picmymedcode.View;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.android.picmymedphotohandler.GalleryAdapter;
+import com.example.android.picmymedphotohandler.GalleryCells;
+import com.example.android.picmymedphotohandler.SlideShowAdapter;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
@@ -53,6 +61,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     private ArrayList<Record> records;
     Context context;
+    GalleryAdapter galleryAdapter;
+    private ArrayList<GalleryCells> galleryCells;
+    RecyclerView.LayoutManager layoutManager;
 
     /**
      * Method extends RecyclerView.Holder to manage how records are displayed
@@ -64,6 +75,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeTextView;
         ImageView recordMoreImageView;
         TextView recordTimeStampView;
+        RecyclerView recordPhotoView;
+
 
         /**
          * Method takes itemView and assigns it the record title and description
@@ -77,6 +90,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
+            this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -128,6 +142,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
 
+        RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
+        // Initialize the layout format and span
+        layoutManager = new GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, true);
+        // Set the layout in the recycler view
+        recordPhotoSlider.setLayoutManager(layoutManager);
+        galleryCells = preparedDataFromBase64(i);
+        galleryAdapter = new GalleryAdapter(galleryCells, context);
+        recordPhotoSlider.setAdapter(galleryAdapter);
+        recordPhotoSlider.setOnClickListener(null);
 
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
@@ -207,5 +230,25 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     @Override
     public int getItemCount() {
         return (records == null) ? 0 : records.size();
+    }
+
+    /**
+     * This method performs operation on the data
+     * to make it viewable under the defined adapter setting.
+     *
+     * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
+     */
+    private ArrayList<GalleryCells> preparedDataFromBase64(int index) {
+        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
+        ArrayList<Bitmap> bitmaps = records.get(index).base65ToBitmap(records.get(index).getPhotoList());
+
+
+        for(int i = 0; i < bitmaps.size(); i++){
+            GalleryCells galleryCells = new GalleryCells();
+            galleryCells.setTitle("");
+            galleryCells.setBitmap(bitmaps.get(i));
+            imagesModified.add(galleryCells);
+        }
+        return imagesModified;
     }
 }

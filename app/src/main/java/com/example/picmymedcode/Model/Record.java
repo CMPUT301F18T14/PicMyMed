@@ -19,6 +19,10 @@
  */
 package com.example.picmymedcode.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -155,12 +159,34 @@ public class Record {
         }
     }
 
+
+
     public void setDate(Date date) {
         this.timeStamp = date;
     }
 
     public Date getDate() {
         return this.timeStamp;
+    }
+
+    /**
+     * This method converts the Base64String into a Bitmap.
+     *
+     * @return  an array list of bitmaps
+     */
+    public ArrayList<Bitmap> base65ToBitmap(ArrayList<Photo> photos) {
+
+        byte[] decodedString;
+        ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
+        Bitmap decodedByte;
+        for (int i = 0; i < photos.size(); i++) {
+            // Converting to byte array
+            decodedString = Base64.decode(photos.get(i).getBase64EncodedString(), Base64.DEFAULT);
+            // Converting to Bitmap
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            bitmaps.add(decodedByte);
+        }
+        return bitmaps;
     }
 
 }
