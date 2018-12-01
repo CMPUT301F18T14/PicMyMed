@@ -57,6 +57,6 @@
         android:layout_below="@id/bodyLocation"
         android:background="@drawable/signupbtn1"
         android:paddingHorizontal="50dp"
-        android:text="@string/Add" />
+        android:text="@string/Save" />
 
 </RelativeLayout>
