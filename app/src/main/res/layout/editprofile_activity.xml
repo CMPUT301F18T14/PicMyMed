@@ -6,7 +6,7 @@
     android:background="@drawable/reverse_page"
     android:orientation="vertical"
     android:padding="6dp"
-    tools:context="com.example.picmymedcode.View.CreateNewUserActivity">
+    tools:context="com.example.picmymedcode.View.SignUpActivity">
 
 
     <TextView

@@ -5,7 +5,6 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.example.picmymedcode.R;
-import com.example.picmymedcode.View.SignUpActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,13 +13,13 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-public class SignUpActivityTest {
+public class UserProfileTypeActivityTest {
 
     /* Redundant Test: Already Performed in MainActivityTest */
 
     @Rule
-    public ActivityTestRule<SignUpActivity> signUpActivityTestRuleActivity =
-            new ActivityTestRule<SignUpActivity>(SignUpActivity.class);
+    public ActivityTestRule<UserProfileTypeActivity> signUpActivityTestRuleActivity =
+            new ActivityTestRule<UserProfileTypeActivity>(UserProfileTypeActivity.class);
 
     /**
      * Testing signing up as a patient. If the patient userId already exists, you will
