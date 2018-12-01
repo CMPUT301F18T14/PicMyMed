@@ -91,18 +91,21 @@ public class PicMyMedController {
         return 0;
 
     }
-    public static int addAuthorizedDevice(Boolean refresh) {
+    public static int addAuthorizedDevice() {
         User user = PicMyMedApplication.getLoggedInUser();
         if (user != null) {
-            PicMyMedApplication.getLoggedInUser().addAuthorizedDevice(getUniquePsuedoID());
-            if (refresh) {
+            String randomUserID = getUniquePsuedoID();
+            if (user.checkDeviceAuthorized(randomUserID) == 0 ) {
+                PicMyMedApplication.getLoggedInUser().addAuthorizedDevice(getUniquePsuedoID());
                 if (user.isPatient()) {
                     updatePatient((Patient) user);
                 } else {
                     updateCareProvider((CareProvider) user);
                 }
+                return 1;
+            } else {
+                return 1;
             }
-            return 1;
         }
         return 0;
     }
@@ -112,7 +115,19 @@ public class PicMyMedController {
      * @return  problemList
      */
 
+    public static String getUsernameByID(String randomUserID) {
 
+        String username = new String();
+
+        ElasticSearchController.GetUsernameByID getUsernameByID= new ElasticSearchController.GetUsernameByID();
+        getUsernameByID.execute(randomUserID);
+        try {
+            username = getUsernameByID.get();
+        } catch (Exception e) {
+            Log.i("DEBUG PMMController", "No users with the QR Code was found");
+        }
+        return username;
+    }
     public static ArrayList<Problem> getProblems() {
         /* Needs to be fixed a bit because an empty ArrayList shouldn't be sent if user is null */
         ArrayList<Problem> problemList = new ArrayList<Problem>();
