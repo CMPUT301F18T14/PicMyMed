@@ -9,7 +9,7 @@
     <string name="log_in">Log In</string>
     <string name="user_id">Enter User ID</string>
     <string name="sign_up">Sign Up</string>
-    <string name="qr_code">QR Code</string>
+    <string name="qr_code">Scan QR Code</string>
     <string name="map">Map</string>
     <string name="camera">Camera</string>
     <string name="newphoto">Take A New Photo</string>
