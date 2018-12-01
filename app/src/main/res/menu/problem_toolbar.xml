@@ -5,7 +5,7 @@
     <item
         android:id="@+id/addProblem"
         android:icon="@drawable/plus_sign"
-        android:orderInCategory="1"
+        android:orderInCategory="4"
         android:title="Add"
         app:showAsAction="always|withText" />
 
@@ -18,17 +18,17 @@
 
     <item
         android:id="@+id/bodylocationphotos"
-        android:icon="@drawable/body_location_photo"
+        android:icon="@drawable/bodylocation_white"
         android:orderInCategory="3"
         android:title="Body Photos"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="always|withText" />
 
     <item
         android:id="@+id/photomap"
         android:icon="@drawable/map"
-        android:orderInCategory="4"
+        android:orderInCategory="1"
         android:title="Map of all Records"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="always|withText" />
 
 
 </menu>
