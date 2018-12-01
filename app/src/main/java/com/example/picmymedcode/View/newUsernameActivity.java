@@ -85,13 +85,14 @@ public class newUsernameActivity extends AppCompatActivity {
                 Intent logInScreenIntent = new Intent(newUsernameActivity.this, MainActivity.class);
                 User user = null;
                 try {
+                    EditText enteredEmail = (EditText) findViewById(R.id.enteredEmail);
+                    EditText enteredPhone = (EditText) findViewById(R.id.enteredPhone);
                     if (userType.equals("patient")) {
-                        EditText enteredEmail = (EditText) findViewById(R.id.enteredEmail);
-                        EditText enteredPhone = (EditText) findViewById(R.id.enteredPhone);
+
 
                         user = new Patient(username, enteredEmail.getText().toString(), enteredPhone.getText().toString());
                     } else if (userType.equals("careprovider")) {
-                        user = new CareProvider(username);
+                        user = new CareProvider(username, enteredEmail.getText().toString(), enteredPhone.getText().toString());
                     }
                 } catch (Exception e) {
                     toastMessage(e.getMessage());
