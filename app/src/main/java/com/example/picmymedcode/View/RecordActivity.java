@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -120,6 +121,14 @@ public class RecordActivity extends AppCompatActivity{
                 commentIntent.putExtra("key",position);
                 startActivity(commentIntent);
                 break;
+
+            case R.id.mapRecordIcon:
+                Intent mapIntent = new Intent(RecordActivity.this, DrawMapActivity.class);
+                mapIntent.putExtra("key",position);
+                mapIntent.putExtra("callingActivity", "RecordActivity");
+                startActivity(mapIntent);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

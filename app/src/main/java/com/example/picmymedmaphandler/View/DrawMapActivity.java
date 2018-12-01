@@ -85,6 +85,16 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_map);
 
+        searchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+        searchText.setVisibility(View.INVISIBLE);
+
+        mGps = (ImageView) findViewById(R.id.icon_gps);
+        mAdd.setVisibility(View.INVISIBLE);
+
+        mAdd = (ImageView) findViewById(R.id.icon_add);
+        // Hiding the Add button
+        mAdd.setVisibility(View.INVISIBLE);
+
         callingActiviy = getIntent().getStringExtra("callingActivity");
 
         if (callingActiviy.equals("AddRecordActivity")){
@@ -102,13 +112,13 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     private void initialTaskInActivityForAddingRecord() {
-        searchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+        searchText.setVisibility(View.VISIBLE);
 
-        mGps = (ImageView) findViewById(R.id.icon_gps);
+        mAdd.setVisibility(View.VISIBLE);
 
         mAdd = (ImageView) findViewById(R.id.icon_add);
         // Hiding the Add button
-        mAdd.setVisibility(View.INVISIBLE);
+        mAdd.setVisibility(View.VISIBLE);
 
         longitudeLatitude = new LongitudeLatitude(DrawMapActivity.this);
 
