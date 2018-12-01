@@ -83,7 +83,8 @@ public class ProblemActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.problemToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Problems");
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         manageRecyclerview();
 
