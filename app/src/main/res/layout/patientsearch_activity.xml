@@ -20,6 +20,8 @@
         android:paddingTop="10dp"
         android:clickable="true"
         android:onClick="imageClick"
+        android:tint="#ffff"
+        android:paddingRight="10dp"
         android:src="@drawable/icon_qr" />
 
     <ListView

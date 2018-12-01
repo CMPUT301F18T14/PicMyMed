@@ -136,9 +136,15 @@ public class MainActivity extends AppCompatActivity {
              * @param v View
              */
             public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
+                }
                 //signupPopUpWindow();
-                Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
-                startActivity(qrIntent);
+                Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
+                startActivityForResult(scannerIntent, REQUEST_CODE);
+
+                //Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
+                //startActivity(qrIntent);
                 //finish();
             }
         });
