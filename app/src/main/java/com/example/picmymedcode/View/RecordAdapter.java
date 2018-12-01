@@ -276,9 +276,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
     private ArrayList<GalleryCells> preparedDataFromRecord(Record record) {
-        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
-        galleryCellsArrayList = preparedData(record.getPhotoList());
-        return galleryCellsArrayList;
+        return preparedData(record.getPhotoList());
     }
 
     /**
@@ -289,11 +287,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
      */
     private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
         ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
-        GalleryCells galleryCells = new GalleryCells();
         byte[] decodedString;
         Bitmap decodedByte;
 
         for (Photo photo : photos) {
+            GalleryCells galleryCells = new GalleryCells();
             decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             galleryCells.setBitmap(decodedByte);
