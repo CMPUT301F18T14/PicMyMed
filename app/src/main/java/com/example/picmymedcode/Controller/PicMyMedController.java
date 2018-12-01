@@ -91,18 +91,21 @@ public class PicMyMedController {
         return 0;
 
     }
-    public static int addAuthorizedDevice(Boolean refresh) {
+    public static int addAuthorizedDevice() {
         User user = PicMyMedApplication.getLoggedInUser();
         if (user != null) {
-            PicMyMedApplication.getLoggedInUser().addAuthorizedDevice(getUniquePsuedoID());
-            if (refresh) {
+            String randomUserID = getUniquePsuedoID();
+            if (user.checkDeviceAuthorized(randomUserID) == 0 ) {
+                PicMyMedApplication.getLoggedInUser().addAuthorizedDevice(getUniquePsuedoID());
                 if (user.isPatient()) {
                     updatePatient((Patient) user);
                 } else {
                     updateCareProvider((CareProvider) user);
                 }
+                return 1;
+            } else {
+                return 1;
             }
-            return 1;
         }
         return 0;
     }

@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.example.QRCode.ScannerActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.QRCode.GeneratorActivity;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -159,6 +160,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void login() {
+        User user = PicMyMedApplication.getLoggedInUser();
+        if (user.checkDeviceAuthorized(PicMyMedController.getUniquePsuedoID()) == 0) {
+            PicMyMedController.addAuthorizedDevice();
+        }
         if (PicMyMedApplication.getLoggedInUser().isPatient()) {
             Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
             startActivity(problemIntent);
@@ -205,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("DEBUG",PicMyMedApplication.getLoggedInUser().getRandomUserID());
                     if (PicMyMedApplication.getLoggedInUser().getRandomUserID().equals(barcode.displayValue)) {
                         Toast.makeText(getApplicationContext(), "Authorization successful", Toast.LENGTH_LONG).show();
-                        PicMyMedController.addAuthorizedDevice(Boolean.TRUE);
                         login();
                     } else {
                         Toast.makeText(getApplicationContext(), "Authorization unsuccessful", Toast.LENGTH_LONG).show();
