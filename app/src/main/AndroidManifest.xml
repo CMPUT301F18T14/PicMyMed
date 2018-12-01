@@ -34,10 +34,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.picmymedcode.View.CreateNewUserActivity"
+            android:name="com.example.picmymedcode.View.SignUpActivity"
             android:label="Enter Username" />
         <activity
-            android:name="com.example.picmymedcode.View.SignUpActivity"
+            android:name="com.example.picmymedcode.View.UserProfileTypeActivity"
             android:label="Sign Up" />
         <activity
             android:name="com.example.picmymedcode.View.ProblemActivity"
@@ -79,7 +79,7 @@
             android:name="com.example.picmymedcode.View.CareProviderProblemActivity"
             android:label="Patient&apos;s Problems" />
         <activity
-            android:name="com.example.picmymedcode.View.CareProvierAddPatientActivity"
+            android:name="com.example.picmymedcode.View.CareProviderAddPatientActivity"
             android:label="Add patient" />
 
         <activity
@@ -110,6 +110,8 @@
             android:name=".View.BodyLocationPhotoManagerActivity"
             android:exported="true"
             android:label="Body Location Photo Manager" />
+      
+        <activity android:name=".View.XOnBodyLocationActivity" />
         <activity android:name=".View.EditRecordActivity" />
 
         <uses-library

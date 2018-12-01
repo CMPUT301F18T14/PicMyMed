@@ -215,7 +215,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
             } else {
                 /* If the number of bytes is more than the maximum bytes,
                  * then save the image with 80% quality */
-                byte[] bitmapData = convertBitmapToJPEG(bitmap, 80);
+                byte[] bitmapData = convertBitmapToJPEG(bitmap, 50);
 
                 // Keep on reducing the quality, until the bytes reaches the expected
                 while (bitmapData.length >= maxFileSize) {

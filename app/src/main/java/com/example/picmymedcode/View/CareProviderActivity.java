@@ -28,18 +28,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.CareProvider;
-import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -99,7 +94,7 @@ public class CareProviderActivity extends AppCompatActivity {
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CareProviderActivity.this,CareProvierAddPatientActivity.class);
+                Intent intent = new Intent(CareProviderActivity.this,CareProviderAddPatientActivity.class);
                 startActivity(intent);
 
             }

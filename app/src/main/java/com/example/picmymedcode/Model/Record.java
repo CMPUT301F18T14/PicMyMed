@@ -19,6 +19,10 @@
  */
 package com.example.picmymedcode.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -154,6 +158,8 @@ public class Record {
             throw new IllegalArgumentException("Maximum number of photos added for a record!");
         }
     }
+
+
 
     public void setDate(Date date) {
         this.timeStamp = date;
