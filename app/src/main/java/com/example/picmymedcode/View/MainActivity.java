@@ -20,7 +20,6 @@
 package com.example.picmymedcode.View;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,15 +32,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.QRCode.ScannerActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.QRCode.GeneratorActivity;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -138,9 +136,15 @@ public class MainActivity extends AppCompatActivity {
              * @param v View
              */
             public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
+                }
                 //signupPopUpWindow();
-                Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
-                startActivity(qrIntent);
+                Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
+                startActivityForResult(scannerIntent, REQUEST_CODE);
+
+                //Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
+                //startActivity(qrIntent);
                 //finish();
             }
         });
@@ -162,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void login() {
+        User user = PicMyMedApplication.getLoggedInUser();
+        if (user.checkDeviceAuthorized(PicMyMedController.getUniquePsuedoID()) == 0) {
+            PicMyMedController.addAuthorizedDevice();
+        }
         if (PicMyMedApplication.getLoggedInUser().isPatient()) {
             Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
             startActivity(problemIntent);
@@ -205,10 +213,9 @@ public class MainActivity extends AppCompatActivity {
                 barcode = data.getParcelableExtra("barcode");
                 if (barcode != null) {
                     Log.d("DEBUG", barcode.displayValue);
-                    Log.d("DEBUG",PicMyMedApplication.getLoggedInUser().getRandomPasscode());
-                    if (PicMyMedApplication.getLoggedInUser().getRandomPasscode().equals(barcode.displayValue)) {
+                    Log.d("DEBUG",PicMyMedApplication.getLoggedInUser().getRandomUserID());
+                    if (PicMyMedApplication.getLoggedInUser().getRandomUserID().equals(barcode.displayValue)) {
                         Toast.makeText(getApplicationContext(), "Authorization successful", Toast.LENGTH_LONG).show();
-                        PicMyMedController.addAuthorizedDevice(Boolean.TRUE);
                         login();
                     } else {
                         Toast.makeText(getApplicationContext(), "Authorization unsuccessful", Toast.LENGTH_LONG).show();

@@ -63,6 +63,9 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
      */
     public static class ProblemViewHolder extends RecyclerView.ViewHolder{
         TextView problemTitleTextView;
+        TextView problemDateTextView;
+        TextView numberofRecordTextView;
+        TextView descriptionTextView;
         ImageView problemMoreImageView;
 
         /**
@@ -72,7 +75,10 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
          */
         public ProblemViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.problemTitleTextView = (TextView) itemView.findViewById(R.id.problem_title_text_view);
+            this.problemTitleTextView = itemView.findViewById(R.id.problem_title_text_view);
+            this.problemDateTextView = itemView.findViewById(R.id.problem_date_text_view);
+            this.numberofRecordTextView = itemView.findViewById(R.id.problem_record_text_view);
+            this.descriptionTextView = itemView.findViewById(R.id.problem_description_text_view);
             this.problemMoreImageView = (ImageView) itemView.findViewById(R.id.problem_more_bar);
         }
     }
@@ -110,9 +116,21 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
      * @param listPosition  int
      */
     @Override
+
     public void onBindViewHolder(@NonNull final ProblemViewHolder myViewHolder, final int listPosition) {
+        //set title
         TextView problemTitleTextView = myViewHolder.problemTitleTextView;
-        problemTitleTextView.setText(problems.get(listPosition).getTitle());
+        problemTitleTextView.setText(problems.get(listPosition).getTitle().toUpperCase());
+        //set date
+        TextView problemDateTextView = myViewHolder.problemDateTextView;
+        problemDateTextView.setText(problems.get(listPosition).getStartDate());
+        //set number of record
+        TextView numberofRecordTextView = myViewHolder.numberofRecordTextView;
+        numberofRecordTextView.setText("Number of Records : "+problems.get(listPosition).getRecordList().size());
+        //set description
+        TextView DescriptionTextView = myViewHolder.descriptionTextView;
+        DescriptionTextView.setText(problems.get(listPosition).getDescription());
+
         myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             //onClick to go to next activity

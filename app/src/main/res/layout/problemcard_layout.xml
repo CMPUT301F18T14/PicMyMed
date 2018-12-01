@@ -3,14 +3,14 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/problem_card_view"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/purple_gradient"
         android:orientation="vertical">
 
@@ -18,17 +18,51 @@
             android:id="@+id/problem_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:gravity="center"
             android:text="Problem Title"
             android:textColor="#FFFFFF"
-            android:textSize="18dp" />
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/problem_date_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Date"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#E6E6E6"
+            android:textSize="18dp"
+            android:layout_below="@+id/problem_title_text_view"/>
+
+        <TextView
+            android:id="@+id/problem_record_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Number of record"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#E6E6E6"
+            android:textSize="18dp"
+            android:layout_below="@+id/problem_date_text_view"/>
+
+        <TextView
+            android:id="@+id/problem_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Description"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="#E6E6E6"
+            android:textSize="18dp"
+            android:layout_below="@+id/problem_record_text_view"/>
 
         <ImageView
             android:id="@+id/problem_more_bar"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="30dp"
+            android:layout_below="@+id/problem_description_text_view"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
             android:scaleType="fitEnd"
             android:src="@drawable/more_vert"
             android:textAppearance="?android:textAppearanceLarge"

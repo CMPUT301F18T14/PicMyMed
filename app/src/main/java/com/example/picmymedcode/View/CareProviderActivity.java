@@ -24,11 +24,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,10 +74,14 @@ public class CareProviderActivity extends AppCompatActivity {
         //creates the welcome care provider text at the top
         CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
         TextView careProviderName = (TextView) findViewById(R.id.careProviderName);
-        String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
-                + " " + user.getUsername();
-        careProviderName.setText(welcomeText);
-
+        try {
+            String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
+                    + " " + user.getUsername();
+            careProviderName.setText(welcomeText);
+        } catch (Exception e) {
+            Log.d("DEBUG CPA", e.getMessage());
+            String welcomeText = "Unknown";
+        }
         manageRecyclerview();
 
 
@@ -86,6 +92,15 @@ public class CareProviderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CareProviderActivity.this,CareProvierAddPatientActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+        ImageView careproviderProfile = (ImageView) findViewById(R.id.view_profile);
+        careproviderProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(CareProviderActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
 
             }
         });

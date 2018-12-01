@@ -35,6 +35,7 @@ import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class CareProviderProblemActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.careproviderpatient_activity);
+        final User user = PicMyMedApplication.getLoggedInUser();
 
         //get patient name from intent
         String name = getIntent().getStringExtra("name");//pass intent name
@@ -90,8 +92,9 @@ public class CareProviderProblemActivity extends Activity {
             public void onClick(View v) {
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                 emailIntent.setType("message/rfc822"); //specifies message for email app.
-                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "email content"); //adds the actual content of the email by calling the method previously defined
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "email subject"); //adds the subject by calling the method previously defined.
+                emailIntent.putExtra(Intent.EXTRA_EMAIL  , new String[]{patient.getEmail().toString()});//add patient email
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Hi "+patient.getUsername().toString()+","); //adds the actual content of the email by calling the method previously defined
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "NEW MESSAGE FROM YOUR CARE PROVIDER [" +user.getUsername().toString()+"]"); //adds the subject by calling the method previously defined.
                 startActivity(Intent.createChooser(emailIntent, "Title of the dialog chooser"));
             }
         });

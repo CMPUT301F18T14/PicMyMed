@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.picmymedcode.View.newUsernameActivity"
+            android:name="com.example.picmymedcode.View.CreateNewUserActivity"
             android:label="Enter Username" />
         <activity
             android:name="com.example.picmymedcode.View.SignUpActivity"
@@ -110,7 +110,9 @@
             android:name=".View.BodyLocationPhotoManagerActivity"
             android:exported="true"
             android:label="Body Location Photo Manager" />
+      
         <activity android:name=".View.XOnBodyLocationActivity" />
+        <activity android:name=".View.EditRecordActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

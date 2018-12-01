@@ -45,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
 
-        final Intent newUsernameIntent = new Intent(SignUpActivity.this, newUsernameActivity.class);
+        final Intent newUsernameIntent = new Intent(SignUpActivity.this, CreateNewUserActivity.class);
         Button patientBtn = (Button) findViewById(R.id.patientButton);
         patientBtn.setOnClickListener(new View.OnClickListener() {
             /**

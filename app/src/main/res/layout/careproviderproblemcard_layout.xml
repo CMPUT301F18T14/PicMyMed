@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/purple_gradient"
+        android:padding="6dp"
         android:orientation="vertical">
 
         <TextView
@@ -33,7 +34,7 @@
             android:gravity="center"
             android:text="Date"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#fff"
+            android:textColor="#E6E6E6"
             android:textSize="18dp" />
 
         <TextView
@@ -43,7 +44,7 @@
             android:gravity="center"
             android:text="Number of record"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#fff"
+            android:textColor="#E6E6E6"
             android:textSize="18dp" />
 
         <TextView
@@ -53,7 +54,7 @@
             android:gravity="center"
             android:text="Description"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#fff"
+            android:textColor="#E6E6E6"
             android:textSize="18dp" />
     </LinearLayout>
 

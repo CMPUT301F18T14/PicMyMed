@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/phoneNumber"
         android:layout_centerHorizontal="true"
+        android:textSize="25sp"
         android:textColor="#16BBE5" />
 
     <ImageView
@@ -28,6 +29,7 @@
         android:layout_above="@id/phoneIcon"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="17dp"
         android:layout_toStartOf="@id/username"
         android:layout_toLeftOf="@id/username"
         android:background="@drawable/user"
@@ -40,6 +42,7 @@
         android:layout_above="@+id/email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:textSize="25sp"
         android:gravity="center"
         android:textColor="#16BBE5" />
 
@@ -50,6 +53,7 @@
         android:layout_alignBottom="@+id/phoneNumber"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="7dp"
         android:layout_toStartOf="@id/phoneNumber"
         android:layout_toLeftOf="@id/phoneNumber"
         android:background="@drawable/phone"
@@ -62,6 +66,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="10dp"
+        android:textSize="25sp"
         android:gravity="center"
         android:textColor="#16BBE5" />
 

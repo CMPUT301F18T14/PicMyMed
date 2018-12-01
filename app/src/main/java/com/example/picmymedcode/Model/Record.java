@@ -48,7 +48,7 @@ public class Record {
     public Record(String title, Date timeStamp) {
         this.title = title;
         this.description = "no description";
-        this.geolocation = new Geolocation();
+        this.geolocation = null;
         this.photoList = new ArrayList<Photo>();
         this.bodyLocation = new BodyLocation();
         this.timeStamp = timeStamp;

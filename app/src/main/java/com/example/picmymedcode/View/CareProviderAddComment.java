@@ -10,6 +10,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -30,7 +31,9 @@ public class CareProviderAddComment extends AppCompatActivity{
             public void onClick(View v) {
                 TextView commentEditText = (TextView)findViewById(R.id.comment_edit_text);
                 String result = commentEditText.getText().toString();
-                problemArrayList.get(position).addCommentList(result);
+                User user = PicMyMedApplication.getLoggedInUser();
+                String result2 = result+"\n commented by "+ user.getUsername().toString();
+                problemArrayList.get(position).addCommentList(result2);
                 PicMyMedController.updatePatient(patient);
                 onBackPressed();
                 // TODO Auto-generated method stub

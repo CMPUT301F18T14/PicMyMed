@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/purple_gradient"
+        android:padding="6dp"
         android:orientation="vertical">
 
         <TextView
@@ -24,6 +25,17 @@
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="#ffff"
             android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/patient_delete_image_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/problem_description_text_view"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icon_delete"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:tint="#ffffff" />
 
 
     </RelativeLayout>

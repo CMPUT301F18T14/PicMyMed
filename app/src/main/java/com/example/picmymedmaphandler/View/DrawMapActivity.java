@@ -25,6 +25,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
@@ -76,26 +78,48 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private PlaceAutocompleteAdapter placeAutocompleteAdapter;
     private GoogleApiClient googleApiClient;
     private PlaceInformation mPlace;
+    private String callingActiviy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_map);
 
-        if (isServicesOK()) {
-            initialTaskInActivity();
+        searchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+        searchText.setVisibility(View.INVISIBLE);
+
+        mGps = (ImageView) findViewById(R.id.icon_gps);
+        mAdd = (ImageView) findViewById(R.id.icon_add);
+        mAdd.setVisibility(View.INVISIBLE);
+
+
+        // Hiding the Add button
+        mAdd.setVisibility(View.INVISIBLE);
+
+        callingActiviy = getIntent().getStringExtra("callingActivity");
+
+        if (callingActiviy.equals("AddRecordActivity")){
+            if (isServicesOK()) {
+                initialTaskInActivityForAddingRecord();
+            }
+        }
+
+        if (callingActiviy.equals("RecordActivity")) {
+            if (isServicesOK()) {
+                initMapForMultipleMarker();
+            }
         }
 
     }
 
-    private void initialTaskInActivity() {
-        searchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+    private void initialTaskInActivityForAddingRecord() {
+        searchText.setVisibility(View.VISIBLE);
 
-        mGps = (ImageView) findViewById(R.id.icon_gps);
+        mAdd.setVisibility(View.VISIBLE);
 
         mAdd = (ImageView) findViewById(R.id.icon_add);
         // Hiding the Add button
-        mAdd.setVisibility(View.INVISIBLE);
+        mAdd.setVisibility(View.VISIBLE);
 
         longitudeLatitude = new LongitudeLatitude(DrawMapActivity.this);
 
@@ -231,6 +255,27 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    private void initMapForMultipleMarker() {
+        final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
+
+        final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Toast.makeText(DrawMapActivity.this, "Map is ready.", Toast.LENGTH_SHORT).show();
+                // Initializing google map
+                mGoogleMap = googleMap;
+
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                drawMultipleMarker(user.getProblemList().get(problemIndex).getAllLatLng());
+            }
+        });
+
+    }
     // Initializes the GoogleMap Object and draws in on top of map fragment
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);

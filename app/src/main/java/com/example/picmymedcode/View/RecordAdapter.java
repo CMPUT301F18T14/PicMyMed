@@ -20,6 +20,7 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,10 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
@@ -71,8 +76,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             //this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
-            this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
+
+            this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
+            if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+                recordMoreImageView .setVisibility(View.INVISIBLE);
+            }
 
         }
     }
@@ -117,13 +126,26 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
-        //recordTimeTextView.setText(records.get(i).getTimeStamp());
+        recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+
+
+
+//        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            //onClick to go to next activity
+//            public void onClick(View v) {
+//                Intent Intent = new Intent(context,EditRecordActivity.class);
+//                Intent.putExtra("key", i);
+//                context.startActivity(Intent);
+//            }
+//        });
 
         recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                
+
+
 
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
@@ -133,10 +155,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
+                        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                        ArrayList<Problem> problemArrayList = user.getProblemList();
+                        final Problem problem = problemArrayList.get(RecordActivity.position);
+
                         switch (item.getItemId()) {
                             case R.id.edit:
                                 //TODO edit
-                                //handle menu1 click
+                                Intent Intent = new Intent(context,EditRecordActivity.class);
+                                Intent.putExtra("problem index", RecordActivity.position);
+                                Intent.putExtra("record index", i);
+                                context.startActivity(Intent);
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
@@ -148,6 +178,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
+
+
+                                PicMyMedController.deleteRecord(problem, records.get(i));
+                                notifyDataSetChanged();
+
                                 break;
                         }
                         return false;
