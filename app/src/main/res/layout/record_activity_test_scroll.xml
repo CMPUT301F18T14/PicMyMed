@@ -45,6 +45,12 @@
                 android:layout_width="38dp"
                 android:layout_height="38dp" />
 
+            <Button
+                android:id="@+id/view_record_location"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:text="R"/>
+
         </LinearLayout>
 
     </LinearLayout>

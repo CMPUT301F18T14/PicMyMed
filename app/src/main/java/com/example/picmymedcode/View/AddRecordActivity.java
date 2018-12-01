@@ -97,6 +97,7 @@ public class AddRecordActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent mapIntent = new Intent(AddRecordActivity.this,DrawMapActivity.class);
+                mapIntent.putExtra("callingActivity", "AddRecordActivity");
                 startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
             }
         });

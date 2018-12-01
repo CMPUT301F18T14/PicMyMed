@@ -34,6 +34,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -80,6 +81,17 @@ public class RecordActivity extends AppCompatActivity{
         position = getIntent().getIntExtra("key",0);
         String name = problemArrayList.get(position).getTitle();
       //  getSupportActionBar().setTitle(name);
+
+        Button geoLocationButton = (Button) findViewById(R.id.view_record_location);
+        geoLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapIntent = new Intent(RecordActivity.this,DrawMapActivity.class);
+                mapIntent.putExtra("problemIndex", position);
+                mapIntent.putExtra("callingActivity", "RecordActivity");
+                startActivity(mapIntent);
+            }
+        });
 
         Button addRecordButton = findViewById(R.id.record_save_button);
         addRecordButton.setOnClickListener(new View.OnClickListener() {
