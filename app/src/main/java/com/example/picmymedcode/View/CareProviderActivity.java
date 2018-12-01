@@ -25,6 +25,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,7 +50,7 @@ import java.util.ArrayList;
 public class CareProviderActivity extends AppCompatActivity {
 
 
-
+    android.support.v7.widget.Toolbar toolbar;
     ArrayAdapter<String> arrayAdapter;
     private RecyclerView mRecyclerView;
     private CareProviderAdapter mAdapter;
@@ -66,10 +68,16 @@ public class CareProviderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newcareprovider_activity);
 
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.careproviderToolbar);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         //creates the welcome care provider text at the top
         CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
         TextView careProviderName = (TextView) findViewById(R.id.careProviderName);
-        try {
+
+        getSupportActionBar().setTitle("Welcome "+ user.getUsername());
+/*        try {
             String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
                     + " " + user.getUsername();
             careProviderName.setText(welcomeText);
@@ -77,6 +85,7 @@ public class CareProviderActivity extends AppCompatActivity {
             Log.d("DEBUG CPA", e.getMessage());
             String welcomeText = "Unknown";
         }
+        */
         manageRecyclerview();
 
 
@@ -91,17 +100,24 @@ public class CareProviderActivity extends AppCompatActivity {
             }
         });
 
-        ImageView careproviderProfile = (ImageView) findViewById(R.id.view_profile);
-        careproviderProfile.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent profileIntent = new Intent(CareProviderActivity.this, ProfileActivity.class);
-                startActivity(profileIntent);
-
-            }
-        });
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.careprovider_toolbar,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.viewProfile:
+                Intent profileIntent = new Intent(CareProviderActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void manageRecyclerview(){
         //to clear my file

@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/reverse_page"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/addProblemtoolbar"
+        app:title="Add A New Problem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:titleTextColor="#ffff"
+        android:background="@drawable/blue_gradient"
+        android:minHeight="?attr/actionBarSize">
+    </android.support.v7.widget.Toolbar>
+
 
     <EditText
         android:id="@+id/problem_title_edit_text"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@drawable/box_with_outline"
-
+        android:layout_below="@+id/addProblemtoolbar"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:hint="@string/problem_name"
         android:padding="10dp"
@@ -27,6 +41,7 @@
         android:background="@drawable/box_with_outline"
         android:gravity="center"
         android:hint="@string/Problem_Description"
+        android:layout_centerHorizontal="true"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLines="4"
         android:padding="10dp"
@@ -39,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/problem_description_edit_text"
         android:layout_marginTop="5dp"
-
+        android:layout_centerHorizontal="true"
         android:background="@drawable/signupbtn1"
         android:text="@string/Add" />
 
