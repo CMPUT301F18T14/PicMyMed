@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -39,7 +40,7 @@ import com.example.picmymedcode.R;
  * @since   1.1
  */
 public class EditProfileActivity extends AppCompatActivity {
-
+    private Patient user;
     /**
      * Method sets the EditProfileActivity state
      *
@@ -50,7 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editprofile_activity);
 
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
 
         final EditText showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
         showPhoneNumber.setText(user.getPhoneNumber());
@@ -70,6 +71,18 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    protected void onResume() {
+
+        super.onResume();
+        if (user == null) {
+            user = (Patient) PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(EditProfileActivity.this );
+        }
     }
 
 }

@@ -38,9 +38,14 @@ public class EditRecordActivity extends AppCompatActivity {
         int recordIndex = editRecordIntent.getIntExtra("record index", 0);
 
         user = (Patient) PicMyMedApplication.getLoggedInUser();
-        ArrayList<Problem> problemArrayList = user.getProblemList();
-        problem = problemArrayList.get(RecordActivity.position);
-        record = problem.getRecordList().get((int) recordIndex);
+        if (user.isPatient()) {
+            ArrayList<Problem> problemArrayList = user.getProblemList();
+            problem = problemArrayList.get(RecordActivity.position);
+            record = problem.getRecordList().get((int) recordIndex);
+        }
+        else {
+            finish();
+        }
 
         final EditText editTitle = (EditText) findViewById(R.id.record_title_edit_text);
         editTitle.setText(record.getTitle());

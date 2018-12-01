@@ -85,7 +85,9 @@ public class PatientActivity extends AppCompatActivity {
         setContentView(R.layout.problem_activity);
 
         user = (Patient) PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
+        if (user.isPatient()) {
+            problemArrayList = user.getProblemList();
+        }
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.problemToolbar);
         setSupportActionBar(toolbar);
