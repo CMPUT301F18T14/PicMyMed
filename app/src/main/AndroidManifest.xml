@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.picmymedcode.View.newUsernameActivity"
+            android:name="com.example.picmymedcode.View.CreateNewUserActivity"
             android:label="Enter Username" />
         <activity
             android:name="com.example.picmymedcode.View.SignUpActivity"

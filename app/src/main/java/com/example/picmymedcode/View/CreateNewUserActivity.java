@@ -1,5 +1,5 @@
 /*
- * newUsernameActivity
+ * CreateNewUserActivity
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -20,6 +20,7 @@ package com.example.picmymedcode.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,27 +34,27 @@ import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 
 /**
- * newUsernameActivity extends AppCompatActivity to create an activity for a new user to sign up
+ * CreateNewUserActivity extends AppCompatActivity to create an activity for a new user to sign up
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class newUsernameActivity extends AppCompatActivity {
+public class CreateNewUserActivity extends AppCompatActivity {
     /**
-     * Method initializes newUsernameActivity
+     * Method initializes CreateNewUserActivity
      *
      * @param savedInstanceState Bundle
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newusername_activity);
+        setContentView(R.layout.createnewuser_activity);
 
         Intent newuserIntent = getIntent();
         final String userType = newuserIntent.getStringExtra("userType");   // get user type
 
-        setContentView(R.layout.newusername_activity);
+        setContentView(R.layout.createnewuser_activity);
         if (userType.equals("patient")) {
 
             EditText email = findViewById(R.id.enteredEmail);
@@ -80,9 +81,9 @@ public class newUsernameActivity extends AppCompatActivity {
 
 
                 // This was previously done to pass user to problem activity, but we decided to redirect to login page
-                /*Intent problemIntent = new Intent(newUsernameActivity.this, ProblemActivity.class);
+                /*Intent problemIntent = new Intent(CreateNewUserActivity.this, ProblemActivity.class);
                 startActivity(problemIntent);*/
-                Intent logInScreenIntent = new Intent(newUsernameActivity.this, MainActivity.class);
+                Intent logInScreenIntent = new Intent(CreateNewUserActivity.this, MainActivity.class);
                 User user = null;
                 try {
                     EditText enteredEmail = (EditText) findViewById(R.id.enteredEmail);
@@ -95,6 +96,7 @@ public class newUsernameActivity extends AppCompatActivity {
                         user = new CareProvider(username, enteredEmail.getText().toString(), enteredPhone.getText().toString());
                     }
                 } catch (Exception e) {
+                    Log.d("BS","FUCK ME");
                     toastMessage(e.getMessage());
                 }
                 if (user != null && PicMyMedController.createUser(user) != 1) {
