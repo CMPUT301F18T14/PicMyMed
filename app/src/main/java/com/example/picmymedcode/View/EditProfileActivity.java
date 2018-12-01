@@ -24,10 +24,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
-import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 
 /**
@@ -40,6 +41,11 @@ import com.example.picmymedcode.R;
  */
 public class EditProfileActivity extends AppCompatActivity {
 
+    private User user;
+    EditText showPhoneNumber;
+    EditText showEmail;
+    Button editProfileButton;
+
     /**
      * Method sets the EditProfileActivity state
      *
@@ -50,26 +56,56 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editprofile_activity);
 
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        user = PicMyMedApplication.getLoggedInUser();
 
-        final EditText showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
-        showPhoneNumber.setText(user.getPhoneNumber());
+        editProfileButton = findViewById(R.id.updateButton);
+        showPhoneNumber = (EditText)findViewById(R.id.enteredPhone);
+        showEmail = (EditText)findViewById(R.id.enteredEmail);
 
-        final EditText showEmail = (EditText)findViewById(R.id.enteredEmail);
-        showEmail.setText(user.getEmail());
+        if (user != null) {
+            showPhoneNumber.setText(user.getPhoneNumber());
+            showEmail.setText(user.getEmail());
+        }
 
 
-        Button editProfileButton = findViewById(R.id.updateButton);
+
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = showEmail.getText().toString();
                 String phone = showPhoneNumber.getText().toString();
-                PicMyMedController.updatePatientProfile(email, phone);
-                onBackPressed();
+
+                if (email.length() == 0) {
+                    toastMessage("Email cannot be empty!");
+
+                } else if (phone.length() == 0) {
+                    toastMessage("Phone number cannot be empty!");
+
+                } else if (!phone.matches("^[+]?[0-9]{10,13}$")) {
+                    toastMessage("Phone number is invalid!");
+
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    toastMessage("Invalid email address!");
+                } else {
+                    if (PicMyMedController.updateUserProfile(user, email, phone) == 1 ) {
+                        toastMessage("Successfully updated user profile.");
+                        onBackPressed();
+                    } else {
+                        toastMessage("Unable to update user profile.");
+                    }
+                }
+
 
             }
         });
+    }
+    /**
+     * Method shows toast message if user could create account or if user name exists
+     *
+     * @param message String
+     */
+    public void toastMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }
