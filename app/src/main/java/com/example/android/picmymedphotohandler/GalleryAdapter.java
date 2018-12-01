@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,19 +91,23 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         // Setting the Bitmap into the viewHolder
         viewHolder.imageView.setImageBitmap(galleryList.get(i).getBitmap());
 
-        // Listener for selecting the image
-        viewHolder.imageView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                // Upon click Adapter will send an intent to a different activity
-                Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
-                //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
-                intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
-                intentPhotoEnlarge.putExtra("index", i);
-                intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
-                view.getContext().startActivity(intentPhotoEnlarge);
-            }
-        });
+        if (context instanceof GalleryActivity) {       // Checking which Activity the context is an instance of
+            Log.d("GalleryAdapter: ", "Used by GalleryActivity");
+            // Listener for selecting the image
+            viewHolder.imageView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    // Upon click Adapter will send an intent to a different activity
+                    Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
+                    //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
+                    intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
+                    intentPhotoEnlarge.putExtra("index", i);
+                    intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
+                    view.getContext().startActivity(intentPhotoEnlarge);
+                }
+            });
+        }
+
     }
 
     /**

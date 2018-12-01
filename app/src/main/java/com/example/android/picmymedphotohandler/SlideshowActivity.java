@@ -20,13 +20,18 @@
 package com.example.android.picmymedphotohandler;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
+import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -69,11 +74,11 @@ public class SlideshowActivity extends AppCompatActivity {
 
     private ArrayList<GalleryCells> galleryCells;
 
-    private LoadingImageFiles loadingImageFiles;
-
     private final int DELAY_TIME = 4000;        // The delay time for the handler
 
     private final int PERIOD_TIME = 4000;       // The period time for the handler
+
+    private int problemIndex;
 
     /**
      * Method loads activity state
@@ -85,8 +90,11 @@ public class SlideshowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slideshow);
 
+        problemIndex = getIntent().getIntExtra("problemIndex", 0);
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
         // Load the image files
-        loadingImageFiles = new LoadingImageFiles(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+        //loadingImageFiles = new LoadingImageFiles(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
 
 //        toolbar = (Toolbar) findViewById(R.id.toolbar_id);
 //        setSupportActionBar(toolbar);
@@ -95,7 +103,7 @@ public class SlideshowActivity extends AppCompatActivity {
 
         indicator = (CircleIndicator) findViewById(R.id.circleIndicator_id);
 
-        galleryCells = preparedData();
+        galleryCells = preparedDataFromRecordList(user.getProblemList().get(problemIndex).getRecordList());
 
         adapter = new SlideShowAdapter(galleryCells,this);
 
@@ -144,16 +152,45 @@ public class SlideshowActivity extends AppCompatActivity {
      *
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
-    private ArrayList<GalleryCells> preparedData(){
-        ArrayList<GalleryCells> imagesModifed = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.jpegToBitmap();
-
-        for(int i = 0; i < bitmaps.size(); i++){
-            GalleryCells galleryCells = new GalleryCells();
-            galleryCells.setTitle(""+(i + 1));
-            galleryCells.setBitmap(bitmaps.get(i));
-            imagesModifed.add(galleryCells);
+    private ArrayList<GalleryCells> preparedDataFromRecordList(ArrayList<Record> records) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        for (Record record : records) {
+            galleryCellsArrayList.addAll(preparedDataFromRecord(record));
         }
-        return imagesModifed;
+        return galleryCellsArrayList;
+    }
+
+    /**
+     * This method performs operation on the data
+     * to make it viewable under the defined adapter setting.
+     *
+     * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
+     */
+    private ArrayList<GalleryCells> preparedDataFromRecord(Record record) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        galleryCellsArrayList = preparedData(record.getPhotoList());
+        return galleryCellsArrayList;
+    }
+
+    /**
+     * This method performs operation on the data
+     * to make it viewable under the defined adapter setting.
+     *
+     * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
+     */
+    private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        byte[] decodedString;
+        Bitmap decodedByte;
+
+        for (Photo photo : photos) {
+            GalleryCells galleryCells = new GalleryCells();
+            decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            galleryCells.setBitmap(decodedByte);
+            galleryCellsArrayList.add(galleryCells);
+        }
+
+        return galleryCellsArrayList;
     }
 }

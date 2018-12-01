@@ -80,6 +80,7 @@ public class AddRecordActivity extends AppCompatActivity{
     private Geolocation geolocation;
     private Photo photo;
     int position;
+    private ArrayList<Photo> placeHolderPhotoList;
 
     /**
      * Method initializes the add record activity
@@ -93,6 +94,7 @@ public class AddRecordActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_activity);
+        placeHolderPhotoList = new ArrayList<Photo>();
         locationNameTextView = (TextView) findViewById(R.id.location_text);
         final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
         final EditText recordDescriptionEditText = findViewById(R.id.record_description_edit_text);
@@ -136,10 +138,13 @@ public class AddRecordActivity extends AppCompatActivity{
                 if(geolocation!=null) {
                     record.setLocation(geolocation);
                 }
-                if (photo != null){
-                    record.addToPhotoList(photo);
-                    System.out.println("I'm printing the phoro");
-                    System.out.println(photo.getBase64EncodedString().length());
+//                if (photo != null){
+//                    record.addToPhotoList(photo);
+//                    System.out.println("I'm printing the phoro");
+//                    System.out.println(photo.getBase64EncodedString().length());
+//                }
+                if (placeHolderPhotoList.size() != 0) {
+                    record.setPhotoList(placeHolderPhotoList);
                 }
                 position = getIntent().getIntExtra("key",0);
                 Problem problem = arrayListProblem.get(position);
@@ -247,6 +252,9 @@ public class AddRecordActivity extends AppCompatActivity{
         if (requestCode == CAMERA_REQUEST_CODE) {
             try {
                 photo = (Photo) data.getSerializableExtra("photoObject");
+                if (photo != null) {
+                    placeHolderPhotoList.add(photo);
+                }
                 Log.d(TAG, "seccessfuly fetched photo");
             } catch (Exception e) {
                 Log.d(TAG, "fetching photo failed!");

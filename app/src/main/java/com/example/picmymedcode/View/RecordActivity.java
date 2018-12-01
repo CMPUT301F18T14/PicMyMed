@@ -109,10 +109,12 @@ public class RecordActivity extends AppCompatActivity{
             case R.id.galleryIcon:
                 Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
                 galleryIntent.putExtra("problemIndex", position);
+                galleryIntent.putExtra("intentSender", 1);
                 startActivity(galleryIntent);
                 break;
             case R.id.slideshowIcon:
                 Intent slideshowIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
+                slideshowIntent.putExtra("problemIndex", position);
                 startActivity(slideshowIntent);
                 break;
             case R.id.view_commentIcon:
@@ -140,7 +142,7 @@ public class RecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList());
+        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList(), position);
         mRecyclerView.setAdapter(mAdapter);
     }
 
