@@ -44,7 +44,7 @@ public class CareProviderRecordActivity extends AppCompatActivity{
             }
         });
 
-        ImageView careproviderViewCommentImageView = (ImageView) findViewById(R.id.careprovider_view_comment_image_view);
+        Button careproviderViewCommentImageView = (Button) findViewById(R.id.careprovider_view_comment_image_view);
         careproviderViewCommentImageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent problemIntent = new Intent(CareProviderRecordActivity.this,CareProviderCommentActivity.class);
