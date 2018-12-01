@@ -36,8 +36,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/Phone_Number"
-        android:visibility="invisible" />
+        android:hint="@string/Phone_Number" />
 
     <EditText
         android:id="@+id/enteredEmail"
@@ -47,8 +46,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="Email"
-        android:visibility="invisible" />
+        android:hint="Email" />
 
     <Button
         android:id="@+id/signUpButton"

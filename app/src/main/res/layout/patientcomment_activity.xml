@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="16dp">
-
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/patient_comment_recycle_view"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/careprovider_record_email_text_view"
-    android:scrollbars="vertical" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff">
 
-</LinearLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/commentToolbar"
+        app:title="Care Provider Comments"
+        app:titleTextColor="#ffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/blue_gradient"
+        android:minHeight="?attr/actionBarSize">
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/patient_comment_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/commentToolbar"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>

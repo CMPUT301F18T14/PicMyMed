@@ -30,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,6 +92,15 @@ public class CareProviderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CareProviderActivity.this,CareProvierAddPatientActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+        ImageView careproviderProfile = (ImageView) findViewById(R.id.view_profile);
+        careproviderProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(CareProviderActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
 
             }
         });
