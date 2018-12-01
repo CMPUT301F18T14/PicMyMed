@@ -45,6 +45,7 @@ public class CareProviderProblemAdapter extends RecyclerView.Adapter<CareProvide
             super(itemView);
             this.problemTitleTextView = itemView.findViewById(R.id.cp_problem_title_text_view);
             this.problemDateTextView = itemView.findViewById(R.id.cp_problem_date_text_view);
+            this.numberofRecordTextView = itemView.findViewById(R.id.cp_problem_record_text_view);
             this.descriptionTextView = itemView.findViewById(R.id.cp_problem_description_text_view);
         }
     }
@@ -85,14 +86,13 @@ public class CareProviderProblemAdapter extends RecyclerView.Adapter<CareProvide
     public void onBindViewHolder(@NonNull final CareProviderProblemAdapter.PorblemViewHolder myViewHolder, final int listPosition) {
         //set title
         TextView problemTitleTextView = myViewHolder.problemTitleTextView;
-        problemTitleTextView.setText(problems.get(listPosition).getTitle());
+        problemTitleTextView.setText(problems.get(listPosition).getTitle().toUpperCase());
         //set date
         TextView problemDateTextView = myViewHolder.problemDateTextView;
-        //TODO set date has issue
-       // problemDateTextView.setText(problems.get(listPosition).getStartDate().toString());
-        //TODO set number of record
-
-
+        problemDateTextView.setText(problems.get(listPosition).getStartDate());
+        //set number of record
+        TextView numberofRecordTextView = myViewHolder.numberofRecordTextView;
+        numberofRecordTextView.setText("Number of Records : "+problems.get(listPosition).getRecordList().size());
         //set description
         TextView DescriptionTextView = myViewHolder.descriptionTextView;
         DescriptionTextView.setText(problems.get(listPosition).getDescription());
