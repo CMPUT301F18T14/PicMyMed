@@ -30,6 +30,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -51,11 +52,13 @@ import java.util.Locale;
  * @since   1.1
  */
 public class EditProblemActivity extends AppCompatActivity {
-    public ArrayList<Problem> problemArrayList;
+    private Patient user;
+    private ArrayList<Problem> problemArrayList;
+    private Problem problem;
     int position;
-    String date;
-    EditText problemTitleEditText;
-    EditText problemDescriptionEditText;
+    //String date;
+    //EditText problemTitleEditText;
+    //EditText problemDescriptionEditText;
     private TextView problemTimeEditText;
     private SimpleDateFormat mSimpleDateFormat;
     private Calendar mCalendar;
@@ -71,23 +74,29 @@ public class EditProblemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problemedit_activity);
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
+
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
+        if (user.isPatient()) {
+            problemArrayList = user.getProblemList();
+        }
+        else {
+            finish();
+        }
 
         position = getIntent().getIntExtra("key",0);
-        problemTitleEditText = findViewById(R.id.problem_edit_title_edit_text);
-        problemDescriptionEditText = findViewById(R.id.problem_edit_description_edit_text);
+        final EditText problemTitleEditText = findViewById(R.id.problem_edit_title_edit_text);
+        final EditText problemDescriptionEditText = findViewById(R.id.problem_edit_description_edit_text);
         problemTimeEditText = findViewById(R.id.problem_edit_time_text_view);
 
-        problemTitleEditText.setText(problemArrayList.get(position).getTitle());
-        problemDescriptionEditText.setText(problemArrayList.get(position).getDescription());
-        problemTimeEditText.setText(problemArrayList.get(position).getStartDate());
+        problem = problemArrayList.get(position);
 
-        //System.out.println("FUCK"+problemArrayList.get(position).getStartDate());
+        problemTitleEditText.setText(problem.getTitle());
+        problemDescriptionEditText.setText(problem.getDescription());
+        problemTimeEditText.setText(problem.getStartDate());
+
         mActivity = this;
         mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
         problemTimeEditText.setOnClickListener(textListener);
-
 
         Button problemSaveButton = findViewById(R.id.problem_edit_save_button);
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +108,6 @@ public class EditProblemActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-                Problem problem = problemArrayList.get(position);
                 PicMyMedController.editProblem(problem, mDate,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                // Problem problem = new Problem (PicMyMedApplication.getUsername(),date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 //PicMyMedController.addProblem(problem);
@@ -148,9 +156,24 @@ public class EditProblemActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
         //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
+    }
+
+    protected void onResume() {
+
+        super.onResume();
+        if (user == null) {
+            user = (Patient) PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(EditProblemActivity.this );
+        }
+        else {
+            if (user.isPatient()) {
+                problemArrayList = user.getProblemList();
+            }
+        }
     }
 }
