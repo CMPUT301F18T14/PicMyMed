@@ -184,10 +184,10 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (user != null) {
                 if (authorizeUser) {
-                    PicMyMedController.addAuthorizedDevice(user);
+                    PicMyMedController.addAuthorizedDevice(user, MainActivity.this);
                 }
                 PicMyMedApplication.setLoggedInUser(user);
-                PicMyMedController.updateLastDeviceUsed(user);
+                PicMyMedController.updateLastDeviceUsed(user, MainActivity.this);
                 if (user.isPatient()) {
                     Intent problemIntent = new Intent(MainActivity.this, PatientActivity.class);
                     startActivity(problemIntent);

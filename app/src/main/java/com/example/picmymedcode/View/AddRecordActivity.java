@@ -148,7 +148,7 @@ public class AddRecordActivity extends AppCompatActivity{
                 }
                 position = getIntent().getIntExtra("key",0);
                 Problem problem = arrayListProblem.get(position);
-                PicMyMedController.addRecord(problem, record);
+                PicMyMedController.addRecord(problem, record, AddRecordActivity.this);
                 //saveInFile();
                 onBackPressed();//go back to previous activity
             }

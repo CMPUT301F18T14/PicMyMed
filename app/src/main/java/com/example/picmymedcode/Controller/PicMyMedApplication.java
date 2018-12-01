@@ -114,7 +114,7 @@ public class PicMyMedApplication {
      * author: Sandeep Reddy M
      * @return
      */
-    private static boolean isNetworkAvailable(Context context) {
+    public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkStatus = connManager.getActiveNetworkInfo();
         return networkStatus != null && networkStatus.isConnected();
@@ -125,7 +125,7 @@ public class PicMyMedApplication {
             User user = getLoggedInUser();
             if (isNetworkAvailable(context)) {
                 Log.i("DEBUG PMA","Saving user to online database");
-                PicMyMedController.updateUser(user);
+                PicMyMedController.updateUser(user, context);
             } else {
                 user.setRequiresSync(Boolean.TRUE);
                 Log.i("DEBUG PMA","Saving user locally");

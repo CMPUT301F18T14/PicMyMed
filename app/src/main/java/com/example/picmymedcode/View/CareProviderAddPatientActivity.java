@@ -151,7 +151,7 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
     }
 
     public void addPatient(String patientUsername) {
-        if (PicMyMedController.addPatientToCareProvider(patientUsername) != 1) {
+        if (PicMyMedController.addPatientToCareProvider(patientUsername, CareProviderAddPatientActivity.this) != 1) {
             toastMessage(patientUsername + " has already been added!");
         } else {
             toastMessage(patientUsername + " has been added!");

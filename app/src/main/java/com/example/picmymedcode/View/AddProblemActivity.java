@@ -98,7 +98,7 @@ public class AddProblemActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (user != null) {
                     Problem problem = new Problem(user.getUsername(), date, problemTitleEditText.getText().toString(), problemDescriptionEditText.getText().toString());
-                    PicMyMedController.addProblem(problem);
+                    PicMyMedController.addProblem(problem, AddProblemActivity.this);
                     //problemArrayList.add(problem);
                     //saveInFile();
                     onBackPressed();//go back to previous activity

@@ -130,7 +130,7 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.button_delete:
-                PicMyMedController.removeBodyLocationPhoto(index);
+                PicMyMedController.removeBodyLocationPhoto(index, PhotoEnlargementActivity.this);
                 finish();
                 break;
             case R.id.labelButton:
@@ -147,7 +147,7 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
                 saveLabel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString());
+                        PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString(), PhotoEnlargementActivity.this);
                         getSupportActionBar().setTitle(writeLabel.getText().toString());
                         labellingDialog.cancel();
                     }

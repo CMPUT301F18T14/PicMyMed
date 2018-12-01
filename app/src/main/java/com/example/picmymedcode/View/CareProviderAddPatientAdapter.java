@@ -39,20 +39,20 @@ public class CareProviderAddPatientAdapter extends AppCompatActivity implements 
         //Locate the edittext
         searchView = findViewById(R.id.search);
         searchView.setOnQueryTextListener(this);
-
+/*
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
                 String name = user.getUsername();
-                Toast.makeText(CareProviderAddPatientAdapter.this, patientName.get(position)+" is added "+name, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(CareProviderAddPatientAdapter.this, patientName.get(position)+" is added "+name, Toast.LENGTH_SHORT).show();
                 PicMyMedController.addPatientToCareProvider(patientName.get(position));
                 onBackPressed();//go back to previous activity
 
             }
 
-        });
+        });*/
 
     }
 

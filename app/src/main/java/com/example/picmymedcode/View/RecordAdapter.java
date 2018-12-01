@@ -240,7 +240,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //saveInFile();
 
 
-                                PicMyMedController.deleteRecord(problem, records.get(i));
+                                PicMyMedController.deleteRecord(problem, records.get(i), context);
                                 notifyDataSetChanged();
 
                                 break;

@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.Controller;
 
+import android.content.Context;
 import android.os.Build;
 import android.util.AtomicFile;
 import android.util.Log;
@@ -136,16 +137,22 @@ public class PicMyMedController {
         return user;
 
     }
-    public static int updateUser(User user) {
+    public static int updateUser(User user, Context context) {
         try {
-            if (user != null) {
-                if (user.isPatient()) {
-                    updatePatient((Patient) user);
-                } else {
-                    updateCareProvider((CareProvider) user);
+            if(PicMyMedApplication.isNetworkAvailable(context) ) {
+                if (user != null) {
+                    if (user.isPatient()) {
+                        updatePatient((Patient) user, context);
+                    } else {
+                        updateCareProvider((CareProvider) user, context);
+                    }
+                    return 1;
                 }
-                return 1;
+            } else {
+                user.setRequiresSync(Boolean.TRUE);
+                Log.i("DEBUG PMC", "Unable to save to the online database, storing locally ...");
             }
+
         } catch (Exception e) {
                 Log.d("DEBUG PMC", "Error updating user");
                 Log.d("Error message", e.getMessage());
@@ -159,7 +166,7 @@ public class PicMyMedController {
         return user.checkDeviceAuthorized(getUniquePsuedoID());
     }
 
-    public static int addAuthorizedDevice(User user) {
+    public static int addAuthorizedDevice(User user, Context context) {
 
         try {
             if (user != null) {
@@ -167,7 +174,7 @@ public class PicMyMedController {
                 if (user.checkDeviceAuthorized(deviceID) == 0) {
                     user.addAuthorizedDevice(deviceID);
                     Log.d("DEBUG", "Trying to add device to authorized list");
-                    updateUser(user);
+                    updateUser(user, context);
                 } else {
                     Log.d("DEBUG PMC", "Device already authorized!");
                 }
@@ -243,14 +250,14 @@ public class PicMyMedController {
      * @param problem   Problem
      * @return          int
      */
-    public static int addProblem(Problem problem) {
+    public static int addProblem(Problem problem, Context context) {
 
 
 
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().add(problem);
 
-        updateUser(patient);
+        updateUser(patient, context);
 
         return 1;
     }
@@ -264,12 +271,12 @@ public class PicMyMedController {
      * @param description   String
      * @return              int
      */
-    public static int editProblem(Problem problem, String date, String title, String description) {
+    public static int editProblem(Problem problem, String date, String title, String description, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.setStartDate(date);
         problem.setTitle(title);
         problem.setDescription(description);
-        updateUser(patient);
+        updateUser(patient, context);
 
         return 1;
     }
@@ -280,10 +287,10 @@ public class PicMyMedController {
      * @param problem   Problem
      * @return          int
      */
-    public static int deleteProblem(Problem problem) {
+    public static int deleteProblem(Problem problem, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().remove(problem);
-        updateUser(patient);
+        updateUser(patient, context);
         return 1;
     }
 
@@ -294,19 +301,19 @@ public class PicMyMedController {
      * @param record    Record
      * @return          int
      */
-    public static int addRecord(Problem problem, Record record) {
+    public static int addRecord(Problem problem, Record record, Context context) {
 
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.addRecord(record);
-        updateUser(patient);
+        updateUser(patient, context);
 
         return 1;
     }
 
-    public static int deleteRecord(Problem problem, Record record) {
+    public static int deleteRecord(Problem problem, Record record, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.removeRecord(record);
-        updateUser(patient);
+        updateUser(patient, context);
 
         return 1;
     }
@@ -317,7 +324,7 @@ public class PicMyMedController {
      * @param patient   Patient
      * @return          int
      */
-    public static int updatePatient(Patient patient) {
+    public static int updatePatient(Patient patient, Context context) {
 
         try {
             ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
@@ -334,7 +341,7 @@ public class PicMyMedController {
      * @param careProvider   CareProvider
      * @return               int
      */
-    public static int updateCareProvider(CareProvider careProvider) {
+    public static int updateCareProvider(CareProvider careProvider, Context context) {
 
         try {
             ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
@@ -351,12 +358,12 @@ public class PicMyMedController {
      * @param patientUsername   String
      * @return               int
      */
-    public static int addPatientToCareProvider(String patientUsername) {
+    public static int addPatientToCareProvider(String patientUsername, Context context) {
 
         CareProvider careProvider = PicMyMedApplication.getCareProviderUser();
         if (!careProvider.getPatientList().contains(patientUsername)){
             careProvider.getPatientList().add(patientUsername);
-            updateUser(careProvider);
+            updateUser(careProvider, context);
             return 1;
         }
         return 0;
@@ -369,12 +376,12 @@ public class PicMyMedController {
      * @param phone String
      * @return      int
      */
-    public static int updateUserProfile(User user, String email, String phone) {
+    public static int updateUserProfile(User user, String email, String phone, Context context) {
 
         try {
             user.setEmail(email);
             user.setPhoneNumber(phone);
-            updateUser(user);
+            updateUser(user, context);
             return 1;
         } catch (IllegalArgumentException e) {
             Log.i("DEBUG PMMC", "Unable to update user profile!");
@@ -383,28 +390,28 @@ public class PicMyMedController {
 
     }
 
-    public static int addBodyLocationPhoto(BodyLocationPhoto photo) {
+    public static int addBodyLocationPhoto(BodyLocationPhoto photo, Context context) {
         Log.d ("addBodyLocationPhoto", "in controller");
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.addBodyLocationPhoto(photo);
 
-        updateUser(patient);
+        updateUser(patient, context);
         return 1;
     }
 
-    public static int removeBodyLocationPhoto(int index) {
+    public static int removeBodyLocationPhoto(int index, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getBodyLocationPhotoList().remove(index);
 
-        updateUser(patient);
+        updateUser(patient, context);
         return 1;
     }
 
-    public static int updateBodyLocationPhoto(int index, String label) {
+    public static int updateBodyLocationPhoto(int index, String label, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getBodyLocationPhotoList().get(index).setLabel(label);
 
-        updateUser(patient);
+        updateUser(patient, context);
         return 1;
     }
 
@@ -441,10 +448,10 @@ public class PicMyMedController {
         return 0;
     }
 
-    public static int updateLastDeviceUsed(User user) {
+    public static int updateLastDeviceUsed(User user, Context context) {
         try {
             user.setLastDeviceUsed(getUniquePsuedoID());
-            updateUser(user);
+            updateUser(user, context);
             return 1;
         } catch (Exception e) {
             Log.i("DEBUG PMC", "Could not update last device used!");

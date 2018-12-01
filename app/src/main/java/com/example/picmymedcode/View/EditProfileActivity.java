@@ -87,7 +87,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     toastMessage("Invalid email address!");
                 } else {
-                    if (PicMyMedController.updateUserProfile(user, email, phone) == 1 ) {
+                    if (PicMyMedController.updateUserProfile(user, email, phone, EditProfileActivity.this) == 1 ) {
                         toastMessage("Successfully updated user profile.");
                         onBackPressed();
                     } else {

@@ -108,7 +108,7 @@ public class PatientActivity extends AppCompatActivity {
             case R.id.bodylocationphotos:
 //                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
 //                startActivity(bodyLocationPhotoManagerIntent);
-                Intent galleryActivityIntent = new Intent(ProblemActivity.this, GalleryActivity.class);
+                Intent galleryActivityIntent = new Intent(PatientActivity.this, GalleryActivity.class);
                 galleryActivityIntent.putExtra("intentSender", 2);
                 startActivity(galleryActivityIntent);
                 break;

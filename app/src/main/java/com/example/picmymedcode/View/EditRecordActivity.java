@@ -50,7 +50,7 @@ public class EditRecordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 record.setTitle(editTitle.getText().toString());
                 record.setDescription(editDescription.getText().toString());
-                PicMyMedController.updateUser(user);
+                PicMyMedController.updateUser(user, EditRecordActivity.this );
                 finish();
             }
         });
