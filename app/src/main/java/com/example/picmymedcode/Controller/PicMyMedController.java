@@ -82,25 +82,26 @@ public class PicMyMedController {
      */
     public static int createUser(User user) {
         try {
-            user.addAuthorizedDevice(getUniquePsuedoID());
+            if (checkValidUser(user.getUsername()) == 0) {
+                user.addAuthorizedDevice(getUniquePsuedoID());
 
-            if (user.isPatient()) {
-                Patient patient = (Patient) user;
-                ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
-                addPatient.execute(patient);
-            } else {
-                CareProvider careProvider = (CareProvider) user;
-                ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
-                addCareProvider.execute(careProvider);
+                if (user.isPatient()) {
+                    Patient patient = (Patient) user;
+                    ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
+                    addPatient.execute(patient);
+                } else {
+                    CareProvider careProvider = (CareProvider) user;
+                    ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
+                    addCareProvider.execute(careProvider);
 
+                }
+                return 1;
             }
-            return 1;
 
         } catch (Exception e) {
             Log.i("DEBUG PMMController", e.getMessage());
-            return 0;
         }
-
+        return 0;
     }
 
     /**
