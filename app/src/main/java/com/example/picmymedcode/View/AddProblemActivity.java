@@ -133,7 +133,9 @@ public class AddProblemActivity extends AppCompatActivity{
             PicMyMedApplication.logout(AddProblemActivity.this );
         }
         else {
-            problemArrayList = ((Patient) user).getProblemList();
+            if (user.isPatient()) {
+                problemArrayList = ((Patient) user).getProblemList();
+            }
         }
     }
     /**

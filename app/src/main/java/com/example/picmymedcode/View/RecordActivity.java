@@ -35,8 +35,10 @@ import android.widget.Toast;
 import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.android.picmymedphotohandler.SlideshowActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
@@ -62,6 +64,7 @@ import java.util.ArrayList;
  * @since   1.1
  */
 public class RecordActivity extends AppCompatActivity{
+    private User user;
     private static final String FILENAME = "file.sav";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -79,11 +82,12 @@ public class RecordActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity_test_scroll);
 
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.recordToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();
         //loadFromFile();
         manageRecyclerview();
@@ -151,9 +155,6 @@ public class RecordActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
 
         super.onStart();
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
-
 
         //loadFromFile();
         mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList());
@@ -161,9 +162,26 @@ public class RecordActivity extends AppCompatActivity{
 
     }
 
-    /**
-     * Method loaded from file. No longer implemented, now loading from database
-     */
+    protected void onResume() {
+
+        super.onResume();
+        if (user == null) {
+            user = PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(RecordActivity.this);
+        } else {
+            if (user.isPatient()) {
+                problemArrayList = ((Patient) user).getProblemList();
+            }
+        }
+    }
+
+
+        /**
+         * Method loaded from file. No longer implemented, now loading from database
+         */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);

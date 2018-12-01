@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -68,8 +69,8 @@ public class PatientActivity extends AppCompatActivity {
     private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     private View.OnClickListener mListener;
-    public Patient patient;
-    public ArrayList<Problem> problemArrayList;
+    private Patient user;
+    private ArrayList<Problem> problemArrayList;
 
     /**
      * Method initiates problem activity
@@ -82,6 +83,9 @@ public class PatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_activity);
+
+        user = (Patient) PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.problemToolbar);
         setSupportActionBar(toolbar);
@@ -141,11 +145,26 @@ public class PatientActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
         //loadFromFile();
         mAdapter = new ProblemAdapter(PatientActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    protected void onResume() {
+
+        super.onResume();
+        if (user == null) {
+            user = (Patient) PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(PatientActivity.this );
+        }
+        else {
+            if (user.isPatient()) {
+                problemArrayList = ((Patient) user).getProblemList();
+            }
+        }
     }
 
     /**

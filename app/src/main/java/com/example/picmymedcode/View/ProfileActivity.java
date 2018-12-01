@@ -27,8 +27,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 import com.google.zxing.BarcodeFormat;
@@ -45,7 +47,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
  * @since   1.1
  */
 public class ProfileActivity extends AppCompatActivity {
-    Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+    Patient user;
 
     /**
      * Method initializes the activity
@@ -57,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
 
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
 
         TextView showUsername = (TextView)findViewById(R.id.username);
         showUsername.setText(user.getUsername());
@@ -105,7 +108,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         TextView showEmail = (TextView)findViewById(R.id.email);
         showEmail.setText(user.getEmail());
+    }
 
+    protected void onResume() {
 
+        super.onResume();
+        if (user == null) {
+            user = (Patient) PicMyMedApplication.getLoggedInUser();
+        }
+        if (PicMyMedController.checkIfSameDevice(user) == 0) {
+            Toast.makeText(getApplicationContext(), "Session expired. You have logged in from another device.", Toast.LENGTH_SHORT).show();
+            PicMyMedApplication.logout(ProfileActivity.this );
+        }
     }
 }

@@ -134,9 +134,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             recordLocationTextView.setText(geolocation.getLocationName());
         }
 
-        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-        ArrayList<Problem> problemArrayList = user.getProblemList();
-        final Problem problem = problemArrayList.get(RecordActivity.position);
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -163,6 +160,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                        ArrayList<Problem> problemArrayList = user.getProblemList();
+                        final Problem problem = problemArrayList.get(RecordActivity.position);
                         switch (item.getItemId()) {
                             case R.id.edit:
                                 //TODO edit
