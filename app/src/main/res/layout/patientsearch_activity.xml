@@ -2,12 +2,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="6pt"
-    >
-
+    android:background="#ffff">
+  
     <SearchView
         android:id="@+id/search"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/blue_gradient"
         android:iconifiedByDefault="false"></SearchView>
 
     <ImageView

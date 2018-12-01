@@ -24,9 +24,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.android.picmymedphotohandler.SlideshowActivity;
@@ -34,6 +37,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -63,6 +67,7 @@ public class RecordActivity extends AppCompatActivity{
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
     static int position;
+    android.support.v7.widget.Toolbar toolbar;
 
     /**
      * Method initializes RecordActivity state
@@ -73,6 +78,10 @@ public class RecordActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity_test_scroll);
 
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.recordToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();
         //loadFromFile();
@@ -81,65 +90,38 @@ public class RecordActivity extends AppCompatActivity{
         String name = problemArrayList.get(position).getTitle();
       //  getSupportActionBar().setTitle(name);
 
-        Button addRecordButton = findViewById(R.id.record_save_button);
-        addRecordButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking add record button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.record_toolbar,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_recordIcon:
                 Intent intent = new Intent(RecordActivity.this,AddRecordActivity.class);
                 intent.putExtra("key",position);
                 startActivity(intent);
-            }
-        });
-
-        ImageButton galleryButton = findViewById(R.id.gallery_button);
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking gallery button to view photos
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.galleryIcon:
                 Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
                 galleryIntent.putExtra("problemIndex", position);
                 startActivity(galleryIntent);
-            }
-        });
-
-        ImageButton slideshowButton = findViewById(R.id.slideshow_button);
-        slideshowButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking slideshow button to view photo slideshow
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent galleryIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
-                startActivity(galleryIntent);
-            }
-        });
-
-        //view comment button
-        Button viewCommentButton = findViewById(R.id.view_comment_button);
-        viewCommentButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking add record button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RecordActivity.this,CommentActivity.class);
-                intent.putExtra("key",position);
-                startActivity(intent);
-            }
-        });
+                break;
+            case R.id.slideshowIcon:
+                Intent slideshowIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
+                startActivity(slideshowIntent);
+                break;
+            case R.id.view_commentIcon:
+                Intent commentIntent = new Intent(RecordActivity.this,CommentActivity.class);
+                commentIntent.putExtra("key",position);
+                startActivity(commentIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

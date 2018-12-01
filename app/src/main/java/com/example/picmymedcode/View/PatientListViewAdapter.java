@@ -1,6 +1,7 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,8 @@ public class PatientListViewAdapter extends BaseAdapter {
         }
         //input the result into textview
         holder.patientName.setText(CareProvierAddPatientActivity.patientName.get(position));
+        holder.patientName.setTextColor(Color.parseColor("#16BBE5"));
+        holder.patientName.setTextSize(20);
         return convertView;
     }
 

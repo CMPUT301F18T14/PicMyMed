@@ -4,48 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical"
     tools:context="com.example.android.picmymedphotohandler.PhotoEnlargementActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_id"
+        android:id="@+id/enlargementToolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="wrap_content"
+        app:titleTextColor="#ffff"
+        android:background="@drawable/blue_gradient"
+        android:minHeight="?attr/actionBarSize">
 
-        <ImageButton
-            android:id="@+id/button_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:src="@drawable/icon_delete" />
     </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:id="@+id/imageViewEnlarged"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:src="@drawable/aladdin" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/labelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_label" />
-
-        <ImageButton
-            android:id="@+id/cameraButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_camera" />
-
-    </LinearLayout>
 
 </LinearLayout>

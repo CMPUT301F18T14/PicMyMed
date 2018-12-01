@@ -26,18 +26,24 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
-import com.example.picmymedcode.View.AddRecordActivity;
+import com.example.picmymedcode.View.AddProblemActivity;
+import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
+import com.example.picmymedcode.View.ProblemActivity;
+import com.example.picmymedcode.View.ProfileActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,13 +60,8 @@ import java.util.ArrayList;
 
 public class PhotoEnlargementActivity extends AppCompatActivity {
 
+    android.support.v7.widget.Toolbar toolbar;
     private ImageView imageView;
-
-    private ImageButton deleteButton;
-
-    private ImageButton labelButton;
-
-    private ImageButton cameraButton;
 
     private String filePath;
 
@@ -92,16 +93,17 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_enlargement);
 
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.enlargementToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getIntent().getStringExtra("photoLabel"));
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         final Patient patient = (Patient) PicMyMedApplication.getLoggedInUser();
         bodyLocationPhotos = patient.getBodyLocationPhotoList();
 
-        deleteButton = (ImageButton) findViewById(R.id.button_delete);
 
         imageView = (ImageView) findViewById(R.id.imageViewEnlarged);
 
-        labelButton = (ImageButton) findViewById(R.id.labelButton);
-
-        cameraButton = (ImageButton) findViewById(R.id.cameraButton);
 
         // Getting filePath sent from previous activity
         // filePath = getIntent().getStringExtra("filePath");
@@ -121,28 +123,23 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
         // Setting the bitmap into imageView
         imageView.setImageBitmap(bitmap);
 
-        // Deleting photos upon pressing delete button
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.enlargement_toolbar,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.button_delete:
                 PicMyMedController.removeBodyLocationPhoto(index);
                 finish();
-
-//                if (file.exists()){
-//                    // Deletes the file
-//                    file.delete();
-//
-//                    // Finishes the activity and returns to previous activity
-//                    finish();
-//                }
-
-
-            }
-        });
-        labelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.labelButton:
                 labellingDialog = new Dialog(PhotoEnlargementActivity.this);
                 labellingDialog.setContentView(R.layout.dialogbox_for_photo_labling);
                 final EditText writeLabel = (EditText) labellingDialog.findViewById(R.id.label_EditText);
@@ -157,19 +154,17 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString());
+                        getSupportActionBar().setTitle(writeLabel.getText().toString());
                         labellingDialog.cancel();
                     }
                 });
-
-            }
-        });
-
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.cameraButton:
                 Intent photoIntent = new Intent(PhotoEnlargementActivity.this,PhotoIntentActivity.class);
                 startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
-            }
-        });
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
