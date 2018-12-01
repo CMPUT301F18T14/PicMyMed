@@ -38,6 +38,8 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -59,7 +61,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
      */
     public static class RecordViewHolder extends RecyclerView.ViewHolder{
         TextView recordTitleTextView;
-        //TextView recordLocationTextView;
+        TextView recordLocationTextView;
         TextView recordDescriptionTextView;
         TextView recordTimeTextView;
         ImageView recordMoreImageView;
@@ -73,7 +75,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
             this.recordTitleTextView = itemView.findViewById(R.id.record_title_text_view);
-            //this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
+            this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
@@ -118,11 +120,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTitleTextView = recordViewHolder.recordTitleTextView;
         TextView recordDescriptionTextView = recordViewHolder.recordDescriptionTextView;
         TextView recordTimeTextView = recordViewHolder.recordTimeTextView;
-
+        // I think this is deprecated? Ask Shawna
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
+        TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
+
+
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+        recordLocationTextView.setText(records.get(i).getGeolocation().getLocationName());
 
         Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
         ArrayList<Problem> problemArrayList = user.getProblemList();
