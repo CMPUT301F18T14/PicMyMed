@@ -19,6 +19,8 @@
  */
 package com.example.picmymedcode.Model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -188,5 +190,16 @@ public class Problem {
      */
     public void addCommentList(String commentList) {
         this.commentList.add(commentList);
+    }
+
+    public ArrayList<LatLng> getAllLatLng() {
+        ArrayList<LatLng> allLatLng = new ArrayList<LatLng>();
+        for (Record record: this.getRecordList()) {
+            Geolocation geolocation = record.getGeolocation();
+            if (geolocation != null) {
+                allLatLng.add(new LatLng(geolocation.getLatitude(), geolocation.getLongitude()));
+            }
+        }
+        return allLatLng;
     }
 }
