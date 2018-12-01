@@ -142,7 +142,7 @@ public class RecordActivity extends AppCompatActivity{
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList());
+        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList(), position);
         mRecyclerView.setAdapter(mAdapter);
     }
 
