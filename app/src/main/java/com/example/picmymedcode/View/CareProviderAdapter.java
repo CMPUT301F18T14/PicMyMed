@@ -8,8 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -27,6 +32,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      */
     public static class CareProviderViewHolder extends RecyclerView.ViewHolder{
         TextView patientNameTextView;
+        ImageView patientDeleteImageView;
 
         /**
          * Method handles how problems are viewed
@@ -36,6 +42,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
         public CareProviderViewHolder (@NonNull View itemView) {
             super(itemView);
             this.patientNameTextView = (TextView) itemView.findViewById(R.id.patientlist_name_text_view);
+            this.patientDeleteImageView = (ImageView) itemView.findViewById(R.id.patient_delete_image_view);
         }
     }
 
@@ -70,7 +77,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
      * Method gets element from the dataset at a certain position and replaces contents of the view
      * with that element
      *
-     * @param myViewHolder  PorblemViewHolder
+     * @param myViewHolder  ProblemViewHolder
      * @param listPosition  int
      */
     @Override
@@ -88,47 +95,17 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
                 context.startActivity(Intent);
             }
         });
-
-
-        // myViewHolder.problemMoreTextView.setOnClickListener(new View.OnClickListener() {
-        /**
-         * Method handles user clicking on an item in the view
-         *
-         * @param view  View
-         */
-           /* @Override
-            public void onClick(View view) {
-
-                //creating a popup menu
-                PopupMenu popup = new PopupMenu(context, myViewHolder.problemMoreTextView);
-                //inflating menu from xml resource
-                popup.inflate(R.menu.problem_menu);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.edit:
-                                Intent Intent = new Intent(context,EditProblemActivity.class);
-                                Intent.putExtra("key",listPosition);
-                                context.startActivity(Intent);
-                                //handle menu1 click
-                                break;
-                            case R.id.delete:
-                                //handle menu2 click
-                                PicMyMedController.deleteProblem(problems.get(listPosition));
-                                notifyDataSetChanged();
-                                //saveInFile();
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                //displaying the popup
-                popup.show();
-
+        //delete patient
+        ImageView patientDeleteImageView = myViewHolder.patientDeleteImageView;
+        myViewHolder.patientDeleteImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            //onClick to go to next activity
+            public void onClick(View v) {
+                patientnameData.remove(listPosition);
+                PicMyMedController.updateCareProvider((CareProvider)(PicMyMedApplication.getLoggedInUser()));
+                notifyDataSetChanged();
             }
-        }); */
+        });
 
 
     }

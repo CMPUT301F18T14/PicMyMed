@@ -39,8 +39,8 @@ public class CareProvider extends User {
      * @param username                  String of CareProvider username
      * @throws IllegalArgumentException throws exception if the username is too long or 0 characters.
      */
-    public CareProvider(String username) throws IllegalArgumentException {
-        super(username);
+    public CareProvider(String username, String email, String phoneNumber) throws IllegalArgumentException {
+        super(username, email, phoneNumber);
 
         this.patientList = new ArrayList<String>();
     }

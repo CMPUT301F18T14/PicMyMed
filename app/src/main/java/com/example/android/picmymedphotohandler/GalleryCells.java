@@ -34,6 +34,7 @@ public class GalleryCells {
     private String title;
     private Bitmap bitmap;
     private String filepath;
+    private String base64;
 
     /**
      * Getter for title
@@ -87,5 +88,13 @@ public class GalleryCells {
      */
     public void setFilepath(String filepath) {
         this.filepath = filepath;
+    }
+
+    public String getBase64() {
+        return base64;
+    }
+
+    public void setBase64(String base64) {
+        this.base64 = base64;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +23,17 @@ public class PatientListViewAdapter extends BaseAdapter {
         mContext = context;
         inflater = LayoutInflater.from(mContext);
         this.patientNameData = new ArrayList<String>();
-        this.patientNameData.addAll(CareProvierAddPatientActivity.patientName);
+        this.patientNameData.addAll(CareProviderAddPatientActivity.patientName);
         //collection of data
     }
     @Override
     public int getCount() {
-        return CareProvierAddPatientActivity.patientName.size();
+        return CareProviderAddPatientActivity.patientName.size();
     }
 
     @Override
     public String getItem(int position) {
-        return CareProvierAddPatientActivity.patientName.get(position);
+        return CareProviderAddPatientActivity.patientName.get(position);
     }
 
     @Override
@@ -57,20 +58,22 @@ public class PatientListViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         //input the result into textview
-        holder.patientName.setText(CareProvierAddPatientActivity.patientName.get(position));
+        holder.patientName.setText(CareProviderAddPatientActivity.patientName.get(position));
+        holder.patientName.setTextColor(Color.parseColor("#16BBE5"));
+        holder.patientName.setTextSize(20);
         return convertView;
     }
 
     //Filter class
     public void filter (String charText){
         charText = charText.toLowerCase(Locale.getDefault());
-        CareProvierAddPatientActivity.patientName.clear();
+        CareProviderAddPatientActivity.patientName.clear();
         if (charText.length() == 0) {
-            CareProvierAddPatientActivity.patientName.addAll(patientNameData); //method from above code will add the whole arraylist and thus full listview is shown in this case.
+            CareProviderAddPatientActivity.patientName.addAll(patientNameData); //method from above code will add the whole arraylist and thus full listview is shown in this case.
         } else {
             for (String wp : patientNameData) {
                 if (wp.toLowerCase(Locale.getDefault()).contains(charText)) {
-                    CareProvierAddPatientActivity.patientName.add(wp);
+                    CareProviderAddPatientActivity.patientName.add(wp);
                 }
             }
         }

@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/reverse_page"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context="com.example.picmymedcode.View.newUsernameActivity">
+    android:padding="6dp"
+    tools:context="com.example.picmymedcode.View.SignUpActivity">
 
 
     <TextView
@@ -23,7 +23,7 @@
 
     <EditText
         android:id="@+id/enteredPhone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView2"
         android:layout_centerHorizontal="true"
@@ -36,7 +36,7 @@
 
     <EditText
         android:id="@+id/enteredEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enteredPhone"
         android:layout_centerHorizontal="true"
@@ -49,7 +49,7 @@
 
     <Button
         android:id="@+id/updateButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/enteredEmail"
         android:layout_centerHorizontal="true"

@@ -74,7 +74,7 @@ public static class ProblemViewHolder extends RecyclerView.ViewHolder{
      * Method gets element from the dataset at a certain position and replaces contents of the view
      * with that element
      *
-     * @param myViewHolder  PorblemViewHolder
+     * @param myViewHolder  ProblemViewHolder
      * @param listPosition  int
      */
     @Override

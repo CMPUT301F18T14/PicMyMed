@@ -31,9 +31,6 @@ import java.util.ArrayList;
  */
 public class Patient extends User {
 
-
-    private String phoneNumber;
-    private String email;
     ArrayList<Problem> problemList;
     ArrayList<BodyLocationPhoto> bodyLocationPhotoList;
 
@@ -47,51 +44,19 @@ public class Patient extends User {
      */
     public Patient(String username, String email, String phoneNumber) {
 
-        super(username);
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        super(username, email, phoneNumber);
         this.problemList = new ArrayList<Problem>();
+        this.bodyLocationPhotoList = new ArrayList<BodyLocationPhoto>();
 
     }
-    /**
-     * Method gets user email
-     *
-     * @return  String email
-     */
-    public String getEmail() {
-        return email;
-    }
-    /**
-     * Method sets user email
-     *
-     * @param email String email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    /**
-     * Method gets user phone number
-     *
-     * @return String phone number
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    /**
-     * Method sets user phone number
-     *
-     * @param phoneNumber   String phone number
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+
     /**
      * Method gets user problem list
      *
      * @return  problemList
      */
     public ArrayList<Problem> getProblemList() {
-       return problemList;
+        return problemList;
     }
     /**
      * Method checks if user is a patient
@@ -106,8 +71,17 @@ public class Patient extends User {
     public ArrayList<BodyLocationPhoto> getBodyLocationPhotoList() {
         return bodyLocationPhotoList;
     }
+
     public void setBodyLocationPhotoList(ArrayList<BodyLocationPhoto> bodyLocationPhotoList) {
         this.bodyLocationPhotoList = bodyLocationPhotoList;
+    }
+
+    public void addBodyLocationPhoto(BodyLocationPhoto photo) {
+        this.bodyLocationPhotoList.add(photo);
+    }
+
+    public void removeBodyLocationPhoto(int index) {
+        this.bodyLocationPhotoList.remove(index);
     }
 }
 

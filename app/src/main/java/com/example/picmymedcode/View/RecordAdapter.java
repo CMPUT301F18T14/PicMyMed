@@ -33,10 +33,13 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -59,10 +62,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
      */
     public static class RecordViewHolder extends RecyclerView.ViewHolder{
         TextView recordTitleTextView;
-        //TextView recordLocationTextView;
+        TextView recordLocationTextView;
         TextView recordDescriptionTextView;
         TextView recordTimeTextView;
-        ImageView reocrdMoreImageView;
+        ImageView recordMoreImageView;
         TextView recordTimeStampView;
 
         /**
@@ -73,10 +76,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         public RecordViewHolder(@NonNull View itemView) {
             super(itemView);
             this.recordTitleTextView = itemView.findViewById(R.id.record_title_text_view);
-            //this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
+            this.recordLocationTextView = itemView.findViewById(R.id.record_location_text_view);
             this.recordDescriptionTextView = itemView.findViewById(R.id.record_description_text_view);
             this.recordTimeTextView = itemView.findViewById(R.id.record_time_text_view);
-            this.reocrdMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
+            this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
 
         }
@@ -118,18 +121,42 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTitleTextView = recordViewHolder.recordTitleTextView;
         TextView recordDescriptionTextView = recordViewHolder.recordDescriptionTextView;
         TextView recordTimeTextView = recordViewHolder.recordTimeTextView;
-
+        // I think this is deprecated? Ask Shawna
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
+        TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
+
+
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
-        //recordTimeTextView.setText(records.get(i).getTimeStamp());
+        recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+        Geolocation geolocation = records.get(i).getGeolocation();
+        if (geolocation != null) {
+            recordLocationTextView.setText(geolocation.getLocationName());
+        }
 
-        recordViewHolder.reocrdMoreImageView.setOnClickListener(new View.OnClickListener() {
+        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        ArrayList<Problem> problemArrayList = user.getProblemList();
+        final Problem problem = problemArrayList.get(RecordActivity.position);
+
+//        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            //onClick to go to next activity
+//            public void onClick(View v) {
+//                Intent Intent = new Intent(context,EditRecordActivity.class);
+//                Intent.putExtra("key", i);
+//                context.startActivity(Intent);
+//            }
+//        });
+
+        recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
+
+
                 //creating a popup menu
-                PopupMenu popup = new PopupMenu(context, recordViewHolder.reocrdMoreImageView);
+                PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
                 //inflating menu from xml resource
                 popup.inflate(R.menu.problem_menu);
                 //adding click listener
@@ -139,7 +166,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                         switch (item.getItemId()) {
                             case R.id.edit:
                                 //TODO edit
-                                //handle menu1 click
+                                Intent Intent = new Intent(context,EditRecordActivity.class);
+                                Intent.putExtra("problem index", RecordActivity.position);
+                                Intent.putExtra("record index", i);
+                                context.startActivity(Intent);
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
@@ -151,6 +181,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
+                                PicMyMedController.deleteRecord(problem, records.get(i));
+                                notifyDataSetChanged();
+
                                 break;
                         }
                         return false;

@@ -20,7 +20,6 @@
 package com.example.picmymedcode.View;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,17 +32,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.QRCode.ScannerActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
-import com.example.QRCode.GeneratorActivity;
 import com.google.android.gms.vision.barcode.Barcode;
 
 /**
@@ -55,10 +52,17 @@ import com.google.android.gms.vision.barcode.Barcode;
  */
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
     private final static int REQUEST_CODE = 100;
-    private final static int PERMISSION_REQUEST = 200;
+    private final static int CAMERA_PERMISSION_REQUEST = 200;
+    private final static String barcodeID = "barcode";
+
+    private Button loginBtn;
+    private EditText enteredUsername;
+    private Button qrBtn;
+    private Button signUpBtn;
     private Barcode barcode;
+    private String randomUserID;
+    private User user;
 
     /**
      * Method initializes the main activity
@@ -67,155 +71,178 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loginBtn = (Button) findViewById(R.id.loginButton);
+        loginBtn.setOnClickListener(loginHandlerClickListener);
 
-        /*// Creating a SharedPreferences database to store logged status
-        sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+        qrBtn = (Button) findViewById(R.id.qrButton);
+        qrBtn.setOnClickListener(scanQRCodeOnClickListener);
+
+        signUpBtn = (Button) findViewById(R.id.signUpButton);
+        signUpBtn.setOnClickListener(signUpActivityOnClickListener);
+
+        enteredUsername = (EditText) findViewById(R.id.enteredUID);
 
 
-        // Checking if the logged in status is true
-        if(sharedPreferences.getBoolean("login", false)) {
+    }
 
-            // Checking if the username can be used to create login profiles after checking elasticSearch database
-            if (PicMyMedController.checkLogin(sharedPreferences.getString("userID", "Not Found")) == 1) {
-                // If the user is a patient or a careprovider to run respective activity
-                if(PicMyMedApplication.getLoggedInUser().isPatient()){
-                    Intent problemIntentDirect = new Intent(MainActivity.this, ProblemActivity.class);
-                    startActivity(problemIntentDirect);
-                }
-                else {
-                    Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
-                    startActivity(patientIntent);
-                }
-
-            } else {
-                Toast.makeText(MainActivity.this, "Invalid username",
-                        Toast.LENGTH_LONG).show();
-            }
-
+    private DebouncedOnClickListener loginHandlerClickListener = new DebouncedOnClickListener(2000) {
+        /**
+         * Method handles user clicking the sign up button
+         *
+         * @param v View
+         */
+        @Override
+        public void onDebouncedClick(View v) {
+            loginHandler();
         }
-       */
 
-        Button loginBtn = (Button) findViewById(R.id.loginButton);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking the login button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                EditText enteredUsername = (EditText) findViewById(R.id.enteredUID);
-                String username = enteredUsername.getText().toString();
-/*
-                // Upon 1st time logged in the sharedPreferences stores the logged in status
-                sharedPreferences.edit().putBoolean("login", true).apply();
-                // Upon 1st time logged in the sharedPreferences stores the username
-                sharedPreferences.edit().putString("userID", username).apply();
-*/
+    };
+    private void loginHandler() {
 
-                if (PicMyMedController.checkLogin(username) == 1) {
-                    if (PicMyMedController.checkAuthorizedDevice() != 1) {
-                        authorizeDeviceDialog();
-                    } else {
-                        login();
-                    }
+        String username = enteredUsername.getText().toString();
+
+        if (PicMyMedController.checkValidUser(username) == 1) {
+            user = PicMyMedController.getUser(username);
+            if (user != null) {
+                if (PicMyMedController.checkAuthorizedDevice(user) != 1) {
+                    authorizeDeviceDialog();
                 } else {
-                    Toast.makeText(MainActivity.this, "Invalid username",
-                            Toast.LENGTH_LONG).show();
+                    initializeApp(Boolean.FALSE);
                 }
-
+            } else {
+                toastMessage( "Error retrieving profile.");
             }
-        });
-
-        Button QRBtn = (Button) findViewById(R.id.qrButton);
-        QRBtn.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles the user clicking the sign up button
-             *
-             * @param v View
-             */
-            public void onClick(View v) {
-                //signupPopUpWindow();
-                Intent qrIntent = new Intent(MainActivity.this, GeneratorActivity.class);
-                startActivity(qrIntent);
-                //finish();
-            }
-        });
-
-
-        Button signupBtn = (Button) findViewById(R.id.signUpButton);
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles the user clicking the sign up button
-             *
-             * @param v View
-             */
-            public void onClick(View v) {
-
-                Intent problemIntent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(problemIntent);
-                //finish();
-            }
-        });
-    }
-    public void login() {
-        if (PicMyMedApplication.getLoggedInUser().isPatient()) {
-            Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
-            startActivity(problemIntent);
         } else {
-            //toastMessage("Careprovider activity to be implemented.");
-            Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
-            startActivity(patientIntent);
+            toastMessage( "The username does not exist!");
         }
     }
+
     public void authorizeDeviceDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Device authorization required!")
+        AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(this);
+        authorizationDialog.setTitle("Device authorization required!")
                 .setCancelable(false)
                 .setMessage("You are accessing your profile from a new device. Would you like to authorize this device?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
-                        }
-                        Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
-                        startActivityForResult(scannerIntent, REQUEST_CODE);
-                        Toast.makeText(MainActivity.this, "Attempting to authorize ...",
-                                Toast.LENGTH_LONG).show();
+                        scanQRCode();
+                        toastMessage("Attempting to authorize ...");
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "Device authorization unsuccessful",
-                                Toast.LENGTH_LONG).show();
+                        toastMessage("Device authorization unsuccessful");
                     }
-                })
-                .show();
-
+                });
+        authorizationDialog.show();
     }
+
+    private DebouncedOnClickListener signUpActivityOnClickListener = new DebouncedOnClickListener(2000) {
+        /**
+         * Method handles user clicking the sign up button
+         *
+         * @param v View
+         */
+        @Override
+        public void onDebouncedClick(View v) {
+            signUpActivity();
+        }
+
+    };
+    private void signUpActivity() {
+        Intent problemIntent = new Intent(MainActivity.this, UserProfileTypeActivity.class);
+        startActivity(problemIntent);
+    }
+
+    private DebouncedOnClickListener scanQRCodeOnClickListener = new DebouncedOnClickListener(2000) {
+        /**
+         * Method handles user logging in via code
+         *
+         * @param v View
+         */
+        @Override
+        public void onDebouncedClick(View v) {
+            scanQRCode();
+        }
+
+    };
+    private void scanQRCode() {
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+        } else {
+            Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
+            startActivityForResult(scannerIntent, REQUEST_CODE);
+        }
+    }
+
+
+    private int initializeApp(Boolean authorizeUser) {
+        try {
+            if (user != null) {
+                if (authorizeUser) {
+                    PicMyMedController.addAuthorizedDevice(user);
+                }
+                PicMyMedApplication.setLoggedInUser(user);
+                if (user.isPatient()) {
+                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                    startActivity(problemIntent);
+                } else {
+                    Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
+                    startActivity(patientIntent);
+                }
+            }
+        } catch(Exception e) {
+            toastMessage("Error logging in. Please try again.");
+        }
+        return 0;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null) {
-                barcode = data.getParcelableExtra("barcode");
-                if (barcode != null) {
-                    Log.d("DEBUG", barcode.displayValue);
-                    Log.d("DEBUG",PicMyMedApplication.getLoggedInUser().getRandomPasscode());
-                    if (PicMyMedApplication.getLoggedInUser().getRandomPasscode().equals(barcode.displayValue)) {
-                        Toast.makeText(getApplicationContext(), "Authorization successful", Toast.LENGTH_LONG).show();
-                        PicMyMedController.addAuthorizedDevice(Boolean.TRUE);
-                        login();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Authorization unsuccessful", Toast.LENGTH_LONG).show();
-                    }
-                }
 
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getParcelableExtra(barcodeID) != null) {
+
+            barcode = data.getParcelableExtra(barcodeID);
+            randomUserID = barcode.displayValue;
+
+            if (user == null) {
+                String username = PicMyMedController.getUsernameByID(randomUserID);
+                user = PicMyMedController.getUser(username);
             }
+            if (user.getRandomUserID().equals(randomUserID)) {
+                toastMessage("Logged in successfully!");
+                initializeApp(Boolean.TRUE);
+            } else {
+                toastMessage("Login was unsuccessful!");
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSION_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // camera related task you need to do.
+                    Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
+                    startActivityForResult(scannerIntent, REQUEST_CODE);
+                } else {
+                    toastMessage("Cannot scan QR Code if you don't give camera permissions, you bum bum!");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
         }
     }
     /**

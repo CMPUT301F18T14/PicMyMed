@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mapRecordIcon"
+        android:icon="@drawable/map"
+        android:orderInCategory="1"
+        android:title="Map of Records"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/galleryIcon"
+        android:icon="@drawable/gallery_white"
+        android:orderInCategory="2"
+        android:title="Photo Gallery"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/slideshowIcon"
+        android:icon="@drawable/slideshow_white"
+        android:orderInCategory="3"
+        android:title="Slideshow of Photos"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/view_commentIcon"
+        android:icon="@drawable/comment_white"
+        android:orderInCategory="4"
+        android:title="View Comments"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/add_recordIcon"
+        android:icon="@drawable/plus_sign"
+        android:orderInCategory="5"
+        android:title="Add Record"
+        app:showAsAction="always|withText" />
+
+
+</menu>

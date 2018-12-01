@@ -24,18 +24,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.CareProvider;
-import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
@@ -72,10 +69,14 @@ public class CareProviderActivity extends AppCompatActivity {
         //creates the welcome care provider text at the top
         CareProvider user = (CareProvider) PicMyMedApplication.getLoggedInUser();
         TextView careProviderName = (TextView) findViewById(R.id.careProviderName);
-        String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
-                + " " + user.getUsername();
-        careProviderName.setText(welcomeText);
-
+        try {
+            String welcomeText = getResources().getString(R.string.careProviderWelcomeAndName)
+                    + " " + user.getUsername();
+            careProviderName.setText(welcomeText);
+        } catch (Exception e) {
+            Log.d("DEBUG CPA", e.getMessage());
+            String welcomeText = "Unknown";
+        }
         manageRecyclerview();
 
 
@@ -84,8 +85,17 @@ public class CareProviderActivity extends AppCompatActivity {
         addPatientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CareProviderActivity.this,CareProvierAddPatientActivity.class);
+                Intent intent = new Intent(CareProviderActivity.this,CareProviderAddPatientActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+        ImageView careproviderProfile = (ImageView) findViewById(R.id.view_profile);
+        careproviderProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(CareProviderActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
 
             }
         });
