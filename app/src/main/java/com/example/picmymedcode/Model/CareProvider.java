@@ -32,24 +32,24 @@ import java.util.ArrayList;
  */
 public class CareProvider extends User {
 
-    private ArrayList<String> patientList;
+    private ArrayList<Patient> patientList;
     /**
      * CareProvider constructor to initialize the member variables.
      *
      * @param username                  String of CareProvider username
      * @throws IllegalArgumentException throws exception if the username is too long or 0 characters.
      */
-    public CareProvider(String username) throws IllegalArgumentException {
-        super(username);
+    public CareProvider(String username, String email, String phoneNumber) throws IllegalArgumentException {
+        super(username, email, phoneNumber);
 
-        this.patientList = new ArrayList<String>();
+        this.patientList = new ArrayList<Patient>();
     }
     /**
      * getPatientList returns the patient list
      *
      * @return  patientList
      */
-    public ArrayList<String> getPatientList() {
+    public ArrayList<Patient> getPatientList() {
         return this.patientList;
     }
     /**
