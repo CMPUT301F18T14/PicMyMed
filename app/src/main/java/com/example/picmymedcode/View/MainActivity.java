@@ -114,12 +114,10 @@ public class MainActivity extends AppCompatActivity {
                     initializeApp(Boolean.FALSE);
                 }
             } else {
-                Toast.makeText(MainActivity.this, "Error retrieving profile.",
-                        Toast.LENGTH_LONG).show();
+                toastMessage( "Error retrieving profile.");
             }
         } else {
-            Toast.makeText(MainActivity.this, "Invalid username",
-                    Toast.LENGTH_LONG).show();
+            toastMessage( "The username does not exist!");
         }
     }
 
@@ -132,15 +130,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         scanQRCode();
-                        Toast.makeText(MainActivity.this, "Attempting to authorize ...",
-                                Toast.LENGTH_LONG).show();
+                        toastMessage("Attempting to authorize ...");
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "Device authorization unsuccessful",
-                                Toast.LENGTH_LONG).show();
+                        toastMessage("Device authorization unsuccessful");
                     }
                 });
         authorizationDialog.show();
