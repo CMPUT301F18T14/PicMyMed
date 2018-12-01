@@ -50,5 +50,7 @@
     <string name="problem_description_colon">Description:</string>
     <string name="time_colon">Time:</string>
     <string name="Add_Body_Location_Photo">Body Location Photo Manager</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
 
 </resources>

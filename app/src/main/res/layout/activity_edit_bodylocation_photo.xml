@@ -6,7 +6,7 @@
     tools:context=".View.XOnBodyLocationActivity" >
 
     <com.example.pickmymedcode.DrawView
-        android:id="@+id/drawing"
+        android:id="@+id/bodyLocation_x"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="3dp"
@@ -16,16 +16,24 @@
         android:layout_gravity="center" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
+            android:id="@+id/bodyLocation_cancelButton"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:text="hi"/>
+            android:layout_weight="1"
+            android:text="@string/cancel"/>
+
+        <Button
+            android:id="@+id/bodyLocation_saveButton"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/save"/>
 
     </LinearLayout>
 

@@ -24,7 +24,7 @@ public class DrawView extends View {
     private Bitmap bitmap;
     boolean mark = false; //to see if there's already an x on the canvas
 
-    //dimentions of the view
+    //dimensions of the view
     int displayWidth;
     int displayHeight;
 
