@@ -26,8 +26,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/Username"
-        android:textColor="#000000" />
+        android:hint="@string/Username" />
 
     <EditText
         android:id="@+id/enteredPhone"
