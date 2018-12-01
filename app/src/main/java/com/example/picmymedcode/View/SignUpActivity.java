@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -44,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     private static final String patientType = "patient";
     private static final String careProviderType = "careprovider";
 
+    TextView staticSignUpText;
     EditText enteredUsername;
     EditText enteredEmail;
     EditText enteredPhone;
@@ -64,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Intent previousSignUpIntent = getIntent();
         userType = previousSignUpIntent.getStringExtra("userType");   // get user type
-
+        staticSignUpText = (TextView) findViewById(R.id.staticSignUpText);    // for testing
         enteredUsername = (EditText) findViewById(R.id.enteredUID);
         enteredEmail = (EditText) findViewById(R.id.enteredEmail);
         enteredPhone = (EditText) findViewById(R.id.enteredPhone);
@@ -75,19 +77,17 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * OnClickListener for signUpButton separated
      */
-    private View.OnClickListener signUpOnClickListener = new View.OnClickListener() {
+    private DebouncedOnClickListener signUpOnClickListener = new DebouncedOnClickListener(2000) {
         /**
          * Method handles user clicking the sign up button
          *
          * @param v View
          */
         @Override
-        public void onClick(View v) {
-            signUpBtn.setEnabled(false);
+        public void onDebouncedClick(View v) {
             signUpLogic();
-            signUpBtn.setEnabled(true);
         }
-        };
+    };
 
     /**
      * Handles the logic for creating a user
@@ -110,18 +110,18 @@ public class SignUpActivity extends AppCompatActivity {
             } else if (email.length() == 0) {
                toastMessage("Email cannot be empty!");
 
-            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                toastMessage("Invalid email address!");
-
             } else if (phoneNumber.length() == 0) {
                 toastMessage("Phone number cannot be empty!");
 
             } else if (!phoneNumber.matches("^[+]?[0-9]{10,13}$")) {
                 toastMessage("Phone number is invalid!");
 
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                toastMessage("Invalid email address!");
+
             } else if (!userType.equals(patientType) & !userType.equals(careProviderType)) {
                 toastMessage("Unable to determine user profile type!");
-                
+
             } else {
 
                 try {
