@@ -17,10 +17,10 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_bodylocation_photo);
 
-        //initialize view elements
-        drawView = (DrawView) findViewById(R.id.bodyLocation_x);
-        saveButton = (Button) findViewById(R.id.bodyLocation_saveButton);
-        cancelButton = (Button) findViewById(R.id.bodyLocation_cancelButton);
+//        //initialize view elements
+//        drawView = (DrawView) findViewById(R.id.bodyLocation_x);
+//        saveButton = (Button) findViewById(R.id.bodyLocation_saveButton);
+//        cancelButton = (Button) findViewById(R.id.bodyLocation_cancelButton);
 
     }
 }

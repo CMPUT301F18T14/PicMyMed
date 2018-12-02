@@ -59,19 +59,19 @@ public class DrawView extends View {
         canvas.drawBitmap(bitmap,0,0,paint);
     }
 
-    @Override
-    public final void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-        int sizew = MeasureSpec.getSize(widthMeasureSpec);
-        int sizeh = MeasureSpec.getSize(heightMeasureSpec);
-
-//        Log.d(TAG,"onMeasure: view w: "+sizew+"; view h: "+sizeh);
-        float ratio = Math.min(sizew/immutable.getWidth(),sizeh/immutable.getHeight());
-
-        int desiredWidth = (int) (immutable.getWidth()*ratio);
-        int desiredHeight = (int)(immutable.getHeight()*ratio);
-
-        setMeasuredDimension(desiredWidth,desiredHeight);
-    }
+//    @Override
+//    public final void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+//        int sizew = MeasureSpec.getSize(widthMeasureSpec);
+//        int sizeh = MeasureSpec.getSize(heightMeasureSpec);
+//
+////        Log.d(TAG,"onMeasure: view w: "+sizew+"; view h: "+sizeh);
+//        float ratio = Math.min(sizew/immutable.getWidth(),sizeh/immutable.getHeight());
+//
+//        int desiredWidth = (int) (immutable.getWidth()*ratio);
+//        int desiredHeight = (int)(immutable.getHeight()*ratio);
+//
+//        setMeasuredDimension(desiredWidth,desiredHeight);
+//    }
 
     @Override
     public  boolean onTouchEvent(MotionEvent event){
@@ -86,8 +86,8 @@ public class DrawView extends View {
                 mark=true;
                 invalidate();
             } else {
-                bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
-                bitmap = Bitmap.createScaledBitmap(bitmap,displayWidth,displayHeight,false);
+//                bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
+//                bitmap = Bitmap.createScaledBitmap(bitmap,displayWidth,displayHeight,false);
 
                 canvas = new Canvas(bitmap);
                 canvas.drawBitmap(bitmap,0,0,paint);
