@@ -32,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.CareProvider;
@@ -114,6 +115,9 @@ public class CareProviderActivity extends AppCompatActivity {
             case R.id.viewProfile:
                 Intent profileIntent = new Intent(CareProviderActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
+                break;
+            case R.id.logout:
+                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
