@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.XOnBodyLocationActivity" >
+    tools:context=".View.XOnBodyLocationActivity"
+    android:background="#fff">
 
-    <com.example.pickmymedcode.DrawView
+    <com.example.picmymedcode.View.DrawView
         android:id="@+id/bodyLocation_x"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -26,14 +27,18 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/cancel"/>
+            android:text="@string/cancel"
+            android:background="@drawable/signupbtn1"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/bodyLocation_saveButton"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/Save"/>
+            android:text="@string/Save"
+            android:background="@drawable/signupbtn1"
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
 

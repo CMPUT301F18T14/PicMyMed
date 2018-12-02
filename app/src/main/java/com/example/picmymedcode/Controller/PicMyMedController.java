@@ -378,12 +378,18 @@ public class PicMyMedController {
      * @param phone String
      * @return      int
      */
-    public static int updatePatientProfile(String email, String phone) {
-        Patient patient = PicMyMedApplication.getPatientUser();
-        patient.setEmail(email);
-        patient.setPhoneNumber(phone);
-        updatePatient(patient);
-        return 1;
+    public static int updateUserProfile(User user, String email, String phone) {
+
+        try {
+            user.setEmail(email);
+            user.setPhoneNumber(phone);
+            updateUser(user);
+            return 1;
+        } catch (IllegalArgumentException e) {
+            Log.i("DEBUG PMMC", "Unable to update user profile!");
+        }
+        return 0;
+
     }
 
     public static int addBodyLocationPhoto(BodyLocationPhoto photo) {

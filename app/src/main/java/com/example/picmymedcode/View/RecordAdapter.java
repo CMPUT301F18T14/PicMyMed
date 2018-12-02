@@ -32,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -47,6 +48,7 @@ import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
@@ -68,6 +70,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     private ArrayList<Record> records;
     private int problemIndex;
     Context context;
+    //Nested Photo recyclerView
     GalleryAdapter galleryAdapter;
     private ArrayList<GalleryCells> galleryCells;
     RecyclerView.LayoutManager layoutManager;
@@ -178,6 +181,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         galleryAdapter = new GalleryAdapter(galleryCells, context);
         recordPhotoSlider.setAdapter(galleryAdapter);
 
+
+        if (records.get(i).getPhotoList().size()==0) {
+            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
+        }
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,12 +196,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             }
         });
 
+        recordViewHolder.recordLocationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            //onClick to go to next activity
 //            public void onClick(View v) {
-//                Intent Intent = new Intent(context,EditRecordActivity.class);
+//                Intent Intent = new Intent(context,ViewRecordActivity.class);
 //                Intent.putExtra("key", i);
 //                context.startActivity(Intent);
 //            }

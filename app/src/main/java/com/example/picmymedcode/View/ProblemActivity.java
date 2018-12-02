@@ -84,7 +84,8 @@ public class ProblemActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.problemToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Problems");
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         manageRecyclerview();
 
@@ -114,6 +115,13 @@ public class ProblemActivity extends AppCompatActivity {
             case R.id.map:
                 Toast.makeText(getApplicationContext(), "Show a map of all records for all problems",
                         Toast.LENGTH_LONG).show();
+                break;
+            case R.id.search:
+                Intent tabIntent = new Intent(ProblemActivity.this, TabSearchActivity.class);
+                startActivity(tabIntent);
+                break;
+            case R.id.logout:
+                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
