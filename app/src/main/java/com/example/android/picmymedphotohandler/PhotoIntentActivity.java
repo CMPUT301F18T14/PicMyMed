@@ -24,7 +24,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -100,6 +102,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
     private static final int RESIZING_HEIGHT = 300;
 
     private Photo photo;
+
+    private Uri photoURI;
 
     /**
      * Method loads activity state
@@ -278,7 +282,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
             if (photoFile != null) {
                 /* If the file is not null, open camera activity */
                 //System.out.println("File Size in Dispatch Intent: " + photoFile.length());
-                Uri photoURI = FileProvider.getUriForFile(this,
+                photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -320,8 +324,17 @@ public class PhotoIntentActivity extends AppCompatActivity {
         // Loading onto memory in order to save the bitmap
         scalingOptions.inJustDecodeBounds = false;
 
+        Bitmap bitmap = BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
+
+        try {
+            bitmap = rotateImageIfRequired(bitmap, photoURI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         // adding the bitmap to the Bitmap typed ArrayList
-        bitmaps.add(BitmapFactory.decodeFile(ImageFilePath, scalingOptions));
+        bitmaps.add(bitmap);
 
         return bitmaps.get(bitmaps.size()-1);
     }
@@ -374,6 +387,42 @@ public class PhotoIntentActivity extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(compressedImageFile);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+    }
+
+    /*__________________Link followed for to solve rotation issues___________________________
+    * https://www.samieltamawy.com/how-to-fix-the-camera-intent-rotated-image-in-android/
+    * ------------------------------------------------------------------------------------*/
+
+    /**
+     * Rotate an image if required.
+     *
+     * @param img           The image bitmap
+     * @param selectedImage Image URI
+     * @return The resulted Bitmap after manipulation
+     */
+    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) throws IOException {
+
+        ExifInterface ei = new ExifInterface(selectedImage.getPath());
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
     }
 
 }
