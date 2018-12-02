@@ -107,12 +107,12 @@ public class RecordActivity extends AppCompatActivity{
                 intent.putExtra("key",position);
                 startActivity(intent);
                 break;
-            case R.id.galleryIcon:
+            /*case R.id.galleryIcon:
                 Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
                 galleryIntent.putExtra("problemIndex", position);
                 galleryIntent.putExtra("intentSender", 1);
                 startActivity(galleryIntent);
-                break;
+                break; */
             case R.id.slideshowIcon:
                 Intent slideshowIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
                 slideshowIntent.putExtra("problemIndex", position);
@@ -132,6 +132,9 @@ public class RecordActivity extends AppCompatActivity{
                 mapIntent.putExtra("problemIndex",position);
                 mapIntent.putExtra("callingActivity", "MultiRecordActivity");
                 startActivity(mapIntent);
+                break;
+            case R.id.logout:
+                PicMyMedApplication.logoutDialog(RecordActivity.this);
                 break;
 
         }
