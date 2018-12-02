@@ -248,7 +248,7 @@ public class AddRecordActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if (requestCode == LAT_LNG_REQUEST_CODE) {
+        if (requestCode == LAT_LNG_REQUEST_CODE && data != null) {
             double latitude = data.getDoubleExtra("latitude", 0);
             double longtitude = data.getDoubleExtra("longitude", 0);
             if (latitude != 0 && longtitude != 0) {
@@ -283,4 +283,5 @@ public class AddRecordActivity extends AppCompatActivity{
     public void toastMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 }
