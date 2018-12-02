@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
@@ -105,9 +106,15 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
             }
         }
 
-        if (callingActiviy.equals("RecordActivity")) {
+        if (callingActiviy.equals("MultiRecordActivity")) {
             if (isServicesOK()) {
                 initMapForMultipleMarker();
+            }
+        }
+
+        if (callingActiviy.equals("SingleRecordActivity")) {
+            if (isServicesOK()) {
+                initMapForSingleRecordMarker();
             }
         }
 
@@ -129,6 +136,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                     // Drawing the map
                     initMap();
                     // Making the Add button visible after the location is set
+
+                    searchText.setVisibility(View.VISIBLE);
 
                     mGps.setVisibility(View.VISIBLE);
                     // Hiding the Add button
@@ -270,6 +279,37 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
                 drawMultipleMarker(user.getProblemList().get(problemIndex).getAllLatLng());
+            }
+        });
+
+    }
+
+    private void initMapForSingleRecordMarker() {
+        final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
+
+        final int recordIndex = getIntent().getIntExtra("recordIndex", 0);
+
+        final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+        Geolocation geolocation = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex).getGeolocation();
+
+        mLatLng = new LatLng(geolocation.getLatitude(), geolocation.getLongitude());
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Toast.makeText(DrawMapActivity.this, "Map is ready.", Toast.LENGTH_SHORT).show();
+                // Initializing google map
+                mGoogleMap = googleMap;
+
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                // Moving camera to the specific location
+                movingMapCamera(mLatLng, MAP_ZOOM_LEVEL);
+
+                drawMarker(mLatLng, DEVICE_LOCATION_TITLE);
             }
         });
 

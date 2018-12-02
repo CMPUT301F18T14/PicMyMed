@@ -51,6 +51,7 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 
 import org.w3c.dom.Text;
 
@@ -201,6 +202,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordViewHolder.recordLocationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            }
+        });
+
+        recordViewHolder.mapIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent drawMapActivityIntent = new Intent(context, DrawMapActivity.class);
+                drawMapActivityIntent.putExtra("problemIndex", problemIndex);
+                drawMapActivityIntent.putExtra("recordIndex", i);
+                drawMapActivityIntent.putExtra("callingActivity", "SingleRecordActivity");
+                context.startActivity(drawMapActivityIntent);
             }
         });
 
