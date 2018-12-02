@@ -55,6 +55,10 @@ public class DrawView extends View {
         displayWidth=w;
         displayHeight=h;
         super.onSizeChanged(w,h,oldw,oldh);
+        if (bitmap == null){
+            bitmap = Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
+        }
+        bitmap = Bitmap.createScaledBitmap(bitmap,w,h,false);
         canvas = new Canvas(bitmap);
     }
 
@@ -92,9 +96,8 @@ public class DrawView extends View {
                 mark=true;
                 invalidate();
             } else {
-//                bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
-//                bitmap = Bitmap.createScaledBitmap(bitmap,displayWidth,displayHeight,false);
-
+                bitmap = nonCanvasBitmap.copy(Bitmap.Config.ARGB_8888, true);
+                bitmap = Bitmap.createScaledBitmap(bitmap,displayWidth,displayHeight,false);
                 canvas = new Canvas(bitmap);
                 canvas.drawBitmap(bitmap,0,0,paint);
                 canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
@@ -109,5 +112,5 @@ public class DrawView extends View {
         float[] coordinates = new float[]{xCoordinate,yCoordinate};
         return coordinates;
     }
-    
+
 }
