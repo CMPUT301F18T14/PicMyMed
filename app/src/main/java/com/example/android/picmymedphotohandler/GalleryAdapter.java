@@ -115,32 +115,32 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             viewHolder.imageView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-//                    // Upon click Adapter will send an intent to a different activity
-//                    Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
-//
-//                    intentPhotoEnlarge.putExtra("intentSender",2);
-//
-//                    intentPhotoEnlarge.putExtra("problemIndex", problemIndex);
-//
-//                    intentPhotoEnlarge.putExtra("recordIndex", recordIndex);
-//
-//                    intentPhotoEnlarge.putExtra("photoIndex", i);
-//
-//                    //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
-//                    intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
-//
-//                    //intentPhotoEnlarge.putExtra("index", i);
-//                    //intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
-//                    view.getContext().startActivity(intentPhotoEnlarge);
+                    // Upon click Adapter will send an intent to a different activity
+                    Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
 
-                    /*-------------------------------------------------------------------------------*/
+                    intentPhotoEnlarge.putExtra("intentSender",2);
+
+                    intentPhotoEnlarge.putExtra("problemIndex", problemIndex);
+
+                    intentPhotoEnlarge.putExtra("recordIndex", recordIndex);
+
+                    intentPhotoEnlarge.putExtra("photoIndex", i);
+
+                    //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
+                    intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
+
+                    //intentPhotoEnlarge.putExtra("index", i);
+                    //intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
+                    view.getContext().startActivity(intentPhotoEnlarge);
+
+//                    /*-------------------------------------------------------------------------------*/
 //                    Intent xActivity = new Intent(view.getContext(), XOnBodyLocationActivity.class);
 //                    xActivity.putExtra("base64String", galleryList.get(i).getBase64());
 //                    view.getContext().startActivity(xActivity);
-                    /*--------------------------------------------------------------------------------*/
-                    Intent xFixedPhotoActivity = new Intent(view.getContext(), XFixedPhotoActivity.class);
-                    xFixedPhotoActivity.putExtra("base64String", galleryList.get(i).getBase64());
-                    view.getContext().startActivity(xFixedPhotoActivity);
+//                    /*--------------------------------------------------------------------------------*/
+//                    Intent xFixedPhotoActivity = new Intent(view.getContext(), XFixedPhotoActivity.class);
+//                    xFixedPhotoActivity.putExtra("base64String", galleryList.get(i).getBase64());
+//                    view.getContext().startActivity(xFixedPhotoActivity);
                 }
             });
         }
