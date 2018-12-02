@@ -123,7 +123,10 @@ public class RecordActivity extends AppCompatActivity{
                 commentIntent.putExtra("key",position);
                 startActivity(commentIntent);
                 break;
-
+            case R.id.profile:
+                Intent profileIntent = new Intent(RecordActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+                break;
             case R.id.mapRecordIcon:
                 Intent mapIntent = new Intent(RecordActivity.this, DrawMapActivity.class);
                 mapIntent.putExtra("key",position);
