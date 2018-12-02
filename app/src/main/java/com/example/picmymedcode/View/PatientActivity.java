@@ -95,7 +95,7 @@ public class PatientActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Problems");
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        swipeLayout = findViewById(R.id.swipeRefresh);
+        swipeLayout = findViewById(R.id.problem_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -120,7 +120,7 @@ public class PatientActivity extends AppCompatActivity {
                             swipeLayout.setRefreshing(false);
                             Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
                         }
-                    }, 3000); // Delay in millis
+                    }, 500); // Delay in millis
                 }
 
             }
