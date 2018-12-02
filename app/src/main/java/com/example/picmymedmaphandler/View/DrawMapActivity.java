@@ -2,8 +2,10 @@ package com.example.picmymedmaphandler.View;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.input.InputManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Handler;
@@ -17,11 +19,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
@@ -74,6 +79,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private LongitudeLatitude longitudeLatitude = null;
     private LatLng mLatLng = null;
     private GoogleMap mGoogleMap;
+    RelativeLayout relativeLayoutForSearch;
     private AutoCompleteTextView searchText;
     private ImageView mGps;
     private ImageView mAdd;
@@ -87,16 +93,13 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_map);
 
+        relativeLayoutForSearch = findViewById(R.id.search_bar);
+        relativeLayoutForSearch.setVisibility(View.INVISIBLE);
         searchText = (AutoCompleteTextView) findViewById(R.id.input_search);
         searchText.setVisibility(View.INVISIBLE);
-
         mGps = (ImageView) findViewById(R.id.icon_gps);
-        mAdd = (ImageView) findViewById(R.id.icon_add);
-
         mGps.setVisibility(View.INVISIBLE);
-
-
-        // Hiding the Add button
+        mAdd = (ImageView) findViewById(R.id.icon_add);
         mAdd.setVisibility(View.INVISIBLE);
 
         callingActiviy = getIntent().getStringExtra("callingActivity");
@@ -143,6 +146,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                     // Drawing the map
                     initMap();
                     // Making the Add button visible after the location is set
+
+                    relativeLayoutForSearch.setVisibility(View.VISIBLE);
 
                     searchText.setVisibility(View.VISIBLE);
 
@@ -287,7 +292,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
                 for (Problem problem : problems) {
-                    drawMultipleMarker(problem.getAllLatLng());
+                    for (Record record : problem.getRecordList()) {
+                        if (record.getGeolocation() != null) {
+                            mLatLng = new LatLng(record.getGeolocation().getLatitude(), record.getGeolocation().getLongitude());
+                            drawMarkerUncleared(mLatLng, record.getGeolocation().getLocationName());
+                        }
+                    }
                 }
             }
         });
@@ -298,6 +308,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
 
         final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+        final ArrayList<Record> records = user.getProblemList().get(problemIndex).getRecordList();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
@@ -310,7 +322,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-                drawMultipleMarker(user.getProblemList().get(problemIndex).getAllLatLng());
+                for (Record record : records) {
+                    if (record.getGeolocation() != null) {
+                        mLatLng = new LatLng(record.getGeolocation().getLatitude(), record.getGeolocation().getLongitude());
+                        drawMarkerUncleared(mLatLng, record.getGeolocation().getLocationName());
+                    }
+                }
             }
         });
 
@@ -323,9 +340,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
         final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
 
-        Geolocation geolocation = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex).getGeolocation();
-
-        mLatLng = new LatLng(geolocation.getLatitude(), geolocation.getLongitude());
+        final Geolocation geolocation = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex).getGeolocation();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
@@ -338,10 +353,14 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-                // Moving camera to the specific location
-                movingMapCamera(mLatLng, MAP_ZOOM_LEVEL);
+                if (geolocation != null) {
+                    mLatLng = new LatLng(geolocation.getLatitude(), geolocation.getLongitude());
 
-                drawMarker(mLatLng, DEVICE_LOCATION_TITLE);
+                    // Moving camera to the specific location
+                    movingMapCamera(mLatLng, MAP_ZOOM_LEVEL);
+
+                    drawMarker(mLatLng, geolocation.getLocationName());
+                }
             }
         });
 
@@ -394,6 +413,13 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 .title(title));
     }
 
+    private void drawMarkerUncleared(LatLng latLng, String title) {
+
+        Marker markerName = mGoogleMap.addMarker(new MarkerOptions()
+                .position(latLng)
+                .title(title));
+    }
+
     /**
      * This function draws multiple markers for a given set of locations.
      *
@@ -403,6 +429,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         MarkerOptions options = new MarkerOptions();
         for (LatLng latlng : latLngs) {
             options.position(latlng);
+            //options.title()
             mGoogleMap.addMarker(options);
         }
     }
@@ -421,7 +448,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
      * This method hides the keyboard
      */
     private void hideSoftKeyBoard(){
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), 0);
+        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 
