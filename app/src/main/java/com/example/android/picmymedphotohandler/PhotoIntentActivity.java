@@ -103,8 +103,6 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private Photo photo;
 
-    private Uri photoURI;
-
     /**
      * Method loads activity state
      *
@@ -282,7 +280,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
             if (photoFile != null) {
                 /* If the file is not null, open camera activity */
                 //System.out.println("File Size in Dispatch Intent: " + photoFile.length());
-                photoURI = FileProvider.getUriForFile(this,
+                Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -327,7 +325,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
 
         try {
-            bitmap = rotateImageIfRequired(bitmap, photoURI);
+            bitmap = rotateImageIfRequired(bitmap, Uri.fromFile(new File(ImageFilePath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
