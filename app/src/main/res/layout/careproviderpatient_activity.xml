@@ -57,6 +57,19 @@
         android:background="@drawable/email"
         android:backgroundTint="#fff" />
 
+    <Button
+        android:id="@+id/careprovider_search_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:onClick="imageClick"
+        android:text="search"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/rounded_box" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/careprovider_problem_recycle_view"
         android:paddingTop="8dp"

@@ -55,5 +55,10 @@
     <string name="cancel">CANCEL</string>
     <string name="Save">Save</string>
     <string name="edit_Record_Details">Edit Record</string>
+    <string name="searchKeyword">Enter keyword for search</string>
+    <string name="geolocationSearch">Geolocation search</string>
+    <string name="photoSearch">Photo search</string>
+    <string name="logout">Logout</string>
+
 
 </resources>

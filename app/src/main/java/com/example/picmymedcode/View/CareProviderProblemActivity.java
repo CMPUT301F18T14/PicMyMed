@@ -28,6 +28,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
@@ -96,6 +97,15 @@ public class CareProviderProblemActivity extends Activity {
                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Hi "+patient.getUsername().toString()+","); //adds the actual content of the email by calling the method previously defined
                 emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "NEW MESSAGE FROM YOUR CARE PROVIDER [" +user.getUsername().toString()+"]"); //adds the subject by calling the method previously defined.
                 startActivity(Intent.createChooser(emailIntent, "Title of the dialog chooser"));
+            }
+        });
+
+        Button search = findViewById(R.id.careprovider_search_image_view);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tabIntent = new Intent(CareProviderProblemActivity.this, TabSearchActivity.class);
+                startActivity(tabIntent);
             }
         });
 
