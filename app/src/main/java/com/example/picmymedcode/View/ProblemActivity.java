@@ -36,6 +36,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -112,9 +113,10 @@ public class ProblemActivity extends AppCompatActivity {
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);
                 break;
-            case R.id.map:
-                Toast.makeText(getApplicationContext(), "Show a map of all records for all problems",
-                        Toast.LENGTH_LONG).show();
+            case R.id.photomap:
+                Intent mapIntent = new Intent(ProblemActivity.this, DrawMapActivity.class);
+                mapIntent.putExtra("callingActivity", "AllProblem");
+                startActivity(mapIntent);
                 break;
             case R.id.search:
                 Intent tabIntent = new Intent(ProblemActivity.this, TabSearchActivity.class);

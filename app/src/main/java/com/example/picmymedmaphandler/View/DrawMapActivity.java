@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
@@ -115,6 +116,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         if (callingActiviy.equals("SingleRecordActivity")) {
             if (isServicesOK()) {
                 initMapForSingleRecordMarker();
+            }
+        }
+
+        if (callingActiviy.equals("AllProblem")) {
+            if (isServicesOK()) {
+                initMapForAllProblem();
             }
         }
 
@@ -260,6 +267,31 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
             drawMarker(mLatLng, address.getAddressLine(0));
         }
+    }
+
+    private void initMapForAllProblem() {
+
+        final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+        final ArrayList<Problem> problems = user.getProblemList();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Toast.makeText(DrawMapActivity.this, "Map is ready.", Toast.LENGTH_SHORT).show();
+                // Initializing google map
+                mGoogleMap = googleMap;
+
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                for (Problem problem : problems) {
+                    drawMultipleMarker(problem.getAllLatLng());
+                }
+            }
+        });
+
     }
 
     private void initMapForMultipleMarker() {
