@@ -32,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -192,6 +193,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 galleryActivityIntent.putExtra("recordIndex", i);
                 galleryActivityIntent.putExtra("intentSender", 1);
                 context.startActivity(galleryActivityIntent);
+            }
+        });
+
+        recordViewHolder.recordLocationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
 

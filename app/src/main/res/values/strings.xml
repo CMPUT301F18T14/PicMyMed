@@ -59,6 +59,8 @@
     <string name="geolocationSearch">Geolocation search</string>
     <string name="photoSearch">Photo search</string>
     <string name="logout">Logout</string>
+    <string name="photoCount">You can add 10 more photos</string>
+
 
 
 </resources>

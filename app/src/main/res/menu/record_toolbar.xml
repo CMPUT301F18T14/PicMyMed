@@ -7,28 +7,28 @@
         android:icon="@drawable/map"
         android:orderInCategory="1"
         android:title="Map of Records"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/galleryIcon"
         android:icon="@drawable/gallery_white"
         android:orderInCategory="2"
         android:title="Photo Gallery"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/slideshowIcon"
         android:icon="@drawable/slideshow_white"
         android:orderInCategory="3"
         android:title="Slideshow of Photos"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/view_commentIcon"
         android:icon="@drawable/comment_white"
         android:orderInCategory="4"
         android:title="View Comments"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/add_recordIcon"

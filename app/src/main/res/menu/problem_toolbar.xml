@@ -14,21 +14,21 @@
         android:icon="@drawable/user"
         android:orderInCategory="4"
         android:title="Profile"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/bodylocationphotos"
         android:icon="@drawable/bodylocation_white"
         android:orderInCategory="3"
         android:title="Body Photos"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/photomap"
         android:icon="@drawable/map"
         android:orderInCategory="2"
         android:title="Map of all Records"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/search"

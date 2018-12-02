@@ -48,6 +48,19 @@
         android:layout_marginLeft="10dp"
         android:background="@drawable/baseline_camera_alt_black_18dp" />
 
+    <TextView
+        android:id="@+id/photoCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/record_description_edit_text"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="-1dp"
+        android:layout_toRightOf="@+id/record_camera_button"
+        android:paddingTop="20dp"
+        android:text="@string/photoCount"
+        android:paddingLeft="10dp"
+        android:textColor="#16BBE5" />
+
     <Button
         android:id="@+id/record_geo_button"
         android:layout_width="wrap_content"
@@ -111,5 +124,6 @@
         android:background="@drawable/signupbtn1"
         android:paddingHorizontal="50dp"
         android:text="@string/Add" />
+
 
 </RelativeLayout>
