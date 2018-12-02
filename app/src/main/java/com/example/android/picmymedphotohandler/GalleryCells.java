@@ -35,6 +35,15 @@ public class GalleryCells {
     private Bitmap bitmap;
     private String filepath;
     private String base64;
+    private int photoIndex;
+
+    public int getPhotoIndex() {
+        return photoIndex;
+    }
+
+    public void setPhotoIndex(int photoIndex) {
+        this.photoIndex = photoIndex;
+    }
 
     /**
      * Getter for title

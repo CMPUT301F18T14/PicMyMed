@@ -105,11 +105,8 @@ public class ProblemActivity extends AppCompatActivity {
                 startActivity(problemIntent);
                 break;
             case R.id.bodylocationphotos:
-//                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
-//                startActivity(bodyLocationPhotoManagerIntent);
-                Intent galleryActivityIntent = new Intent(ProblemActivity.this, GalleryActivity.class);
-                galleryActivityIntent.putExtra("intentSender", 2);
-                startActivity(galleryActivityIntent);
+                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
+                startActivity(bodyLocationPhotoManagerIntent);
                 break;
             case R.id.profile:
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);

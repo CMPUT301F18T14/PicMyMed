@@ -4,12 +4,14 @@ package com.example.picmymedcode.View;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -113,7 +115,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
         galleryCells = preparedDataFromBase64(user.getBodyLocationPhotoList());
         // Initialize the adapter
-        galleryAdapter = new GalleryAdapter(galleryCells, com.example.picmymedcode.View.BodyLocationPhotoManagerActivity.this);
+        galleryAdapter = new GalleryAdapter(galleryCells, BodyLocationPhotoManagerActivity.this);
 
         // Set the adapter to the recycler view
         recyclerView.setAdapter(galleryAdapter);
@@ -153,18 +155,21 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
     private ArrayList<GalleryCells> preparedDataFromBase64(ArrayList<BodyLocationPhoto> bodyLocationPhotos) {
-        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        byte[] decodedString;
+        Bitmap decodedByte;
 
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.base65ToBitmap((ArrayList<Photo>)(ArrayList<?>) bodyLocationPhotos);
-
-        for(int i = 0; i < bitmaps.size(); i++){
+        for(int i = 0; i < bodyLocationPhotos.size(); i++){
             GalleryCells galleryCells = new GalleryCells();
+            decodedString = Base64.decode(bodyLocationPhotos.get(i).getBase64EncodedString(), Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             galleryCells.setTitle(bodyLocationPhotos.get(i).getLabel());
-            galleryCells.setBitmap(bitmaps.get(i));
             galleryCells.setBase64(bodyLocationPhotos.get(i).getBase64EncodedString());
-            imagesModified.add(galleryCells);
+            Log.i("BodyLocationPhoto", bodyLocationPhotos.get(i).getBase64EncodedString());
+            galleryCells.setBitmap(decodedByte);
+            galleryCellsArrayList.add(galleryCells);
         }
-        return imagesModified;
+        return galleryCellsArrayList;
     }
 }
 
