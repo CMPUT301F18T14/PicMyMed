@@ -52,6 +52,7 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 
 import org.w3c.dom.Text;
 
@@ -86,6 +87,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeTextView;
         ImageView recordMoreImageView;
         ImageView galleryIcon;
+        ImageView mapIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
 
@@ -104,6 +106,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
             this.galleryIcon = itemView.findViewById(R.id.record_gallery);
+            this.mapIcon = itemView.findViewById(R.id.mapIcon);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -171,6 +174,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
             recordLocationTextView.setText(geolocation.getLocationName());
+        } else {
+            recordViewHolder.mapIcon.setVisibility(View.INVISIBLE);
+
         }
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
@@ -186,6 +192,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         if (records.get(i).getPhotoList().size()==0) {
             recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
         }
+
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +207,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordViewHolder.recordLocationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            }
+        });
+
+        recordViewHolder.mapIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent drawMapActivityIntent = new Intent(context, DrawMapActivity.class);
+                drawMapActivityIntent.putExtra("problemIndex", problemIndex);
+                drawMapActivityIntent.putExtra("recordIndex", i);
+                drawMapActivityIntent.putExtra("callingActivity", "SingleRecordActivity");
+                context.startActivity(drawMapActivityIntent);
             }
         });
 

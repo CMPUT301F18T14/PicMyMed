@@ -32,6 +32,8 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
+import com.example.picmymedcode.View.XFixedPhotoActivity;
+import com.example.picmymedcode.View.XOnBodyLocationActivity;
 
 import java.util.ArrayList;
 
@@ -130,6 +132,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                     //intentPhotoEnlarge.putExtra("index", i);
                     //intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
                     view.getContext().startActivity(intentPhotoEnlarge);
+
+//                    /*-------------------------------------------------------------------------------*/
+//                    Intent xActivity = new Intent(view.getContext(), XOnBodyLocationActivity.class);
+//                    xActivity.putExtra("base64String", galleryList.get(i).getBase64());
+//                    view.getContext().startActivity(xActivity);
+//                    /*--------------------------------------------------------------------------------*/
+//                    Intent xFixedPhotoActivity = new Intent(view.getContext(), XFixedPhotoActivity.class);
+//                    xFixedPhotoActivity.putExtra("base64String", galleryList.get(i).getBase64());
+//                    view.getContext().startActivity(xFixedPhotoActivity);
                 }
             });
         }

@@ -62,6 +62,7 @@ import java.util.List;
  */
 
 public class GalleryActivity extends AppCompatActivity {
+    android.support.v7.widget.Toolbar toolbar;
 
     private RecyclerView recyclerView;
 
@@ -92,6 +93,10 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.galleryToolbar);
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Record Photo Gallery");
 
         user = (Patient)PicMyMedApplication.getLoggedInUser();
 
@@ -178,6 +183,7 @@ public class GalleryActivity extends AppCompatActivity {
             decodedString = Base64.decode(photos.get(i).getBase64EncodedString(), Base64.DEFAULT);
             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             galleryCells.setPhotoIndex(i);
+            galleryCells.setTitle(""+(i+1));
             galleryCells.setBase64(photos.get(i).getBase64EncodedString());
             galleryCells.setBitmap(decodedByte);
             galleryCellsArrayList.add(galleryCells);

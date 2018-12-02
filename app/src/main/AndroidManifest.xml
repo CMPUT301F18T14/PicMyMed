@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
             android:name="com.example.picmymedcode.View.MainActivity"
             android:windowSoftInputMode="adjustResize">
