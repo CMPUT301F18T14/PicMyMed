@@ -11,4 +11,12 @@
         app:showAsAction="always|withText"
         />
 
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout_white"
+        android:orderInCategory="3"
+        android:title="View Careprovider Profile"
+        app:showAsAction="always|withText"
+        />
+
 </menu>
