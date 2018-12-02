@@ -1,9 +1,12 @@
 package com.example.picmymedcode.View;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -19,11 +22,45 @@ public class CommentActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     int position;
+    SwipeRefreshLayout swipeLayout;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patientcomment_activity);
         manageRecyclerview();
+
+
+        swipeLayout = findViewById(R.id.comment_swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(CommentActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 2000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 500); // Delay in millis
+                }
+
+            }
+        });
     }
 
     public void manageRecyclerview(){

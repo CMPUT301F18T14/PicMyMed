@@ -13,7 +13,10 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class CareProviderAddComment extends AppCompatActivity{
     Patient patient;
@@ -29,10 +32,14 @@ public class CareProviderAddComment extends AppCompatActivity{
 
         saveCommentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //time stamp
+                SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
+                final String date = mSimpleDateFormat.format(new Date());
+                //adding comment
                 TextView commentEditText = (TextView)findViewById(R.id.comment_edit_text);
                 String result = commentEditText.getText().toString();
                 User user = PicMyMedApplication.getLoggedInUser();
-                String result2 = result+"\n\n\n commented by "+ user.getUsername().toString();
+                String result2 = result+"\n\n\n commented by "+ user.getUsername().toString()+"\n"+date;
                 problemArrayList.get(position).addCommentList(result2);
                 PicMyMedController.updateUser(patient, CareProviderAddComment.this);
                 onBackPressed();

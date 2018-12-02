@@ -15,15 +15,20 @@
     </android.support.v7.widget.Toolbar>
 
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/record_recycle_view"
-        android:layout_below="@+id/recordToolbar"
-        android:layout_marginTop="10dp"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/record_swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_below="@+id/recordToolbar">
 
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/record_recycle_view"
+            android:layout_below="@+id/recordToolbar"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
