@@ -81,7 +81,8 @@ public class RecordActivity extends AppCompatActivity{
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.recordToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Records");
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();

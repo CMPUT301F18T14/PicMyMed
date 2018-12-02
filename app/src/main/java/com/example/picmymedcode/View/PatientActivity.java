@@ -86,7 +86,8 @@ public class PatientActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.problemToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("Problems");
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
 
@@ -106,11 +107,9 @@ public class PatientActivity extends AppCompatActivity {
                 startActivity(problemIntent);
                 break;
             case R.id.bodylocationphotos:
-//                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
-//                startActivity(bodyLocationPhotoManagerIntent);
-                Intent galleryActivityIntent = new Intent(PatientActivity.this, GalleryActivity.class);
-                galleryActivityIntent.putExtra("intentSender", 2);
-                startActivity(galleryActivityIntent);
+
+                Intent bodyLocationPhotoManagerIntent = new Intent(PatientActivity.this, BodyLocationPhotoManagerActivity.class);
+                startActivity(bodyLocationPhotoManagerIntent);
                 break;
             case R.id.profile:
                 Intent profileIntent = new Intent(PatientActivity.this, ProfileActivity.class);
@@ -120,6 +119,15 @@ public class PatientActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Show a map of all records for all problems",
                         Toast.LENGTH_LONG).show();
                 break;
+            case R.id.search:
+                Intent tabIntent = new Intent(PatientActivity.this, TabSearchActivity.class);
+                startActivity(tabIntent);
+                break;
+              /*
+            case R.id.logout:
+                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                break;*     */
+
         }
         return super.onOptionsItemSelected(item);
     }

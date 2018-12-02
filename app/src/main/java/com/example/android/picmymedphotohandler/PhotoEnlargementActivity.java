@@ -65,7 +65,13 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
     private byte[] decodedString;
 
-    private int index;
+    private int recordIndex;
+
+    private int problemIndex;
+
+    private int photoIndex;
+
+    private int bodyLocationIndex;
 
     private Bitmap bitmap;
 
@@ -76,6 +82,8 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
     private final static int CAMERA_REQUEST_CODE = 99;
 
     private Dialog labellingDialog;
+
+    private int receivedIntentFrom;
 
     /**
      * Method loads activity state
@@ -89,21 +97,31 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.enlargementToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getIntent().getStringExtra("photoLabel"));
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        final Patient patient = (Patient) PicMyMedApplication.getLoggedInUser();
-        bodyLocationPhotos = patient.getBodyLocationPhotoList();
-
+        receivedIntentFrom = getIntent().getIntExtra("intentSender", 0);
 
         imageView = (ImageView) findViewById(R.id.imageViewEnlarged);
 
+        if (receivedIntentFrom == 1) {                  // From BodyLocation
+            getSupportActionBar().setTitle(getIntent().getStringExtra("photoLabel"));
 
-        // Getting filePath sent from previous activity
-        // filePath = getIntent().getStringExtra("filePath");
-        base64 = getIntent().getStringExtra("base64String");
+            photoIndex = getIntent().getIntExtra("photoIndex", 0);
 
-        index = getIntent().getIntExtra("index", 0);
+            base64 = getIntent().getStringExtra("base64String");
+        }
+
+        if (receivedIntentFrom == 2) {
+
+            problemIndex = getIntent().getIntExtra("problemIndex", 0);
+
+            recordIndex = getIntent().getIntExtra("recordIndex", 0);
+
+            photoIndex = getIntent().getIntExtra("photoIndex", 0);
+
+            base64 = getIntent().getStringExtra("base64String");
+
+        }
+
         // Creating a file object
         //file = new File(filePath);
 
@@ -130,9 +148,22 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.button_delete:
-                PicMyMedController.removeBodyLocationPhoto(index, PhotoEnlargementActivity.this);
-                finish();
-                break;
+
+                if (receivedIntentFrom == 1) {                  // From BodyLocation
+                    final Patient patient = (Patient) PicMyMedApplication.getLoggedInUser();
+                    bodyLocationPhotos = patient.getBodyLocationPhotoList();
+                    PicMyMedController.removeBodyLocationPhoto(photoIndex, PhotoEnlargementActivity.this);
+                    finish();
+                    break;
+                }
+
+                if (receivedIntentFrom == 2) {                  // From BodyLocation
+                    final Patient patient = (Patient) PicMyMedApplication.getLoggedInUser();
+                    PicMyMedController.deleteRecordPhoto(problemIndex, recordIndex, photoIndex, PhotoEnlargementActivity.this);
+                    finish();
+                    break;
+                }
+
             case R.id.labelButton:
                 labellingDialog = new Dialog(PhotoEnlargementActivity.this);
                 labellingDialog.setContentView(R.layout.dialogbox_for_photo_labling);
@@ -147,15 +178,12 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
                 saveLabel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString(), PhotoEnlargementActivity.this);
+
+                       // PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString(), PhotoEnlargementActivity.this );
                         getSupportActionBar().setTitle(writeLabel.getText().toString());
                         labellingDialog.cancel();
                     }
                 });
-                break;
-            case R.id.cameraButton:
-                Intent photoIntent = new Intent(PhotoEnlargementActivity.this,PhotoIntentActivity.class);
-                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
                 break;
 
         }

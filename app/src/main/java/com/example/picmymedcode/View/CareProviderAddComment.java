@@ -32,7 +32,7 @@ public class CareProviderAddComment extends AppCompatActivity{
                 TextView commentEditText = (TextView)findViewById(R.id.comment_edit_text);
                 String result = commentEditText.getText().toString();
                 User user = PicMyMedApplication.getLoggedInUser();
-                String result2 = result+"\n commented by "+ user.getUsername().toString();
+                String result2 = result+"\n\n\n commented by "+ user.getUsername().toString();
                 problemArrayList.get(position).addCommentList(result2);
                 PicMyMedController.updateUser(patient, CareProviderAddComment.this);
                 onBackPressed();

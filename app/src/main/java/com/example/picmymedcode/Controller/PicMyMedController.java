@@ -318,6 +318,17 @@ public class PicMyMedController {
         return 1;
     }
 
+    public static int deleteRecordPhoto(int problemIndex, int recordIndex, int photoIndex, Context context) {
+        Patient patient = PicMyMedApplication.getPatientUser();
+        Problem problem = patient.getProblemList().get(problemIndex);
+        Record record = problem.getRecordList().get(recordIndex);
+        Photo photo = record.getPhotoList().remove(photoIndex);
+        //patient.getProblemList().get(problemIndex).getRecordList().get(recordIndex).getPhotoList().remove(photoIndex);
+        updateUser(patient, context);
+
+        return 1;
+    }
+
     /**
      * Method gets user from the controller and calls elastic search and updates the database
      *

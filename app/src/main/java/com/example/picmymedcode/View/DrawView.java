@@ -20,13 +20,17 @@ public class DrawView extends View {
 
     private Paint paint;
     private Canvas canvas;
-    private Bitmap immutable;
+    private Bitmap nonCanvasBitmap;
     private Bitmap bitmap;
     boolean mark = false; //to see if there's already an x on the canvas
 
     //dimensions of the view
     int displayWidth;
     int displayHeight;
+
+    //the coordinates of the touch event on the view
+    float xCoordinate;
+    float yCoordinate;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,10 +41,12 @@ public class DrawView extends View {
         Log.d(TAG,"Reached setupDrawing");
         paint = new Paint();
         paint.setColor(Color.RED);
-//        paint.setAntiAlias(true);
         paint.setTextSize(80F);
-        immutable = BitmapFactory.decodeResource(getResources(),R.drawable.aladdin);
-        bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.nonCanvasBitmap = bitmap;
+        this.bitmap = bitmap;
     }
 
     @Override
@@ -49,6 +55,10 @@ public class DrawView extends View {
         displayWidth=w;
         displayHeight=h;
         super.onSizeChanged(w,h,oldw,oldh);
+        if (bitmap == null){
+            bitmap = Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
+        }
+        bitmap = Bitmap.createScaledBitmap(bitmap,w,h,false);
         canvas = new Canvas(bitmap);
     }
 
@@ -59,43 +69,48 @@ public class DrawView extends View {
         canvas.drawBitmap(bitmap,0,0,paint);
     }
 
-    @Override
-    public final void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-        int sizew = MeasureSpec.getSize(widthMeasureSpec);
-        int sizeh = MeasureSpec.getSize(heightMeasureSpec);
-
-//        Log.d(TAG,"onMeasure: view w: "+sizew+"; view h: "+sizeh);
-        float ratio = Math.min(sizew/immutable.getWidth(),sizeh/immutable.getHeight());
-
-        int desiredWidth = (int) (immutable.getWidth()*ratio);
-        int desiredHeight = (int)(immutable.getHeight()*ratio);
-
-        setMeasuredDimension(desiredWidth,desiredHeight);
-    }
+//    @Override
+//    public final void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+//        int sizew = MeasureSpec.getSize(widthMeasureSpec);
+//        int sizeh = MeasureSpec.getSize(heightMeasureSpec);
+//
+////        Log.d(TAG,"onMeasure: view w: "+sizew+"; view h: "+sizeh);
+//        float ratio = Math.min(sizew/immutable.getWidth(),sizeh/immutable.getHeight());
+//
+//        int desiredWidth = (int) (immutable.getWidth()*ratio);
+//        int desiredHeight = (int)(immutable.getHeight()*ratio);
+//
+//        setMeasuredDimension(desiredWidth,desiredHeight);
+//    }
 
     @Override
     public  boolean onTouchEvent(MotionEvent event){
         Log.d(TAG,"Reached onTouchEvent");
-        float x = event.getX();
-        float y = event.getY();
+        xCoordinate = event.getX();
+        yCoordinate = event.getY();
 
       if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (!mark){
-                canvas.drawText("X", x - 20, y + 32, paint);
-                Log.d(TAG, "TOUCH x: " + x + " y: " + y + "  mark: false");
+                canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
+                Log.d(TAG, "TOUCH x: " + xCoordinate + " y: " + yCoordinate + "  mark: false");
                 mark=true;
                 invalidate();
             } else {
-                bitmap = immutable.copy(Bitmap.Config.ARGB_8888, true);
+                bitmap = nonCanvasBitmap.copy(Bitmap.Config.ARGB_8888, true);
                 bitmap = Bitmap.createScaledBitmap(bitmap,displayWidth,displayHeight,false);
-
                 canvas = new Canvas(bitmap);
                 canvas.drawBitmap(bitmap,0,0,paint);
-                canvas.drawText("X", x - 20, y + 32, paint);
-                Log.d(TAG, "TOUCH x: " + x + " y: " + y + "  mark: true");
+                canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
+                Log.d(TAG, "TOUCH x: " + xCoordinate + " y: " + yCoordinate + "  mark: true");
                 invalidate();
             }
         }
         return true;
     }
+
+    public float[] getCoordinates(){
+        float[] coordinates = new float[]{xCoordinate,yCoordinate};
+        return coordinates;
+    }
+
 }

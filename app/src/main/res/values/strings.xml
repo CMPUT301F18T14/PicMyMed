@@ -20,7 +20,7 @@
     <string name="update_prob">Update Problem</string>
     <string name="Enter_Record_Details">Enter Record Details</string>
     <string name="Add_Title">Add Title</string>
-    <string name= "view_comments">View Comments</string>
+    <string name="view_comments">View Comments</string>
     <string name="Add_Description">Add Description</string>
     <string name="Geolocation">Geolocation</string>
     <string name="Body_Location">Body Location</string>
@@ -55,5 +55,12 @@
     <string name="cancel">CANCEL</string>
     <string name="Save">Save</string>
     <string name="edit_Record_Details">Edit Record</string>
+    <string name="searchKeyword">Enter keyword for search</string>
+    <string name="geolocationSearch">Geolocation search</string>
+    <string name="photoSearch">Photo search</string>
+    <string name="logout">Logout</string>
+    <string name="photoCount">You can add 10 more photos</string>
+
+
 
 </resources>

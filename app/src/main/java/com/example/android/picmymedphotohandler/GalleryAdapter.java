@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.picmymedcode.R;
+import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     private ArrayList<GalleryCells> galleryList;
     private Context context;
+    private int problemIndex;
+    private int recordIndex;
 
     /**
      * Constructor of the class. It initializes all the member variables.
@@ -57,6 +60,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public GalleryAdapter(ArrayList<GalleryCells> galleryList, Context context) {
         this.galleryList = galleryList;
         this.context = context;
+    }
+
+    /**
+     * Constructor of the class. It initializes all the member variables.
+     *
+     * @param galleryList   An ArrayList of GalleryCells
+     * @param context       The activity context of the class that will use/call this adapter class.
+     */
+    public GalleryAdapter(ArrayList<GalleryCells> galleryList, Context context, int problemIndex, int recordIndex) {
+        this.galleryList = galleryList;
+        this.context = context;
+        this.problemIndex = problemIndex;
+        this.recordIndex = recordIndex;
     }
 
     /**
@@ -99,10 +115,46 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 public void onClick(View view){
                     // Upon click Adapter will send an intent to a different activity
                     Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
+
+                    intentPhotoEnlarge.putExtra("intentSender",2);
+
+                    intentPhotoEnlarge.putExtra("problemIndex", problemIndex);
+
+                    intentPhotoEnlarge.putExtra("recordIndex", recordIndex);
+
+                    intentPhotoEnlarge.putExtra("photoIndex", i);
+
                     //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
                     intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
-                    intentPhotoEnlarge.putExtra("index", i);
-                    intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
+
+                    //intentPhotoEnlarge.putExtra("index", i);
+                    //intentPhotoEnlarge.putExtra("photoLabel", galleryList.get(i).getTitle());
+                    view.getContext().startActivity(intentPhotoEnlarge);
+                }
+            });
+        }
+
+        if (context instanceof BodyLocationPhotoManagerActivity) {       // Checking which Activity the context is an instance of
+            Log.d("GalleryAdapter: ", "Used by GalleryActivity");
+            // Listener for selecting the image
+            viewHolder.imageView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    // Upon click Adapter will send an intent to a different activity
+                    Intent intentPhotoEnlarge = new Intent(view.getContext(), PhotoEnlargementActivity.class);
+
+                    intentPhotoEnlarge.putExtra("intentSender",1);
+
+                    intentPhotoEnlarge.putExtra("photoIndex", i);
+
+                    //intentPhotoEnlarge.putExtra("filePath", galleryList.get(i).getFilepath());
+                    if (  galleryList.get(i).getBase64()!= null) {
+                        Log.i("DEBUG right", galleryList.get(i).getBase64());
+                        intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
+                    }else {
+                            Log.i("DEBUG wrong", galleryList.get(i).getBase64());
+                        }
+
                     view.getContext().startActivity(intentPhotoEnlarge);
                 }
             });

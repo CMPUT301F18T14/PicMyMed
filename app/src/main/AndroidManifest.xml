@@ -44,6 +44,9 @@
             android:name="com.example.picmymedcode.View.PatientActivity"
             android:label="Problem" />
         <activity
+            android:name="com.example.picmymedcode.View.TabSearchActivity"
+            android:label="Tab Search" />
+        <activity
             android:name="com.example.picmymedcode.View.AddProblemActivity"
             android:label="New Problem" />
         <activity

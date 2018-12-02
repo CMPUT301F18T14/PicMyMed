@@ -81,6 +81,8 @@ public class GalleryActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST_CODE = 333;
 
+    private int problemIndex;
+
     /**
      * Method loads state
      *
@@ -91,8 +93,6 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        addButton = findViewById(R.id.take_photo_button);
-        addButton.setVisibility(View.INVISIBLE);
         user = (Patient)PicMyMedApplication.getLoggedInUser();
 
         startActivity();
@@ -127,17 +127,21 @@ public class GalleryActivity extends AppCompatActivity {
         int receivedIntentFrom = getIntent().getIntExtra("intentSender", 0);
 
         if (receivedIntentFrom == 1) {                  // From AddRecordActivity
-            int problemIndex = getIntent().getIntExtra("problemIndex", 0);
+            problemIndex = getIntent().getIntExtra("problemIndex", 0);
             int recordIndex = getIntent().getIntExtra("recordIndex", 0);
             record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
 
             // Prepare the data for adapter compatibility
             galleryCells = preparedData(record.getPhotoList());
+            // Initialize the adapter
+            galleryAdapter = new GalleryAdapter(galleryCells, GalleryActivity.this, problemIndex, recordIndex);
 
         } else if (receivedIntentFrom == 2) {           // From BodyLocation Activity
             // Prepare the data for adapter compatibility
             addButton.setVisibility(View.VISIBLE);
             galleryCells = preparedData((ArrayList<Photo>)(ArrayList<?>) user.getBodyLocationPhotoList());
+            // Initialize the adapter
+            galleryAdapter = new GalleryAdapter(galleryCells, GalleryActivity.this);
         }
 
         // Load the image files
@@ -152,24 +156,10 @@ public class GalleryActivity extends AppCompatActivity {
         // Set the layout in the recycler view
         recyclerView.setLayoutManager(layoutManager);
 
-        // Initialize the adapter
-        galleryAdapter = new GalleryAdapter(galleryCells, GalleryActivity.this);
+
 
         // Set the adapter to the recycler view
         recyclerView.setAdapter(galleryAdapter);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking add problem button
-             *
-             * @param v View
-             */
-            @Override
-            public void onClick(View v) {
-                Intent photoIntent = new Intent(GalleryActivity.this,PhotoIntentActivity.class);
-                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
-            }
-        });
     }
 
     /**
@@ -183,10 +173,12 @@ public class GalleryActivity extends AppCompatActivity {
         byte[] decodedString;
         Bitmap decodedByte;
 
-        for (Photo photo : photos) {
+        for (int i = 0; i < photos.size(); i++) {
             GalleryCells galleryCells = new GalleryCells();
-            decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
+            decodedString = Base64.decode(photos.get(i).getBase64EncodedString(), Base64.DEFAULT);
             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            galleryCells.setPhotoIndex(i);
+            galleryCells.setBase64(photos.get(i).getBase64EncodedString());
             galleryCells.setBitmap(decodedByte);
             galleryCellsArrayList.add(galleryCells);
         }

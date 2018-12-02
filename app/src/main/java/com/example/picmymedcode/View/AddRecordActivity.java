@@ -113,12 +113,19 @@ public class AddRecordActivity extends AppCompatActivity{
             }
         });
 
+
         Button cameraPhoto = (Button) findViewById(R.id.record_camera_button);
         cameraPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoIntent = new Intent(AddRecordActivity.this,PhotoIntentActivity.class);
-                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
+                if (placeHolderPhotoList.size()<10) {
+                    Intent photoIntent = new Intent(AddRecordActivity.this, PhotoIntentActivity.class);
+                    startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
+
+                }
+                else {
+                    Toast.makeText(AddRecordActivity.this, "You cannot upload more than 10 photos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -156,6 +163,12 @@ public class AddRecordActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        final TextView photoCounts = findViewById(R.id.photoCount);
+        photoCounts.setText("You can add "+(10-placeHolderPhotoList.size())+ " more photos");
+    }
     /**
      * Method starts add record activity
      */
@@ -235,7 +248,7 @@ public class AddRecordActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if (requestCode == LAT_LNG_REQUEST_CODE) {
+        if (requestCode == LAT_LNG_REQUEST_CODE && data != null) {
             double latitude = data.getDoubleExtra("latitude", 0);
             double longtitude = data.getDoubleExtra("longitude", 0);
             if (latitude != 0 && longtitude != 0) {
@@ -270,4 +283,5 @@ public class AddRecordActivity extends AppCompatActivity{
     public void toastMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 }
