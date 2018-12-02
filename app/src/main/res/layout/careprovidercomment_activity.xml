@@ -4,42 +4,69 @@
     android:layout_height="match_parent"
     android:background="@drawable/careproviderproblem"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
 
     <TextView
-        android:id="@+id/careprovider_record_name_text_view"
+        android:id="@+id/careprovider_comment_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Name"
         android:textColor="#ffffff"
         android:textSize="25sp" />
 
+    <ImageView
+        android:id="@+id/phoneIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginRight="3dp"
+        android:layout_below="@+id/careprovider_comment_name_text_view"
+        android:background="@drawable/phone"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#fff" />
+
     <TextView
-        android:id="@+id/careprovider_record_phone_text_view"
+        android:id="@+id/careprovider_comment_phone_text_view"
         android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/phoneIcon"
         android:layout_height="25dp"
-        android:layout_below="@+id/careprovider_record_name_text_view"
+        android:layout_below="@+id/careprovider_comment_name_text_view"
         android:text="Phone"
+        android:layout_marginBottom="10dp"
         android:textColor="#ffffff"
         android:textSize="15sp" />
 
+    <ImageView
+        android:id="@+id/emailIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/phoneIcon"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/email"
+        android:backgroundTint="#fff" />
+
     <TextView
-        android:id="@+id/careprovider_record_email_text_view"
+        android:id="@+id/careprovider_comment_email_text_view"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:layout_below="@+id/careprovider_record_phone_text_view"
+        android:layout_toRightOf="@+id/emailIcon"
         android:paddingBottom="10dp"
-        android:text="Emial"
+        android:layout_below="@+id/careprovider_comment_phone_text_view"
+        android:text="Email"
         android:textColor="#ffffff"
-        android:textSize="15sp" />
+        android:textSize="15sp"  />
+
+
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/careprovider_comment_recycle_view"
+        android:paddingTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@+id/careprovider_record_email_text_view"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/careprovider_comment_email_text_view"
         android:scrollbars="vertical" />
 
 

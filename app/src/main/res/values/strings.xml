@@ -30,7 +30,7 @@
     <string name="Update_Profile">Update Profile</string>
     <string name="Add_New_Patient">Add A New Patient</string>
     <string name="Welcome">Welcome</string>
-    <string name="Pick_Username">Pick A Username</string>
+    <string name="create_profile">Create Profile</string>
     <string name="Lets_Start">Let\'s Start</string>
     <string name="Search_Username">Search Username</string>
     <string name="Search">Search</string>
@@ -52,6 +52,7 @@
     <string name="problem_description_colon">Description:</string>
     <string name="time_colon">Time:</string>
     <string name="Add_Body_Location_Photo">Body Location Photo Manager</string>
+    <string name="cancel">CANCEL</string>
     <string name="Save">Save</string>
     <string name="edit_Record_Details">Edit Record</string>
     <string name="searchKeyword">Enter keyword for search</string>

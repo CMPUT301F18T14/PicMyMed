@@ -21,17 +21,27 @@ package com.example.android.picmymedphotohandler;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
+import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
+import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +77,10 @@ public class GalleryActivity extends AppCompatActivity {
 
     private Patient user;
 
+    private ImageButton addButton;
+
+    private static final int CAMERA_REQUEST_CODE = 333;
+
     /**
      * Method loads state
      *
@@ -77,6 +91,8 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        addButton = findViewById(R.id.take_photo_button);
+        addButton.setVisibility(View.INVISIBLE);
         user = (Patient)PicMyMedApplication.getLoggedInUser();
 
         startActivity();
@@ -110,21 +126,18 @@ public class GalleryActivity extends AppCompatActivity {
 
         int receivedIntentFrom = getIntent().getIntExtra("intentSender", 0);
 
-        if (receivedIntentFrom == 1) {                  // From Record Activity
+        if (receivedIntentFrom == 1) {                  // From AddRecordActivity
             int problemIndex = getIntent().getIntExtra("problemIndex", 0);
             int recordIndex = getIntent().getIntExtra("recordIndex", 0);
             record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
 
             // Prepare the data for adapter compatibility
-            galleryCells = preparedDataFromBase64(record.getPhotoList());
+            galleryCells = preparedData(record.getPhotoList());
 
         } else if (receivedIntentFrom == 2) {           // From BodyLocation Activity
-            int problemIndex = getIntent().getIntExtra("problemIndex", 0);
-            int recordIndex = getIntent().getIntExtra("recordIndex", 0);
-            record = user.getProblemList().get(problemIndex).getRecordList().get(recordIndex);
-
             // Prepare the data for adapter compatibility
-            galleryCells = preparedDataFromBase64(record.getPhotoList());
+            addButton.setVisibility(View.VISIBLE);
+            galleryCells = preparedData((ArrayList<Photo>)(ArrayList<?>) user.getBodyLocationPhotoList());
         }
 
         // Load the image files
@@ -144,6 +157,19 @@ public class GalleryActivity extends AppCompatActivity {
 
         // Set the adapter to the recycler view
         recyclerView.setAdapter(galleryAdapter);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking add problem button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent photoIntent = new Intent(GalleryActivity.this,PhotoIntentActivity.class);
+                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
+            }
+        });
     }
 
     /**
@@ -152,18 +178,38 @@ public class GalleryActivity extends AppCompatActivity {
      *
      * @return      ArrayList of GalleryCells containing modified data for adapter compatibility
      */
-    private ArrayList<GalleryCells> preparedDataFromBase64(ArrayList<Photo> photos) {
-        ArrayList<GalleryCells> imagesModified = new ArrayList<>();
-        ArrayList<Bitmap> bitmaps = loadingImageFiles.base65ToBitmap(photos);
+    private ArrayList<GalleryCells> preparedData(ArrayList<Photo> photos) {
+        ArrayList<GalleryCells> galleryCellsArrayList = new ArrayList<>();
+        byte[] decodedString;
+        Bitmap decodedByte;
 
-
-        for(int i = 0; i < bitmaps.size(); i++){
+        for (Photo photo : photos) {
             GalleryCells galleryCells = new GalleryCells();
-            galleryCells.setTitle(""+(i + 1));
-            galleryCells.setBitmap(bitmaps.get(i));
-            imagesModified.add(galleryCells);
+            decodedString = Base64.decode(photo.getBase64EncodedString(), Base64.DEFAULT);
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            galleryCells.setBitmap(decodedByte);
+            galleryCellsArrayList.add(galleryCells);
         }
-        return imagesModified;
+
+        return galleryCellsArrayList;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            try {
+                Log.d("DEBUG BodyLocation","BodyLocation is being fetched!!!");
+                Photo photo = (Photo) data.getSerializableExtra("photoObject");
+
+                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(photo.getPhotoPath());
+                bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
+
+                Log.d("BodyLocation is here!!!", photo.getPhotoPath());
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto);
+            } catch (Exception e) {
+                Log.d("DEBUG BodyLocation", e.getMessage());
+            }
+        }
     }
 
     /**

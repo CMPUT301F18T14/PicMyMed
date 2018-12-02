@@ -53,7 +53,7 @@ public class ElasticSearchController {
 
     private static final String serverURI = "http://cmput301.softwareprocess.es:8080/";
     private static final String indexPath = "cmput301f18t14test";
-    private static final String querySize = "10";
+    private static final String querySize = "100";
     private static final String maxQuerySize = "999999";
     private static final String patientType = "patient";
     private static final String careProviderType = "careprovider";

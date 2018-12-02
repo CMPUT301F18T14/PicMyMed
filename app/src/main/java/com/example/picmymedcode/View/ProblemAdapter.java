@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -79,7 +80,12 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
             this.problemDateTextView = itemView.findViewById(R.id.problem_date_text_view);
             this.numberofRecordTextView = itemView.findViewById(R.id.problem_record_text_view);
             this.descriptionTextView = itemView.findViewById(R.id.problem_description_text_view);
-            this.problemMoreImageView = (ImageView) itemView.findViewById(R.id.problem_more_bar);
+            this.problemMoreImageView = itemView.findViewById(R.id.problem_more_bar);
+
+
+            if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+                problemMoreImageView .setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -131,15 +137,28 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
         TextView DescriptionTextView = myViewHolder.descriptionTextView;
         DescriptionTextView.setText(problems.get(listPosition).getDescription());
 
-        myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            //onClick to go to next activity
-            public void onClick(View v) {
-                Intent Intent = new Intent(context,RecordActivity.class);
-                Intent.putExtra("key",listPosition);
-                context.startActivity(Intent);
-            }
-        });
+        if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+            myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                //onClick to go to next activity
+                public void onClick(View v) {
+                    Intent Intent = new Intent(context,CareProviderRecordActivity.class);
+                    Intent.putExtra("key",listPosition);
+                    context.startActivity(Intent);
+                }
+            });
+        }else{
+            myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                //onClick to go to next activity
+                public void onClick(View v) {
+                    Intent Intent = new Intent(context,RecordActivity.class);
+                    Intent.putExtra("key",listPosition);
+                    context.startActivity(Intent);
+                }
+            });
+        }
+
 
 
         myViewHolder.problemMoreImageView.setOnClickListener(new View.OnClickListener() {

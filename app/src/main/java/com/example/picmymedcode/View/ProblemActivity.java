@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
@@ -103,8 +104,11 @@ public class ProblemActivity extends AppCompatActivity {
                 startActivity(problemIntent);
                 break;
             case R.id.bodylocationphotos:
-                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
-                startActivity(bodyLocationPhotoManagerIntent);
+//                Intent bodyLocationPhotoManagerIntent = new Intent(ProblemActivity.this, BodyLocationPhotoManagerActivity.class);
+//                startActivity(bodyLocationPhotoManagerIntent);
+                Intent galleryActivityIntent = new Intent(ProblemActivity.this, GalleryActivity.class);
+                galleryActivityIntent.putExtra("intentSender", 2);
+                startActivity(galleryActivityIntent);
                 break;
             case R.id.profile:
                 Intent profileIntent = new Intent(ProblemActivity.this, ProfileActivity.class);

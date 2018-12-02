@@ -52,7 +52,7 @@ import java.util.ArrayList;
 public class CareProviderProblemActivity extends Activity {
 
     private RecyclerView mRecyclerView;
-    private CareProviderProblemAdapter mAdapter;
+    private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
     static String name;
@@ -120,7 +120,7 @@ public class CareProviderProblemActivity extends Activity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManage);
-        mAdapter = new CareProviderProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
+        mAdapter = new ProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -135,7 +135,7 @@ public class CareProviderProblemActivity extends Activity {
         problemArrayList = patient.getProblemList();
         // problemPosition = position cicked
 
-        mAdapter = new CareProviderProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
+        mAdapter = new ProblemAdapter(CareProviderProblemActivity.this, problemArrayList);
         //loadFromFile();
         mRecyclerView.setAdapter(mAdapter);
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
