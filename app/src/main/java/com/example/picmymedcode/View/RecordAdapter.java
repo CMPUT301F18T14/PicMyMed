@@ -173,6 +173,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
             recordLocationTextView.setText(geolocation.getLocationName());
+        } else {
+            recordViewHolder.mapIcon.setVisibility(View.INVISIBLE);
+
         }
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
@@ -188,6 +191,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         if (records.get(i).getPhotoList().size()==0) {
             recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
         }
+
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
