@@ -9,24 +9,30 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+/**
+ * DrawViewForFixedX extends View to load a bitmap and draw an X on the coordinates
+ * provided.
+ *
+ * @author Eenna, Apu, Debra, Shawna, Ian, Umar
+ * @version 1.2 12/02/18
+ * @since 1.2
+ */
 public class DrawViewForFixedX extends View {
 
     private static final String TAG = "DrawViewStuff";
 
     private Paint paint;
     private Canvas canvas;
-    private Bitmap nonCanvasBitmap;
     private Bitmap bitmap;
-    boolean mark = false; //to see if there's already an x on the canvas
+    private float xCoordinate;
+    private float yCoordinate;
 
-    //dimensions of the view
-    int displayWidth;
-    int displayHeight;
-
-    //the coordinates of the touch event on the view
-    float xCoordinate;
-    float yCoordinate;
-
+    /**
+     * Instantiates a new Draw view for fixed x.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public DrawViewForFixedX(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupDrawing();
@@ -39,11 +45,21 @@ public class DrawViewForFixedX extends View {
         paint.setTextSize(80F);
     }
 
+    /**
+     * Sets bitmap.
+     *
+     * @param bitmap the bitmap
+     */
     public void setBitmap(Bitmap bitmap) {
-        this.nonCanvasBitmap = bitmap;
         this.bitmap = bitmap;
     }
 
+    /**
+     * Sets coordinates for where the X will be displayed on the bitmap.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void setCoordinateXY(float x, float y) {
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -52,8 +68,6 @@ public class DrawViewForFixedX extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         Log.d(TAG,"Reached onSizeChanged");
-        displayWidth=w;
-        displayHeight=h;
         super.onSizeChanged(w,h,oldw,oldh);
         if (bitmap == null){
             bitmap = Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
@@ -68,11 +82,6 @@ public class DrawViewForFixedX extends View {
         super.onDraw(canvas);
         canvas.drawBitmap(bitmap,0,0,paint);
         canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
-    }
-
-    public float[] getCoordinates(){
-        float[] coordinates = new float[]{xCoordinate,yCoordinate};
-        return coordinates;
     }
 
 }
