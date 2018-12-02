@@ -14,7 +14,7 @@ import android.view.View;
  * provided.
  *
  * @author Eenna, Apu, Debra, Shawna, Ian, Umar
- * @version 1.2 12/02/18
+ * @version 1.2 02/12/18
  * @since 1.2
  */
 public class DrawViewForFixedX extends View {

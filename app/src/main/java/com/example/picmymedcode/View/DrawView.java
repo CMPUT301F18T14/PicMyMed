@@ -15,7 +15,7 @@ import android.view.View;
  * an X on the screen. The X is drawn on a touch event.
  *
  * @author Eenna, Debra, Shawna, Ian, Apu, Umar
- * @version 1.2 12/02/18
+ * @version 1.2 02/12/18
  * @since 1.2
  */
 public class DrawView extends View {

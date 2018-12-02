@@ -63,7 +63,7 @@ import java.util.Date;
 
 /**
  * AddRecordActivity extends AppCompatActivity to create an activity for the user to
- * add a record to a problem
+ * add a record to a problem.
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.1, 16/11/18
@@ -181,8 +181,8 @@ public class AddRecordActivity extends AppCompatActivity{
     }
 
     /**
-     * Method loads saved data from file
-     * Used prior to implementation of elastic search
+     * Method loads saved data from file.
+     * Used prior to implementation of elastic search.
      */
     private void loadFromFile() {
         try {
@@ -202,8 +202,8 @@ public class AddRecordActivity extends AppCompatActivity{
     }
 
     /**
-     * Method saves data to file
-     * Used prior to implementation of elastic search
+     * Method saves data to file.
+     * Used prior to implementation of elastic search.
      */
     private void saveInFile() {
         try {
