@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,7 +31,7 @@ import java.util.Random;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public abstract class User {
+public abstract class User implements Serializable {
 
     private final String username;
     private static final Integer MIN_USER_ID_LENGTH = 8;

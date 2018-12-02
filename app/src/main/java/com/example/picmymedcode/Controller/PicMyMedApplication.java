@@ -38,9 +38,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -54,9 +58,13 @@ import static android.support.v4.content.ContextCompat.getSystemService;
  * @since   1.1
  */
 public class PicMyMedApplication {
-    public final static String FILENAME = "PicMyMedData.sav";
+    public final static String FILENAME = "PicMyMed.sav";
 
     static User loggedInUser;
+
+
+
+    static User localUser;
 
     /**
      * Method sets logged in user
@@ -83,6 +91,13 @@ public class PicMyMedApplication {
         */
     }
 
+    public static User getLocalUser() {
+        return localUser;
+    }
+
+    public static void setLocalUser(User localUser) {
+        PicMyMedApplication.localUser = localUser;
+    }
 
     public static Patient getPatientUser() {
         Patient patient = (Patient) loggedInUser;
@@ -129,7 +144,7 @@ public class PicMyMedApplication {
             } else {
                 user.setRequiresSync(Boolean.TRUE);
                 Log.i("DEBUG PMA","Saving user locally");
-                saveUserLocally();
+                saveUserLocally(context);
             }
             setLoggedInUser(null);
             Intent problemIntent = new Intent(context, MainActivity.class);
@@ -160,25 +175,58 @@ public class PicMyMedApplication {
         authorizationDialog.show();
     }
 
-    private static void saveUserLocally() {}
 
-    /**
-     * Method loads saved data from file, if it exists
-     * Used prior to implementation of elastic search
-     */
-   /* private void loadLocalUser() {
+    public static void saveUserLocally(Context context) {
         try {
-            FileInputStream fis = openFileInput(FILENAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
+            ArrayList<User> userList = new ArrayList<>();
+            FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 
             Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ArrayList<User>>() {}.getType();
-            problemArrayList = gson.fromJson(reader, typeListProblem);
+            userList.add(loggedInUser);
+            gson.toJson(userList, out);
+            out.flush();
+            fos.close();
+
+            /*FileOutputStream fos = context.openFileOutput(FILENAME,
+                    0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
+
+            Gson gson = new Gson();
+            gson.toJson(userList,osw);
+            writer.flush();
+            writer.close();*/
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
         }
-    }*/
+    }
+    public static boolean loadUserData(Context ctx) {
+        try {
+            ArrayList<User> userList;
+            FileInputStream fis = ctx.openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // 2017-09-19
+            Type listType = new TypeToken<ArrayList<Patient>>(){}.getType();
+            userList = gson.fromJson(in, listType);
+            setLocalUser(userList.get(0));
+            return true;
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            return false;
+        } catch (Exception e) {
+            Log.i("DEBUG local", e.getMessage());
+        }
+        return false;
+    }
 }

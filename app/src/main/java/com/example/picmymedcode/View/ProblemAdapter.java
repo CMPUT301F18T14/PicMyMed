@@ -30,7 +30,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -168,8 +170,12 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
-                                PicMyMedController.deleteProblem(problems.get(listPosition), context);
-                                notifyDataSetChanged();
+                                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                                    PicMyMedController.deleteProblem(problems.get(listPosition), context);
+                                    notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(context, "You must be online to delete a problem" , Toast.LENGTH_SHORT).show();
+                                }
 
                                 //saveInFile();
                                 break;

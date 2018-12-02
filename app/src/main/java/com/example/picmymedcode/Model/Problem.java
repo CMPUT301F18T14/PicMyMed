@@ -21,6 +21,7 @@ package com.example.picmymedcode.Model;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,7 +33,7 @@ import java.util.Date;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class Problem {
+public class Problem implements Serializable {
     private String startDate;
     private String title;
     private String description;

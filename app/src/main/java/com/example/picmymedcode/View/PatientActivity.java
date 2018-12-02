@@ -88,7 +88,7 @@ public class PatientActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        manageRecyclerview();
+
 
     }
 
@@ -131,6 +131,8 @@ public class PatientActivity extends AppCompatActivity {
         //to clear my file
         //problemArrayList.clear();
         //saveInFile();
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
         mRecyclerView = findViewById(R.id.problem_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
@@ -145,11 +147,10 @@ public class PatientActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
+        manageRecyclerview();
+
         //loadFromFile();
-        mAdapter = new ProblemAdapter(PatientActivity.this, problemArrayList);
-        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     /**

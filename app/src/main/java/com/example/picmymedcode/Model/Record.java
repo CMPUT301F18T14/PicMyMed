@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +36,7 @@ import java.util.Date;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class Record {
+public class Record implements Serializable {
 
     private String title;
     private String description;

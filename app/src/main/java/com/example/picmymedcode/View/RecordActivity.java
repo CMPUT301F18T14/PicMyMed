@@ -86,7 +86,7 @@ public class RecordActivity extends AppCompatActivity{
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         problemArrayList = user.getProblemList();
         //loadFromFile();
-        manageRecyclerview();
+
         position = getIntent().getIntExtra("key",0);
         String name = problemArrayList.get(position).getTitle();
 
@@ -138,6 +138,8 @@ public class RecordActivity extends AppCompatActivity{
      * Method manages recycler view to view records
      */
     public void manageRecyclerview(){
+        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        problemArrayList = user.getProblemList();
         mRecyclerView = findViewById(R.id.record_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
@@ -153,13 +155,11 @@ public class RecordActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
 
         super.onStart();
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
-        problemArrayList = user.getProblemList();
+        manageRecyclerview();
 
 
-        //loadFromFile();
-        mAdapter = new RecordAdapter(RecordActivity.this,problemArrayList.get(position).getRecordList());
-        mRecyclerView.setAdapter(mAdapter);
+
+        //load
 
     }
 

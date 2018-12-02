@@ -24,6 +24,7 @@ import android.location.Address;
 import android.location.Geocoder;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +35,7 @@ import java.util.Locale;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class Geolocation {
+public class Geolocation implements Serializable {
     private double latitude;
     private double longitude;
     private String locationName;

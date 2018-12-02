@@ -21,6 +21,7 @@ package com.example.picmymedcode.Model;
 
 import com.example.picmymedcode.Model.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class CareProvider extends User {
+public class CareProvider extends User implements Serializable {
 
     private ArrayList<String> patientList;
     /**
