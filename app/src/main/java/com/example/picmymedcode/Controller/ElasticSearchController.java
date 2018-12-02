@@ -51,7 +51,7 @@ public class ElasticSearchController {
 
     private static JestDroidClient client;
 
-    private static final String serverURI = "https://88e453b8db5b49e998c3b3936b7fdd12.us-west1.gcp.cloud.es.io:9243/";
+    private static final String serverURI = "http://cmput301.softwareprocess.es:8080";
     private static final String indexPath = "cmput301f18t14test";
     private static final String querySize = "100";
     private static final String maxQuerySize = "999999";
