@@ -162,6 +162,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                     if (  galleryList.get(i).getBase64()!= null) {
                         Log.i("DEBUG right", galleryList.get(i).getBase64());
                         intentPhotoEnlarge.putExtra("base64String", galleryList.get(i).getBase64());
+                        intentPhotoEnlarge.putExtra("title", galleryList.get(i).getTitle());
                     }else {
                             Log.i("DEBUG wrong", galleryList.get(i).getBase64());
                         }

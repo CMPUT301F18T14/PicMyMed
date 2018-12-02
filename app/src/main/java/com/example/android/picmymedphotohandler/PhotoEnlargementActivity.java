@@ -77,6 +77,8 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
     private int photoIndex;
 
+    private String title;
+
     private int bodyLocationIndex;
 
     private Bitmap bitmap;
@@ -112,6 +114,10 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(getIntent().getStringExtra("photoLabel"));
 
             photoIndex = getIntent().getIntExtra("photoIndex", 0);
+
+            title = getIntent().getStringExtra("title");
+
+            getSupportActionBar().setTitle(title);
 
             base64 = getIntent().getStringExtra("base64String");
         }
