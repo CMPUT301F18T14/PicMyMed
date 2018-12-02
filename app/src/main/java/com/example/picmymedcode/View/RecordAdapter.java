@@ -47,6 +47,7 @@ import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.Model.Record;
 
@@ -179,6 +180,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         galleryAdapter = new GalleryAdapter(galleryCells, context);
         recordPhotoSlider.setAdapter(galleryAdapter);
 
+
+        if (records.get(i).getPhotoList().size()==0) {
+            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
+        }
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
