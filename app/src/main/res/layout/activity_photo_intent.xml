@@ -3,20 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.android.picmymedphotohandler.PhotoIntentActivity">
 
-    <Button
-        android:id="@+id/camera_button"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/enlargementToolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/camera" />
+        app:titleTextColor="#ffff"
+        android:background="@drawable/blue_gradient"
+        android:minHeight="?attr/actionBarSize">
+
+        <Button
+            android:id="@+id/camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/camera" />
+
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/imageView_show1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:id="@+id/imageViewEnlarged"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:src="@drawable/aladdin"
+        android:layout_below="@id/enlargementToolbar"/>
 
 </RelativeLayout>
