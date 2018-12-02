@@ -178,6 +178,7 @@ public class GalleryActivity extends AppCompatActivity {
             decodedString = Base64.decode(photos.get(i).getBase64EncodedString(), Base64.DEFAULT);
             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             galleryCells.setPhotoIndex(i);
+            galleryCells.setTitle(""+(i+1));
             galleryCells.setBase64(photos.get(i).getBase64EncodedString());
             galleryCells.setBitmap(decodedByte);
             galleryCellsArrayList.add(galleryCells);
