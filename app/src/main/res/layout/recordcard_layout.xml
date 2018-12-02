@@ -67,9 +67,10 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="200dp"
             android:scaleType="fitEnd"
             android:src="@drawable/gallery_green"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@+id/mapIcon"
             android:tint="#16BBE5" />
 
         <ImageView
@@ -88,7 +89,8 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/record_gallery"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@+id/record_more_bar"
             android:scaleType="fitEnd"
             android:src="@drawable/location_white"
             android:tint="#16BBE5" />
