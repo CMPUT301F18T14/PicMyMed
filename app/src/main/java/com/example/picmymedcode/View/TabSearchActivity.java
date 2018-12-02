@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.picmymedcode.R;
@@ -31,6 +32,7 @@ public class TabSearchActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Search Records and Problems");
 
         final Switch geoSwitch = (Switch) findViewById(R.id.GeoSwitch);
+        final Switch photoSwitch = (Switch) findViewById(R.id.photoSwitch);
         final SearchView geoSearch = findViewById(R.id.searchGeo);
 
 
@@ -59,6 +61,20 @@ public class TabSearchActivity extends AppCompatActivity {
                 if (isChecked) {
                     //geoSwitch.setVisibility(View.GONE);
                     geoSearch.setVisibility(View.VISIBLE);
+                    photoSwitch.setChecked(false);
+                }
+                if (!isChecked){
+                    geoSearch.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        photoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(TabSearchActivity.this, "Launch Body Location gallery", Toast.LENGTH_SHORT).show();;
+                    geoSwitch.setChecked(false);
                 }
             }
         });

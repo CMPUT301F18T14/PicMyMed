@@ -29,11 +29,12 @@
 
     <Switch
         android:id="@+id/GeoSwitch"
-        android:layout_width="400dp"
-        android:layout_height="57dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_below="@id/searchRecords"
         android:layout_marginLeft="0dp"
         android:layout_toRightOf="@+id/searchGeo"
+        android:hint="@string/geolocationSearch"
         android:background="@drawable/blue_gradient"
         android:paddingLeft="55dp"
         android:visibility="visible" />
@@ -41,7 +42,7 @@
     <SearchView
         android:id="@+id/searchGeo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:queryHint="@string/geolocationSearch"
         android:background="@drawable/blue_gradient"
         android:iconifiedByDefault="false"
@@ -49,6 +50,17 @@
         android:visibility="gone">
     </SearchView>
 
+    <Switch
+        android:id="@+id/photoSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/GeoSwitch"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/searchGeo"
+        android:hint="@string/photoSearch"
+        android:background="@drawable/blue_gradient"
+        android:paddingLeft="55dp"
+        android:visibility="visible" />
 
 
     <android.support.design.widget.TabLayout
@@ -56,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/blue_gradient"
-        android:layout_below="@id/GeoSwitch">
+        android:layout_below="@id/photoSwitch">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
