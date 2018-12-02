@@ -85,6 +85,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeTextView;
         ImageView recordMoreImageView;
         ImageView galleryIcon;
+        ImageView mapIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
 
@@ -103,6 +104,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordTimeStampView = itemView.findViewById(R.id.record_time_text_view);
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
             this.galleryIcon = itemView.findViewById(R.id.record_gallery);
+            this.mapIcon = itemView.findViewById(R.id.mapIcon);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
