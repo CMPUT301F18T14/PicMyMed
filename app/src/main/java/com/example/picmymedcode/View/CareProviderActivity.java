@@ -152,6 +152,11 @@ public class CareProviderActivity extends AppCompatActivity {
         //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
+    @Override
+    public void onBackPressed() {
+        PicMyMedApplication.logoutDialog(CareProviderActivity.this);
+
+    }
 
 
 }

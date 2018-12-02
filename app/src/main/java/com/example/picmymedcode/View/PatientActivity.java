@@ -125,10 +125,9 @@ public class PatientActivity extends AppCompatActivity {
                 Intent tabIntent = new Intent(PatientActivity.this, TabSearchActivity.class);
                 startActivity(tabIntent);
                 break;
-              /*
             case R.id.logout:
-                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
-                break;*     */
+                PicMyMedApplication.logoutDialog(PatientActivity.this);
+                break;
 
         }
         return super.onOptionsItemSelected(item);
@@ -208,7 +207,6 @@ public class PatientActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         PicMyMedApplication.logoutDialog(PatientActivity.this);
 
     }
