@@ -183,7 +183,7 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
                 saveLabel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       // PicMyMedController.updateBodyLocationPhoto(index, writeLabel.getText().toString());
+                        PicMyMedController.updateBodyLocationPhoto(photoIndex, writeLabel.getText().toString());
                         getSupportActionBar().setTitle(writeLabel.getText().toString());
                         labellingDialog.cancel();
                     }
