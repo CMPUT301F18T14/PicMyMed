@@ -23,7 +23,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +37,7 @@ import android.widget.Toast;
 
 import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
@@ -72,6 +75,8 @@ public class PatientActivity extends AppCompatActivity {
     private View.OnClickListener mListener;
     public Patient patient;
     public ArrayList<Problem> problemArrayList;
+    SwipeRefreshLayout swipeLayout;
+
 
     /**
      * Method initiates problem activity
@@ -90,9 +95,42 @@ public class PatientActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Problems");
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        swipeLayout = findViewById(R.id.swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(PatientActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 3000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 3000); // Delay in millis
+                }
+
+            }
+        });
+
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
