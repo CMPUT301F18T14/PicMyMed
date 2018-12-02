@@ -2,16 +2,28 @@ package com.example.picmymedcode.View;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
 import com.example.picmymedcode.R;
 
 public class XOnBodyLocationActivity extends AppCompatActivity {
 
+    private static final String TAG = "XOnBodyLocationActivity";
+
+    LinearLayout linearLayout;
     private DrawView drawView;
     private Button saveButton;
     private Button cancelButton;
@@ -29,8 +41,38 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.bodyLocation_saveButton);
         cancelButton = (Button) findViewById(R.id.bodyLocation_cancelButton);
 
+//        drawView.setLayoutParams(new LayoutParams(300,100));
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.aladdin);
-        drawView.setBitmap(bitmap);
+
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int height = displayMetrics.heightPixels-50;
+//        int width = displayMetrics.widthPixels;
+//
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+//        ImageView imageView = (ImageView) findViewById(R.id.blank_imageView);
+//
+//        int width = imageView.getWidth();
+//        int height = imageView.getHeight();
+
+        float ratio = Math.min(width/(float)bitmap.getWidth(),height/(float)bitmap.getHeight());
+        Log.d(TAG,"height: "+bitmap.getHeight()+" width: "+bitmap.getWidth());
+        Log.d(TAG,"ratio "+ratio+" height: "+height+" width: "+width);
+
+        int desiredWidth = (int) (bitmap.getWidth()*ratio);
+        int desiredHeight = (int)(bitmap.getHeight()*ratio);
+
+        drawView.setLayoutParams(new LayoutParams(desiredWidth,desiredHeight));
+
+        Bitmap b = bitmap.copy(Bitmap.Config.ARGB_8888,true);
+
+        drawView.setBitmap(b);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,6 +23,7 @@ public class DrawView extends View {
     private Bitmap nonCanvasBitmap;
     private Bitmap bitmap;
     boolean mark = false; //to see if there's already an x on the canvas
+    private boolean doNothingOnTouch = false;
 
     //dimensions of the view
     int displayWidth;
@@ -89,28 +90,36 @@ public class DrawView extends View {
         xCoordinate = event.getX();
         yCoordinate = event.getY();
 
-      if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (!mark){
-                canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
-                Log.d(TAG, "TOUCH x: " + xCoordinate + " y: " + yCoordinate + "  mark: false");
-                mark=true;
-                invalidate();
-            } else {
-                bitmap = nonCanvasBitmap.copy(Bitmap.Config.ARGB_8888, true);
-                bitmap = Bitmap.createScaledBitmap(bitmap,displayWidth,displayHeight,false);
-                canvas = new Canvas(bitmap);
-                canvas.drawBitmap(bitmap,0,0,paint);
-                canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
-                Log.d(TAG, "TOUCH x: " + xCoordinate + " y: " + yCoordinate + "  mark: true");
-                invalidate();
+//        if (!doNothingOnTouch){
+//            return false;
+//        } else {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (!mark) {
+                    canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
+                    Log.d(TAG, "TOUCH x: " + xCoordinate + " y: " + yCoordinate + "  mark: false");
+                    mark = true;
+                    invalidate();
+                } else {
+                    bitmap = nonCanvasBitmap.copy(Bitmap.Config.ARGB_8888, true);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, displayWidth, displayHeight, false);
+                    canvas = new Canvas(bitmap);
+                    canvas.drawBitmap(bitmap, 0, 0, paint);
+                    canvas.drawText("X", xCoordinate - 20, yCoordinate + 32, paint);
+                    Log.d(TAG, "TOUCH x: " + xCoordinate + " y: " + yCoordinate + "  mark: true");
+                    invalidate();
+                }
             }
-        }
+//        }
         return true;
     }
 
     public float[] getCoordinates(){
         float[] coordinates = new float[]{xCoordinate,yCoordinate};
         return coordinates;
+    }
+
+    public void doNothingOnTouch(){
+        this.doNothingOnTouch = true;
     }
 
 }
