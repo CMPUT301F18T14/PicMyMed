@@ -34,10 +34,12 @@ public class TabSearchActivity extends AppCompatActivity {
         final Switch geoSwitch = (Switch) findViewById(R.id.GeoSwitch);
         final Switch photoSwitch = (Switch) findViewById(R.id.photoSwitch);
         final SearchView geoSearch = findViewById(R.id.searchGeo);
+        final SearchView photoSearch = findViewById(R.id.searchPhoto);
 
 
 
         searchView = findViewById(R.id.searchRecords);
+
         //searchView.setOnQueryTextListener((SearchView.OnQueryTextListener) this);
 
         tabLayout=(TabLayout)findViewById(R.id.tabLayout);
@@ -64,6 +66,7 @@ public class TabSearchActivity extends AppCompatActivity {
                     photoSwitch.setChecked(false);
                 }
                 if (!isChecked){
+//                    photoSearch.setVisibility(View.VISIBLE);
                     geoSearch.setVisibility(View.GONE);
                 }
             }
@@ -75,6 +78,9 @@ public class TabSearchActivity extends AppCompatActivity {
                 if (isChecked) {
                     Toast.makeText(TabSearchActivity.this, "Launch Body Location gallery", Toast.LENGTH_SHORT).show();;
                     geoSwitch.setChecked(false);
+                }
+                if (!isChecked){
+                    photoSearch.setVisibility(View.GONE);
                 }
             }
         });

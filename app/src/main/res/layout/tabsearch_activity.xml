@@ -52,15 +52,26 @@
 
     <Switch
         android:id="@+id/photoSwitch"
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="30dp"
         android:layout_below="@id/GeoSwitch"
         android:layout_marginLeft="0dp"
-        android:layout_toRightOf="@+id/searchGeo"
+        android:layout_toRightOf="@+id/searchPhoto"
         android:hint="@string/photoSearch"
         android:background="@drawable/blue_gradient"
         android:paddingLeft="55dp"
         android:visibility="visible" />
+
+    <SearchView
+        android:id="@+id/searchPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:queryHint="@string/photoSearch"
+        android:background="@drawable/blue_gradient"
+        android:iconifiedByDefault="false"
+        android:layout_below="@id/GeoSwitch"
+        android:visibility="gone">
+    </SearchView>
 
 
     <android.support.design.widget.TabLayout
