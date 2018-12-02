@@ -1,6 +1,7 @@
 package com.example.picmymedcode.View;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,7 +29,8 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.bodyLocation_saveButton);
         cancelButton = (Button) findViewById(R.id.bodyLocation_cancelButton);
 
-//        drawView.setBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.aladdin);
+        drawView.setBitmap(bitmap);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
