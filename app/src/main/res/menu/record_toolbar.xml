@@ -38,8 +38,16 @@
         app:showAsAction="always|withText" />
 
     <item
+        android:id="@+id/profile"
+        android:icon="@drawable/user"
+        android:orderInCategory="6"
+        android:title="Profile"
+        app:showAsAction="ifRoom|withText" />
+
+
+    <item
         android:id="@+id/logout"
-        android:orderInCategory="5"
+        android:orderInCategory="7"
         android:icon="@drawable/logout_white"
         android:title="@string/logout"
         app:showAsAction="ifRoom|withText"/>
