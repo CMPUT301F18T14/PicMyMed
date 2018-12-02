@@ -90,7 +90,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
         mGps = (ImageView) findViewById(R.id.icon_gps);
         mAdd = (ImageView) findViewById(R.id.icon_add);
-        mAdd.setVisibility(View.INVISIBLE);
+
+        mGps.setVisibility(View.INVISIBLE);
 
 
         // Hiding the Add button
@@ -113,13 +114,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     private void initialTaskInActivityForAddingRecord() {
-        searchText.setVisibility(View.VISIBLE);
 
-        mAdd.setVisibility(View.VISIBLE);
-
-        mAdd = (ImageView) findViewById(R.id.icon_add);
-        // Hiding the Add button
-        mAdd.setVisibility(View.VISIBLE);
 
         longitudeLatitude = new LongitudeLatitude(DrawMapActivity.this);
 
@@ -134,6 +129,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                     // Drawing the map
                     initMap();
                     // Making the Add button visible after the location is set
+
+                    mGps.setVisibility(View.VISIBLE);
+                    // Hiding the Add button
                     mAdd.setVisibility(View.VISIBLE);
                     // Searching Location
                     initSearch();
