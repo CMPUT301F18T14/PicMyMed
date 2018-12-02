@@ -37,6 +37,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.android.picmymedphotohandler.GalleryAdapter;
@@ -269,10 +270,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
+                                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                                    PicMyMedController.deleteRecord(problem, records.get(i), context);
+                                    notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(context, "You must be online to delete a record" , Toast.LENGTH_SHORT).show();
+                                }
 
-
-                                PicMyMedController.deleteRecord(problem, records.get(i));
-                                notifyDataSetChanged();
 
                                 break;
                         }

@@ -1,6 +1,8 @@
 package com.example.picmymedcode.Model;
 
-public class BodyLocationPhoto extends Photo {
+import java.io.Serializable;
+
+public class BodyLocationPhoto extends Photo implements Serializable {
     private String label;
 
     public BodyLocationPhoto(String filepath) {

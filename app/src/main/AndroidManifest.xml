@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.picmymedcode">
 
     <uses-feature
@@ -16,6 +17,7 @@
         android:maxSdkVersion="18" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,8 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".View.MainActivity"
+            android:name="com.example.picmymedcode.View.MainActivity"
             android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,56 +35,57 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.SignUpActivity"
+            android:name="com.example.picmymedcode.View.SignUpActivity"
             android:label="Enter Username" />
         <activity
-            android:name=".View.UserProfileTypeActivity"
+            android:name="com.example.picmymedcode.View.UserProfileTypeActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".View.ProblemActivity"
+            android:name="com.example.picmymedcode.View.PatientActivity"
             android:label="Problem" />
         <activity
-            android:name=".View.TabSearchActivity"
+            android:name="com.example.picmymedcode.View.TabSearchActivity"
             android:label="Tab Search" />
         <activity
-            android:name=".View.AddProblemActivity"
+            android:name="com.example.picmymedcode.View.AddProblemActivity"
             android:label="New Problem" />
         <activity
-            android:name=".View.EditProblemActivity"
+            android:name="com.example.picmymedcode.View.EditProblemActivity"
             android:label="Edit Problem" />
         <activity
-            android:name=".View.RecordActivity"
+            android:name="com.example.picmymedcode.View.RecordActivity"
             android:label="Record" />
         <activity
-            android:name=".View.AddRecordActivity"
+            android:name="com.example.picmymedcode.View.AddRecordActivity"
             android:label="New Record" />
         <activity
-            android:name=".View.CommentActivity"
+            android:name="com.example.picmymedcode.View.CommentActivity"
             android:label="Comment" />
         <activity
-            android:name=".View.ProfileActivity"
+            android:name="com.example.picmymedcode.View.ProfileActivity"
             android:label="Profile" />
         <activity
-            android:name=".View.EditProfileActivity"
+            android:name="com.example.picmymedcode.View.EditProfileActivity"
             android:label="Edit Profile" />
         <activity
-            android:name=".View.CareProviderActivity"
+            android:name="com.example.picmymedcode.View.CareProviderActivity"
             android:label="Care Provider" />
         <activity
-            android:name=".View.CareProviderCommentActivity"
+            android:name="com.example.picmymedcode.View.CareProviderCommentActivity"
             android:label="Add patient" />
         <activity
-            android:name=".View.CareProviderRecordActivity"
+            android:name="com.example.picmymedcode.View.CareProviderRecordActivity"
             android:label="Record" />
         <activity
-            android:name=".View.CareProviderAddComment"
+            android:name="com.example.picmymedcode.View.CareProviderAddComment"
             android:label="Add Commet" />
         <activity
-            android:name=".View.CareProviderProblemActivity"
+            android:name="com.example.picmymedcode.View.CareProviderProblemActivity"
             android:label="Patient&apos;s Problems" />
         <activity
-            android:name=".View.CareProviderAddPatientActivity"
+            android:name="com.example.picmymedcode.View.CareProviderAddPatientActivity"
             android:label="Add patient" />
+
         <activity
             android:name="com.example.android.picmymedphotohandler.PhotoIntentActivity"
             android:exported="true"
@@ -110,9 +114,9 @@
             android:name=".View.BodyLocationPhotoManagerActivity"
             android:exported="true"
             android:label="Body Location Photo Manager" />
-        <activity
-            android:name=".View.XOnBodyLocationActivity"
-            android:exported="true" />
+      
+        <activity android:name=".View.XOnBodyLocationActivity"
+            android:exported="true"/>
         <activity android:name=".View.EditRecordActivity" />
 
         <uses-library
@@ -139,7 +143,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".View.XFixedPhotoActivity"></activity>
     </application>
 
 </manifest>

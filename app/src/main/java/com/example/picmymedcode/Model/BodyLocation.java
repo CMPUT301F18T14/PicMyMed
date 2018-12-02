@@ -21,6 +21,7 @@
 package com.example.picmymedcode.Model;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -30,7 +31,7 @@ import java.util.HashMap;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class BodyLocation {
+public class BodyLocation implements Serializable {
     private HashMap<String, Boolean> bodyLocations;
 
     /**

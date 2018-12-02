@@ -19,6 +19,7 @@
  */
 package com.example.picmymedcode.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,7 +31,7 @@ import java.util.Random;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public abstract class User {
+public abstract class User implements Serializable {
 
     private final String username;
     private static final Integer MIN_USER_ID_LENGTH = 8;
@@ -39,6 +40,9 @@ public abstract class User {
     private ArrayList<String> authorizedDevices;
     private String phoneNumber;
     private String email;
+    private String lastDeviceUsed;
+
+    private Boolean requiresSync;
 
     /**
      * Initializes the username, verifying that it is a correct length
@@ -189,6 +193,22 @@ public abstract class User {
         }
 
 
+    }
+
+    public String getLastDeviceUsed() {
+        return lastDeviceUsed;
+    }
+
+    public void setLastDeviceUsed(String lastDeviceUsed) {
+        this.lastDeviceUsed = lastDeviceUsed;
+    }
+
+    public Boolean getRequiresSync() {
+        return requiresSync;
+    }
+
+    public void setRequiresSync(Boolean requiresSync) {
+        this.requiresSync = requiresSync;
     }
 
 }

@@ -102,7 +102,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
             //onClick to go to next activity
             public void onClick(View v) {
                 patientnameData.remove(listPosition);
-                PicMyMedController.updateCareProvider((CareProvider)(PicMyMedApplication.getLoggedInUser()));
+                PicMyMedController.updateUser(PicMyMedApplication.getLoggedInUser(), context);
                 notifyDataSetChanged();
             }
         });

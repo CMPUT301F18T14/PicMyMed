@@ -141,7 +141,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
                 bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
 
                 Log.d("BodyLocation is here!!!", photo.getPhotoPath());
-                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto);
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, BodyLocationPhotoManagerActivity.this);
             } catch (Exception e) {
                 Log.d("DEBUG BodyLocation", e.getMessage());
             }

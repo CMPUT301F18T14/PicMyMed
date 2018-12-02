@@ -100,7 +100,7 @@ public class EditProblemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Problem problem = problemArrayList.get(position);
-                PicMyMedController.editProblem(problem, mDate,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
+                PicMyMedController.editProblem(problem, mDate,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString(), EditProblemActivity.this);
                // Problem problem = new Problem (PicMyMedApplication.getUsername(),date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 //PicMyMedController.addProblem(problem);
                 //problemArrayList.add(problem);

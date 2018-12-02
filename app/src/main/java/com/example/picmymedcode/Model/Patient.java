@@ -20,6 +20,7 @@
 
 package com.example.picmymedcode.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  * @version 1.1, 16/11/18
  * @since   1.1
  */
-public class Patient extends User {
+public class Patient extends User implements Serializable {
 
     ArrayList<Problem> problemList;
     ArrayList<BodyLocationPhoto> bodyLocationPhotoList;

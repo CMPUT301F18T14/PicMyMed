@@ -22,7 +22,6 @@ package com.example.picmymedcode.View;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -104,20 +103,24 @@ public class MainActivity extends AppCompatActivity {
     private void loginHandler() {
 
         String username = enteredUsername.getText().toString();
-
-        if (PicMyMedController.checkValidUser(username) == 1) {
-            user = PicMyMedController.getUser(username);
-            if (user != null) {
-                if (PicMyMedController.checkAuthorizedDevice(user) != 1) {
-                    authorizeDeviceDialog();
+        if (PicMyMedApplication.isNetworkAvailable(MainActivity.this)) {
+            if (updateLocal() == 1) { toastMessage("Synchornized old data");}
+            if (PicMyMedController.checkValidUser(username) == 1) {
+                user = PicMyMedController.getUser(username);
+                if (user != null) {
+                    if (PicMyMedController.checkAuthorizedDevice(user) != 1) {
+                        authorizeDeviceDialog();
+                    } else {
+                        initializeApp(Boolean.FALSE);
+                    }
                 } else {
-                    initializeApp(Boolean.FALSE);
+                    toastMessage("Error retrieving profile.");
                 }
             } else {
-                toastMessage( "Error retrieving profile.");
+                toastMessage("The username does not exist!");
             }
         } else {
-            toastMessage( "The username does not exist!");
+            toastMessage("You must be connected to the internet to login.");
         }
     }
 
@@ -181,20 +184,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private int updateLocal() {
+        if (PicMyMedApplication.loadUserData(MainActivity.this)) {
+            User localUser = PicMyMedApplication.getLocalUser();
+            if (localUser.getRequiresSync() == Boolean.TRUE) {
+                localUser.setRequiresSync(Boolean.FALSE);
+                PicMyMedController.updateUser(localUser, MainActivity.this);
+                Log.i("DEBUG", "saving old data");
+
+                return 1;
+            }
+        }
+        return 0;
+    }
 
     private int initializeApp(Boolean authorizeUser) {
         try {
             if (user != null) {
                 if (authorizeUser) {
-                    PicMyMedController.addAuthorizedDevice(user);
+                    PicMyMedController.addAuthorizedDevice(user, MainActivity.this);
                 }
                 PicMyMedApplication.setLoggedInUser(user);
+                PicMyMedController.updateLastDeviceUsed(user, MainActivity.this);
                 if (user.isPatient()) {
-                    Intent problemIntent = new Intent(MainActivity.this, ProblemActivity.class);
+                    Intent problemIntent = new Intent(MainActivity.this, PatientActivity.class);
                     startActivity(problemIntent);
+                    finish();
                 } else {
                     Intent patientIntent = new Intent(MainActivity.this, CareProviderActivity.class);
                     startActivity(patientIntent);
+                    finish();
                 }
             }
         } catch(Exception e) {
@@ -210,16 +229,23 @@ public class MainActivity extends AppCompatActivity {
 
             barcode = data.getParcelableExtra(barcodeID);
             randomUserID = barcode.displayValue;
+            if (PicMyMedApplication.isNetworkAvailable(MainActivity.this)) {
+                if (updateLocal() == 1) {
+                    toastMessage("Synchronizing previous data ...");
+                }
 
-            if (user == null) {
-                String username = PicMyMedController.getUsernameByID(randomUserID);
-                user = PicMyMedController.getUser(username);
-            }
-            if (user.getRandomUserID().equals(randomUserID)) {
-                toastMessage("Logged in successfully!");
-                initializeApp(Boolean.TRUE);
+                if (user == null) {
+                    String username = PicMyMedController.getUsernameByID(randomUserID);
+                    user = PicMyMedController.getUser(username);
+                }
+                if (user.getRandomUserID().equals(randomUserID)) {
+                    toastMessage("Logged in successfully!");
+                    initializeApp(Boolean.TRUE);
+                } else {
+                    toastMessage("Login was unsuccessful!");
+                }
             } else {
-                toastMessage("Login was unsuccessful!");
+                toastMessage("You must be connected to the internet to login.");
             }
         }
     }
