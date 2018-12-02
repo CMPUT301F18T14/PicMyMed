@@ -117,7 +117,7 @@ public class PatientActivity extends AppCompatActivity {
                 startActivity(profileIntent);
                 break;
             case R.id.photomap:
-                Intent mapIntent = new Intent(ProblemActivity.this, DrawMapActivity.class);
+                Intent mapIntent = new Intent(PatientActivity.this, DrawMapActivity.class);
                 mapIntent.putExtra("callingActivity", "AllProblem");
                 startActivity(mapIntent);
                 break;
