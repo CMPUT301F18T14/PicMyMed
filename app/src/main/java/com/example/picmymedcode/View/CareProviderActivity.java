@@ -117,7 +117,7 @@ public class CareProviderActivity extends AppCompatActivity {
                 startActivity(profileIntent);
                 break;
             case R.id.logout:
-                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                PicMyMedApplication.logoutDialog(CareProviderActivity.this);
                 break;
         }
         return super.onOptionsItemSelected(item);
