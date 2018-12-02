@@ -29,7 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -45,7 +47,9 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
  * @since   1.1
  */
 public class ProfileActivity extends AppCompatActivity {
-    Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+    User user = PicMyMedApplication.getLoggedInUser();
+
 
     /**
      * Method initializes the activity
