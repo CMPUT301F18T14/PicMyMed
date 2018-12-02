@@ -43,7 +43,7 @@
             android:layout_below="@+id/record_description_text_view"
             android:clickable="true"
             android:onClick="onClick"
-            android:text="@string/location"
+            android:text=""
             android:textColor="#000000"
             android:textSize="14sp" />
 
