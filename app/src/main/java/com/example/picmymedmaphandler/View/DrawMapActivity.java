@@ -105,9 +105,15 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
             }
         }
 
-        if (callingActiviy.equals("RecordActivity")) {
+        if (callingActiviy.equals("MultiRecordActivity")) {
             if (isServicesOK()) {
                 initMapForMultipleMarker();
+            }
+        }
+
+        if (callingActiviy.equals("SingleRecordActivity")) {
+            if (isServicesOK()) {
+                initMapForSingleRecordMarker();
             }
         }
 
@@ -270,6 +276,31 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
                 drawMultipleMarker(user.getProblemList().get(problemIndex).getAllLatLng());
+            }
+        });
+
+    }
+
+    private void initMapForSingleRecordMarker() {
+        final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
+
+        final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Toast.makeText(DrawMapActivity.this, "Map is ready.", Toast.LENGTH_SHORT).show();
+                // Initializing google map
+                mGoogleMap = googleMap;
+
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                // Moving camera to the specific location
+                movingMapCamera(mLatLng, MAP_ZOOM_LEVEL);
+
+                drawMarker(mLatLng, DEVICE_LOCATION_TITLE);
             }
         });
 

@@ -127,7 +127,7 @@ public class RecordActivity extends AppCompatActivity{
             case R.id.mapRecordIcon:
                 Intent mapIntent = new Intent(RecordActivity.this, DrawMapActivity.class);
                 mapIntent.putExtra("key",position);
-                mapIntent.putExtra("callingActivity", "RecordActivity");
+                mapIntent.putExtra("callingActivity", "MultiRecordActivity");
                 startActivity(mapIntent);
                 break;
 
