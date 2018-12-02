@@ -29,6 +29,7 @@ public class TabSearchActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.Tab_Search_Toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setTitle("Search Records and Problems");
 
         final Switch geoSwitch = (Switch) findViewById(R.id.GeoSwitch);

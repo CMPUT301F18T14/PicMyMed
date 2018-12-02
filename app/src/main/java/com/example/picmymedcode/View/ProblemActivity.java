@@ -123,6 +123,9 @@ public class ProblemActivity extends AppCompatActivity {
                 Intent tabIntent = new Intent(ProblemActivity.this, TabSearchActivity.class);
                 startActivity(tabIntent);
                 break;
+            case R.id.logout:
+                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
