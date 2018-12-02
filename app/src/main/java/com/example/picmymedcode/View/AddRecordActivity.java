@@ -120,6 +120,9 @@ public class AddRecordActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (placeHolderPhotoList.size()<10) {
                     Intent photoIntent = new Intent(AddRecordActivity.this, PhotoIntentActivity.class);
+                    if (photo != null) {
+                        photoIntent.putExtra("base64ForConsistency", photo.getBase64EncodedString());
+                    }
                     startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
 
                 }
