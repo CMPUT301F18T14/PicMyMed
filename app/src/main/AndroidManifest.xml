@@ -24,7 +24,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:ignore="HardcodedDebugMode">
         <activity
             android:name="com.example.picmymedcode.View.MainActivity"
             android:windowSoftInputMode="adjustResize">
