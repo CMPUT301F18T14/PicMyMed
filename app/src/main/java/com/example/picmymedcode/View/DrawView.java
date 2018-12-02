@@ -23,7 +23,6 @@ public class DrawView extends View {
     private Bitmap nonCanvasBitmap;
     private Bitmap bitmap;
     boolean mark = false; //to see if there's already an x on the canvas
-    private boolean doNothingOnTouch = false;
 
     //dimensions of the view
     int displayWidth;
@@ -70,20 +69,6 @@ public class DrawView extends View {
         canvas.drawBitmap(bitmap,0,0,paint);
     }
 
-//    @Override
-//    public final void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-//        int sizew = MeasureSpec.getSize(widthMeasureSpec);
-//        int sizeh = MeasureSpec.getSize(heightMeasureSpec);
-//
-////        Log.d(TAG,"onMeasure: view w: "+sizew+"; view h: "+sizeh);
-//        float ratio = Math.min(sizew/immutable.getWidth(),sizeh/immutable.getHeight());
-//
-//        int desiredWidth = (int) (immutable.getWidth()*ratio);
-//        int desiredHeight = (int)(immutable.getHeight()*ratio);
-//
-//        setMeasuredDimension(desiredWidth,desiredHeight);
-//    }
-
     @Override
     public  boolean onTouchEvent(MotionEvent event){
         Log.d(TAG,"Reached onTouchEvent");
@@ -116,10 +101,6 @@ public class DrawView extends View {
     public float[] getCoordinates(){
         float[] coordinates = new float[]{xCoordinate,yCoordinate};
         return coordinates;
-    }
-
-    public void doNothingOnTouch(){
-        this.doNothingOnTouch = true;
     }
 
 }
