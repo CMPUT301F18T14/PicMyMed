@@ -81,6 +81,8 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
 
 //        drawView.setLayoutParams(new LayoutParams(300,100));
 
+        Log.d("Activity X", "I am here ");
+
         String base64 = getIntent().getStringExtra("base64String");
 
         // Creating a file object
@@ -118,7 +120,7 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
 
         drawView.setLayoutParams(new LayoutParams(desiredWidth,desiredHeight));
 
-        //Bitmap b = bitmap.copy(Bitmap.Config.ARGB_8888,true);
+        Bitmap b = bitmap.copy(Bitmap.Config.ARGB_8888,true);
 
         drawView.setBitmap(bitmap);
 

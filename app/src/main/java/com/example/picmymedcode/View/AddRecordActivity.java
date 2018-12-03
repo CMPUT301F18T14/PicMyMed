@@ -23,7 +23,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -31,6 +34,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +73,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -122,12 +128,29 @@ public class AddRecordActivity extends AppCompatActivity{
         Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
         arrayListProblem = user.getProblemList();
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_activity);
         placeHolderPhotoList = new ArrayList<Photo>();
         locationNameTextView = (TextView) findViewById(R.id.location_text);
         final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
         final EditText recordDescriptionEditText = findViewById(R.id.record_description_edit_text);
+
+
+        if (user.getBodyLocationPhotoList().size()==0) {
+
+            String imageUri = "drawable://" + R.drawable.default_bodyloc;
+            Bitmap bitmap = decodeImageFromFiles(imageUri, 200, 200 );
+            BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
+            bodyLocationPhoto.setLabel("Default Photo");
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50 , byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            bodyLocationPhoto.setBase64EncodedString(base64Image);
+            //user.getBodyLocationPhotoList().add(bodyLocationPhoto);
+            PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, AddRecordActivity.this);
+        }
 
         geoLocationButton = (Button) findViewById(R.id.record_geo_button);
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -269,30 +292,7 @@ public class AddRecordActivity extends AppCompatActivity{
         }
     }
 
-    /**
-     * Gets result when returning to the app
-     *
-     * @param requestCode   int
-     * @param resultCode    int
-     * @param data          Intent
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
 
-            Gson gson = new Gson();
-            gson.toJson(arrayListProblem,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
     //    @Override
 //    public void onRequestPermissionsResult(int requestCode,
 //                                           String permissions[], int[] grantResults) {
@@ -503,6 +503,37 @@ public class AddRecordActivity extends AppCompatActivity{
         mapIntent.putExtra("Latitude", currentLocation.getLatitude());
         mapIntent.putExtra("Longitude", currentLocation.getLongitude());
         startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
+    }
+
+    public Bitmap decodeImageFromFiles(String ImageFilePath, int imageViewWidth, int imageViewHeight){
+        BitmapFactory.Options scalingOptions = new BitmapFactory.Options();
+
+        // Do not load the Bitmap into memory
+        scalingOptions.inJustDecodeBounds = true;
+
+        // Passing the scalingOptions to decode the original file
+        BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
+
+        // Determine how much to scale down the image
+        int scaleFactor = 1;
+        int originalImageWidth = scalingOptions.outWidth;
+        int originalImageHeight = scalingOptions.outHeight;
+        while (originalImageWidth / scaleFactor / 2 >= imageViewWidth
+                && originalImageHeight / scaleFactor / 2 >= imageViewHeight) {
+
+            scaleFactor *= 2;
+        }
+
+        // Decode with the scaling factor
+        scalingOptions.inSampleSize = scaleFactor;
+
+        // Loading onto memory in order to save the bitmap
+        scalingOptions.inJustDecodeBounds = false;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
+
+
+        return bitmap;
     }
 
 }

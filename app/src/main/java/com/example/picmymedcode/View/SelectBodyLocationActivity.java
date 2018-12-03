@@ -86,10 +86,11 @@ public class SelectBodyLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_body_location);
 
-        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        /*Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
 
         if (user.getBodyLocationPhotoList().size()==0) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_bodyloc);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 300,300,false);
             String imageUri = "drawable://" + R.drawable.default_bodyloc;
             BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
             bodyLocationPhoto.setLabel("Default Photo");
@@ -100,7 +101,7 @@ public class SelectBodyLocationActivity extends AppCompatActivity {
             bodyLocationPhoto.setBase64EncodedString(base64Image);
             //user.getBodyLocationPhotoList().add(bodyLocationPhoto);
             PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, SelectBodyLocationActivity.this);
-        }
+        } */
 
 
         Button takePhotoButton = findViewById(R.id.take_photo_button);
