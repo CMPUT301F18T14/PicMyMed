@@ -233,7 +233,7 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * Method sets required sync
+     * Method sets required sync.
      *
      * @param requiresSync  Boolean
      */
