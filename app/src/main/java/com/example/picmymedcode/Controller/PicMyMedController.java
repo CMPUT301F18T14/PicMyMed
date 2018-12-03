@@ -20,6 +20,7 @@
 package com.example.picmymedcode.Controller;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Build;
 import android.util.AtomicFile;
 import android.util.Log;
@@ -33,6 +34,7 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.Model.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -46,6 +48,7 @@ import java.util.UUID;
  */
 public class PicMyMedController {
 
+    final static int metersFromLocation = 100;
     /**
      * Method checks if the user is valid
      *
@@ -553,6 +556,90 @@ public class PicMyMedController {
             Log.i("DEBUG PMC", e.getMessage());
         }
         return 0;
+    }
+
+    /*public static ArrayList<Problem> searchForProblemsByKeywords(ArrayList<Problem> problems, ArrayList<String> searchKeywords) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (String searchKey : searchKeywords) {
+                if (!problem.getDescription().contains(searchKey) && !problem.getTitle().contains(searchKey)) {
+                    break;
+                }
+            }
+            matchingProblems.add(problem);
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecordsByKeywords(ArrayList<Record> records, ArrayList<String> searchKeywords) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Record record : records) {
+            for (String searchKey : searchKeywords) {
+                if (!record.getDescription().contains(searchKey) && !record.getTitle().contains(searchKey)) {
+                    break;
+                }
+            }
+            matchingRecords.add(record);
+        }
+        return matchingRecords;
+    }
+    */
+    public static ArrayList<Problem> searchForProbByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getBodyLocation().getPhotoID().equals(bodyLocationID)) {
+                    matchingProblems.add(problem);
+
+                }
+            }
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getBodyLocation().getPhotoID().equals(bodyLocationID)) {
+                    matchingRecords.add(record);
+
+                }
+            }
+        }
+        return matchingRecords;
+    }
+
+
+    public static ArrayList<Problem> searchForProbByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getGeolocation() != null) {
+                    Location recordLocation = new Location("");
+                    recordLocation.setLatitude(record.getGeolocation().getLatitude());
+                    recordLocation.setLongitude((record.getGeolocation().getLongitude()));
+                    if (searchLocation.distanceTo(recordLocation) <= metersFromLocation) {
+                        matchingProblems.add(problem);
+                    }
+                }
+            }
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getGeolocation() != null) {
+                    Location recordLocation = new Location("");
+                    recordLocation.setLatitude(record.getGeolocation().getLatitude());
+                    recordLocation.setLongitude((record.getGeolocation().getLongitude()));
+                    if (searchLocation.distanceTo(recordLocation) <= metersFromLocation) {
+                        matchingRecords.add(record);
+                    }
+                }
+            }
+        }
+        return matchingRecords;
     }
 
     /**

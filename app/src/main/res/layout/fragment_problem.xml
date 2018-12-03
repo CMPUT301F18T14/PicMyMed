@@ -8,13 +8,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/problem_search_bodylocation_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/problem_search_location_button"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/blue_gradient"
+            android:text="Search by bodylocation" />
+
+        <Button
+            android:id="@+id/problem_search_location_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:layout_below="@+id/Tab_Search_Toolbar"
+            android:background="@drawable/blue_gradient"
+            android:text="Search by location" />
+
         <SearchView
             android:id="@+id/searchProblem"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:queryHint="@string/searchKeyword"
             android:background="@drawable/blue_gradient"
-            android:layout_below="@+id/Tab_Search_Toolbar"
+            android:layout_below="@+id/problem_search_bodylocation_button"
             android:iconifiedByDefault="false"></SearchView>
 
         <android.support.v7.widget.RecyclerView

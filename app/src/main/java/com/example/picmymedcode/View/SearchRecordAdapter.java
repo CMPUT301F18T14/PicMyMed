@@ -150,12 +150,7 @@ public class SearchRecordAdapter extends RecyclerView.Adapter<SearchRecordAdapte
         recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getDate().toString());
         Geolocation geolocation = records.get(i).getGeolocation();
-        if (geolocation != null) {
-            recordLocationTextView.setText(geolocation.getLocationName());
-        } else {
-            recordViewHolder.mapIcon.setVisibility(View.INVISIBLE);
 
-        }
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
         // Initialize the layout format and span
@@ -167,8 +162,10 @@ public class SearchRecordAdapter extends RecyclerView.Adapter<SearchRecordAdapte
         recordPhotoSlider.setAdapter(galleryAdapter);
 
 
+
         if (records.get(i).getPhotoList().size()==0) {
-            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
+            recordViewHolder.galleryIcon.setVisibility(View.GONE);
+            recordPhotoSlider.setVisibility(View.GONE);
         }
 
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
