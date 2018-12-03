@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * Photo class sets the file path of a photo and returns it
@@ -33,7 +34,9 @@ import java.io.Serializable;
  * @since   1.1
  */
 public class Photo implements Serializable{
-    private int photoID;
+
+
+
     private String filepath;
     private String base64EncodedString;
     /**
@@ -43,6 +46,7 @@ public class Photo implements Serializable{
      */
     public Photo(String filepath) {
         this.filepath = filepath;
+
     }
 
 
@@ -70,4 +74,5 @@ public class Photo implements Serializable{
     public void setBase64EncodedString(String base64EncodedString) {
         this.base64EncodedString = base64EncodedString;
     }
+
 }

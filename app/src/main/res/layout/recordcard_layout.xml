@@ -63,6 +63,17 @@
             android:layout_below="@id/record_location_text_view" />
 
         <ImageView
+            android:id="@+id/body_location_icon"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitEnd"
+            android:src="@drawable/bodylocation_white"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@+id/record_gallery"
+            android:tint="#16BBE5" />
+
+        <ImageView
             android:id="@+id/record_gallery"
             android:layout_width="50dp"
             android:layout_height="30dp"
