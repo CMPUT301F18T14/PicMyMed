@@ -171,6 +171,9 @@ public class PicMyMedApplication {
             }
             saveUserLocally(context);
             */
+            SharedPreferences.Editor editor = context.getSharedPreferences(Preference,MODE_PRIVATE).edit();
+            editor.remove("username");
+            editor.apply();
             setLoggedInUser(null);
             Intent problemIntent = new Intent(context, MainActivity.class);
             context.startActivity(problemIntent);
