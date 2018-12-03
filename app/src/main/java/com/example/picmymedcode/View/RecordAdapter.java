@@ -193,8 +193,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         } else {
             recordViewHolder.mapIcon.setVisibility(View.GONE);
         }
+        if (records.get(i).getBodyLocation()==null){
+            recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
+        }
 
-        recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
         // Initialize the layout format and span
@@ -249,6 +251,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 String bodyID = bodyLocation.getPhotoID();
                 BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoByID(bodyID);
                 if (bodyLocationPhoto != null) {
+                    recordViewHolder.bodyLocationIcon.setVisibility(View.VISIBLE);
                     Log.d("inside if", "not null");
                     viewBodyLocationIntent.putExtra("base64String", bodyLocationPhoto.getBase64EncodedString());
                     viewBodyLocationIntent.putExtra("x", bodyLocation.getxCoordinate());
@@ -256,6 +259,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                     context.startActivity(viewBodyLocationIntent);
                 }
                 else {
+                    recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
                     Log.d("onclicklistener", "did not work");
                 }
             }
