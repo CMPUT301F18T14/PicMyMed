@@ -105,7 +105,8 @@
             android:layout_marginBottom="10dp"
             android:scaleType="fitEnd"
             android:src="@drawable/bodylocation_white"
-            android:tint="#16BBE5" />
+            android:tint="#16BBE5"
+            android:visibility="visible"/>
 
     </RelativeLayout>
 
