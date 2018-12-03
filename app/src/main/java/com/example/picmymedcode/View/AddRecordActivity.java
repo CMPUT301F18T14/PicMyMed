@@ -77,9 +77,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * AddRecordActivity extends AppCompatActivity to create an activity for the user to
@@ -197,7 +199,9 @@ public class AddRecordActivity extends AppCompatActivity{
              */
             @Override
             public void onClick(View v) {
-                Record record = new Record (recordTitleEditText.getText().toString(), Calendar.getInstance().getTime());
+                SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());
+                final String date = mSimpleDateFormat.format(new Date());
+                Record record = new Record (recordTitleEditText.getText().toString(), date);
                 //Date timeStamp = Calendar.getInstance().getTime();
                 //record.setDate(timeStamp);
                 record.setDescription(recordDescriptionEditText.getText().toString());

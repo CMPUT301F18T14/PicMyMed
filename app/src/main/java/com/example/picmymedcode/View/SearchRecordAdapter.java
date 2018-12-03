@@ -142,13 +142,13 @@ public class SearchRecordAdapter extends RecyclerView.Adapter<SearchRecordAdapte
         TextView recordDescriptionTextView = recordViewHolder.recordDescriptionTextView;
         TextView recordTimeTextView = recordViewHolder.recordTimeTextView;
         // I think this is deprecated? Ask Shawna
-        TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
+        //TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
 
 
         recordTitleTextView.setText(records.get(i).getTitle());
         recordDescriptionTextView.setText(records.get(i).getDescription());
-        recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+        recordTimeTextView.setText(records.get(i).getDate().toString());
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
             recordLocationTextView.setText(geolocation.getLocationName());
@@ -236,7 +236,7 @@ public class SearchRecordAdapter extends RecyclerView.Adapter<SearchRecordAdapte
 
 
 
-        recordTimeStampTextView.setText(records.get(i).getDate().toString());
+        //recordTimeStampTextView.setText(records.get(i).getDate().toString());
 
     }
 

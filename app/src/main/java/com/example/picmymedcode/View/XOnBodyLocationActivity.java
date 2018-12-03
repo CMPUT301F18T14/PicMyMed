@@ -140,9 +140,6 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
                 setResult(RESULT_OK, backToAddRecordActivity);
                 finish();
 
-                Toast.makeText(XOnBodyLocationActivity.this,"x: " + coordinates[0] +
-                        " y: " + coordinates[1], Toast.LENGTH_SHORT).show();
-
             }
         });
 

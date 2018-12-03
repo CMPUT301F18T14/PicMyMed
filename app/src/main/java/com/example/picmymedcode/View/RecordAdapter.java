@@ -171,7 +171,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordDescriptionTextView = recordViewHolder.recordDescriptionTextView;
         TextView recordTimeTextView = recordViewHolder.recordTimeTextView;
         // I think this is deprecated? Ask Shawna
-        TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
+        //TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
 
         if(records.get(i).getTitle().equals("")){
@@ -185,7 +185,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             recordDescriptionTextView.setText(records.get(i).getDescription());
         }
 
-        recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+        recordTimeTextView.setText(records.get(i).getDate());
 
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
@@ -378,7 +378,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             }
         });
 
-        recordTimeStampTextView.setText(records.get(i).getDate().toString());
+        //recordTimeStampTextView.setText(records.get(i).getDate());
 
     }
 
