@@ -41,6 +41,7 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
+import com.example.picmymedmaphandler.View.DrawMapActivity;
 
 import java.util.ArrayList;
 
@@ -132,6 +133,21 @@ public class CareProviderProblemActivity extends Activity {
             public void onClick(View v) {
                 Intent tabIntent = new Intent(CareProviderProblemActivity.this, TabSearchActivity.class);
                 startActivity(tabIntent);
+            }
+        });
+        //todo
+        Button cpmap = findViewById(R.id.careprovider_map_view);
+        cpmap.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking on the search button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent mapIntent = new Intent(CareProviderProblemActivity.this, DrawMapActivity.class);
+                mapIntent.putExtra("callingActivity", "AllProblemFromCare");
+                startActivity(mapIntent);
             }
         });
         manageRecyclerview();
