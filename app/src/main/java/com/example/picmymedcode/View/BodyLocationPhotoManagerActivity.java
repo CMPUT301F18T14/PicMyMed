@@ -45,6 +45,7 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,8 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
 
     private LoadingImageFiles loadingImageFiles;
 
+    Patient user;
+
     private static final int CAMERA_REQUEST_CODE = 333;
     // private BodyLocationPhoto bodyLocationPhoto;
     //private Patient user;
@@ -87,7 +90,12 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location_photo_manager);
 
+
         //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
+        user = (Patient) PicMyMedApplication.getLoggedInUser();
+
+
 
         Button takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +153,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
 
         // Prepare the data for adapter compatibility
         Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
         galleryCells = preparedDataFromBase64(user.getBodyLocationPhotoList());
         // Initialize the adapter
         galleryAdapter = new GalleryAdapter(galleryCells, BodyLocationPhotoManagerActivity.this);

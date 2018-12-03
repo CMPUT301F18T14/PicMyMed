@@ -50,6 +50,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocation;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
+import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -193,9 +194,20 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         } else {
             recordViewHolder.mapIcon.setVisibility(View.GONE);
         }
-        if (records.get(i).getBodyLocation()==null){
+
+        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
+        records.get(i).getBodyLocation();
+        System.out.println("BODY LOCATION "+bodyLocation);
+        if (bodyLocation!=null){
+            System.out.println(records.get(i).getBodyLocation());
+            Log.d("getBodyLocation", "not null ");
+            recordViewHolder.bodyLocationIcon.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("getBodyLocation", "null ");
             recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
         }
+
 
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
@@ -267,6 +279,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 Log.d("onclicklistener", "clicked");
                 Intent viewBodyLocationIntent = new Intent(context, XFixedPhotoActivity.class);
                 Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
                 BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
                 String bodyID = bodyLocation.getPhotoID();
                 BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoByID(bodyID);
