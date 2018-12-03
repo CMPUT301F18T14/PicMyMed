@@ -32,22 +32,22 @@ import java.util.HashMap;
  * @since   1.1
  */
 public class BodyLocation implements Serializable {
-    private BodyLocationPhoto photo;
+    private String photoID;
     private float xCoordinate;
     private float yCoordinate;
 
-    public BodyLocation (BodyLocationPhoto photo, float xCoordinate, float yCoordinate) {
-        this.photo = photo;
+    public BodyLocation (String photoID, float xCoordinate, float yCoordinate) {
+        this.photoID = photoID;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
 
-    public BodyLocationPhoto getPhoto() {
-        return photo;
+    public String getPhotoID() {
+        return photoID;
     }
 
-    public void setPhoto(BodyLocationPhoto photo) {
-        this.photo = photo;
+    public void setPhotoID(String photoID) {
+        this.photoID = photoID;
     }
 
     public float getxCoordinate() {

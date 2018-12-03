@@ -45,6 +45,7 @@ import com.example.android.picmymedphotohandler.GalleryCells;
 import com.example.android.picmymedphotohandler.SlideShowAdapter;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -90,6 +91,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         ImageView mapIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
+        ImageView bodyLocationIcon;
 
 
         /**
@@ -107,6 +109,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
             this.galleryIcon = itemView.findViewById(R.id.record_gallery);
             this.mapIcon = itemView.findViewById(R.id.mapIcon);
+            this.bodyLocationIcon = itemView.findViewById(R.id.body_location_icon);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -220,6 +223,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 context.startActivity(drawMapActivityIntent);
             }
         });
+
+//        recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent viewBodyLocationIntent = new Intent(context, XFixedPhotoActivity.class);
+//                Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+//                if (BodyLocationPhoto = user.getBodyLocationPhotoByID() == null)
+//
+//                viewBodyLocationIntent.putExtra("base64String", "");
+//            }
+//        });
+
 
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {

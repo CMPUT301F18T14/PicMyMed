@@ -298,7 +298,7 @@ public class AddRecordActivity extends AppCompatActivity{
                 float xCoordinate = data.getFloatExtra("x", 0);
                 float yCoordinate = data.getFloatExtra("y", 0);
                 BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoList().get(index);
-                bodyLocation = new BodyLocation(bodyLocationPhoto, xCoordinate, yCoordinate);
+                bodyLocation = new BodyLocation(bodyLocationPhoto.getPhotoID(), xCoordinate, yCoordinate);
                 Log.d(TAG, "successfully created bodylocation");
             } catch (Exception e) {
                 Log.d(TAG, "creating bodylocation failed");
