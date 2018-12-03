@@ -1,32 +1,19 @@
-/*
- * ProblemFragment
- *
- * 1.2
- *
- * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
 package com.example.picmymedcode.View;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -35,78 +22,96 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-/**
- * ProblemFragment extends Fragment to handle menu options
- *
- * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.2, 02/12/18
- * @since   1.1
- */
-public class ProblemFragment extends Fragment{
+public class ProblemFragment extends Fragment  {
     private RecyclerView mRecyclerView;
-    private ProblemAdapter mAdapter;
+    private SearchProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     private View.OnClickListener mListener;
     public Patient patient;
-    public ArrayList<Problem> problemArrayList;
+    public ArrayList<Problem> problemArrayList,filteredDataList;
     View v;
 
-    /**
-     * Instantiates the class
-     *
-     */
     public ProblemFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Creates the menu view
-     *
-     * @param inflater              LayoutInflater
-     * @param container             ViewGroup
-     * @param savedInstanceState    Bundle
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_problem, container, false);
+
         manageRecyclerview();
+
+        SearchView searchView = v.findViewById(R.id.searchProblem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("query", query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filteredDataList = filter(problemArrayList, newText);
+                mAdapter.setFilter(filteredDataList);
+                return true;
+            }
+        });
+
         return v;
 
     }
+    private void filter(String text) {
+        ArrayList<Problem> filteredList = new ArrayList<>();
 
-    /**
-     * Handles the recycler view
-     */
-    public void manageRecyclerview(){
-        //to clear my file
-        //problemArrayList.clear();
-        //saveInFile();
-        if (!PicMyMedApplication.getLoggedInUser().isPatient()){
-            final Patient patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
-            problemArrayList = patient.getProblemList();
-            mRecyclerView = v.findViewById(R.id.fragment_problem_recycle_view);
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManage = new LinearLayoutManager(getActivity());
-            mRecyclerView.setLayoutManager(mLayoutManage);
-            //mAdapter = new CareProviderProblemAdapter(getContext(), problemArrayList);
-            mRecyclerView.setAdapter(mAdapter);
-
-        }else{
-            Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-            problemArrayList = user.getProblemList();
-            mRecyclerView = v.findViewById(R.id.fragment_problem_recycle_view);
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManage = new LinearLayoutManager(getActivity());
-            mRecyclerView.setLayoutManager(mLayoutManage);
-            mAdapter = new ProblemAdapter(getContext(), problemArrayList);
-            mRecyclerView.setAdapter(mAdapter);
+        for (int i = 0; i < problemArrayList.size(); i++) {
+            if (problemArrayList.get(i).getDescription().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(problemArrayList.get(i));
+            }
         }
+
+        mAdapter.setFilter(filteredList);
+    }
+    public void manageRecyclerview(){
+
+        if (PicMyMedApplication.getLoggedInUser().isPatient()) {
+            problemArrayList = ((Patient)PicMyMedApplication.getLoggedInUser()).getProblemList();
+        } else {
+            problemArrayList = ((Patient)PicMyMedController.getPatient(CareProviderProblemActivity.name)).getProblemList();
+        }
+
+        mRecyclerView = v.findViewById(R.id.fragment_problem_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManage = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManage);
+        mAdapter = new SearchProblemAdapter(getContext(), problemArrayList);
+        mRecyclerView.setAdapter(mAdapter);
 
 
     }
 
+
+
+
+    private ArrayList<Problem> filter(ArrayList<Problem> problemArrayList, String newText) {
+        newText=newText.toLowerCase();
+        String text;
+        String text2;
+        filteredDataList=new ArrayList<>();
+        for(Problem dataFromDataList:problemArrayList){
+            text=dataFromDataList.getDescription().toLowerCase();
+            text2=dataFromDataList.getTitle().toString();
+            if(text.contains(newText) || text2.contains(newText)){
+                filteredDataList.add(dataFromDataList);
+            }
+        }
+
+        return filteredDataList;
+    }
 }

@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 public class UserTest extends TestCase {
 
     public void testUsername() {
-        User user = new CareProvider("test");
+        User user = new CareProvider("testPatient", "test@gmail.com", "1231231111");
         assertTrue("Wrong username", user.getUsername().equals("test"));
     }
 

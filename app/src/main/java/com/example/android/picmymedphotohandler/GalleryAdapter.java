@@ -154,6 +154,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             Log.d("GalleryAdapter: ", "Used by GalleryActivity");
             // Listener for selecting the image
             viewHolder.imageView.setOnClickListener(new View.OnClickListener(){
+                /**
+                 * Starts the intent to enlarge the photo
+                 *
+                 * @param view  View
+                 */
                 @Override
                 public void onClick(View view){
                     // Upon click Adapter will send an intent to a different activity
@@ -180,6 +185,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         if (context instanceof SelectBodyLocationActivity) {
             Log.d("GalleryAdapter: ", "Used by SelectBodyLocationActivity");
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Starts the intent to enlarge the photo
+                 *
+                 * @param view  View
+                 */
                 @Override
                 public void onClick(View view) {
                     //Intent xIntent = new Intent(view.getContext(), XFixedPhotoActivity.class);

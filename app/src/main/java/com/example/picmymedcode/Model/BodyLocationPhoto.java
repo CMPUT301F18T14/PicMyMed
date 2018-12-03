@@ -85,6 +85,12 @@ public class BodyLocationPhoto extends Photo implements Serializable {
         this.photoID = stringBuilder.toString();
 
     }
+
+    /**
+     * Method returns photo photoID
+     *
+     * @return  photoID
+     */
     public String getPhotoID() {
         return photoID;
     }

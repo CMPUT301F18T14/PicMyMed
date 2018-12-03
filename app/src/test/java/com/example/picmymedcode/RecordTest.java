@@ -15,13 +15,13 @@ import java.util.Date;
 public class RecordTest extends TestCase {
 
     public void testGetTitle (){
-        Record record = new Record ("Record");
+        Record record = new Record ("Record", Date g);
         assertEquals("Record", record.getTitle());
     }
 
     public void testSetTitle (){
-        Record record = new Record ("Record");
-        record.setTitle("Record2");
+        Record record = new Record ("NewTitle");
+        record.setTitle("NewTitle");
         assertEquals("Record2", record.getTitle());
     }
 
