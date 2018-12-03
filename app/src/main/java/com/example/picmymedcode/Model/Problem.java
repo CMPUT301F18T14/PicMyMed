@@ -57,9 +57,11 @@ public class Problem implements Serializable {
      */
     public Problem(String username, String startDate, String title, String description) {
         if (title.length() > MAX_TITLE_LENGTH) {
-            throw new IllegalArgumentException(String.format("Problem should be less than 30 characters", String.valueOf(MAX_TITLE_LENGTH)));
+            throw new IllegalArgumentException(String.format("Problem should be less than %s characters",
+                    String.valueOf(MAX_TITLE_LENGTH)));
         } else if (description.length()> MAX_DESC_LENGTH) {
-            throw new IllegalArgumentException(String.format("Description should be less than 300 characters", String.valueOf(MAX_DESC_LENGTH)));
+            throw new IllegalArgumentException(String.format("Description should be less than %s characters",
+                    String.valueOf(MAX_DESC_LENGTH)));
         } else
             {
                 this.username = username;
@@ -108,7 +110,12 @@ public class Problem implements Serializable {
      */
 
     public void setTitle(String title) {
-        this.title = title;
+        if (title.length() > MAX_TITLE_LENGTH) {
+            throw new IllegalArgumentException(String.format("Problem should be less than %s characters",
+                    String.valueOf(MAX_TITLE_LENGTH)));
+        } else {
+            this.title = title;
+        }
     }
     /**
      * Method gets problem description
@@ -126,7 +133,12 @@ public class Problem implements Serializable {
      */
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description.length()> MAX_DESC_LENGTH) {
+            throw new IllegalArgumentException(String.format("Description should be less than %s characters",
+                    String.valueOf(MAX_DESC_LENGTH)));
+        } else {
+            this.description = description;
+        }
     }
     /**
      * Method gets a list of records
