@@ -6,13 +6,13 @@
     <item
         android:id="@+id/button_delete"
         android:icon="@drawable/delete_white"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="Delete Photo"
         app:showAsAction="always|withText" />
     <item
         android:id="@+id/labelButton"
         android:icon="@drawable/label_white"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="Add Body Location Label"
         app:showAsAction="always|withText" />
 

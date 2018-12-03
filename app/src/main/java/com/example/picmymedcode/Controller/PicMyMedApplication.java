@@ -176,6 +176,7 @@ public class PicMyMedApplication {
     }
 
 
+
     public static void saveUserLocally(Context context) {
         try {
             ArrayList<User> userList = new ArrayList<>();

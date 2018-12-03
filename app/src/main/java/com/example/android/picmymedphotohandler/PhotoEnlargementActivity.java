@@ -102,6 +102,7 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
         receivedIntentFrom = getIntent().getIntExtra("intentSender", 0);
 
+
         imageView = (ImageView) findViewById(R.id.imageViewEnlarged);
 
         if (receivedIntentFrom == 1) {                  // From BodyLocation
@@ -147,6 +148,9 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.enlargement_toolbar,menu);
+        if (receivedIntentFrom==2) {
+            menu.removeItem(R.id.labelButton);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
