@@ -18,15 +18,67 @@ public class createNewUserActivityTest {
     public ActivityTestRule<SignUpActivity> newUsernameActivityTestRuleActivity =
             new ActivityTestRule<SignUpActivity>(SignUpActivity.class);
 
+    @Test
+    public void TestSignupAsPatient(){
+
+        String patientId = "apuian10";
+
+        String phoneNumber = "5555555555";
+
+        String email = "apuian@gmail.com";
+
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(patientId));
+
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(withId(R.id.enteredPhone)).perform(ViewActions.click());
+
+        Espresso.onView(withId(R.id.enteredPhone)).perform(typeText(phoneNumber));
+
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(withId(R.id.enteredEmail)).perform(ViewActions.click());
+
+        Espresso.onView(withId(R.id.enteredEmail)).perform(typeText(email));
+
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(withId(R.id.signUpButton)).perform(ViewActions.click());
+
+    }
+
     /**
-     * Testing new signup activity
+     * Testing signing up as a patient. If the patient userId already exists, you will
+     * receive user already exists.
+     * Try putting new patientId every time.
      */
     @Test
-    public void testNewSignup(){
+    public void TestSignupAsCareProvider(){
 
-        Espresso.onView(withId(R.id.enteredUID)).perform(typeText("NewGuc"));
+        String patientId = "apuian11";
 
-        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
+        String phoneNumber = "5555555555";
+
+        String email = "apuian@gmail.com";
+
+        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(patientId));
+
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(withId(R.id.enteredPhone)).perform(ViewActions.click());
+
+        Espresso.onView(withId(R.id.enteredPhone)).perform(typeText(phoneNumber));
+
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(withId(R.id.enteredEmail)).perform(ViewActions.click());
+
+        Espresso.onView(withId(R.id.enteredEmail)).perform(typeText(email));
+
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(withId(R.id.signUpButton)).perform(ViewActions.click());
+
     }
 
 }

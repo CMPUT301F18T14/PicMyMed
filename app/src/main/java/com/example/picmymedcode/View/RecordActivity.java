@@ -180,6 +180,8 @@ public class RecordActivity extends AppCompatActivity{
                 commentIntent.putExtra("key",position);
                 startActivity(commentIntent);
                 break;
+
+                //check here why profile
             case R.id.profile:
                 Intent profileIntent = new Intent(RecordActivity.this, ProfileActivity.class);
                 startActivity(profileIntent);

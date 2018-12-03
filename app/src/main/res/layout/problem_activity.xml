@@ -21,13 +21,13 @@
         android:id="@+id/problem_swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/problemToolbar">
+        android:layout_below="@id/problemToolbar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/problem_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/problemToolbar"
+            android:layout_below="@id/problemToolbar"
             android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

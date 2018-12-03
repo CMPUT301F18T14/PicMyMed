@@ -6,7 +6,7 @@
         android:id="@+id/mapRecordIcon"
         android:icon="@drawable/map"
         android:orderInCategory="1"
-        android:title="Map of Records"
+        android:title="@string/map_of_records"
         app:showAsAction="ifRoom|withText" />
 
 
@@ -14,28 +14,28 @@
         android:id="@+id/slideshowIcon"
         android:icon="@drawable/slideshow_white"
         android:orderInCategory="3"
-        android:title="Slideshow of Photos"
+        android:title="@string/slideshow_of_photos"
         app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/view_commentIcon"
         android:icon="@drawable/comment_white"
         android:orderInCategory="4"
-        android:title="View Comments"
+        android:title="@string/view_comments"
         app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/add_recordIcon"
         android:icon="@drawable/plus_sign"
         android:orderInCategory="5"
-        android:title="Add Record"
+        android:title="@string/add_record"
         app:showAsAction="always|withText" />
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/user"
         android:orderInCategory="6"
-        android:title="Profile"
+        android:title="@string/profile"
         app:showAsAction="ifRoom|withText" />
 
 

@@ -43,7 +43,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
+import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
 
 import java.io.ByteArrayOutputStream;
@@ -105,6 +109,12 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private String consistentPhoto;
 
+    private Patient user;
+
+    private int problemIndex;
+
+    private Problem problem;
+
     /**
      * Method loads activity state
      *
@@ -115,11 +125,17 @@ public class PhotoIntentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_intent);
 
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
 
+        problemIndex = getIntent().getIntExtra("problemIndex", 0);
+
         consistentPhoto = getIntent().getStringExtra("base64ForConsistency");
+
+        problem = user.getProblemList().get(problemIndex);
 
         imageView = (ImageView) findViewById(R.id.imageViewEnlarged);
 
@@ -135,6 +151,16 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
             // Setting the bitmap into imageView
             imageView.setImageBitmap(bitmapForConsistency);
+        } else if (problem.getRecordList().size() != 0) {
+            Record record = problem.getRecordList().get(problem.getRecordList().size() - 1);
+            if (record.getPhotoList().size() != 0) {
+                consistentPhoto = record.getPhotoList().get(record.getPhotoList().size() - 1).getBase64EncodedString();
+                byte[] decodedString = Base64.decode(consistentPhoto, Base64.DEFAULT);
+                // Converting to Bitmap
+                Bitmap bitmapForConsistency = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                // Setting the bitmap into imageView
+                imageView.setImageBitmap(bitmapForConsistency);
+            }
         }
 
         cameraButton.setOnClickListener(new View.OnClickListener() {

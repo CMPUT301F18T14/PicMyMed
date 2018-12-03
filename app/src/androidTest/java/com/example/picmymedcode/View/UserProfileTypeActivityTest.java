@@ -29,13 +29,7 @@ public class UserProfileTypeActivityTest {
     @Test
     public void TestSignupAsPatient(){
 
-        String patientId = " GucciP";
-
         Espresso.onView(withId(R.id.patientButton)).perform(ViewActions.click());
-
-        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(patientId));
-
-        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
     }
 
     /**
@@ -46,13 +40,7 @@ public class UserProfileTypeActivityTest {
     @Test
     public void TestSignupAsCareProvider(){
 
-        String careProviderId = " GucciD";
-
         Espresso.onView(withId(R.id.careProviderButton)).perform(ViewActions.click());
-
-        Espresso.onView(withId(R.id.enteredUID)).perform(typeText(careProviderId));
-
-        Espresso.onView(withText("Let's Start")).perform(ViewActions.click());
     }
 
 }
