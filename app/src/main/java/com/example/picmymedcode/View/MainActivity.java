@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private final static int CAMERA_PERMISSION_REQUEST = 200;
     private final static String barcodeID = "barcode";
     private final Handler handler = new Handler();
-    private final int delay = 5000; //milliseconds
+    private final int delay = 10000; //milliseconds
 
     private Button loginBtn;
     private EditText enteredUsername;
@@ -233,16 +233,16 @@ public class MainActivity extends AppCompatActivity {
                 }
                 PicMyMedApplication.setLoggedInUser(user);
                 PicMyMedController.updateLastDeviceUsed(user, MainActivity.this);
-                handler.postDelayed(new Runnable(){
+               /* handler.postDelayed(new Runnable(){
                     public void run(){
                         Log.i("handler Debug", "run()");
                         if(PicMyMedApplication.getLoggedInUser() != null) {
                             PicMyMedController.updateUser(PicMyMedApplication.getLoggedInUser(), MainActivity.this);
-                            Toast.makeText(MainActivity.this, "trying to update", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, "trying to update", Toast.LENGTH_SHORT).show();
                         }
                         handler.postDelayed(this, delay);
                     }
-                }, delay);
+                }, delay);*/
                 if (user.isPatient()) {
                     Intent problemIntent = new Intent(MainActivity.this, PatientActivity.class);
                     startActivity(problemIntent);

@@ -154,7 +154,7 @@ public class PicMyMedController {
         try {
             if (user != null) {
                 if (PicMyMedApplication.isNetworkAvailable(context)) {
-                    Toast.makeText(context, "Does not require update next run", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Does not require update next run", Toast.LENGTH_SHORT).show();
                     user.setRequiresSync(Boolean.FALSE);
                     if (user.isPatient()) {
                         updatePatient((Patient) user, context);
