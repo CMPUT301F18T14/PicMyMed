@@ -182,6 +182,8 @@ public class LongitudeLatitude {
                     mFusedLocationClient = null;
 
                     latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+                    locationRequest = null;
                 }
             }, Looper.myLooper());
 
