@@ -177,6 +177,7 @@ public class AddRecordActivity extends AppCompatActivity{
 
                 checkForLocationRequestSettings();
                 if(currentLocation != null) {
+                    geoLocationButton.setText("Map is ready!");
                     sendingMapIntent();
                 }
             }
@@ -271,6 +272,7 @@ public class AddRecordActivity extends AppCompatActivity{
         photoCounts.setText("You can add "+(10-placeHolderPhotoList.size())+ " more photos");
         locationRequest = null;
         geoLocationButton.setEnabled(true);
+        geoLocationButton.setText("Geolocation");
     }
     /**
      * Method starts add record activity
