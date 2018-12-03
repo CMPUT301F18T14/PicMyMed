@@ -59,6 +59,20 @@ public class SelectBodyLocationActivity extends AppCompatActivity {
 
         //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
 
+        Button takePhotoButton = findViewById(R.id.take_photo_button);
+        takePhotoButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking add problem button
+             *
+             * @param v View
+             */
+            @Override
+            public void onClick(View v) {
+                Intent photoIntent = new Intent(SelectBodyLocationActivity.this,PhotoIntentActivity.class);
+                startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
+            }
+        });
+
         startActivity();
     }
 
@@ -138,6 +152,21 @@ public class SelectBodyLocationActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            try {
+                Log.d("DEBUG BodyLocation","BodyLocation is being fetched!!!");
+                Photo photo = (Photo) data.getSerializableExtra("photoObject");
+
+                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(photo.getPhotoPath());
+                bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
+
+                Log.d("BodyLocation is here!!!", photo.getPhotoPath());
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, SelectBodyLocationActivity.this);
+            } catch (Exception e) {
+                Log.d("DEBUG BodyLocation", e.getMessage());
+            }
+        }
+
         if (requestCode == REQUEST_FOR_XACTIVITY_DRAW) {
             try {
                 Log.d("class", "SelectBodyLocationActivity");
