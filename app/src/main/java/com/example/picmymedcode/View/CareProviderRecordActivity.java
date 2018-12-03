@@ -1,3 +1,22 @@
+/*
+ * CareProviderRecordActivity
+ *
+ * 1.1
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedcode.View;
 
 import android.content.Intent;
@@ -23,6 +42,14 @@ import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 
+/**
+ * CareProviderRecordActivity extends AppCompatActivity to
+ * handle records
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class CareProviderRecordActivity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -33,7 +60,11 @@ public class CareProviderRecordActivity extends AppCompatActivity{
     SwipeRefreshLayout swipeLayout;
 
 
-
+    /**
+     * Method creates the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.careproviderrecord_activity);
@@ -54,6 +85,11 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         patientPhone.setText(patient.getPhoneNumber());
         //wow factor pass intent to call
         patientPhone.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method Handles user clicking on phone number to initiate call
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);// Send phone number to intent as data
@@ -67,6 +103,11 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         patientEmail.setText(patient.getEmail());
         //wow factor pass intent email
         patientEmail.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on email to initiate email
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -79,11 +120,14 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         });
 
 
-
-
         ImageView addRecordImageView = (ImageView) findViewById(R.id.add_comment_image_view);
         addRecordImageView.bringToFront();
         addRecordImageView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on add comment icon to add a new comment
+             *
+             * @param v View
+             */
             public void onClick(View v) {
                 Intent problemIntent = new Intent(CareProviderRecordActivity.this,CareProviderAddComment.class);
                 problemIntent.putExtra("key2",problemPosition);
@@ -94,6 +138,11 @@ public class CareProviderRecordActivity extends AppCompatActivity{
 
         Button careproviderViewCommentImageView = (Button) findViewById(R.id.careprovider_view_comment_image_view);
         careproviderViewCommentImageView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on view comments button
+             *
+             * @param v View
+             */
             public void onClick(View v) {
                 Intent problemIntent = new Intent(CareProviderRecordActivity.this,CareProviderCommentActivity.class);
                 startActivity(problemIntent);
@@ -105,12 +154,18 @@ public class CareProviderRecordActivity extends AppCompatActivity{
         swipeLayout = findViewById(R.id.careprovider_record_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Method handles user swiping down on screen to refresh records
+             */
             @Override
             public void onRefresh() {
 
                 if (PicMyMedApplication.isNetworkAvailable(CareProviderRecordActivity.this)) {
                     // To keep animation for 4 seconds
                     new Handler().postDelayed(new Runnable() {
+                        /**
+                         * Method handles updating layout
+                         */
                         @Override public void run() {
                             PicMyMedApplication.getMostRecentChanges();
                             manageRecyclerview();
@@ -122,6 +177,9 @@ public class CareProviderRecordActivity extends AppCompatActivity{
 
                 }else {
                     new Handler().postDelayed(new Runnable() {
+                        /**
+                         * Method handles animation to refresh layout
+                         */
                         @Override public void run() {
                             // Stop animation (This will be after 3 seconds)
                             swipeLayout.setRefreshing(false);
@@ -138,6 +196,9 @@ public class CareProviderRecordActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Method handles recycler view of problems
+     */
     public void manageRecyclerview(){
         problemPosition = getIntent().getIntExtra("key",0);
         patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
