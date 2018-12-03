@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
+import com.example.picmymedcode.BuildConfig;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocation;
@@ -144,9 +145,11 @@ public class AddRecordActivity extends AppCompatActivity{
 
         if (user.getBodyLocationPhotoList().size()==0) {
 
-            String imageUri = "drawable://" + R.drawable.default_bodyloc;
-            Bitmap bitmap = decodeImageFromFiles(imageUri, 200, 200 );
-            BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
+            //Uri imageUri = Uri.parse("android.resource://"+BuildConfig.APPLICATION_ID+"/drawable/default_bodyloc.png" );
+            String imageUri =  "drawable://"  + R.drawable.default_bodyloc;
+
+            Bitmap bitmap = decodeImageFromFiles(imageUri.toString(), 200, 200 );
+            BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri.toString());
             bodyLocationPhoto.setLabel("Default Photo");
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 50 , byteArrayOutputStream);

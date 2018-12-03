@@ -1,7 +1,7 @@
 /*
  * GalleryActivity
  *
- * 1.1
+ * 1.2
  *
  * November 16, 2018
  *
@@ -54,7 +54,7 @@ import java.util.List;
  * the GalleryAdapter settings to show the Gallery
  *
  * @author  Md Touhidul (Apu) Islam
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  *
  * Ideas Combined from the following sources:
