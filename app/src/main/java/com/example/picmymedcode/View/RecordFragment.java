@@ -35,7 +35,9 @@ public class RecordFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
     public ArrayList<Record> allRecordArrayList = new ArrayList<Record>(),filteredDataList;
-    private static ArrayList<Record> baseRecordArrayList = new ArrayList<Record>();
+    public ArrayList<Record> filteredDataListTwo = new ArrayList<Record>();
+    public SearchView searchView;
+
     Patient patient;
     int PLACE_PICKER_REQUEST = 1;
     View v;
@@ -54,16 +56,15 @@ public class RecordFragment extends Fragment {
             AllrecordArrayList.addAll(problemArrayList.get(i).getRecordList());
         }*/
         manageRecyclerview();
-
+        searchView = v.findViewById(R.id.searchRecord);
         for (Problem problem : problemArrayList) {
             if (problem.getRecordList() != null) {
                 allRecordArrayList.addAll(problem.getRecordList());
-                baseRecordArrayList.addAll(problem.getRecordList());
             }
         }
 
 
-        SearchView searchView = v.findViewById(R.id.searchRecords);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
@@ -84,8 +85,7 @@ public class RecordFragment extends Fragment {
         searchLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allRecordArrayList.clear();
-                allRecordArrayList.addAll(baseRecordArrayList);
+
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
 
@@ -95,9 +95,25 @@ public class RecordFragment extends Fragment {
                 } catch (GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        Log.d("query", query);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        filteredDataList = filter(filteredDataListTwo, newText);
+                        mAdapter.setFilter(filteredDataList);
+                        return true;
+                    }
+                });
                 //PicMyMedController.searchForProbByBodyLocation(problemArrayList,);
             }
         });
+
 
         return v;
     }
@@ -150,8 +166,8 @@ public class RecordFragment extends Fragment {
                 location.setLongitude(lon);
 
 
-                allRecordArrayList = PicMyMedController.searchForRecByGeolocation(problemArrayList,location);
-                mAdapter =  new SearchRecordAdapter(getContext(), allRecordArrayList);
+                filteredDataListTwo = PicMyMedController.searchForRecByGeolocation(problemArrayList,location);
+                mAdapter =  new SearchRecordAdapter(getContext(), filteredDataListTwo);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
             }

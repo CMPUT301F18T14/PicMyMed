@@ -47,6 +47,7 @@ public class ProblemFragment extends Fragment  {
     private View.OnClickListener mListener;
     public Patient patient;
     public ArrayList<Problem> problemArrayList = new ArrayList<Problem>(),filteredDataList;
+    public ArrayList<Problem> filteredDataTwo = new ArrayList<Problem>();
     //public static ArrayList<Problem> baseProblemArrayList = new ArrayList<Problem>();
     int PLACE_PICKER_REQUEST = 1;
     public SearchView searchView;
@@ -70,24 +71,57 @@ public class ProblemFragment extends Fragment  {
 
 
         Button searchLocation = v.findViewById(R.id.problem_search_location_button);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("query", query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filteredDataList = filter(problemArrayList, newText);
+                mAdapter.setFilter(filteredDataList);
+                return true;
+            }
+        });
 
         searchLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            try {
+                //problemArrayList.clear();
+               // problemArrayList.addAll(baseProblemArrayList);
+                startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+            } catch (GooglePlayServicesRepairableException e) {
+                e.printStackTrace();
+            } catch (GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            }
+            //PicMyMedController.searchForProbByBodyLocation(problemArrayList,);
 
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                try {
-                    //problemArrayList.clear();
-                   // problemArrayList.addAll(baseProblemArrayList);
-                    startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.d("query", query);
+                    return false;
                 }
-                //PicMyMedController.searchForProbByBodyLocation(problemArrayList,);
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    filteredDataList = filter(filteredDataTwo, newText);
+                    mAdapter.setFilter(filteredDataList);
+                    return true;
+                }
+            });
             }
         });
+
+
 
         return v;
 
@@ -155,29 +189,13 @@ public class ProblemFragment extends Fragment  {
                 location.setLatitude(lat);
                 location.setLongitude(lon);
 
-                filteredDataList = PicMyMedController.searchForProbByGeolocation(problemArrayList,location);
+                filteredDataTwo = PicMyMedController.searchForProbByGeolocation(problemArrayList,location);
                 Log.i("DEBUG SEARCH", problemArrayList.toString());
-                mAdapter = new SearchProblemAdapter(getContext(), filteredDataList);
-                final ArrayList<Problem> filteredDataTwo = new ArrayList<Problem>();
-                filteredDataTwo.addAll(filteredDataList);
+                mAdapter = new SearchProblemAdapter(getContext(), filteredDataTwo);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        Log.d("query", query);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        filteredDataList = filter(filteredDataTwo, newText);
-                        mAdapter.setFilter(filteredDataTwo);
-                        return true;
-                    }
-                });
 /*
                 problemArrayList = PicMyMedController.searchForProbByGeolocation(problemArrayList,location);
                 mAdapter.notifyDataSetChanged();*/
