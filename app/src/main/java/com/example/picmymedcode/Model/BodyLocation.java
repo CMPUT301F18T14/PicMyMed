@@ -69,6 +69,7 @@ public class BodyLocation implements Serializable {
         }
 
     }
+
     /**
      * this method removes a body location
      *
@@ -79,6 +80,7 @@ public class BodyLocation implements Serializable {
             bodyLocations.put(location, false);
         }
     }
+
     /**
      * This method returns a body location
      *
@@ -92,7 +94,4 @@ public class BodyLocation implements Serializable {
             }
             return false;
     }
-
-
-
 }

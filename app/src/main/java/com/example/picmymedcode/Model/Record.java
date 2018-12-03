@@ -160,12 +160,20 @@ public class Record implements Serializable {
         }
     }
 
-
-
+    /**
+     * method sets date
+     *
+     * @param date  Date
+     */
     public void setDate(Date date) {
         this.timeStamp = date;
     }
 
+    /**
+     * method gets the date
+     *
+     * @return  Date
+     */
     public Date getDate() {
         return this.timeStamp;
     }

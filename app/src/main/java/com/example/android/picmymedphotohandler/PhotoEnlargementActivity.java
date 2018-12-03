@@ -141,10 +141,14 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
 
         // Setting the bitmap into imageView
         imageView.setImageBitmap(bitmap);
-
-
     }
 
+    /**
+     * Method creates top toolbad
+     *
+     * @param menu  menu
+     * @return      menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.enlargement_toolbar,menu);
@@ -154,6 +158,12 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Method sets what each menu item does
+     *
+     * @param item  MenuItem
+     * @return      itemSelected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

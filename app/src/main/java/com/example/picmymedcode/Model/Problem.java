@@ -193,6 +193,11 @@ public class Problem implements Serializable {
         this.commentList.add(commentList);
     }
 
+    /**
+     * Method get all geolocations
+     *
+     * @return  allLatLng
+     */
     public ArrayList<LatLng> getAllLatLng() {
         ArrayList<LatLng> allLatLng = new ArrayList<LatLng>();
         for (Record record: this.getRecordList()) {

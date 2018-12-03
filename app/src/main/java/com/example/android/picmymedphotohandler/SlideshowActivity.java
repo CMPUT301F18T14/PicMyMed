@@ -111,10 +111,14 @@ public class SlideshowActivity extends AppCompatActivity {
 
         indicator.setViewPager(viewPager);
 
-        // Initializing the handler
+        /**
+         * Method initializes the handler
+         */
         handler = new Handler();
 
-        // Initializing the runnable task that handler will handle
+        /**
+         * Method initializes the runnable task the handler will handle
+         */
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -134,10 +138,14 @@ public class SlideshowActivity extends AppCompatActivity {
             }
         };
 
-        // Initializing the timer
+        /**
+         * Method initializes the timer
+         */
         timer = new Timer();
 
-        // Scheduling task
+        /**
+         * Method schedules the task
+         */
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
