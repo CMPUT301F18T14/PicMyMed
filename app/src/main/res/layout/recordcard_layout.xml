@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/record_title"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
         <TextView
@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/record_time_text_view"
+            android:layout_centerHorizontal="true"
             android:text="@string/description"
             android:textColor="#000000"
             android:textSize="14sp" />
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/record_description_text_view"
+            android:layout_centerHorizontal="true"
             android:clickable="true"
             android:onClick="onClick"
             android:text=""
@@ -51,6 +53,7 @@
             android:id="@+id/record_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/record_title_text_view"
             android:text="@string/time"
             android:textColor="#000000"
@@ -60,36 +63,12 @@
             android:id="@+id/recyclerView_in_recordCard"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_below="@id/record_location_text_view" />
-
-        <ImageView
-            android:id="@+id/body_location_icon"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitEnd"
-            android:src="@drawable/bodylocation_white"
-            android:layout_marginBottom="10dp"
-            android:layout_above="@+id/record_gallery"
-            android:tint="#16BBE5" />
-
-        <ImageView
-            android:id="@+id/record_gallery"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitEnd"
-            android:src="@drawable/gallery_green"
-            android:layout_marginBottom="10dp"
-            android:layout_above="@+id/mapIcon"
-            android:tint="#16BBE5" />
+            android:layout_below="@id/record_gallery" />
 
         <ImageView
             android:id="@+id/record_more_bar"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@id/recyclerView_in_recordCard"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:scaleType="fitEnd"
             android:src="@drawable/more_vert"
@@ -99,11 +78,33 @@
             android:id="@+id/mapIcon"
             android:layout_width="50dp"
             android:layout_height="30dp"
+            android:layout_below="@+id/record_more_bar"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
-            android:layout_above="@+id/record_more_bar"
             android:scaleType="fitEnd"
             android:src="@drawable/location_white"
+            android:tint="#16BBE5" />
+
+        <ImageView
+            android:id="@+id/record_gallery"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/mapIcon"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/gallery_green"
+            android:tint="#16BBE5" />
+
+        <ImageView
+            android:id="@+id/bodyLocationIcon"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/record_gallery"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/bodylocation_white"
             android:tint="#16BBE5" />
 
     </RelativeLayout>
