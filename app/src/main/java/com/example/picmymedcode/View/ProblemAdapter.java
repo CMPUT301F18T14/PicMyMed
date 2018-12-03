@@ -138,7 +138,12 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
         numberofRecordTextView.setText("Number of Records : "+problems.get(listPosition).getRecordList().size());
         //set description
         TextView DescriptionTextView = myViewHolder.descriptionTextView;
-        DescriptionTextView.setText(problems.get(listPosition).getDescription());
+
+        if(problems.get(listPosition).getDescription().equals("")){
+            DescriptionTextView.setVisibility(View.GONE);
+        } else {
+            DescriptionTextView.setText(problems.get(listPosition).getDescription());
+        }
 
         if (!PicMyMedApplication.getLoggedInUser().isPatient()){
             myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
