@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -44,7 +45,7 @@ public class ProblemFragment extends Fragment  {
     private RecyclerView mRecyclerView;
     private SearchProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
-    private View.OnClickListener mListener;
+    private OnClickListener mListener;
     public Patient patient;
     public ArrayList<Problem> problemArrayList = new ArrayList<Problem>(),filteredDataList;
     public ArrayList<Problem> filteredDataTwo = new ArrayList<Problem>();
@@ -88,7 +89,7 @@ public class ProblemFragment extends Fragment  {
             }
         });
 
-        searchLocation.setOnClickListener(new View.OnClickListener() {
+        searchLocation.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -119,6 +120,13 @@ public class ProblemFragment extends Fragment  {
                     return true;
                 }
             });
+            }
+        });
+
+        Button searchBody = v.findViewById(R.id.problem_search_bodylocation_button);
+        searchBody.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "this feature isn't available", Toast.LENGTH_SHORT).show();
             }
         });
 

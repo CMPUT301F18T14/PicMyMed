@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -112,6 +113,13 @@ public class RecordFragment extends Fragment {
                     }
                 });
                 //PicMyMedController.searchForProbByBodyLocation(problemArrayList,);
+            }
+        });
+
+        Button searchBody = v.findViewById(R.id.record_search_bodylocation_button);
+        searchBody.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "this feature isn't available", Toast.LENGTH_SHORT).show();
             }
         });
 
