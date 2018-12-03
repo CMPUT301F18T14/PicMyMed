@@ -1,10 +1,30 @@
+/*
+ * DrawMapActivity
+ *
+ * 1.2
+ *
+ * November 16, 2018
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.picmymedmaphandler.View;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.input.InputManager;
@@ -65,9 +85,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * DrawMapActivity extends AppCompatActivity and implements GoogleApiClient
+ * to draw the map
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class DrawMapActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
+    /**
+     * handles losing the connection
+     *
+     * @param connectionResult  ConnectionResult
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -78,6 +111,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private final static String DEVICE_LOCATION_TITLE = "Current Location";
     private final static float MAP_ZOOM_LEVEL = 10f; // 15: Able to View Streets
     private final static LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(0, 0), new LatLng(0, 0));//new LatLngBounds(new LatLng(85, -180), new LatLng(-85, 180)); // Maximum bound for google Map
+    private LongitudeLatitude longitudeLatitude = null;
     private LatLng mLatLng = null;
     private GoogleMap mGoogleMap;
     RelativeLayout relativeLayoutForSearch;
@@ -88,8 +122,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private GoogleApiClient googleApiClient;
     private PlaceInformation mPlace;
     private String callingActiviy;
-    private LongitudeLatitude longitudeLatitude;
 
+    /**
+     * Sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,80 +170,56 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
     }
 
+    /**
+     * gets location
+     */
     private void initialTaskInActivityForAddingRecord() {
 
-        double latitude = getIntent().getDoubleExtra("Latitude", 0);
-        double longitude = getIntent().getDoubleExtra("Longitude", 0);
-
-        mLatLng = new LatLng(latitude, longitude);
 
         longitudeLatitude = new LongitudeLatitude(DrawMapActivity.this);
 
-        // Making the Add button visible after the location is set
+        // Delays the drawing of Map
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Handles null pointer exception when LongitudeLatitude returns null LatLng
+                try {
+                    // Getting the current device location
+                    gettingCurrentLatLon();
+                    // Drawing the map
+                    initMap();
+                    // Making the Add button visible after the location is set
 
-        relativeLayoutForSearch.setVisibility(View.VISIBLE);
+                    relativeLayoutForSearch.setVisibility(View.VISIBLE);
 
-        searchText.setVisibility(View.VISIBLE);
+                    searchText.setVisibility(View.VISIBLE);
 
-        mGps.setVisibility(View.VISIBLE);
-        // Hiding the Add button
-        mAdd.setVisibility(View.VISIBLE);
-
-        initMap();
-
-        initSearch();
-
-        try {
-
-            // Drawing the map
-
-        } catch (NullPointerException e) {
-            //finish();
-        }
-
-
-
-
-//        // Delays the drawing of Map
-//        new Handler().postDelayed(new Runnable() {
-//            @SuppressLint("NewApi")
-//            @Override
-//            public void run() {
-//                // Handles null pointer exception when LongitudeLatitude returns null LatLng
-//                try {
-//                    // Getting the current device location
-//                    gettingCurrentLatLon();
-//                    // Drawing the map
-//                    initMap();
-//                    // Making the Add button visible after the location is set
-//
-//                    relativeLayoutForSearch.setVisibility(View.VISIBLE);
-//
-//                    searchText.setVisibility(View.VISIBLE);
-//
-//                    mGps.setVisibility(View.VISIBLE);
-//                    // Hiding the Add button
-//                    mAdd.setVisibility(View.VISIBLE);
-//                    // Searching Location
-//                    initSearch();
-//                } catch (NullPointerException e) {
-//                    //onStart();
-//                    Toast.makeText(DrawMapActivity.this,
-//                            "Location is not synced. Turn on the GPS, and try again.",
-//                            Toast.LENGTH_SHORT).show();
-//                    // Creating intent, and calling the activity again
-//                    longitudeLatitude = null;
-//                    mAdd = null;
-//                    mGps = null;
-//                    searchText = null;
-//                    Intent intent = getIntent();
-//                    finishAndRemoveTask();
-//                    startActivity(intent);
-//                }
-//            }
-//        }, 5000 /* 5 sec */ );
+                    mGps.setVisibility(View.VISIBLE);
+                    // Hiding the Add button
+                    mAdd.setVisibility(View.VISIBLE);
+                    // Searching Location
+                    initSearch();
+                } catch (NullPointerException e) {
+                    //onStart();
+                    Toast.makeText(DrawMapActivity.this,
+                            "Location is not synced. Turn on the GPS, and try again.",
+                            Toast.LENGTH_SHORT).show();
+                    // Creating intent, and calling the activity again
+                    longitudeLatitude = null;
+                    mAdd = null;
+                    mGps = null;
+                    searchText = null;
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+            }
+        }, 5000 /* 5 sec */ );
     }
 
+    /**
+     * Handles the search
+     */
     private void initSearch(){
         Log.d(TAG, "init: initializing");
 
@@ -248,6 +262,11 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
         // Action Listener for GPS button
         mGps.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles clicking on GPS icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked GPS icon");
@@ -259,6 +278,11 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
         // Action Listener for GPS button
         mAdd.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles clicking on add icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked Add icon");
@@ -267,7 +291,6 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 backToAddRecordActivity.putExtra("latitude", mLatLng.latitude);
                 backToAddRecordActivity.putExtra("longitude", mLatLng.longitude);
                 setResult(RESULT_OK, backToAddRecordActivity);
-                longitudeLatitude = null;
                 finish();
 
             }
@@ -307,6 +330,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    /**
+     * Handles creating a map for all problems
+     */
     private void initMapForAllProblem() {
 
         final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
@@ -337,6 +363,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
     }
 
+    /**
+     * Creates a map with multiple markers
+     */
     private void initMapForMultipleMarker() {
         final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
 
@@ -366,6 +395,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
     }
 
+    /**
+     * Handles map with one marker
+     */
     private void initMapForSingleRecordMarker() {
         final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
 
@@ -398,7 +430,10 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         });
 
     }
-    // Initializes the GoogleMap Object and draws in on top of map fragment
+
+    /**
+     * Initializes the GoogleMap Object and draws in on top of map fragment
+     */
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
@@ -446,6 +481,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 .title(title));
     }
 
+    /**
+     * Draws marker
+     *
+     * @param latLng    LatLng
+     * @param title     String
+     */
     private void drawMarkerUncleared(LatLng latLng, String title) {
 
         Marker markerName = mGoogleMap.addMarker(new MarkerOptions()
@@ -481,12 +522,17 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
      * This method hides the keyboard
      */
     private void hideSoftKeyBoard(){
-
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), 0);
+        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 
-    // Checking the version of google play services
+    /**
+     * Checking the version of google play services
+     *
+     * @return  Boolean
+     */
     public boolean isServicesOK() {
         Log.d(TAG, "isServicesOK: checking google services version");
 
@@ -532,7 +578,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         --------------------------- google places API autocomplete suggestions handlers -----------------
     */
 
-    // Getting the information of the selected places
+    /**
+     * Getting the information of the selected places
+     */
     private AdapterView.OnItemClickListener autocompleteClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -554,7 +602,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         }
     };
 
-    // Displays the result of the place object
+    /**
+     * Displays the result of the place object
+     */
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
         @Override
         public void onResult(@NonNull PlaceBuffer places) {
@@ -591,6 +641,5 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
             places.release();
         }
     };
-
 
 }

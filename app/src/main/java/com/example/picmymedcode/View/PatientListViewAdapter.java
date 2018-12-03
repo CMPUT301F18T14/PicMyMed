@@ -3,6 +3,8 @@
  *
  * 1.2
  *
+ * November 16, 2018
+ *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,6 +47,11 @@ public class PatientListViewAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<String> patientNameData;
 
+    /**
+     * Instantiates the class
+     *
+     * @param context   Context
+     */
     public PatientListViewAdapter(Context context){
         mContext = context;
         inflater = LayoutInflater.from(mContext);
@@ -52,16 +59,34 @@ public class PatientListViewAdapter extends BaseAdapter {
         this.patientNameData.addAll(CareProviderAddPatientActivity.patientName);
         //collection of data
     }
+
+    /**
+     * gets the count of patients
+     *
+     * @return  int
+     */
     @Override
     public int getCount() {
         return CareProviderAddPatientActivity.patientName.size();
     }
 
+    /**
+     * Gets the patient
+     *
+     * @param    position
+     * @return   int
+     */
     @Override
     public String getItem(int position) {
         return CareProviderAddPatientActivity.patientName.get(position);
     }
 
+    /**
+     * Gets position
+     *
+     * @param position  int
+     * @return          position
+     */
     @Override
     public long getItemId(int position) {
         return position;
@@ -71,6 +96,14 @@ public class PatientListViewAdapter extends BaseAdapter {
         TextView patientName;
     }
 
+    /**
+     * Gets the view
+     *
+     * @param position      int
+     * @param convertView   View
+     * @param parent        ViewGroup
+     * @return              convertView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -90,7 +123,11 @@ public class PatientListViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    //Filter class
+    /**
+     * Filter class to filter patients
+     *
+     * @param charText  String
+     */
     public void filter (String charText){
         charText = charText.toLowerCase(Locale.getDefault());
         CareProviderAddPatientActivity.patientName.clear();

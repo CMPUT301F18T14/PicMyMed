@@ -1,7 +1,9 @@
 /*
  * Photo
  *
- * 1.1
+ * 1.2
+ *
+ * November 16, 2018
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -30,7 +32,7 @@ import java.util.Random;
  * Photo class sets the file path of a photo and returns it
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class Photo implements Serializable{

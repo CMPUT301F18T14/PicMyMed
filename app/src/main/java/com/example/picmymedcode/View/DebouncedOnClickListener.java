@@ -3,6 +3,8 @@
  *
  * 1.2
  *
+ * November 16, 2018
+ *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +32,7 @@ import java.util.WeakHashMap;
  * This class is safe to use as an OnClickListener for multiple views, and will debounce each one separately.
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.2, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public abstract class DebouncedOnClickListener implements View.OnClickListener {

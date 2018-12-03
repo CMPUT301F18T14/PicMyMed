@@ -1,9 +1,11 @@
-package com.example.picmymedmaphandler.View;
-
-
-
 /*
- * Copyright (C) 2015 Google Inc. All Rights Reserved.
+ * PlaceAutocompleteAdapter
+ *
+ * 1.2
+ *
+ * November 16, 2018
+ *
+ * Copyright (C) 2015 Google Inc, CMPUT301F18T14 All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,6 +19,10 @@ package com.example.picmymedmaphandler.View;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+package com.example.picmymedmaphandler.View;
+
+
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -52,6 +58,9 @@ import java.util.concurrent.TimeoutException;
  * adapter. (See {@link AutocompletePrediction#freeze()}.)
  *
  * Link: https://github.com/googlesamples/android-play-places/blob/master/PlaceCompleteAdapter/Application/src/main/java/com/example/google/playservices/placecomplete/PlaceAutocompleteAdapter.java
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
  */
 public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePrediction> implements Filterable {
 
@@ -113,6 +122,14 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
         return mResultList.get(position);
     }
 
+    /**
+     * Returns the view
+     *
+     * @param position      int
+     * @param convertView   View
+     * @param parent        ViewGroup
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = super.getView(position, convertView, parent);
@@ -161,6 +178,12 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
                 return results;
             }
 
+            /**
+             * Updates the data
+             *
+             * @param constraint    CharSequence
+             * @param results       FilterResults
+             */
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
@@ -174,6 +197,12 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
                 }
             }
 
+            /**
+             * Converts results to string
+             *
+             * @param resultValue   Object
+             * @return              String
+             */
             @Override
             public CharSequence convertResultToString(Object resultValue) {
                 // Override this method to display a readable result in the AutocompleteTextView

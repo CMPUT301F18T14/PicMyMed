@@ -1,7 +1,9 @@
 /*
  * RecordAdapter
  *
- * 1.1
+ * 1.2
+ *
+ * November 16, 2018
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -69,7 +71,7 @@ import java.util.ArrayList;
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
@@ -93,9 +95,9 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         ImageView recordMoreImageView;
         ImageView galleryIcon;
         ImageView mapIcon;
-        ImageView bodyLocationIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
+        ImageView bodyLocationIcon;
 
 
         /**
@@ -113,7 +115,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
             this.galleryIcon = itemView.findViewById(R.id.record_gallery);
             this.mapIcon = itemView.findViewById(R.id.mapIcon);
-            this.bodyLocationIcon = itemView.findViewById(R.id.bodyLocationIcon);
+            this.bodyLocationIcon = itemView.findViewById(R.id.body_location_icon);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -174,27 +176,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
 
-        if(records.get(i).getTitle().equals("")){
-            recordTitleTextView.setVisibility(View.GONE);
-        } else {
-            recordTitleTextView.setText(records.get(i).getTitle());
-        }
-        if(records.get(i).getDescription().equals("")){
-            recordDescriptionTextView.setVisibility(View.GONE);
-        } else {
-            recordDescriptionTextView.setText(records.get(i).getDescription());
-        }
 
+        recordTitleTextView.setText(records.get(i).getTitle());
+        recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
-
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
             recordLocationTextView.setText(geolocation.getLocationName());
         } else {
-            recordViewHolder.mapIcon.setVisibility(View.GONE);
-        }
+            recordViewHolder.mapIcon.setVisibility(View.INVISIBLE);
 
-        recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
+        }
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
         // Initialize the layout format and span
@@ -207,11 +199,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
 
         if (records.get(i).getPhotoList().size()==0) {
-            recordViewHolder.galleryIcon.setVisibility(View.GONE);
-            recordPhotoSlider.setVisibility(View.GONE);
+            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
         }
 
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting gallery icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent galleryActivityIntent = new Intent(context, GalleryActivity.class);
@@ -223,12 +219,22 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         });
 
         recordViewHolder.recordLocationTextView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting record location text
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
             }
         });
 
         recordViewHolder.mapIcon.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting the map icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent drawMapActivityIntent = new Intent(context, DrawMapActivity.class);
@@ -240,6 +246,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         });
 
         recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting body location icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Log.d("onclicklistener", "clicked");
@@ -274,6 +285,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 //        });
 
         recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking on the image icon
+             *
+             * @param view  View
+             */
             @Override
             public void onClick(View view) {
 
@@ -283,6 +299,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 popup.inflate(R.menu.problem_menu);
                 //adding click listener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    /**
+                     * Handles the user clicking on the menu
+                     *
+                     * @param item  MenuItem
+                     * @return      boolean
+                     */
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
@@ -332,9 +354,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                         });
                                 authorizationDialog.show();
 
-
-
-
                                 break;
                         }
                         return false;
@@ -345,7 +364,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
             }
         });
-
 
         recordTimeStampTextView.setText(records.get(i).getDate().toString());
 

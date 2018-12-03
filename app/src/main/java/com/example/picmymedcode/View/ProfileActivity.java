@@ -1,7 +1,9 @@
 /*
  * ProfileActivity
  *
- * 1.1
+ * 1.2
+ *
+ * November 16, 2018
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -43,7 +45,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
  * ProfileActivity extends AppCompatActivity to show a users phone and email and edit it
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class ProfileActivity extends AppCompatActivity {
@@ -73,6 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button editProfileButton = findViewById(R.id.editProfile_button);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selected edit profile button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent problemIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);

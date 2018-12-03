@@ -1,7 +1,9 @@
 /*
  * ProblemAdapter
  *
- * 1.1
+ * 1.2
+ *
+ * November 16, 2018
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -52,7 +54,7 @@ import java.util.ArrayList;
  * add a record to a problem
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>{
@@ -125,7 +127,6 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
      * @param listPosition  int
      */
     @Override
-
     public void onBindViewHolder(@NonNull final ProblemViewHolder myViewHolder, final int listPosition) {
         //set title
         TextView problemTitleTextView = myViewHolder.problemTitleTextView;
@@ -138,15 +139,15 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
         numberofRecordTextView.setText("Number of Records : "+problems.get(listPosition).getRecordList().size());
         //set description
         TextView DescriptionTextView = myViewHolder.descriptionTextView;
-
-        if(problems.get(listPosition).getDescription().equals("")){
-            DescriptionTextView.setVisibility(View.GONE);
-        } else {
-            DescriptionTextView.setText(problems.get(listPosition).getDescription());
-        }
+        DescriptionTextView.setText(problems.get(listPosition).getDescription());
 
         if (!PicMyMedApplication.getLoggedInUser().isPatient()){
             myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Handles clicking on the problem title to view records
+                 *
+                 * @param v View
+                 */
                 @Override
                 //onClick to go to next activity
                 public void onClick(View v) {
@@ -157,6 +158,11 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
             });
         }else{
             myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Handles clicking on the problem title
+                 *
+                 * @param v View
+                 */
                 @Override
                 //onClick to go to next activity
                 public void onClick(View v) {
@@ -244,29 +250,5 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
     public int getItemCount() {
         return (problems == null) ? 0 : problems.size();
     }
-
-    /**
-     * Method saved data to file. No longer implemented, data now saved to database
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = context.openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(problems,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-
-
 
 }

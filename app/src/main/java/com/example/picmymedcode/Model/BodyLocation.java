@@ -1,7 +1,9 @@
 /*
  * BodyLocation
  *
- * 1.1
+ * 1.2
+ *
+ * November 16, 2018
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -28,7 +30,7 @@ import java.util.HashMap;
  * BodyLocation stores a body location photo and a mark on that photo indicated by the user
  * Note this class is incomplete and will be modified for the next release
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class BodyLocation implements Serializable {
@@ -48,6 +50,32 @@ public class BodyLocation implements Serializable {
 
     public void setPhotoID(String photoID) {
         this.photoID = photoID;
+    }
+
+
+    /**
+     * this method removes a body location
+     *
+     * @param location string of body location
+     */
+    public void removeBodyLocation(String location) {
+        if (this.bodyLocations.get(location) != null) {
+            bodyLocations.put(location, false);
+        }
+    }
+
+    /**
+     * This method returns a body location
+     *
+     * @param location  string of body location
+     * @return          boolean
+     */
+    public Boolean getLocation(String location){
+            if (this.bodyLocations.get(location) != null) {
+               Boolean present = this.bodyLocations.get(location);
+               return present;
+            }
+            return false;
     }
 
     public float getxCoordinate() {

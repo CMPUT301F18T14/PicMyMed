@@ -3,6 +3,8 @@
  *
  * 1.2
  *
+ * November 16, 2018
+ *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,7 +87,6 @@ public class PatientActivity extends AppCompatActivity {
      *
      * @param savedInstanceState Bundle
      */
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
