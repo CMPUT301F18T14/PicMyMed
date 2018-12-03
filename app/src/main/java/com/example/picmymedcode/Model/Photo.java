@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * Photo class sets the file path of a photo and returns it
@@ -33,7 +34,9 @@ import java.io.Serializable;
  * @since   1.1
  */
 public class Photo implements Serializable{
-    private int photoID;
+
+
+    private String photoID;
     private String filepath;
     private String base64EncodedString;
     /**
@@ -43,6 +46,7 @@ public class Photo implements Serializable{
      */
     public Photo(String filepath) {
         this.filepath = filepath;
+        setUniquePhotoID();
     }
 
 
@@ -69,5 +73,33 @@ public class Photo implements Serializable{
      */
     public void setBase64EncodedString(String base64EncodedString) {
         this.base64EncodedString = base64EncodedString;
+    }
+
+    /**
+     * Method to generate a unique photo id
+     */
+
+    public void setUniquePhotoID() {
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        final int LENGTH_OF_THE_RANDOM_STRING = 18;
+
+        StringBuilder stringBuilder = new StringBuilder();   // Builds the string
+        Random random = new Random();               // Generates random numbers
+
+        // Keeps on adding random numbers until the string is filled
+        while (stringBuilder.length() < LENGTH_OF_THE_RANDOM_STRING) { // length of the random string
+            // Randomly picks a character from CHARACTERS by randomly choosing index
+            int index = (int) (random.nextFloat() * CHARACTERS.length());
+
+            // Appending the random character to the String builder
+            stringBuilder.append(CHARACTERS.charAt(index));
+        }
+
+        // Converting the object to String
+        this.photoID = stringBuilder.toString();
+
+    }
+    public String getPhotoID() {
+        return photoID;
     }
 }
