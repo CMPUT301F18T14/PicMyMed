@@ -20,11 +20,13 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -270,12 +272,31 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
-                                if (PicMyMedApplication.isNetworkAvailable(context)) {
-                                    PicMyMedController.deleteRecord(problem, records.get(i), context);
-                                    notifyDataSetChanged();
-                                } else {
-                                    Toast.makeText(context, "You must be online to delete a record" , Toast.LENGTH_SHORT).show();
-                                }
+
+                                AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(context);
+                                authorizationDialog.setTitle("Delete")
+                                        .setCancelable(false)
+                                        .setMessage("Are you sure you want to delete?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                                                    PicMyMedController.deleteRecord(problem, records.get(i), context);
+                                                    notifyDataSetChanged();
+                                                } else {
+                                                    Toast.makeText(context, "You must be online to delete a record" , Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Toast.makeText(context, "Keep enjoying!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                authorizationDialog.show();
+
+
 
 
                                 break;
