@@ -37,6 +37,7 @@ public class RecordFragment extends Fragment {
     public ArrayList<Record> allRecordArrayList = new ArrayList<Record>(),filteredDataList;
     public ArrayList<Record> filteredDataListTwo = new ArrayList<Record>();
     public SearchView searchView;
+    public Button searchLocation;
 
     Patient patient;
     int PLACE_PICKER_REQUEST = 1;
@@ -80,7 +81,7 @@ public class RecordFragment extends Fragment {
                 return true;
             }
         });
-        Button searchLocation = v.findViewById(R.id.record_search_location_button);
+        searchLocation = v.findViewById(R.id.record_search_location_button);
 
         searchLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +160,7 @@ public class RecordFragment extends Fragment {
             if (resultCode == RESULT_OK) {
 
                 Place place = PlacePicker.getPlace(getActivity(),data);
+                String locationName = place.getName().toString();
                 Location location = new Location("");
                 double lat = place.getLatLng().latitude;
                 double lon = place.getLatLng().longitude;
@@ -167,6 +169,7 @@ public class RecordFragment extends Fragment {
 
 
                 filteredDataListTwo = PicMyMedController.searchForRecByGeolocation(problemArrayList,location);
+                searchLocation.setText(locationName);
                 mAdapter =  new SearchRecordAdapter(getContext(), filteredDataListTwo);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();

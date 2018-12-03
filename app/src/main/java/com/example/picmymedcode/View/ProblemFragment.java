@@ -51,6 +51,7 @@ public class ProblemFragment extends Fragment  {
     //public static ArrayList<Problem> baseProblemArrayList = new ArrayList<Problem>();
     int PLACE_PICKER_REQUEST = 1;
     public SearchView searchView;
+    Button searchLocation;
 
     View v;
 
@@ -70,7 +71,7 @@ public class ProblemFragment extends Fragment  {
 
 
 
-        Button searchLocation = v.findViewById(R.id.problem_search_location_button);
+        searchLocation = v.findViewById(R.id.problem_search_location_button);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
@@ -183,6 +184,7 @@ public class ProblemFragment extends Fragment  {
             if (resultCode == RESULT_OK) {
 
                 Place place = PlacePicker.getPlace(getActivity(),data);
+                String locationName = place.getName().toString();
                 Location location = new Location("");
                 double lat = place.getLatLng().latitude;
                 double lon = place.getLatLng().longitude;
@@ -191,6 +193,7 @@ public class ProblemFragment extends Fragment  {
 
                 filteredDataTwo = PicMyMedController.searchForProbByGeolocation(problemArrayList,location);
                 Log.i("DEBUG SEARCH", problemArrayList.toString());
+                searchLocation.setText(locationName);
                 mAdapter = new SearchProblemAdapter(getContext(), filteredDataTwo);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
