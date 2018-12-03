@@ -42,6 +42,9 @@ public class Problem implements Serializable {
     private String username;
     private ArrayList<Record> recordList;
     private ArrayList<String> commentList;
+    private static final Integer MAX_TITLE_LENGTH = 30;
+    private static final Integer MAX_DESC_LENGTH = 300;
+
 
     /**
      * Constructor initializes problem class variables
@@ -53,15 +56,22 @@ public class Problem implements Serializable {
      * @throws IllegalArgumentException throws exception when title or description is too long
      */
     public Problem(String username, String startDate, String title, String description) {
+        if (title.length() > MAX_TITLE_LENGTH) {
+            throw new IllegalArgumentException(String.format("Problem should be less than 30 characters", String.valueOf(MAX_TITLE_LENGTH)));
+        } else if (description.length()> MAX_DESC_LENGTH) {
+            throw new IllegalArgumentException(String.format("Description should be less than 300 characters", String.valueOf(MAX_DESC_LENGTH)));
+        } else
+            {
+                this.username = username;
+                this.problemID = null;
+                this.startDate = startDate;
+                this.title = title;
+                this.description = description;
+                this.recordList = new ArrayList<Record>();
+                this.commentList = new ArrayList<String> ();
+            }
+        }
 
-        this.username = username;
-        this.problemID = null;
-        this.startDate = startDate;
-        this.title = title;
-        this.description = description;
-        this.recordList = new ArrayList<Record>();
-        this.commentList = new ArrayList<String> ();
-    }
 
     /**
      * Method gets the problem's start date

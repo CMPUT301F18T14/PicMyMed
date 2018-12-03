@@ -179,6 +179,11 @@ public class Record implements Serializable {
         return this.bodyLocation;
     }
 
+    /**
+     * Method sets the body location
+     *
+     * @param bodyLocation  BodyLocation
+     */
     public void setBodyLocation(BodyLocation bodyLocation) {
         this.bodyLocation = bodyLocation;
     }

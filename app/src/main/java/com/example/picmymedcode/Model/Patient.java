@@ -98,9 +98,10 @@ public class Patient extends User implements Serializable {
 
 
     /**
-     * Method removes a body location photo
+     * Method gets the body location photo
      *
-     * @param index int
+     * @param id    String
+     * @return      null
      */
     public BodyLocationPhoto getBodyLocationPhotoByID(String id) {
         for (int i = 0; i<this.bodyLocationPhotoList.size(); i++) {
@@ -111,6 +112,11 @@ public class Patient extends User implements Serializable {
         return null;
     }
 
+    /**
+     * Method removes body location photo
+     *
+     * @param index int
+     */
     public void removeBodyLocationPhoto(int index) {
         this.bodyLocationPhotoList.remove(index);
     }
