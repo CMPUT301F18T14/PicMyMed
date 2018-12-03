@@ -28,6 +28,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,7 @@ import com.example.android.picmymedphotohandler.GalleryCells;
 import com.example.android.picmymedphotohandler.SlideShowAdapter;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
@@ -224,16 +226,27 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             }
         });
 
-//        recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent viewBodyLocationIntent = new Intent(context, XFixedPhotoActivity.class);
-//                Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-//                if (BodyLocationPhoto = user.getBodyLocationPhotoByID() == null)
-//
-//                viewBodyLocationIntent.putExtra("base64String", "");
-//            }
-//        });
+        recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onclicklistener", "clicked");
+                Intent viewBodyLocationIntent = new Intent(context, XFixedPhotoActivity.class);
+                Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
+                String bodyID = bodyLocation.getPhotoID();
+                BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoByID(bodyID);
+                if (bodyLocationPhoto != null) {
+                    Log.d("inside if", "not null");
+                    viewBodyLocationIntent.putExtra("base64String", bodyLocationPhoto.getBase64EncodedString());
+                    viewBodyLocationIntent.putExtra("x", bodyLocation.getxCoordinate());
+                    viewBodyLocationIntent.putExtra("y", bodyLocation.getyCoordinate());
+                    context.startActivity(viewBodyLocationIntent);
+                }
+                else {
+                    Log.d("onclicklistener", "did not work");
+                }
+            }
+        });
 
 
 
