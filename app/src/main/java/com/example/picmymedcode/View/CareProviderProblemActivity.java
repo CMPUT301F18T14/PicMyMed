@@ -58,7 +58,7 @@ public class CareProviderProblemActivity extends Activity {
     private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
-    static String name;
+    public static String name;
     SwipeRefreshLayout swipeLayout;
 
     /**

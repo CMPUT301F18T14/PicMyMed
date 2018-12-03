@@ -36,12 +36,15 @@ import android.widget.ImageButton;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
+import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
+import com.example.picmymedcode.View.CareProviderProblemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +101,15 @@ public class GalleryActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setTitle("Record Photo Gallery");
 
-        user = (Patient)PicMyMedApplication.getLoggedInUser();
+
+        if (PicMyMedApplication.getLoggedInUser().isPatient()) {
+            user = (Patient)PicMyMedApplication.getLoggedInUser();
+        } else {
+            String name = CareProviderProblemActivity.name;
+            user = (Patient)PicMyMedController.getPatient(name);
+
+
+        }
 
         startActivity();
     }
