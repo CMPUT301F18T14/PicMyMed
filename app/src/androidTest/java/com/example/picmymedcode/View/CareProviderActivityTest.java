@@ -18,7 +18,7 @@ public class CareProviderActivityTest {
 
     private final static String TAG = "CareProviderActivtiyTest: ";
 
-    CareProvider careProvider = new CareProvider("CP");
+    //CareProvider careProvider = new CareProvider("CP");
 
 
     @Rule
@@ -31,7 +31,7 @@ public class CareProviderActivityTest {
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
                     PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-                    picMyMedApplication.setLoggedInUser(careProvider);
+                    //picMyMedApplication.setLoggedInUser(careProvider);
 
                 }
             };

@@ -20,7 +20,7 @@ public class EditProfileActivityTest {
 
     private final static String TAG = "EditProfileActivityTest: ";
 
-    Patient patient = new Patient("daenerys","cersei.lannister@got.we","5656");
+    Patient patient = new Patient("apuian12","h@g.com","5555555555");
 
     //Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
 
@@ -33,7 +33,9 @@ public class EditProfileActivityTest {
         protected void beforeActivityLaunched() {
             //super.beforeActivityLaunched();
             PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-            //patient.getProblemList().add(problem);
+            patient.setElasticSearchID("AWdzHDiUVa1LxfbRovmp");
+            patient.setLastDeviceUsed("ffffffff-c4b1-10bc-ffff-ffff8d621788");
+            patient.addAuthorizedDevice("ffffffff-c4b1-10bc-ffff-ffff8d621788");
             picMyMedApplication.setLoggedInUser(patient);
 
         }
@@ -48,7 +50,7 @@ public class EditProfileActivityTest {
 
         // Find a view with id enteredPhone and type "9111" on that view.
         Espresso.onView(withId(R.id.enteredPhone)).perform(ViewActions.clearText(),
-                ViewActions.typeText("9111"));
+                ViewActions.typeText("7804925050"));
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
@@ -56,7 +58,7 @@ public class EditProfileActivityTest {
 
         // Find a view with id enteredEmail and type "daenerys.targaryen@got.we" on that view.
         Espresso.onView(withId(R.id.enteredEmail)).perform(ViewActions.clearText(),
-                ViewActions.typeText("daenerys.targaryen@got.we"));
+                ViewActions.typeText("gucci@gucci.com"));
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
@@ -66,8 +68,8 @@ public class EditProfileActivityTest {
         Espresso.onView(withId(R.id.updateButton)).perform(ViewActions.click());
 
         // Assertion for edited information
-        assertEquals(patient.getPhoneNumber(), "9111");
-        assertEquals(patient.getEmail(), "daenerys.targaryen@got.we");
+        assertEquals(patient.getPhoneNumber(), "7804925050");
+        assertEquals(patient.getEmail(), "gucci@gucci.com");
     }
 
 }

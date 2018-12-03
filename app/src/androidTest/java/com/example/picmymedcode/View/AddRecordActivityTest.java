@@ -25,7 +25,7 @@ public class AddRecordActivityTest {
 
     Patient patient = new Patient("mockuser","adsfa","5656");
 
-    Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
+    //Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
 
     @Rule
     public ActivityTestRule<AddRecordActivity> addRecordActivityTestRuleActivity =
@@ -37,7 +37,7 @@ public class AddRecordActivityTest {
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
                     PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-                    patient.getProblemList().add(problem);
+                    //patient.getProblemList().add(problem);
                     picMyMedApplication.setLoggedInUser(patient);
 
                 }
