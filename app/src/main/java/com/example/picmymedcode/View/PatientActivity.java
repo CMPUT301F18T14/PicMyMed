@@ -181,8 +181,13 @@ public class PatientActivity extends AppCompatActivity {
                 break;
             case R.id.pushData:
                 User user = (Patient)PicMyMedApplication.getLoggedInUser();
-                PicMyMedController.updateUser(user, PatientActivity.this);
-                Toast.makeText(getApplicationContext(), "Data is synced!", Toast.LENGTH_LONG).show();
+                if (PicMyMedApplication.isNetworkAvailable(PatientActivity.this)) {
+                    PicMyMedController.updateUser(user, PatientActivity.this);
+                    Toast.makeText(getApplicationContext(), "Data is synced!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You are offline" , Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
         }
