@@ -85,7 +85,6 @@ public class PatientActivity extends AppCompatActivity {
      *
      * @param savedInstanceState Bundle
      */
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
