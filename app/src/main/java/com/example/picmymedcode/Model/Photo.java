@@ -35,10 +35,9 @@ import java.util.Random;
  */
 public class Photo implements Serializable{
 
-
-
     private String filepath;
     private String base64EncodedString;
+
     /**
      * Construct initializes the variables
      *
@@ -46,9 +45,7 @@ public class Photo implements Serializable{
      */
     public Photo(String filepath) {
         this.filepath = filepath;
-
     }
-
 
     /**
      * Method gets the file path of the photo

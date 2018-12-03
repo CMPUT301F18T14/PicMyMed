@@ -30,6 +30,7 @@ import java.util.Random;
  * @since   2.0
  */
 public class BodyLocationPhoto extends Photo implements Serializable {
+
     private String photoID;
     private String label;
 
