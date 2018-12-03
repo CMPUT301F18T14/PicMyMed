@@ -6,8 +6,11 @@ import com.example.picmymedcode.Model.User;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 public class UserTest extends TestCase {
 
+    @Test
     public void testUsername() {
         CareProvider careProvider = new CareProvider("123456789",
                 "email@email.ca","1231231234");

@@ -5,23 +5,21 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
-import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.R;
-import com.example.picmymedcode.View.CareProviderProblemActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.*;
 
-public class CareProviderProblemActivityTest {
-
-    private final static String TAG = "CareProviderProblemActivityTest: ";
+public class CareProviderAddCommentTest {
+    private final static String TAG = "CareProviderAddComment: ";
 
     @Rule
-    public ActivityTestRule<CareProviderProblemActivity> CareProviderProblemActivityTestRule =
-            new ActivityTestRule<CareProviderProblemActivity>  (CareProviderProblemActivity.class) {
+    public ActivityTestRule<CareProviderAddComment> careProviderAddCommentActivityTestRule =
+            new ActivityTestRule<CareProviderAddComment>  (CareProviderAddComment.class) {
                 /**
                  * Initializing a patient with a problem before running the activity
                  */
@@ -29,12 +27,13 @@ public class CareProviderProblemActivityTest {
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
                     LoggedInUserForTesting.LoggedInUserForTestingCare();
+                    CareProviderProblemActivity.name = "intenttesting";  // Very bad practice
                 }
 
                 @Override
                 protected Intent getActivityIntent() {
                     Intent intent = new Intent();
-                    intent.putExtra("name", "intenttesting");
+                    intent.putExtra("key2", 0);
                     return intent;
                 }
             };
@@ -42,21 +41,10 @@ public class CareProviderProblemActivityTest {
     /**
      * Testing add problem button to send an intent to AddProblemActivity
      */
-
     @Test
-    public void TestSearchPatient() {
-        Espresso.onView(withId(R.id.careprovider_search_image_view)).perform(ViewActions.click());
-        // Will be implemented in project 5
-    }
-    @Test
-    public void TestEmailSending() {
-        Espresso.onView(withId(R.id.careprovider_problem_email_text_view)).perform(ViewActions.click());
-        // Will be implemented in project 5
-    }
-    @Test
-    public void TestPhoneCalling() {
-        Espresso.onView(withId(R.id.careprovider_problem_phone_text_view)).perform(ViewActions.click());
-        // Will be implemented in project 5
+    public void testAddComment() {
+        String comment = "See me in my chamber!";
+        Espresso.onView(withId(R.id.comment_edit_text)).perform(ViewActions.clearText(), ViewActions.typeText(comment));
     }
 
 }

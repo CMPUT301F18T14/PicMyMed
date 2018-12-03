@@ -1,3 +1,22 @@
+/*
+ * RecordFragment
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedcode.View;
 
 import android.content.Intent;
@@ -12,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -29,6 +49,13 @@ import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * RecordFragment extends Fragment
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class RecordFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private SearchRecordAdapter mAdapter;
@@ -47,6 +74,14 @@ public class RecordFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Sets the state
+     *
+     * @param inflater              LayoutInflater
+     * @param container             ViewGroup
+     * @param savedInstanceState    Bundle
+     * @return                      v
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,10 +150,21 @@ public class RecordFragment extends Fragment {
             }
         });
 
+        Button searchBody = v.findViewById(R.id.record_search_bodylocation_button);
+        searchBody.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "this feature isn't available", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return v;
     }
 
+    /**
+     * Handles record view
+     *
+     */
     public void manageRecyclerview(){
 
 
@@ -137,6 +183,13 @@ public class RecordFragment extends Fragment {
 
     }
 
+    /**
+     * Filters the records
+     *
+     * @param recordArrayList   ArrayList
+     * @param newText           String
+     * @return                  filteredDataList
+     */
     private ArrayList<Record> filter(ArrayList<Record> recordArrayList, String newText) {
         newText=newText.toLowerCase();
         String text;
@@ -153,6 +206,13 @@ public class RecordFragment extends Fragment {
         return filteredDataList;
     }
 
+    /**
+     * Handles activity result
+     *
+     * @param requestCode   requestCode
+     * @param resultCode    int
+     * @param data          Intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PLACE_PICKER_REQUEST) {

@@ -23,10 +23,6 @@ public class AddRecordActivityTest {
 
     private final static String TAG = "EditProblemActivityTest: ";
 
-    Patient patient = new Patient("mockuser","adsfa","5656");
-
-    Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
-
     @Rule
     public ActivityTestRule<AddRecordActivity> addRecordActivityTestRuleActivity =
             new ActivityTestRule<AddRecordActivity>(AddRecordActivity.class) {
@@ -35,11 +31,7 @@ public class AddRecordActivityTest {
                  */
                 @Override
                 protected void beforeActivityLaunched() {
-                    //super.beforeActivityLaunched();
-                    PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-                    patient.getProblemList().add(problem);
-                    picMyMedApplication.setLoggedInUser(patient);
-
+                    LoggedInUserForTesting.LoggedInUserForTesting();
                 }
             };
 
@@ -53,7 +45,7 @@ public class AddRecordActivityTest {
         Espresso.onView(withId(R.id.record_description_edit_text))
                 .perform(typeText("Felt like something is trying to rip my heart apart."));
 
-        closeSoftKeyboard();
+        Espresso.closeSoftKeyboard();
 
         Espresso.onView(withId(R.id.record_save_button)).perform(ViewActions.click());
     }
@@ -63,6 +55,14 @@ public class AddRecordActivityTest {
     @Test
     public void openMapIntent(){
         Espresso.onView(withId(R.id.record_geo_button)).perform(ViewActions.click());
+    }
+
+    /**
+     * Testing opening a map intent
+     */
+    @Test
+    public void openBodyLocationIntent(){
+        Espresso.onView(withId(R.id.bodyLocation)).perform(ViewActions.click());
     }
 
     /**

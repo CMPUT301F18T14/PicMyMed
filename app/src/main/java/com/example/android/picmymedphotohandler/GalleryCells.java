@@ -26,7 +26,7 @@ import android.graphics.Bitmap;
  * the Model that will be shown by the adapter.
  *
  * @author  Md Touhidul (Apu) Islam
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class GalleryCells {

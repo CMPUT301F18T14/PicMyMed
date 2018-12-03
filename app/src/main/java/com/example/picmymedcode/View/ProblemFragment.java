@@ -1,3 +1,23 @@
+/*
+ * ProblemFragment
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.picmymedcode.View;
 
 import android.app.Activity;
@@ -13,6 +33,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -39,12 +60,18 @@ import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.android.gms.location.places.ui.PlacePicker.getLatLngBounds;
-
+/**
+ * ProblemFragment extends Fragment
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class ProblemFragment extends Fragment  {
     private RecyclerView mRecyclerView;
     private SearchProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
-    private View.OnClickListener mListener;
+    private OnClickListener mListener;
     public Patient patient;
     public ArrayList<Problem> problemArrayList = new ArrayList<Problem>(),filteredDataList;
     public ArrayList<Problem> filteredDataTwo = new ArrayList<Problem>();
@@ -59,6 +86,14 @@ public class ProblemFragment extends Fragment  {
         // Required empty public constructor
     }
 
+    /**
+     * sets the state
+     *
+     * @param inflater              LayoutInflater
+     * @param container             ViewGroup
+     * @param savedInstanceState    Bundle
+     * @return                      v
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,7 +123,7 @@ public class ProblemFragment extends Fragment  {
             }
         });
 
-        searchLocation.setOnClickListener(new View.OnClickListener() {
+        searchLocation.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -122,6 +157,13 @@ public class ProblemFragment extends Fragment  {
             }
         });
 
+        Button searchBody = v.findViewById(R.id.problem_search_bodylocation_button);
+        searchBody.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "this feature isn't available", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         return v;
@@ -138,6 +180,11 @@ public class ProblemFragment extends Fragment  {
 
         mAdapter.setFilter(filteredList);
     }
+
+    /**
+     * Manages the view
+     *
+     */
     public void manageRecyclerview(){
 
         if (PicMyMedApplication.getLoggedInUser().isPatient()) {
@@ -159,8 +206,13 @@ public class ProblemFragment extends Fragment  {
     }
 
 
-
-
+    /**
+     * Filters the problem list
+     *
+     * @param problemArrayList  ArrayList
+     * @param newText           String
+     * @return                  filteredDataList
+     */
     private ArrayList<Problem> filter(ArrayList<Problem> problemArrayList, String newText) {
         newText=newText.toLowerCase();
         String text;
@@ -177,6 +229,13 @@ public class ProblemFragment extends Fragment  {
         return filteredDataList;
     }
 
+    /**
+     * Handles the activity result
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PLACE_PICKER_REQUEST) {

@@ -60,6 +60,10 @@
     <string name="photoSearch">Photo search</string>
     <string name="logout">Logout</string>
     <string name="photoCount">You can add 10 more photos</string>
+    <string name="add_record">Add Record</string>
+    <string name="profile">Profile</string>
+    <string name="slideshow_of_photos">Slideshow of Photos</string>
+    <string name="map_of_records">Map of Records</string>
     <string name="pushData">Synchronize</string>
     <string name="syncData">Sync</string>
 

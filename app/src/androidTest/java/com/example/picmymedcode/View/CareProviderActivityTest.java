@@ -18,7 +18,6 @@ public class CareProviderActivityTest {
 
     private final static String TAG = "CareProviderActivtiyTest: ";
 
-    CareProvider careProvider = new CareProvider("CP");
 
 
     @Rule
@@ -30,9 +29,7 @@ public class CareProviderActivityTest {
                 @Override
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
-                    PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-                    picMyMedApplication.setLoggedInUser(careProvider);
-
+                    LoggedInUserForTesting.LoggedInUserForTestingCare();
                 }
             };
 
@@ -43,14 +40,4 @@ public class CareProviderActivityTest {
     public void addPatient() {
         Espresso.onView(withId(R.id.addPatientButton)).perform(ViewActions.click());
     }
-    @Test
-    public void searchPatient() {
-        //Espresso.onView(withId(R.id.search_patient_button)).perform(ViewActions.click());
-        // Will be implemented in project 5
-    }
-    @Test
-    public void testClickOnSpecificItemInAdapterView() {
-        // Will be implemented in project 5
-    }
-
 }

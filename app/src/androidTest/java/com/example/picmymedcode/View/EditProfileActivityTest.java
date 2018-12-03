@@ -20,10 +20,6 @@ public class EditProfileActivityTest {
 
     private final static String TAG = "EditProfileActivityTest: ";
 
-    Patient patient = new Patient("daenerys","cersei.lannister@got.we","5656");
-
-    //Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
-
     @Rule
     public ActivityTestRule<EditProfileActivity> mActivity = new ActivityTestRule<EditProfileActivity>(EditProfileActivity.class){
         /**
@@ -32,10 +28,7 @@ public class EditProfileActivityTest {
         @Override
         protected void beforeActivityLaunched() {
             //super.beforeActivityLaunched();
-            PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-            //patient.getProblemList().add(problem);
-            picMyMedApplication.setLoggedInUser(patient);
-
+            LoggedInUserForTesting.LoggedInUserForTesting();
         }
     };
 
@@ -45,29 +38,23 @@ public class EditProfileActivityTest {
     @Test
     public void testEditingProfile() {
 
-
-        // Find a view with id enteredPhone and type "9111" on that view.
         Espresso.onView(withId(R.id.enteredPhone)).perform(ViewActions.clearText(),
-                ViewActions.typeText("9111"));
+                ViewActions.typeText("7804925050"));
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
-        closeSoftKeyboard();
+        Espresso.closeSoftKeyboard();
 
         // Find a view with id enteredEmail and type "daenerys.targaryen@got.we" on that view.
         Espresso.onView(withId(R.id.enteredEmail)).perform(ViewActions.clearText(),
-                ViewActions.typeText("daenerys.targaryen@got.we"));
+                ViewActions.typeText("gucci@gucci.com"));
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
-        closeSoftKeyboard();
+        Espresso.closeSoftKeyboard();
 
         // Find a view with id updateButton and click on that view.
         Espresso.onView(withId(R.id.updateButton)).perform(ViewActions.click());
-
-        // Assertion for edited information
-        assertEquals(patient.getPhoneNumber(), "9111");
-        assertEquals(patient.getEmail(), "daenerys.targaryen@got.we");
     }
 
 }

@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
+import com.example.picmymedcode.BuildConfig;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocation;
@@ -119,6 +120,7 @@ public class AddRecordActivity extends AppCompatActivity{
     private FusedLocationProviderClient mFusedLocationClient;
     Location currentLocation;
     private Patient user;
+    private int problemIndex;
 
     /**
      * Method initializes the add record activity
@@ -133,6 +135,8 @@ public class AddRecordActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_activity);
+
+        problemIndex = getIntent().getIntExtra("key", 0);
         placeHolderPhotoList = new ArrayList<Photo>();
         locationNameTextView = (TextView) findViewById(R.id.location_text);
         final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
@@ -191,6 +195,7 @@ public class AddRecordActivity extends AppCompatActivity{
                 if (placeHolderPhotoList.size()<10) {
                     Intent photoIntent = new Intent(AddRecordActivity.this, PhotoIntentActivity.class);
                     if (photo != null) {
+                        photoIntent.putExtra("problemIndex", problemIndex);
                         photoIntent.putExtra("base64ForConsistency", photo.getBase64EncodedString());
                     }
                     startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);

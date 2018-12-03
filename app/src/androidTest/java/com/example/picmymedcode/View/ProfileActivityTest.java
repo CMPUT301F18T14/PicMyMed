@@ -7,7 +7,6 @@ import android.support.test.rule.ActivityTestRule;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
-import com.example.picmymedcode.View.AddProblemActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,15 +14,14 @@ import org.junit.Test;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.*;
 
-public class AddProblemActivityTest {
-
-    private final static String TAG = "AddProblemActivityTest: ";
-
+public class ProfileActivityTest {
+    private final static String TAG = "ProfileActivityTest: ";
 
     @Rule
-    public ActivityTestRule<AddProblemActivity> addProblemActivityTestRuleActivity =
-            new ActivityTestRule<AddProblemActivity>(AddProblemActivity.class) {
+    public ActivityTestRule<ProfileActivity> ProfileActivityTestRuleActivity =
+            new ActivityTestRule<ProfileActivity>(ProfileActivity.class) {
                 /**
                  * Initializing a patient before running the activity
                  */
@@ -36,18 +34,8 @@ public class AddProblemActivityTest {
             };
 
     @Test
-    public void TestAddingProblemDetails(){
-        Espresso.onView(withId(R.id.problem_title_edit_text))
-                .perform(typeText("Heart Pain 2"));
-
-        Espresso.closeSoftKeyboard();
-
-        Espresso.onView(withId(R.id.problem_description_edit_text))
-                .perform(typeText("There is a excruciating pain in my heart 2."));
-
-        Espresso.closeSoftKeyboard();
-
-        Espresso.onView(withId(R.id.problem_save_button)).perform(ViewActions.click());
+    public void TestEditProfileDetails(){
+        Espresso.onView(withId(R.id.editProfile_button)).perform(ViewActions.click());
     }
 
 }
