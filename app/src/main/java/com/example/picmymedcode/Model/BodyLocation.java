@@ -32,67 +32,37 @@ import java.util.HashMap;
  * @since   1.1
  */
 public class BodyLocation implements Serializable {
-    private HashMap<String, Boolean> bodyLocations;
+    private String photoID;
+    private float xCoordinate;
+    private float yCoordinate;
 
-    /**
-     * Constructor of BodyLocation class that initializes the variables
-     */
-    public BodyLocation() {
-        bodyLocations = new HashMap<String, Boolean>();
-        this.initializeLocations();
+    public BodyLocation (String photoID, float xCoordinate, float yCoordinate) {
+        this.photoID = photoID;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
     }
 
-    /**
-     * This method initializes body locations
-     */
-    public void initializeLocations() {
-        this.bodyLocations.put("Face", false);
-        this.bodyLocations.put("Right Shoulder", false);
-        this.bodyLocations.put("Left Shoulder", false);
-        this.bodyLocations.put("Right Arm", false);
-        this.bodyLocations.put("Left Arm", false);
-        this.bodyLocations.put("Upper Chest", false);
-        this.bodyLocations.put("Torso", false);
-        this.bodyLocations.put("Right Leg", false);
-        this.bodyLocations.put("Left Leg", false);
-
+    public String getPhotoID() {
+        return photoID;
     }
 
-    /**
-     * This method adds a body location
-     *
-     * @param location  string of body location
-     */
-    public void addBodyLocation(String location) {
-        if (this.bodyLocations.get(location) != null) {
-            bodyLocations.put(location, true);
-        }
-
-    }
-    /**
-     * this method removes a body location
-     *
-     * @param location string of body location
-     */
-    public void removeBodyLocation(String location) {
-        if (this.bodyLocations.get(location) != null) {
-            bodyLocations.put(location, false);
-        }
-    }
-    /**
-     * This method returns a body location
-     *
-     * @param location  string of body location
-     * @return          boolean
-     */
-    public Boolean getLocation(String location){
-            if (this.bodyLocations.get(location) != null) {
-               Boolean present = this.bodyLocations.get(location);
-               return present;
-            }
-            return false;
+    public void setPhotoID(String photoID) {
+        this.photoID = photoID;
     }
 
+    public float getxCoordinate() {
+        return xCoordinate;
+    }
 
+    public void setxCoordinate(float xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
 
+    public float getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(float yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
 }

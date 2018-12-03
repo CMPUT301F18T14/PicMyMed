@@ -34,8 +34,8 @@ public class XFixedPhotoActivity extends AppCompatActivity {
         //initialize view elements
         drawViewForFixedX = (DrawViewForFixedX) findViewById(R.id.bodyLocation_x);
 
-        float xCoordinate = 500;
-        float yCoordinate = 800;
+        float xCoordinate = getIntent().getFloatExtra("x", 0);
+        float yCoordinate = getIntent().getFloatExtra("y", 0);
         //float xCoordinate = getIntent().getFloatExtra("xCoordinate", 0);
 
         //float yCoordinate = getIntent().getFloatExtra("yCoordinate", 0);
