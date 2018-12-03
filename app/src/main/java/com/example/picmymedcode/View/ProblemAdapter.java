@@ -20,8 +20,10 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -136,7 +138,12 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
         numberofRecordTextView.setText("Number of Records : "+problems.get(listPosition).getRecordList().size());
         //set description
         TextView DescriptionTextView = myViewHolder.descriptionTextView;
-        DescriptionTextView.setText(problems.get(listPosition).getDescription());
+
+        if(problems.get(listPosition).getDescription().equals("")){
+            DescriptionTextView.setVisibility(View.GONE);
+        } else {
+            DescriptionTextView.setText(problems.get(listPosition).getDescription());
+        }
 
         if (!PicMyMedApplication.getLoggedInUser().isPatient()){
             myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
@@ -188,12 +195,30 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
-                                if (PicMyMedApplication.isNetworkAvailable(context)) {
-                                    PicMyMedController.deleteProblem(problems.get(listPosition), context);
-                                    notifyDataSetChanged();
-                                } else {
-                                    Toast.makeText(context, "You must be online to delete a problem" , Toast.LENGTH_SHORT).show();
-                                }
+
+                                AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(context);
+                                authorizationDialog.setTitle("Delete")
+                                        .setCancelable(false)
+                                        .setMessage("Are you sure you want to delete?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                                                    PicMyMedController.deleteProblem(problems.get(listPosition), context);
+                                                    notifyDataSetChanged();
+                                                } else {
+                                                    Toast.makeText(context, "You must be online to delete a problem" , Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Toast.makeText(context, "Keep enjoying!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                authorizationDialog.show();
+
 
                                 //saveInFile();
                                 break;

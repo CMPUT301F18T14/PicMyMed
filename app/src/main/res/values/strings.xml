@@ -24,7 +24,7 @@
     <string name="Add_Description">Add Description</string>
     <string name="Geolocation">Geolocation</string>
     <string name="Body_Location">Body Location</string>
-    <string name="Username">Username</string>
+    <string name="Username">Username (8 characters or more)</string>
     <string name="Phone_Number">Phone Number</string>
     <string name="Email">Email</string>
     <string name="Update_Profile">Update Profile</string>

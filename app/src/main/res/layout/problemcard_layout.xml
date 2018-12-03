@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/purple_gradient"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="3dp">
 
         <TextView
             android:id="@+id/problem_title_text_view"
@@ -61,7 +62,6 @@
             android:id="@+id/problem_more_bar"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/problem_description_text_view"
             android:layout_alignParentRight="true"
             android:scaleType="fitEnd"
             android:src="@drawable/more_vert"

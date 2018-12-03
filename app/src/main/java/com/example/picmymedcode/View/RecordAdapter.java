@@ -20,14 +20,17 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +48,8 @@ import com.example.android.picmymedphotohandler.GalleryCells;
 import com.example.android.picmymedphotohandler.SlideShowAdapter;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -88,6 +93,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         ImageView recordMoreImageView;
         ImageView galleryIcon;
         ImageView mapIcon;
+        ImageView bodyLocationIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
 
@@ -107,6 +113,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
             this.galleryIcon = itemView.findViewById(R.id.record_gallery);
             this.mapIcon = itemView.findViewById(R.id.mapIcon);
+            this.bodyLocationIcon = itemView.findViewById(R.id.bodyLocationIcon);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -167,17 +174,27 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
 
+        if(records.get(i).getTitle().equals("")){
+            recordTitleTextView.setVisibility(View.GONE);
+        } else {
+            recordTitleTextView.setText(records.get(i).getTitle());
+        }
+        if(records.get(i).getDescription().equals("")){
+            recordDescriptionTextView.setVisibility(View.GONE);
+        } else {
+            recordDescriptionTextView.setText(records.get(i).getDescription());
+        }
 
-        recordTitleTextView.setText(records.get(i).getTitle());
-        recordDescriptionTextView.setText(records.get(i).getDescription());
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
             recordLocationTextView.setText(geolocation.getLocationName());
         } else {
-            recordViewHolder.mapIcon.setVisibility(View.INVISIBLE);
-
+            recordViewHolder.mapIcon.setVisibility(View.GONE);
         }
+
+        recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
         // Initialize the layout format and span
@@ -190,7 +207,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
 
         if (records.get(i).getPhotoList().size()==0) {
-            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
+            recordViewHolder.galleryIcon.setVisibility(View.GONE);
+            recordPhotoSlider.setVisibility(View.GONE);
         }
 
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
@@ -221,6 +239,29 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             }
         });
 
+        recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onclicklistener", "clicked");
+                Intent viewBodyLocationIntent = new Intent(context, XFixedPhotoActivity.class);
+                Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+                BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
+                String bodyID = bodyLocation.getPhotoID();
+                BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoByID(bodyID);
+                if (bodyLocationPhoto != null) {
+                    Log.d("inside if", "not null");
+                    viewBodyLocationIntent.putExtra("base64String", bodyLocationPhoto.getBase64EncodedString());
+                    viewBodyLocationIntent.putExtra("x", bodyLocation.getxCoordinate());
+                    viewBodyLocationIntent.putExtra("y", bodyLocation.getyCoordinate());
+                    context.startActivity(viewBodyLocationIntent);
+                }
+                else {
+                    Log.d("onclicklistener", "did not work");
+                }
+            }
+        });
+
+
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -235,9 +276,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
 
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
@@ -270,12 +308,31 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                 //PicMyMedController.updatePatient(user);
                                 //notifyDataSetChanged();
                                 //saveInFile();
-                                if (PicMyMedApplication.isNetworkAvailable(context)) {
-                                    PicMyMedController.deleteRecord(problem, records.get(i), context);
-                                    notifyDataSetChanged();
-                                } else {
-                                    Toast.makeText(context, "You must be online to delete a record" , Toast.LENGTH_SHORT).show();
-                                }
+
+                                AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(context);
+                                authorizationDialog.setTitle("Delete")
+                                        .setCancelable(false)
+                                        .setMessage("Are you sure you want to delete?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                                                    PicMyMedController.deleteRecord(problem, records.get(i), context);
+                                                    notifyDataSetChanged();
+                                                } else {
+                                                    Toast.makeText(context, "You must be online to delete a record" , Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Toast.makeText(context, "Keep enjoying!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                authorizationDialog.show();
+
+
 
 
                                 break;

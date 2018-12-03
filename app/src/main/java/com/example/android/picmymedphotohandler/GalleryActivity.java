@@ -192,6 +192,13 @@ public class GalleryActivity extends AppCompatActivity {
         return galleryCellsArrayList;
     }
 
+    /**
+     * Method sets photo location path and adds body photo location
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CAMERA_REQUEST_CODE) {

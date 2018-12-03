@@ -1,3 +1,22 @@
+/*
+ * EditRecordActivity
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedcode.View;
 
 
@@ -20,10 +39,22 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-
+/**
+ * EditRecordActivity extends AppCompatActivity to handle editing
+ * a record
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class EditRecordActivity extends AppCompatActivity {
     private Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
 
+    /**
+     * Method creates the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,6 +77,11 @@ public class EditRecordActivity extends AppCompatActivity {
 
         Button editRecordButton = findViewById(R.id.record_save_button);
         editRecordButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles clicking on the edit record button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 record.setTitle(editTitle.getText().toString());

@@ -1,6 +1,8 @@
 /*
  * PatientActivity
  *
+ * 1.2
+ *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,7 +64,7 @@ import java.util.Date;
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class PatientActivity extends AppCompatActivity {
@@ -98,6 +100,9 @@ public class PatientActivity extends AppCompatActivity {
         swipeLayout = findViewById(R.id.problem_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Method handles user swiping on layout to refresh
+             */
             @Override
             public void onRefresh() {
 
@@ -126,18 +131,26 @@ public class PatientActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
-
-
+    /**
+     * Method creates the option menu
+     *
+     * @param menu  Menu
+     * @return      onCreateOptionsMenu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.problem_toolbar,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Method handles menu item selected
+     *
+     * @param item  MenuItem
+     * @return      onItemSelected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -201,48 +214,9 @@ public class PatientActivity extends AppCompatActivity {
     }
 
     /**
-     * Method loads data from saved file. No longer implemented as app loads from
-     * database rather than local now
+     * Method handles user clicking back
+     *
      */
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
-
-            Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
-            }.getType();
-            problemArrayList = gson.fromJson(reader, typeListProblem);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Problem saves data to file. No longer implemented since app saves to database now.
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(problemArrayList,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-
     @Override
     public void onBackPressed() {
         PicMyMedApplication.logoutDialog(PatientActivity.this);

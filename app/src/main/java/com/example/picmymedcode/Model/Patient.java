@@ -69,16 +69,46 @@ public class Patient extends User implements Serializable {
         return Boolean.TRUE;
     }
 
+    /**
+     * Method gets the body location photo list
+     *
+     * @return  bodyLocationPhotoList
+     */
     public ArrayList<BodyLocationPhoto> getBodyLocationPhotoList() {
         return bodyLocationPhotoList;
     }
 
+    /**
+     * Method sets the body location photo list
+     *
+     * @param bodyLocationPhotoList ArrayList<BodyLocationPhoto></BodyLocationPhoto>
+     */
     public void setBodyLocationPhotoList(ArrayList<BodyLocationPhoto> bodyLocationPhotoList) {
         this.bodyLocationPhotoList = bodyLocationPhotoList;
     }
 
+    /**
+     * Method adds a body location photo
+     *
+     * @param photo BodyLocationPhoto
+     */
     public void addBodyLocationPhoto(BodyLocationPhoto photo) {
         this.bodyLocationPhotoList.add(photo);
+    }
+
+
+    /**
+     * Method removes a body location photo
+     *
+     * @param index int
+     */
+    public BodyLocationPhoto getBodyLocationPhotoByID(String id) {
+        for (int i = 0; i<this.bodyLocationPhotoList.size(); i++) {
+            if (this.bodyLocationPhotoList.get(i).getPhotoID().equals(id)) {
+                return this.bodyLocationPhotoList.get(i);
+            }
+        }
+        return null;
     }
 
     public void removeBodyLocationPhoto(int index) {

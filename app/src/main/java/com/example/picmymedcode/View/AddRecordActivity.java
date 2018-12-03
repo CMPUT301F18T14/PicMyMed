@@ -41,6 +41,8 @@ import android.widget.Toast;
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -81,7 +83,7 @@ import java.util.Date;
 
 /**
  * AddRecordActivity extends AppCompatActivity to create an activity for the user to
- * add a record to a problem
+ * add a record to a problem.
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.1, 16/11/18
@@ -94,18 +96,23 @@ public class AddRecordActivity extends AppCompatActivity{
     private static final String FILENAME = "file.sav";
     private static final int LAT_LNG_REQUEST_CODE = 786;
     private static final int CAMERA_REQUEST_CODE = 787;
+
     private static final int REQUEST_PERMISSIONS_LOCATION_SETTINGS_REQUEST_CODE = 33;
     private static final int REQUEST_PERMISSIONS_CURRENT_LOCATION_REQUEST_CODE = 35;
     private static long MIN_UPDATE_INTERVAL = 30 * 1000; // 1 minute is the minimum Android recommends, but we use 30 seconds
+    private static final int BODY_LOCATION_CODE = 788;
     private TextView locationNameTextView;
     private Button geoLocationButton;
     private Geolocation geolocation;
     private LocationRequest locationRequest;
     private Photo photo;
+    private BodyLocation bodyLocation;
     int position;
     private ArrayList<Photo> placeHolderPhotoList;
     private FusedLocationProviderClient mFusedLocationClient;
     Location currentLocation;
+    private Patient user;
+
 
     /**
      * Method initializes the add record activity
@@ -114,7 +121,7 @@ public class AddRecordActivity extends AppCompatActivity{
      */
     protected void onCreate(Bundle savedInstanceState) {
 
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
         arrayListProblem = user.getProblemList();
 
         super.onCreate(savedInstanceState);
@@ -126,6 +133,11 @@ public class AddRecordActivity extends AppCompatActivity{
 
         geoLocationButton = (Button) findViewById(R.id.record_geo_button);
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method starts activity of geolocation button is clicked
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
 //                if (ContextCompat.checkSelfPermission(AddRecordActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -148,6 +160,11 @@ public class AddRecordActivity extends AppCompatActivity{
 
         Button cameraPhoto = (Button) findViewById(R.id.record_camera_button);
         cameraPhoto.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method sets activity if cameraPhoto button is pressed
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 if (placeHolderPhotoList.size()<10) {
@@ -161,6 +178,15 @@ public class AddRecordActivity extends AppCompatActivity{
                 else {
                     Toast.makeText(AddRecordActivity.this, "You cannot upload more than 10 photos", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        Button bodyLocationButton = (Button) findViewById(R.id.bodyLocation);
+        bodyLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent selectBodyLocationIntent = new Intent(AddRecordActivity.this, SelectBodyLocationActivity.class);
+                startActivityForResult(selectBodyLocationIntent, BODY_LOCATION_CODE);
             }
         });
 
@@ -188,6 +214,10 @@ public class AddRecordActivity extends AppCompatActivity{
                 if (placeHolderPhotoList.size() != 0) {
                     record.setPhotoList(placeHolderPhotoList);
                 }
+                if (bodyLocation != null) {
+                    record.setBodyLocation(bodyLocation);
+                    Log.d("Saved", "saved bodylocation to record");
+                }
                 position = getIntent().getIntExtra("key",0);
                 Problem problem = arrayListProblem.get(position);
                 PicMyMedController.addRecord(problem, record, AddRecordActivity.this);
@@ -198,6 +228,9 @@ public class AddRecordActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Method functions when activity is returned to
+     */
     @Override
     public void onResume(){
         super.onResume();
@@ -218,8 +251,8 @@ public class AddRecordActivity extends AppCompatActivity{
     }
 
     /**
-     * Method loads saved data from file
-     * Used prior to implementation of elastic search
+     * Method loads saved data from file.
+     * Used prior to implementation of elastic search.
      */
     private void loadFromFile() {
         try {
@@ -238,9 +271,13 @@ public class AddRecordActivity extends AppCompatActivity{
         }
     }
 
+
     /**
-     * Method saves data to file
-     * Used prior to implementation of elastic search
+     * Method checks permissions for device
+     *
+     * @param requestCode   int
+     * @param permissions   String
+     * @param grantResults  int
      */
     private void saveInFile() {
         try {
@@ -284,6 +321,15 @@ public class AddRecordActivity extends AppCompatActivity{
 //            // permissions this app might request.
 //        }
 //    }
+
+    /**
+     * Method functions when activity is returned too
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -307,7 +353,7 @@ public class AddRecordActivity extends AppCompatActivity{
                 if (photo != null) {
                     placeHolderPhotoList.add(photo);
                 }
-                Log.d(TAG, "seccessfuly fetched photo");
+                Log.d(TAG, "successfully fetched photo");
             } catch (Exception e) {
                 Log.d(TAG, "fetching photo failed!");
             }
@@ -321,6 +367,16 @@ public class AddRecordActivity extends AppCompatActivity{
                 }
             } catch (Exception e) {
                 Log.d(TAG, "fetching map failed!");
+        if (requestCode == BODY_LOCATION_CODE) {
+            try {
+                int index = data.getIntExtra("bodyLocationPhotoIndex", 0);
+                float xCoordinate = data.getFloatExtra("x", 0);
+                float yCoordinate = data.getFloatExtra("y", 0);
+                BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoList().get(index);
+                bodyLocation = new BodyLocation(bodyLocationPhoto.getPhotoID(), xCoordinate, yCoordinate);
+                Log.d(TAG, "successfully created bodylocation");
+            } catch (Exception e) {
+                Log.d(TAG, "creating bodylocation failed");
             }
         }
 
