@@ -99,20 +99,10 @@ public class GalleryCells {
         this.filepath = filepath;
     }
 
-    /**
-     * Method gets the photo representation
-     *
-     * @return  base64
-     */
     public String getBase64() {
         return base64;
     }
 
-    /**
-     * Method sets the photo representation
-     *
-     * @param base64    String
-     */
     public void setBase64(String base64) {
         this.base64 = base64;
     }

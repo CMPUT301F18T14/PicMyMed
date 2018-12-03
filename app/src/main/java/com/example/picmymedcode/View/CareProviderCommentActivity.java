@@ -1,22 +1,3 @@
-/*
- * CareProviderCommentActivity
- *
- * 1.1
- *
- * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package com.example.picmymedcode.View;
 
 import android.content.Intent;
@@ -41,14 +22,6 @@ import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 
-/**
- * CareProviderAddCommentActivity extends AppCompatActivity to
- * add a comment
- *
- * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
- * @since   1.1
- */
 public class CareProviderCommentActivity extends AppCompatActivity{
     Patient patient;
     private RecyclerView mRecyclerView;
@@ -58,12 +31,6 @@ public class CareProviderCommentActivity extends AppCompatActivity{
     SwipeRefreshLayout swipeLayout;
 
     final int position = CareProviderRecordActivity.problemPosition;
-
-    /**
-     * Method sets the state
-     *
-     * @param savedInstanceState    Bundle
-     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.careprovidercomment_activity);
@@ -84,11 +51,6 @@ public class CareProviderCommentActivity extends AppCompatActivity{
         patientPhone.setText(patient.getPhoneNumber());
         //wow factor pass intent to call
         patientPhone.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles a user clicking on the patients phone number
-             *
-             * @param v View
-             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);// Send phone number to intent as data
@@ -102,11 +64,6 @@ public class CareProviderCommentActivity extends AppCompatActivity{
         patientEmail.setText(patient.getEmail());
         //wow factor pass intent email
         patientEmail.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method handles user clicking on the patient's email
-             *
-             * @param v View
-             */
             @Override
             public void onClick(View v) {
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -124,10 +81,6 @@ public class CareProviderCommentActivity extends AppCompatActivity{
         swipeLayout = findViewById(R.id.careprovider_comment_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            /**
-             * Method handles the user swiping down on the screen to refresh the comments
-             *
-             */
             @Override
             public void onRefresh() {
 
@@ -159,9 +112,6 @@ public class CareProviderCommentActivity extends AppCompatActivity{
 
     }
 
-    /**
-     * Method handles recycler view of patients
-     */
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();
@@ -177,9 +127,6 @@ public class CareProviderCommentActivity extends AppCompatActivity{
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    /**
-     * Method starts the activity
-     */
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();

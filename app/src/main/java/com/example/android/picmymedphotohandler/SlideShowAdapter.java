@@ -49,7 +49,6 @@ public class SlideShowAdapter extends PagerAdapter {
 
     /**
      * Constructor for this class. It initializes two member variables.
-     *
      * @param galleryCells  An ArrayList of GalleryCells
      * @param context       The activity context of the class that will use/call this adapter class.
      */

@@ -106,11 +106,6 @@ public class AddRecordActivity extends AppCompatActivity{
 
         Button geoLocationButton = (Button) findViewById(R.id.record_geo_button);
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method starts activity of geolocation button is clicked
-             *
-             * @param v View
-             */
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -126,11 +121,6 @@ public class AddRecordActivity extends AppCompatActivity{
 
         Button cameraPhoto = (Button) findViewById(R.id.record_camera_button);
         cameraPhoto.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Method sets activity if cameraPhoto button is pressed
-             *
-             * @param v View
-             */
             @Override
             public void onClick(View v) {
                 if (placeHolderPhotoList.size()<10) {
@@ -194,9 +184,6 @@ public class AddRecordActivity extends AppCompatActivity{
 
     }
 
-    /**
-     * Method functions when activity is returned to
-     */
     @Override
     public void onResume(){
         super.onResume();
@@ -235,14 +222,27 @@ public class AddRecordActivity extends AppCompatActivity{
         }
     }
 
-
     /**
-     * Method checks permissions for device
-     *
-     * @param requestCode   int
-     * @param permissions   String
-     * @param grantResults  int
+     * Method saves data to file.
+     * Used prior to implementation of elastic search.
      */
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME,
+                    0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
+
+            Gson gson = new Gson();
+            gson.toJson(arrayListProblem,osw);
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -266,14 +266,6 @@ public class AddRecordActivity extends AppCompatActivity{
             // permissions this app might request.
         }
     }
-
-    /**
-     * Method functions when activity is returned too
-     *
-     * @param requestCode   int
-     * @param resultCode    int
-     * @param data          Intent
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 

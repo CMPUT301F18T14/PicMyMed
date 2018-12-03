@@ -162,6 +162,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         System.out.println("onActivityResult(int requestCode = " + requestCode + ", int resultCode = " + resultCode);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             try {
@@ -194,6 +195,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
      * @throws IOException      Input Output exceptions for handling file
      */
     private void handleBigCameraPhoto(File imageFile, ImageView imageView, int maxFileSize) throws IOException {
+
+
         // Getting the absolute path of the image
         String imageFilePath = imageFile.getAbsolutePath();
 
@@ -426,13 +429,6 @@ public class PhotoIntentActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Method rotates an image
-     *
-     * @param img       Bitmap
-     * @param degree    int
-     * @return          rotatedImg
-     */
     private static Bitmap rotateImage(Bitmap img, int degree) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
