@@ -118,6 +118,7 @@
         <activity android:name=".View.XOnBodyLocationActivity"
             android:exported="true"/>
         <activity android:name=".View.EditRecordActivity" />
+        <activity android:name=".View.SelectBodyLocationActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

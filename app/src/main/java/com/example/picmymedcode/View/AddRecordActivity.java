@@ -37,6 +37,8 @@ import android.widget.Toast;
 import com.example.android.picmymedphotohandler.PhotoIntentActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -76,11 +78,14 @@ public class AddRecordActivity extends AppCompatActivity{
     private static final String FILENAME = "file.sav";
     private static final int LAT_LNG_REQUEST_CODE = 786;
     private static final int CAMERA_REQUEST_CODE = 787;
+    private static final int BODY_LOCATION_CODE = 788;
     private TextView locationNameTextView;
     private Geolocation geolocation;
     private Photo photo;
+    private BodyLocation bodyLocation;
     int position;
     private ArrayList<Photo> placeHolderPhotoList;
+    private Patient user;
 
     /**
      * Method initializes the add record activity
@@ -89,7 +94,7 @@ public class AddRecordActivity extends AppCompatActivity{
      */
     protected void onCreate(Bundle savedInstanceState) {
 
-        Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
+        user = (Patient)PicMyMedApplication.getLoggedInUser();
         arrayListProblem = user.getProblemList();
 
         super.onCreate(savedInstanceState);
@@ -129,6 +134,15 @@ public class AddRecordActivity extends AppCompatActivity{
             }
         });
 
+        Button bodyLocationButton = (Button) findViewById(R.id.bodyLocation);
+        bodyLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent selectBodyLocationIntent = new Intent(AddRecordActivity.this, SelectBodyLocationActivity.class);
+                startActivityForResult(selectBodyLocationIntent, BODY_LOCATION_CODE);
+            }
+        });
+
         Button recordSaveButton = findViewById(R.id.record_save_button);
         recordSaveButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -152,6 +166,10 @@ public class AddRecordActivity extends AppCompatActivity{
 //                }
                 if (placeHolderPhotoList.size() != 0) {
                     record.setPhotoList(placeHolderPhotoList);
+                }
+                if (bodyLocation != null) {
+                    record.setBodyLocation(bodyLocation);
+                    Log.d("Saved", "saved bodylocation to record");
                 }
                 position = getIntent().getIntExtra("key",0);
                 Problem problem = arrayListProblem.get(position);
@@ -268,9 +286,22 @@ public class AddRecordActivity extends AppCompatActivity{
                 if (photo != null) {
                     placeHolderPhotoList.add(photo);
                 }
-                Log.d(TAG, "seccessfuly fetched photo");
+                Log.d(TAG, "successfully fetched photo");
             } catch (Exception e) {
                 Log.d(TAG, "fetching photo failed!");
+            }
+        }
+
+        if (requestCode == BODY_LOCATION_CODE) {
+            try {
+                int index = data.getIntExtra("bodyLocationPhotoIndex", 0);
+                float xCoordinate = data.getFloatExtra("x", 0);
+                float yCoordinate = data.getFloatExtra("y", 0);
+                BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoList().get(index);
+                bodyLocation = new BodyLocation(bodyLocationPhoto, xCoordinate, yCoordinate);
+                Log.d(TAG, "successfully created bodylocation");
+            } catch (Exception e) {
+                Log.d(TAG, "creating bodylocation failed");
             }
         }
 
