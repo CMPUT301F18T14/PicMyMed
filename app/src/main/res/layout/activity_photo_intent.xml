@@ -31,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:src="@drawable/aladdin"
         android:layout_below="@id/enlargementToolbar"/>
 
 </RelativeLayout>

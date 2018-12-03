@@ -123,16 +123,22 @@ public class AddRecordActivity extends AppCompatActivity{
         final EditText recordDescriptionEditText = findViewById(R.id.record_description_edit_text);
 
         Button geoLocationButton = (Button) findViewById(R.id.record_geo_button);
+
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(AddRecordActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LAT_LNG_REQUEST_CODE);
+                if (PicMyMedApplication.isNetworkAvailable(AddRecordActivity.this)) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(AddRecordActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LAT_LNG_REQUEST_CODE);
+                    } else {
+                        Intent mapIntent = new Intent(AddRecordActivity.this, DrawMapActivity.class);
+                        mapIntent.putExtra("callingActivity", "AddRecordActivity");
+                        startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
+                    }
                 } else {
-                    Intent mapIntent = new Intent(AddRecordActivity.this, DrawMapActivity.class);
-                    mapIntent.putExtra("callingActivity", "AddRecordActivity");
-                    startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
+                    Toast.makeText(getApplicationContext(), "You must be online to add a geo location" , Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

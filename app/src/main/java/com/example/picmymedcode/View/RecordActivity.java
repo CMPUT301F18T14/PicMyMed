@@ -37,8 +37,11 @@ import android.widget.Toast;
 import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.android.picmymedphotohandler.SlideshowActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.Record;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
@@ -189,6 +192,11 @@ public class RecordActivity extends AppCompatActivity{
                 break;
             case R.id.logout:
                 PicMyMedApplication.logoutDialog(RecordActivity.this);
+                break;
+            case R.id.pushData:
+                User user = (Patient)PicMyMedApplication.getLoggedInUser();
+                PicMyMedController.updateUser(user, RecordActivity.this);
+                Toast.makeText(getApplicationContext(), "Data is synced!", Toast.LENGTH_LONG).show();
                 break;
 
         }

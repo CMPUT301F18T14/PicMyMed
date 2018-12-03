@@ -42,6 +42,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
@@ -177,6 +178,11 @@ public class PatientActivity extends AppCompatActivity {
                 break;
             case R.id.logout:
                 PicMyMedApplication.logoutDialog(PatientActivity.this);
+                break;
+            case R.id.pushData:
+                User user = (Patient)PicMyMedApplication.getLoggedInUser();
+                PicMyMedController.updateUser(user, PatientActivity.this);
+                Toast.makeText(getApplicationContext(), "Data is synced!", Toast.LENGTH_LONG).show();
                 break;
 
         }
