@@ -50,6 +50,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocation;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
+import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Geolocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
@@ -198,6 +199,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
 
 
+
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
         // Initialize the layout format and span
         layoutManager = new GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, true);
@@ -267,6 +269,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 Log.d("onclicklistener", "clicked");
                 Intent viewBodyLocationIntent = new Intent(context, XFixedPhotoActivity.class);
                 Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
                 BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
                 String bodyID = bodyLocation.getPhotoID();
                 BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoByID(bodyID);

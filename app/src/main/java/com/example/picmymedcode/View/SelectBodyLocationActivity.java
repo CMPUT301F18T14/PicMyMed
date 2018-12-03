@@ -44,6 +44,7 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +86,22 @@ public class SelectBodyLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_body_location);
 
-        //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
+        if (user.getBodyLocationPhotoList().size()==0) {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_bodyloc);
+            String imageUri = "drawable://" + R.drawable.default_bodyloc;
+            BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
+            bodyLocationPhoto.setLabel("Default Photo");
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100 , byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            bodyLocationPhoto.setBase64EncodedString(base64Image);
+            //user.getBodyLocationPhotoList().add(bodyLocationPhoto);
+            PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, SelectBodyLocationActivity.this);
+        }
+
 
         Button takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
