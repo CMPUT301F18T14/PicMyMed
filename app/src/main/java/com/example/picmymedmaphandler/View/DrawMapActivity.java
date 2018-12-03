@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -37,6 +38,7 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
+import com.example.picmymedcode.View.TabSearchActivity;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
 import com.example.picmymedmaphandler.Model.PlaceInformation;
@@ -53,12 +55,14 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -127,6 +131,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         if (callingActiviy.equals("AllProblem")) {
             if (isServicesOK()) {
                 initMapForAllProblem();
+            }
+        }
+
+        if (callingActiviy.equals("SearchByLocation")) {
+            if (isServicesOK()) {
+                initMapForSearch();
             }
         }
 
@@ -398,6 +408,39 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         });
 
     }
+
+    private void initMapForSearch() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Toast.makeText(DrawMapActivity.this, "Map is ready.", Toast.LENGTH_SHORT).show();
+                // Initializing google map
+                mGoogleMap = googleMap;
+
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+            }
+        });
+
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                double latitude = latLng.latitude;
+                double longitude = latLng.longitude;
+
+                Intent backToSearch = new Intent(DrawMapActivity.this, TabSearchActivity.class);
+                backToSearch.putExtra("latitude", latitude);
+                backToSearch.putExtra("longitude", longitude);
+                setResult(RESULT_OK, backToSearch);
+                finish();
+                //Do what you want on obtained latLng
+            }
+        });
+    }
+
     // Initializes the GoogleMap Object and draws in on top of map fragment
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
