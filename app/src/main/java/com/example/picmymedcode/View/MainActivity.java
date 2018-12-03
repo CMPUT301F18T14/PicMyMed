@@ -93,14 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
         enteredUsername = (EditText) findViewById(R.id.enteredUID);
 
-       /* SharedPreferences prefs = getSharedPreferences("username",
+        SharedPreferences prefs = getSharedPreferences("username",
                 MODE_PRIVATE);
         String username = prefs.getString("username", null);
         if (username != null && !username.isEmpty() && PicMyMedApplication.isNetworkAvailable(MainActivity.this)) {
-            Log.i("DEBUG SHARED", "Trying t use hsared preferences");
+            Log.i("DEBUG SHARED", "Trying to use shared preferences");
             loginHandler(username);
         }
-*/
+
 
     }
 
@@ -254,12 +254,13 @@ public class MainActivity extends AppCompatActivity {
     private int initializeApp(Boolean authorizeUser) {
         try {
             if (user != null) {
-                //SharedPreferences.Editor editor = getSharedPreferences("username",MODE_PRIVATE).edit();
-               // editor.putString("username", user.getUsername());
-                //editor.apply();
+
                 if (authorizeUser) {
                     PicMyMedController.addAuthorizedDevice(user, MainActivity.this);
                 }
+                SharedPreferences.Editor editor = getSharedPreferences("username",MODE_PRIVATE).edit();
+                editor.putString("username", user.getUsername());
+                editor.apply();
                 PicMyMedApplication.setLoggedInUser(user);
                 PicMyMedController.updateLastDeviceUsed(user, MainActivity.this);
                /* handler.postDelayed(new Runnable(){
