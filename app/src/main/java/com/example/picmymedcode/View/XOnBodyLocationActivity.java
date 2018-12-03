@@ -156,6 +156,7 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
+                finish();
                 //return to other activity
             }
         });
