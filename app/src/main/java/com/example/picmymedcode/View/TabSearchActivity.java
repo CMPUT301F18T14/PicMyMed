@@ -20,7 +20,7 @@ public class TabSearchActivity extends AppCompatActivity {
     android.support.v7.widget.Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-    private SearchView searchView;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

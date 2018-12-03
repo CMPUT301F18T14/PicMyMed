@@ -1,7 +1,7 @@
 /*
  * PicMyMedApplication
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -23,8 +23,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
@@ -48,17 +50,19 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.support.v4.content.ContextCompat.getSystemService;
 
 /**
  * PicMyMedApplication handles the logged in user and their type (patient or care provider)
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class PicMyMedApplication {
     public final static String FILENAME = "PicMyMed.sav";
+    public static String Preference = "username";
 
     static User loggedInUser;
 
@@ -156,14 +160,17 @@ public class PicMyMedApplication {
     public static void logout(final Context context) {
         try {
             User user = getLoggedInUser();
-            if (isNetworkAvailable(context)) {
+            PicMyMedController.updateUser(user, context);
+            /*if (isNetworkAvailable(context)) {
                 Log.i("DEBUG PMA","Saving user to online database");
                 PicMyMedController.updateUser(user, context);
             } else {
                 user.setRequiresSync(Boolean.TRUE);
-                Log.i("DEBUG PMA","Saving user locally");
-                saveUserLocally(context);
+                Log.i("DEBUG PMA","Update Required during next login.");
+
             }
+            saveUserLocally(context);
+            */
             setLoggedInUser(null);
             Intent problemIntent = new Intent(context, MainActivity.class);
             context.startActivity(problemIntent);
@@ -198,15 +205,19 @@ public class PicMyMedApplication {
         authorizationDialog.show();
     }
 
+
+
+
     /**
      * Method saves the user to local
      *
      * @param context   Context
      */
+
     public static void saveUserLocally(Context context) {
         try {
             ArrayList<User> userList = new ArrayList<>();
-            FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput(FILENAME, MODE_PRIVATE);
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 
@@ -216,15 +227,6 @@ public class PicMyMedApplication {
             out.flush();
             fos.close();
 
-            /*FileOutputStream fos = context.openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(userList,osw);
-            writer.flush();
-            writer.close();*/
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -254,6 +256,7 @@ public class PicMyMedApplication {
             Type listType = new TypeToken<ArrayList<Patient>>(){}.getType();
             userList = gson.fromJson(in, listType);
             setLocalUser(userList.get(0));
+
             return true;
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block

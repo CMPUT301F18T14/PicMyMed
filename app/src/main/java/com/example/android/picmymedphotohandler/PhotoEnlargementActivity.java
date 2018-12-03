@@ -32,11 +32,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 
 import java.io.File;
@@ -155,6 +157,12 @@ public class PhotoEnlargementActivity extends AppCompatActivity {
         if (receivedIntentFrom==2) {
             menu.removeItem(R.id.labelButton);
         }
+        if (PicMyMedApplication.getLoggedInUser().isPatient()==false) {
+            menu.removeItem(R.id.button_delete);
+
+        }
+
+
         return super.onCreateOptionsMenu(menu);
     }
 

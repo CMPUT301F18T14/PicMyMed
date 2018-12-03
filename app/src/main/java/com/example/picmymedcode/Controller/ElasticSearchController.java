@@ -1,7 +1,7 @@
 /*
  * ElasticSearchController
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -44,14 +44,14 @@ import io.searchbox.core.SearchResult;
  * and server connectivity
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class ElasticSearchController {
 
     private static JestDroidClient client;
 
-    private static final String serverURI = "http://es2.softwareprocess.ca:8080/";
+    private static final String serverURI = "http://cmput301.softwareprocess.es:8080/";
     private static final String indexPath = "cmput301f18t14test";
     private static final String querySize = "100";
     private static final String maxQuerySize = "999999";

@@ -1,7 +1,7 @@
 /*
  * RecordActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -37,8 +37,11 @@ import android.widget.Toast;
 import com.example.android.picmymedphotohandler.GalleryActivity;
 import com.example.android.picmymedphotohandler.SlideshowActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.Record;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
@@ -60,7 +63,7 @@ import java.util.ArrayList;
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class RecordActivity extends AppCompatActivity{
@@ -98,12 +101,19 @@ public class RecordActivity extends AppCompatActivity{
         swipeLayout = findViewById(R.id.record_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Handles user swiping on the screen to refresh the layout
+             */
             @Override
             public void onRefresh() {
 
                 if (PicMyMedApplication.isNetworkAvailable(RecordActivity.this)) {
                     // To keep animation for 4 seconds
                     new Handler().postDelayed(new Runnable() {
+                        /**
+                         * Handles refreshing the app
+                         *
+                         */
                         @Override public void run() {
                             PicMyMedApplication.getMostRecentChanges();
                             manageRecyclerview();
@@ -129,11 +139,23 @@ public class RecordActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Creates the toolbar options
+     *
+     * @param menu  Menu
+     * @return      OptionsMenu
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.record_toolbar,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Handles user selected something in the menu
+     *
+     * @param item  MenuItem
+     * @return      ItemSelected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -171,6 +193,16 @@ public class RecordActivity extends AppCompatActivity{
             case R.id.logout:
                 PicMyMedApplication.logoutDialog(RecordActivity.this);
                 break;
+            case R.id.pushData:
+                User user = (Patient)PicMyMedApplication.getLoggedInUser();
+                if (PicMyMedApplication.isNetworkAvailable(RecordActivity.this)) {
+                    PicMyMedController.updateUser(user, RecordActivity.this);
+                    Toast.makeText(getApplicationContext(), "Data is synced!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You are offline" , Toast.LENGTH_SHORT).show();
+                }
+
+                break;
 
         }
         return super.onOptionsItemSelected(item);
@@ -198,52 +230,8 @@ public class RecordActivity extends AppCompatActivity{
 
         super.onStart();
         manageRecyclerview();
-
-
-
         //load
 
-    }
-
-    /**
-     * Method loaded from file. No longer implemented, now loading from database
-     */
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
-
-            Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
-            }.getType();
-            problemArrayList = gson.fromJson(reader, typeListProblem);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Method saved data to file. No longer implemented, now saving to database
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(problemArrayList,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
 }

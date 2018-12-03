@@ -41,10 +41,16 @@
 
     <item
         android:id="@+id/logout"
-        android:orderInCategory="7"
+        android:orderInCategory="8"
         android:icon="@drawable/logout_white"
         android:title="@string/logout"
         app:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/pushData"
+        android:orderInCategory="7"
+        android:icon="@drawable/sync_white"
+        android:title="@string/syncData"
+        app:showAsAction="ifRoom|withText"/>
 
 </menu>

@@ -1,6 +1,8 @@
 /*
  * SignUpActivity
  *
+ * 1.2
+ *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +38,7 @@ import com.example.picmymedcode.Model.Patient;
  * SignUpActivity extends AppCompatActivity to create an activity for a new user to sign up
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class SignUpActivity extends AppCompatActivity {
