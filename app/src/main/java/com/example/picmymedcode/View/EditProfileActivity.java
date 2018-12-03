@@ -1,7 +1,7 @@
 /*
  * EditProfileActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -36,7 +36,7 @@ import com.example.picmymedcode.R;
  * handles a user editing their phone number and email in their profile
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class EditProfileActivity extends AppCompatActivity {
@@ -70,6 +70,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         editProfileButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on the edit profile button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 String email = showEmail.getText().toString();

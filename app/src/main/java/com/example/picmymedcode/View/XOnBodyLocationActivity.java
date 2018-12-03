@@ -1,5 +1,6 @@
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -14,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 
 public class XOnBodyLocationActivity extends AppCompatActivity {
@@ -26,12 +31,15 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
     private Button cancelButton;
     //private Bitmap bitmap;
     float[] coordinates;
+    private Patient user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_bodylocation_photo);
         //warning, photo is stretched into the view and fills the entire space
+
+        user = (Patient) PicMyMedApplication.getLoggedInUser();
 
         //initialize view elements
         drawView = (DrawView) findViewById(R.id.bodyLocation_x);
@@ -85,6 +93,15 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 coordinates = drawView.getCoordinates();
+
+                int index = getIntent().getIntExtra("photoIndex", 0);
+                Intent backToAddRecordActivity = new Intent();
+                backToAddRecordActivity.putExtra("x", coordinates[0]);
+                backToAddRecordActivity.putExtra("y", coordinates[1]);
+                backToAddRecordActivity.putExtra("bodyLocationPhotoIndex", index);
+                setResult(RESULT_OK, backToAddRecordActivity);
+                finish();
+
                 Toast.makeText(XOnBodyLocationActivity.this,"x: " + coordinates[0] +
                         " y: " + coordinates[1], Toast.LENGTH_SHORT).show();
 

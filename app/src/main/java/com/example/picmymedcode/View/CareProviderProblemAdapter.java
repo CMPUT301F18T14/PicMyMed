@@ -78,9 +78,10 @@ public class CareProviderProblemAdapter extends RecyclerView.Adapter<CareProvide
     }
 
     /**
+     * Method initializes class
      *
-     * @param context
-     * @param problemsdata
+     * @param context       Context
+     * @param problemsdata  ArrayList<Problem></Problem>
      */
     public CareProviderProblemAdapter(Context context, ArrayList<Problem> problemsdata){
         this.problems = problemsdata;
@@ -186,27 +187,6 @@ public class CareProviderProblemAdapter extends RecyclerView.Adapter<CareProvide
     @Override
     public int getItemCount() {
         return (problems == null) ? 0 : problems.size();
-    }
-
-    /**
-     * Method saved data to file. No longer implemented, data now saved to database
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = context.openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(problems,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
 
