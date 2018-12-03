@@ -1,3 +1,22 @@
+/*
+ * CareProviderCommentAdapter
+ *
+ * 2.0
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedcode.View;
 
 import android.os.Bundle;
@@ -16,6 +35,15 @@ import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 
+
+/**
+ * CareProviderCommentActivity extends AppCompatActivity to
+ * handle comments
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ */
 public class CommentActivity extends AppCompatActivity{
     public ArrayList<Problem> problemArrayList;
     private RecyclerView mRecyclerView;
@@ -24,7 +52,11 @@ public class CommentActivity extends AppCompatActivity{
     int position;
     SwipeRefreshLayout swipeLayout;
 
-
+    /**
+     * Method creates the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patientcomment_activity);
@@ -34,6 +66,9 @@ public class CommentActivity extends AppCompatActivity{
         swipeLayout = findViewById(R.id.comment_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Method handles user swiping down to refresh layout
+             */
             @Override
             public void onRefresh() {
 
@@ -63,6 +98,10 @@ public class CommentActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * Method handles recycler view of layout
+     *
+     */
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();
@@ -78,6 +117,9 @@ public class CommentActivity extends AppCompatActivity{
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Method starts activity
+     */
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();

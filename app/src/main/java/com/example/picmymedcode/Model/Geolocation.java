@@ -1,7 +1,7 @@
 /*
  * Geolocation
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
