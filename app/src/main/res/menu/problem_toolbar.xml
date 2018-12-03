@@ -44,5 +44,12 @@
         android:title="@string/logout"
         app:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/pushData"
+        android:orderInCategory="4"
+        android:icon="@drawable/sync_white"
+        android:title="@string/syncData"
+        app:showAsAction="ifRoom|withText"/>
+
 
 </menu>

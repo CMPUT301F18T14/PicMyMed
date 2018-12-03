@@ -1,7 +1,7 @@
 /*
  * CareProviderCommentAdapter
  *
- * 2.0
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -41,7 +41,7 @@ import java.util.ArrayList;
  * handle comments
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2,  02/12/18
  * @since   1.1
  */
 public class CommentActivity extends AppCompatActivity{
@@ -75,6 +75,10 @@ public class CommentActivity extends AppCompatActivity{
                 if (PicMyMedApplication.isNetworkAvailable(CommentActivity.this)) {
                     // To keep animation for 4 seconds
                     new Handler().postDelayed(new Runnable() {
+                        /**
+                         * Gets the most recent changes and updates the view
+                         *
+                         */
                         @Override public void run() {
                             PicMyMedApplication.getMostRecentChanges();
                             manageRecyclerview();
@@ -86,6 +90,10 @@ public class CommentActivity extends AppCompatActivity{
 
                 }else {
                     new Handler().postDelayed(new Runnable() {
+                        /**
+                         * Stops the refresh animation
+                         *
+                         */
                         @Override public void run() {
                             // Stop animation (This will be after 3 seconds)
                             swipeLayout.setRefreshing(false);

@@ -30,7 +30,7 @@ import java.util.WeakHashMap;
  * This class is safe to use as an OnClickListener for multiple views, and will debounce each one separately.
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.2, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public abstract class DebouncedOnClickListener implements View.OnClickListener {

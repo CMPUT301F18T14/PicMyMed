@@ -1,7 +1,7 @@
 /*
  * CareProviderAddPatientActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -49,7 +49,7 @@ import java.util.ArrayList;
  * add a patient
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class CareProviderAddPatientActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{

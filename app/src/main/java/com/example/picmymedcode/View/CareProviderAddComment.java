@@ -1,7 +1,7 @@
 /*
  * CareProviderAddComment
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -21,6 +21,7 @@ package com.example.picmymedcode.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ import java.util.Locale;
  * add a comment
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class CareProviderAddComment extends AppCompatActivity{
@@ -61,7 +62,7 @@ public class CareProviderAddComment extends AppCompatActivity{
         final int position = getIntent().getIntExtra("key2",0);
         problemArrayList = patient.getProblemList();
         Button saveCommentButton = (Button) findViewById(R.id.comment_save_button);
-
+        final User user = PicMyMedApplication.getLoggedInUser();
         saveCommentButton.setOnClickListener(new View.OnClickListener() {
             /**
              * Method handles the user clicking the save button
@@ -75,10 +76,11 @@ public class CareProviderAddComment extends AppCompatActivity{
                 //adding comment
                 TextView commentEditText = (TextView)findViewById(R.id.comment_edit_text);
                 String result = commentEditText.getText().toString();
-                User user = PicMyMedApplication.getLoggedInUser();
                 String result2 = result+"\n\n\n commented by "+ user.getUsername().toString()+"\n"+date;
                 problemArrayList.get(position).addCommentList(result2);
+                Log.i("DEBUG CPAD", "updating patient for comment");
                 PicMyMedController.updateUser(patient, CareProviderAddComment.this);
+                Log.i("DEBUG CPAD", "success updating patient for comment");
                 onBackPressed();
                 // TODO Auto-generated method stub
             }

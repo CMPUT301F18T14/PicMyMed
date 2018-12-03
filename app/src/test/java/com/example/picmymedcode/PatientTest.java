@@ -2,7 +2,9 @@
 
 package com.example.picmymedcode;
 
+import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.Patient;
+import com.example.picmymedcode.Model.Photo;
 
 import junit.framework.TestCase;
 
@@ -17,33 +19,35 @@ public class PatientTest extends TestCase {
         assertEquals("username", patient.getUsername());
         assertEquals("test@email.com", patient.getEmail());
         assertEquals("1111111111", patient.getPhoneNumber());
-    }
-
-    public void testGetEmail() {
-        Patient patient = new Patient("username", "test@email.com", "1111111111");
-        assertEquals("test@email.com", patient.getEmail());
-
-    }
-
-    public void testSetEmail() {
-        Patient patient = new Patient("username", "test@email.com", "1111111111");
-        patient.setEmail("email@email.ca");
-        assertEquals("email@email.ca", patient.getEmail());
-    }
-
-    public void testGetPhoneNumber() {
-        Patient patient = new Patient("username", "test@email.com", "1111111111");
-        assertEquals("1111111111", patient.getPhoneNumber());
-    }
-
-    public void testSetPhoneNumber() {
-        Patient patient = new Patient("username", "test@email.com", "1111111111");
-        patient.setPhoneNumber("1231231234");
-        assertEquals("1231231234",patient.getPhoneNumber());
+        assertTrue(patient.getProblemList() instanceof ArrayList);
+        assertTrue(patient.getBodyLocationPhotoList() instanceof ArrayList);
     }
 
     public void testGetProblemList() {
-        Patient patient = new Patient("username", "test@email.com", "1111111111");
+        Patient patient = new Patient("username",
+                "test@email.com", "1111111111");
         assertTrue(patient.getProblemList() instanceof ArrayList);
+    }
+
+    public void testIsPatient() {
+        Patient patient = new Patient("username",
+                "test@email.com", "1111111111");
+        assertTrue("Is not a patient.", patient.isPatient());
+    }
+
+    public void testGetBodyLocationPhotoList() {
+        Patient patient = new Patient("username",
+                "test@email.com", "1111111111");
+
+        assertTrue(patient.getBodyLocationPhotoList() instanceof ArrayList);
+    }
+
+    public void testAddBodyLocationPhoto() {
+        BodyLocationPhoto photo = new BodyLocationPhoto("filepath");
+        Patient patient = new Patient("username",
+                "test@email.com", "1111111111");
+        patient.addBodyLocationPhoto(photo);
+
+        assertTrue(patient.getBodyLocationPhotoList().get(0).equals(photo));
     }
 }

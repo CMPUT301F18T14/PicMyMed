@@ -19,10 +19,13 @@
  */
 package com.example.picmymedcode.View;
 
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -34,6 +37,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.preference.PreferenceManager;
 
 import com.example.QRCode.ScannerActivity;
 import com.example.picmymedcode.Controller.PicMyMedApplication;
@@ -54,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_CODE = 100;
     private final static int CAMERA_PERMISSION_REQUEST = 200;
     private final static String barcodeID = "barcode";
+    private final Handler handler = new Handler();
+    private final int delay = 10000; //milliseconds
 
     private Button loginBtn;
     private EditText enteredUsername;
@@ -62,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private Barcode barcode;
     private String randomUserID;
     private User user;
+    private SharedPreferences settings;
+
 
     /**
      * Method initializes the main activity
@@ -85,8 +93,24 @@ public class MainActivity extends AppCompatActivity {
 
         enteredUsername = (EditText) findViewById(R.id.enteredUID);
 
+        SharedPreferences prefs = getSharedPreferences("username",
+                MODE_PRIVATE);
+        String username = prefs.getString("username", null);
+        if (username != null && !username.isEmpty() && PicMyMedApplication.isNetworkAvailable(MainActivity.this)) {
+            Log.i("DEBUG SHARED", "Trying to use shared preferences");
+            loginHandler(username);
+        }
+
 
     }
+
+   /* protected void onStart(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("username",
+                MODE_PRIVATE);
+        String username = prefs.getString("username", null);
+        loginHandler(username);
+
+    }*/
 
     private DebouncedOnClickListener loginHandlerClickListener = new DebouncedOnClickListener(2000) {
         /**
@@ -96,15 +120,21 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         public void onDebouncedClick(View v) {
-            loginHandler();
+            loginHandler(enteredUsername.getText().toString());
         }
 
     };
-    private void loginHandler() {
 
-        String username = enteredUsername.getText().toString();
+    /**
+     * Method handles network availability when user logs in
+     * and checks if user exists
+     *
+     * @param username  String
+     */
+    private void loginHandler(String username) {
+
         if (PicMyMedApplication.isNetworkAvailable(MainActivity.this)) {
-            if (updateLocal() == 1) { toastMessage("Synchornized old data");}
+            if (updateLocal() == 1) { toastMessage("Synchronized old data");}
             if (PicMyMedController.checkValidUser(username) == 1) {
                 user = PicMyMedController.getUser(username);
                 if (user != null) {
@@ -124,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Pop up box if device is not authorized
+     *
+     */
     public void authorizeDeviceDialog() {
         AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(this);
         authorizationDialog.setTitle("Device authorization required!")
@@ -157,6 +191,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    /**
+     * Calls sign up activity
+     */
     private void signUpActivity() {
         Intent problemIntent = new Intent(MainActivity.this, UserProfileTypeActivity.class);
         startActivity(problemIntent);
@@ -174,6 +212,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    /**
+     * Method handles scanning a user's QR code
+     */
     private void scanQRCode() {
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -184,28 +226,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method updates the local files to save data
+     * @return
+     */
     private int updateLocal() {
         if (PicMyMedApplication.loadUserData(MainActivity.this)) {
             User localUser = PicMyMedApplication.getLocalUser();
             if (localUser.getRequiresSync() == Boolean.TRUE) {
-                localUser.setRequiresSync(Boolean.FALSE);
                 PicMyMedController.updateUser(localUser, MainActivity.this);
                 Log.i("DEBUG", "saving old data");
 
                 return 1;
             }
+        } else {
+            Log.i("DEBUG","COULD NOT UPDATE");
         }
         return 0;
     }
 
+    /**
+     * Method initializes app with user
+     *
+     * @param authorizeUser Boolean
+     * @return              int
+     */
     private int initializeApp(Boolean authorizeUser) {
         try {
             if (user != null) {
+
                 if (authorizeUser) {
                     PicMyMedController.addAuthorizedDevice(user, MainActivity.this);
                 }
+                SharedPreferences.Editor editor = getSharedPreferences("username",MODE_PRIVATE).edit();
+                editor.putString("username", user.getUsername());
+                editor.apply();
                 PicMyMedApplication.setLoggedInUser(user);
                 PicMyMedController.updateLastDeviceUsed(user, MainActivity.this);
+               /* handler.postDelayed(new Runnable(){
+                    public void run(){
+                        Log.i("handler Debug", "run()");
+                        if(PicMyMedApplication.getLoggedInUser() != null) {
+                            PicMyMedController.updateUser(PicMyMedApplication.getLoggedInUser(), MainActivity.this);
+                            //Toast.makeText(MainActivity.this, "trying to update", Toast.LENGTH_SHORT).show();
+                        }
+                        handler.postDelayed(this, delay);
+                    }
+                }, delay);*/
                 if (user.isPatient()) {
                     Intent problemIntent = new Intent(MainActivity.this, PatientActivity.class);
                     startActivity(problemIntent);
@@ -222,6 +289,13 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
+    /**
+     * Handles result when returning to activity
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -249,6 +323,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Method checks permissions for app
+     *
+     * @param requestCode   int
+     * @param permissions   String
+     * @param grantResults  int
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -262,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
                     startActivityForResult(scannerIntent, REQUEST_CODE);
                 } else {
-                    toastMessage("Cannot scan QR Code if you don't give camera permissions, you bum bum!");
+                    toastMessage("Cannot scan QR Code if you don't give camera permissions!");
                 }
                 return;
             }

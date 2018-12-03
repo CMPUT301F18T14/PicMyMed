@@ -1,3 +1,23 @@
+/*
+ * DrawMapActivity
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.picmymedmaphandler.View;
 
 import android.Manifest;
@@ -18,6 +38,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -37,6 +58,7 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
+import com.example.picmymedcode.View.TabSearchActivity;
 import com.example.picmymedmaphandler.Controller.MapButtonActivity;
 import com.example.picmymedmaphandler.Model.LongitudeLatitude;
 import com.example.picmymedmaphandler.Model.PlaceInformation;
@@ -53,21 +75,36 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * DrawMapActivity extends AppCompatActivity and implements GoogleApiClient
+ * to draw the map
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class DrawMapActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
+    /**
+     * handles losing the connection
+     *
+     * @param connectionResult  ConnectionResult
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -90,6 +127,11 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private String callingActiviy;
     private LongitudeLatitude longitudeLatitude;
 
+    /**
+     * Sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +172,17 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
             }
         }
 
+        if (callingActiviy.equals("SearchByLocation")) {
+            if (isServicesOK()) {
+                initMapForSearch();
+            }
+        }
+
     }
 
+    /**
+     * gets location
+     */
     private void initialTaskInActivityForAddingRecord() {
 
         double latitude = getIntent().getDoubleExtra("Latitude", 0);
@@ -206,6 +257,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 //        }, 5000 /* 5 sec */ );
     }
 
+    /**
+     * Handles the search
+     */
     private void initSearch(){
         Log.d(TAG, "init: initializing");
 
@@ -248,6 +302,11 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
         // Action Listener for GPS button
         mGps.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles clicking on GPS icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked GPS icon");
@@ -259,6 +318,11 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
         // Action Listener for GPS button
         mAdd.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles clicking on add icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked Add icon");
@@ -307,6 +371,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    /**
+     * Handles creating a map for all problems
+     */
     private void initMapForAllProblem() {
 
         final Patient user = (Patient)PicMyMedApplication.getLoggedInUser();
@@ -337,6 +404,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
     }
 
+    /**
+     * Creates a map with multiple markers
+     */
     private void initMapForMultipleMarker() {
         final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
 
@@ -366,6 +436,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
     }
 
+    /**
+     * Handles map with one marker
+     */
     private void initMapForSingleRecordMarker() {
         final int problemIndex = getIntent().getIntExtra("problemIndex", 0);
 
@@ -398,6 +471,41 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         });
 
     }
+    /**
+     * Initializes the GoogleMap Object and draws in on top of map fragment
+     */
+    private void initMapForSearch() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Toast.makeText(DrawMapActivity.this, "Map is ready.", Toast.LENGTH_SHORT).show();
+                // Initializing google map
+                mGoogleMap = googleMap;
+
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+            }
+        });
+
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                double latitude = latLng.latitude;
+                double longitude = latLng.longitude;
+
+                Intent backToSearch = new Intent(DrawMapActivity.this, TabSearchActivity.class);
+                backToSearch.putExtra("latitude", latitude);
+                backToSearch.putExtra("longitude", longitude);
+                setResult(RESULT_OK, backToSearch);
+                finish();
+                //Do what you want on obtained latLng
+            }
+        });
+    }
+
     // Initializes the GoogleMap Object and draws in on top of map fragment
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -446,6 +554,12 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 .title(title));
     }
 
+    /**
+     * Draws marker
+     *
+     * @param latLng    LatLng
+     * @param title     String
+     */
     private void drawMarkerUncleared(LatLng latLng, String title) {
 
         Marker markerName = mGoogleMap.addMarker(new MarkerOptions()
@@ -486,7 +600,11 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     }
 
 
-    // Checking the version of google play services
+    /**
+     * Checking the version of google play services
+     *
+     * @return  Boolean
+     */
     public boolean isServicesOK() {
         Log.d(TAG, "isServicesOK: checking google services version");
 
@@ -532,7 +650,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         --------------------------- google places API autocomplete suggestions handlers -----------------
     */
 
-    // Getting the information of the selected places
+    /**
+     * Getting the information of the selected places
+     */
     private AdapterView.OnItemClickListener autocompleteClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -554,7 +674,9 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
         }
     };
 
-    // Displays the result of the place object
+    /**
+     * Displays the result of the place object
+     */
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
         @Override
         public void onResult(@NonNull PlaceBuffer places) {

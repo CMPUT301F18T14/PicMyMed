@@ -1,7 +1,7 @@
 /*
  * PicMyMedController
  *
- * 2.0
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -26,10 +26,11 @@ import java.util.Random;
 /**
  * BodyLocationPhoto extends Photo and implements Serializable to add photos
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 2.0, 30/11/18
+ * @version 1.2, 02/12/18
  * @since   2.0
  */
 public class BodyLocationPhoto extends Photo implements Serializable {
+
     private String photoID;
     private String label;
 
@@ -85,6 +86,12 @@ public class BodyLocationPhoto extends Photo implements Serializable {
         this.photoID = stringBuilder.toString();
 
     }
+
+    /**
+     * Method returns photo photoID
+     *
+     * @return  photoID
+     */
     public String getPhotoID() {
         return photoID;
     }

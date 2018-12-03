@@ -1,3 +1,22 @@
+/*
+ * LongitudeLatitude
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedmaphandler.Model;
 
 import android.Manifest;
@@ -30,6 +49,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * LongitudeLatitude handles location and map
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class LongitudeLatitude {
 
     private static final String TAG = "LongitudeLatitude: ";
@@ -52,6 +78,11 @@ public class LongitudeLatitude {
 
     Activity activity;
 
+    /**
+     * Checks for Location requests and setting
+     *
+     * @param activity  Activity
+     */
     public LongitudeLatitude(Activity activity) {
         this.activity = activity;
         checkForLocationRequest();
@@ -59,13 +90,18 @@ public class LongitudeLatitude {
         callCurrentLocation();
     }
 
+    /**
+     * sets the interval for requests and priority
+     */
     private void checkForLocationRequest(){
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(MIN_UPDATE_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
-    //Check for location settings.
+    /**
+     * Check for location settings.
+     */
     private void checkForLocationSettings() {
 
         try {
@@ -75,6 +111,11 @@ public class LongitudeLatitude {
 
             settingsClient.checkLocationSettings(builder.build())
                     .addOnSuccessListener(activity, new OnSuccessListener<LocationSettingsResponse>() {
+                        /**
+                         * Checks if locations have been enabled successfully
+                         *
+                         * @param locationSettingsResponse  LocationSettingsResponse
+                         */
                         @Override
                         public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                             //Setting is success...
@@ -84,6 +125,11 @@ public class LongitudeLatitude {
                         }
                     })
                     .addOnFailureListener(activity, new OnFailureListener() {
+                        /**
+                         * Handles locations not enabled
+                         *
+                         * @param e Exception
+                         */
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
@@ -112,10 +158,21 @@ public class LongitudeLatitude {
         }
     }
 
+    /**
+     * Sends location permission request
+     *
+     * @param requestCode   int
+     */
     private void startLocationPermissionRequest(int requestCode) {
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, requestCode);
     }
 
+    /**
+     * Provide an additional rationale to the user. This would happen if the user denied the
+     * request previously, but didn't check the "Don't ask again" checkbox.
+     *
+     * @param requestCode   int
+     */
     private void requestPermissions(final int requestCode) {
         boolean shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION);
 
@@ -124,6 +181,11 @@ public class LongitudeLatitude {
         if (shouldProvideRationale) {
             //showSnackbar("Permission is must to find the location", "Ok",
             new View.OnClickListener() {
+                /**
+                 * asks to set permission
+                 *
+                 * @param view  View
+                 */
                 @Override
                 public void onClick(View view) {
                     // Request permission
@@ -147,6 +209,10 @@ public class LongitudeLatitude {
 //        }
 //    }
 
+    /**
+     * Gets current location
+     *
+     */
     public void callCurrentLocation() {
         Log.d(TAG, "callCurrentLocation: Begins!");
         mFusedLocationClient = new FusedLocationProviderClient(activity);
@@ -170,6 +236,11 @@ public class LongitudeLatitude {
             Log.d(TAG, "callCurrentLocation: Permission is granted!");
             // Updating location
             mFusedLocationClient.requestLocationUpdates(locationRequest, new LocationCallback() {
+                /**
+                 * location results
+                 *
+                 * @param locationResult    LocationResult
+                 */
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     Log.d(TAG, "callCurrentLocation: Inside on location result!");
@@ -193,6 +264,11 @@ public class LongitudeLatitude {
         }
     }
 
+    /**
+     * Gets coordinates
+     *
+     * @return  latLng
+     */
     public LatLng getLatLon(){
         Log.d(TAG, "getLatLon(): Current location: Latitude = " + latLng.latitude
                 + ", Longitude = " + latLng.longitude);

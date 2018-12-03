@@ -1,3 +1,23 @@
+/*
+ * XOnBodyLocationActivity
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.picmymedcode.View;
 
 import android.content.Intent;
@@ -21,6 +41,14 @@ import com.example.picmymedcode.Model.BodyLocation;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 
+/**
+ * XOnBodyLocationActivity extends AppCompatActivity to allow the user to
+ * select a location on a body photo
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class XOnBodyLocationActivity extends AppCompatActivity {
 
     private static final String TAG = "XOnBodyLocationActivity";
@@ -33,6 +61,11 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
     float[] coordinates;
     private Patient user;
 
+    /**
+     * Sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -47,6 +80,8 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
         cancelButton = (Button) findViewById(R.id.bodyLocation_cancelButton);
 
 //        drawView.setLayoutParams(new LayoutParams(300,100));
+
+        Log.d("Activity X", "I am here ");
 
         String base64 = getIntent().getStringExtra("base64String");
 
@@ -85,11 +120,16 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
 
         drawView.setLayoutParams(new LayoutParams(desiredWidth,desiredHeight));
 
-        //Bitmap b = bitmap.copy(Bitmap.Config.ARGB_8888,true);
+        Bitmap b = bitmap.copy(Bitmap.Config.ARGB_8888,true);
 
         drawView.setBitmap(bitmap);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking save
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 coordinates = drawView.getCoordinates();
@@ -102,15 +142,18 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
                 setResult(RESULT_OK, backToAddRecordActivity);
                 finish();
 
-                Toast.makeText(XOnBodyLocationActivity.this,"x: " + coordinates[0] +
-                        " y: " + coordinates[1], Toast.LENGTH_SHORT).show();
-
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking cancel
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
+                finish();
                 //return to other activity
             }
         });

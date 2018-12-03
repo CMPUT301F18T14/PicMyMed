@@ -42,6 +42,7 @@ import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
+import com.example.picmymedcode.Model.User;
 import com.example.picmymedcode.R;
 import com.example.picmymedmaphandler.View.DrawMapActivity;
 import com.google.gson.Gson;
@@ -85,7 +86,6 @@ public class PatientActivity extends AppCompatActivity {
      *
      * @param savedInstanceState Bundle
      */
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +178,16 @@ public class PatientActivity extends AppCompatActivity {
                 break;
             case R.id.logout:
                 PicMyMedApplication.logoutDialog(PatientActivity.this);
+                break;
+            case R.id.pushData:
+                User user = (Patient)PicMyMedApplication.getLoggedInUser();
+                if (PicMyMedApplication.isNetworkAvailable(PatientActivity.this)) {
+                    PicMyMedController.updateUser(user, PatientActivity.this);
+                    Toast.makeText(getApplicationContext(), "Data is synced!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You are offline" , Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
         }

@@ -1,7 +1,7 @@
 /*
  * Geolocation
  *
- * 2.0
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -45,6 +45,7 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Photo;
 import com.example.picmymedcode.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ import java.util.List;
  * body location photos and actions
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  * Ideas Combined from the following sources:
  * 1. https://www.quora.com/How-do-I-display-images-from-a-specific-directory-in-internal-storage-in-RecyclerView
@@ -73,6 +74,8 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
 
     private LoadingImageFiles loadingImageFiles;
 
+    Patient user;
+
     private static final int CAMERA_REQUEST_CODE = 333;
     // private BodyLocationPhoto bodyLocationPhoto;
     //private Patient user;
@@ -87,7 +90,12 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location_photo_manager);
 
+
         //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
+        user = (Patient) PicMyMedApplication.getLoggedInUser();
+
+
 
         Button takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +153,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
 
         // Prepare the data for adapter compatibility
         Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+
         galleryCells = preparedDataFromBase64(user.getBodyLocationPhotoList());
         // Initialize the adapter
         galleryAdapter = new GalleryAdapter(galleryCells, BodyLocationPhotoManagerActivity.this);

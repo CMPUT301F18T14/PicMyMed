@@ -16,77 +16,19 @@
         android:minHeight="?attr/actionBarSize">
     </android.support.v7.widget.Toolbar>
 
-    <SearchView
-        android:id="@+id/searchRecords"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="@string/searchKeyword"
-        android:background="@drawable/blue_gradient"
-        android:layout_below="@+id/Tab_Search_Toolbar"
-        android:iconifiedByDefault="false"></SearchView>
-
-
-
-    <Switch
-        android:id="@+id/GeoSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/searchRecords"
-        android:layout_marginLeft="0dp"
-        android:layout_toRightOf="@+id/searchGeo"
-        android:hint="@string/geolocationSearch"
-        android:background="@drawable/blue_gradient"
-        android:paddingLeft="55dp"
-        android:visibility="visible" />
-
-    <SearchView
-        android:id="@+id/searchGeo"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:queryHint="@string/geolocationSearch"
-        android:background="@drawable/blue_gradient"
-        android:iconifiedByDefault="false"
-        android:layout_below="@id/searchRecords"
-        android:visibility="gone">
-    </SearchView>
-
-    <Switch
-        android:id="@+id/photoSwitch"
-        android:layout_width="500dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/GeoSwitch"
-        android:layout_marginLeft="0dp"
-        android:layout_toRightOf="@+id/searchPhoto"
-        android:hint="@string/photoSearch"
-        android:background="@drawable/blue_gradient"
-        android:paddingLeft="55dp"
-        android:visibility="visible" />
-
-    <SearchView
-        android:id="@+id/searchPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:queryHint="@string/photoSearch"
-        android:background="@drawable/blue_gradient"
-        android:iconifiedByDefault="false"
-        android:layout_below="@id/GeoSwitch"
-        android:visibility="gone">
-    </SearchView>
-
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/blue_gradient"
-        android:layout_below="@id/photoSwitch">
+        android:layout_below="@id/Tab_Search_Toolbar">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="6dp"
         tools:ignore="MissingConstraints"
         android:layout_below="@id/tabLayout"
         tools:layout_editor_absoluteX="0dp" />

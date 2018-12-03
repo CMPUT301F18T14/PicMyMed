@@ -1,7 +1,7 @@
 /*
  * PicMyMedController
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -20,9 +20,11 @@
 package com.example.picmymedcode.Controller;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Build;
 import android.util.AtomicFile;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.CareProvider;
@@ -32,6 +34,7 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.Model.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -40,11 +43,12 @@ import java.util.UUID;
 /**
  * PicMyMedController creates a user
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class PicMyMedController {
 
+    final static int metersFromLocation = 100;
     /**
      * Method checks if the user is valid
      *
@@ -151,20 +155,24 @@ public class PicMyMedController {
      */
     public static int updateUser(User user, Context context) {
         try {
-            if(PicMyMedApplication.isNetworkAvailable(context) ) {
-                if (user != null) {
+            if (user != null) {
+                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                    //Toast.makeText(context, "Does not require update next run", Toast.LENGTH_SHORT).show();
+                    user.setRequiresSync(Boolean.FALSE);
                     if (user.isPatient()) {
                         updatePatient((Patient) user, context);
                     } else {
                         updateCareProvider((CareProvider) user, context);
                     }
                     return 1;
+
+                } else {
+                    Toast.makeText(context, "Requires update next run", Toast.LENGTH_SHORT).show();
+                    user.setRequiresSync(Boolean.TRUE);
                 }
-            } else {
-                user.setRequiresSync(Boolean.TRUE);
+                PicMyMedApplication.saveUserLocally(context);
                 Log.i("DEBUG PMC", "Unable to save to the online database, storing locally ...");
             }
-
         } catch (Exception e) {
                 Log.d("DEBUG PMC", "Error updating user");
                 Log.d("Error message", e.getMessage());
@@ -294,7 +302,6 @@ public class PicMyMedController {
 
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().add(problem);
-
         updateUser(patient, context);
 
         return 1;
@@ -549,6 +556,90 @@ public class PicMyMedController {
             Log.i("DEBUG PMC", e.getMessage());
         }
         return 0;
+    }
+
+    /*public static ArrayList<Problem> searchForProblemsByKeywords(ArrayList<Problem> problems, ArrayList<String> searchKeywords) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (String searchKey : searchKeywords) {
+                if (!problem.getDescription().contains(searchKey) && !problem.getTitle().contains(searchKey)) {
+                    break;
+                }
+            }
+            matchingProblems.add(problem);
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecordsByKeywords(ArrayList<Record> records, ArrayList<String> searchKeywords) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Record record : records) {
+            for (String searchKey : searchKeywords) {
+                if (!record.getDescription().contains(searchKey) && !record.getTitle().contains(searchKey)) {
+                    break;
+                }
+            }
+            matchingRecords.add(record);
+        }
+        return matchingRecords;
+    }
+    */
+    public static ArrayList<Problem> searchForProbByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getBodyLocation().getPhotoID().equals(bodyLocationID)) {
+                    matchingProblems.add(problem);
+
+                }
+            }
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getBodyLocation().getPhotoID().equals(bodyLocationID)) {
+                    matchingRecords.add(record);
+
+                }
+            }
+        }
+        return matchingRecords;
+    }
+
+
+    public static ArrayList<Problem> searchForProbByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getGeolocation() != null) {
+                    Location recordLocation = new Location("");
+                    recordLocation.setLatitude(record.getGeolocation().getLatitude());
+                    recordLocation.setLongitude((record.getGeolocation().getLongitude()));
+                    if (searchLocation.distanceTo(recordLocation) <= metersFromLocation) {
+                        matchingProblems.add(problem);
+                    }
+                }
+            }
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getGeolocation() != null) {
+                    Location recordLocation = new Location("");
+                    recordLocation.setLatitude(record.getGeolocation().getLatitude());
+                    recordLocation.setLongitude((record.getGeolocation().getLongitude()));
+                    if (searchLocation.distanceTo(recordLocation) <= metersFromLocation) {
+                        matchingRecords.add(record);
+                    }
+                }
+            }
+        }
+        return matchingRecords;
     }
 
     /**

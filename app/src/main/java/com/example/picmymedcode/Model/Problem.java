@@ -1,7 +1,7 @@
 /*
  * Problem
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -30,7 +30,7 @@ import java.util.Date;
  * and list of records
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class Problem implements Serializable {
@@ -42,6 +42,9 @@ public class Problem implements Serializable {
     private String username;
     private ArrayList<Record> recordList;
     private ArrayList<String> commentList;
+    private static final Integer MAX_TITLE_LENGTH = 30;
+    private static final Integer MAX_DESC_LENGTH = 300;
+
 
     /**
      * Constructor initializes problem class variables
@@ -53,15 +56,24 @@ public class Problem implements Serializable {
      * @throws IllegalArgumentException throws exception when title or description is too long
      */
     public Problem(String username, String startDate, String title, String description) {
+        if (title.length() > MAX_TITLE_LENGTH) {
+            throw new IllegalArgumentException(String.format("Problem should be less than %s characters",
+                    String.valueOf(MAX_TITLE_LENGTH)));
+        } else if (description.length()> MAX_DESC_LENGTH) {
+            throw new IllegalArgumentException(String.format("Description should be less than %s characters",
+                    String.valueOf(MAX_DESC_LENGTH)));
+        } else
+            {
+                this.username = username;
+                this.problemID = null;
+                this.startDate = startDate;
+                this.title = title;
+                this.description = description;
+                this.recordList = new ArrayList<Record>();
+                this.commentList = new ArrayList<String> ();
+            }
+        }
 
-        this.username = username;
-        this.problemID = null;
-        this.startDate = startDate;
-        this.title = title;
-        this.description = description;
-        this.recordList = new ArrayList<Record>();
-        this.commentList = new ArrayList<String> ();
-    }
 
     /**
      * Method gets the problem's start date
@@ -98,7 +110,12 @@ public class Problem implements Serializable {
      */
 
     public void setTitle(String title) {
-        this.title = title;
+        if (title.length() > MAX_TITLE_LENGTH) {
+            throw new IllegalArgumentException(String.format("Problem should be less than %s characters",
+                    String.valueOf(MAX_TITLE_LENGTH)));
+        } else {
+            this.title = title;
+        }
     }
     /**
      * Method gets problem description
@@ -116,7 +133,12 @@ public class Problem implements Serializable {
      */
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description.length()> MAX_DESC_LENGTH) {
+            throw new IllegalArgumentException(String.format("Description should be less than %s characters",
+                    String.valueOf(MAX_DESC_LENGTH)));
+        } else {
+            this.description = description;
+        }
     }
     /**
      * Method gets a list of records
@@ -160,7 +182,7 @@ public class Problem implements Serializable {
     }
 
     /**
-     * Method gets the Username of a suer
+     * Method gets the Username of a User
      *
      * @return  String username
      */

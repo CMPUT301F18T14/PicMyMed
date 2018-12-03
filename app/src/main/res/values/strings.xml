@@ -64,6 +64,8 @@
     <string name="profile">Profile</string>
     <string name="slideshow_of_photos">Slideshow of Photos</string>
     <string name="map_of_records">Map of Records</string>
+    <string name="pushData">Synchronize</string>
+    <string name="syncData">Sync</string>
 
 
 </resources>
