@@ -160,7 +160,7 @@ public class Problem implements Serializable {
     }
 
     /**
-     * Method gets the Username of a suer
+     * Method gets the Username of a User
      *
      * @return  String username
      */
