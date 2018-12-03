@@ -180,6 +180,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
+
         // Initialize the layout format and span
         layoutManager = new GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, true);
         // Set the layout in the recycler view
@@ -190,7 +191,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
 
         if (records.get(i).getPhotoList().size()==0) {
-            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
+            recordViewHolder.galleryIcon.setVisibility(View.GONE);
+            recordPhotoSlider.setVisibility(View.GONE);//testing
         }
 
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
