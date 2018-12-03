@@ -145,6 +145,11 @@ public class AddRecordActivity extends AppCompatActivity{
 
         Button cameraPhoto = (Button) findViewById(R.id.record_camera_button);
         cameraPhoto.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles if camera button is pressed
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 if (placeHolderPhotoList.size()<10) {
@@ -163,6 +168,11 @@ public class AddRecordActivity extends AppCompatActivity{
 
         Button bodyLocationButton = (Button) findViewById(R.id.bodyLocation);
         bodyLocationButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles if body location button is pressed
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent selectBodyLocationIntent = new Intent(AddRecordActivity.this, SelectBodyLocationActivity.class);
@@ -208,6 +218,9 @@ public class AddRecordActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Handles when activity is returned too
+     */
     @Override
     public void onResume(){
         super.onResume();
@@ -226,47 +239,12 @@ public class AddRecordActivity extends AppCompatActivity{
     }
 
     /**
-     * Method loads saved data from file.
-     * Used prior to implementation of elastic search.
+     * Method Checks app permission
+     *
+     * @param requestCode   int
+     * @param permissions   String
+     * @param grantResults  int
      */
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
-
-            Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
-            }.getType();
-            arrayListProblem = gson.fromJson(reader, typeListProblem);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Method saves data to file.
-     * Used prior to implementation of elastic search.
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(arrayListProblem,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -290,6 +268,14 @@ public class AddRecordActivity extends AppCompatActivity{
             // permissions this app might request.
         }
     }
+
+    /**
+     * Gets result when returning to the app
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 

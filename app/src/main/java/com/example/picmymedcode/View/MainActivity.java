@@ -124,10 +124,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    /**
+     * Method handles network availability when user logs in
+     * and checks if user exists
+     *
+     * @param username  String
+     */
     private void loginHandler(String username) {
 
         if (PicMyMedApplication.isNetworkAvailable(MainActivity.this)) {
-            if (updateLocal() == 1) { toastMessage("Synchornized old data");}
+            if (updateLocal() == 1) { toastMessage("Synchronized old data");}
             if (PicMyMedController.checkValidUser(username) == 1) {
                 user = PicMyMedController.getUser(username);
                 if (user != null) {
@@ -147,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Pop up box if device is not authorized
+     *
+     */
     public void authorizeDeviceDialog() {
         AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(this);
         authorizationDialog.setTitle("Device authorization required!")
@@ -180,6 +191,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    /**
+     * Calls sign up activity
+     */
     private void signUpActivity() {
         Intent problemIntent = new Intent(MainActivity.this, UserProfileTypeActivity.class);
         startActivity(problemIntent);
@@ -197,6 +212,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    /**
+     * Method handles scanning a user's QR code
+     */
     private void scanQRCode() {
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -207,6 +226,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method updates the local files to save data
+     * @return
+     */
     private int updateLocal() {
         if (PicMyMedApplication.loadUserData(MainActivity.this)) {
             User localUser = PicMyMedApplication.getLocalUser();
@@ -222,6 +245,12 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
+    /**
+     * Method initializes app with user
+     *
+     * @param authorizeUser Boolean
+     * @return              int
+     */
     private int initializeApp(Boolean authorizeUser) {
         try {
             if (user != null) {
@@ -259,6 +288,13 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
+    /**
+     * Handles result when returning to activity
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -286,6 +322,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Method checks permissions for app
+     *
+     * @param requestCode   int
+     * @param permissions   String
+     * @param grantResults  int
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -299,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent scannerIntent = new Intent(MainActivity.this, ScannerActivity.class);
                     startActivityForResult(scannerIntent, REQUEST_CODE);
                 } else {
-                    toastMessage("Cannot scan QR Code if you don't give camera permissions, you bum bum!");
+                    toastMessage("Cannot scan QR Code if you don't give camera permissions!");
                 }
                 return;
             }
