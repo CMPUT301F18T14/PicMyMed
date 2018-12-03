@@ -83,6 +83,8 @@ public class EditProblemActivity extends AppCompatActivity {
         problemDescriptionEditText.setText(problemArrayList.get(position).getDescription());
         problemTimeEditText.setText(problemArrayList.get(position).getStartDate());
 
+        mDate = problemArrayList.get(position).getStartDate();
+
         //System.out.println("FUCK"+problemArrayList.get(position).getStartDate());
         mActivity = this;
         mSimpleDateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.getDefault());

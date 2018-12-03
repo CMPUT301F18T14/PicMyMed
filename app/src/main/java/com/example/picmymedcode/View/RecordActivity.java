@@ -22,6 +22,8 @@ package com.example.picmymedcode.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -69,6 +71,8 @@ public class RecordActivity extends AppCompatActivity{
     public ArrayList<Problem> problemArrayList;
     static int position;
     android.support.v7.widget.Toolbar toolbar;
+    SwipeRefreshLayout swipeLayout;
+
 
     /**
      * Method initializes RecordActivity state
@@ -90,6 +94,37 @@ public class RecordActivity extends AppCompatActivity{
 
         position = getIntent().getIntExtra("key",0);
         String name = problemArrayList.get(position).getTitle();
+
+        swipeLayout = findViewById(R.id.record_swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(RecordActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 5000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 500); // Delay in millis
+                }
+
+            }
+        });
 
 
     }

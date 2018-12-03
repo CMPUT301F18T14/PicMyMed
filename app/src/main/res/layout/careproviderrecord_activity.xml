@@ -71,6 +71,13 @@
         android:paddingHorizontal="10dp"
         android:background="@drawable/rounded_box" />
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/careprovider_record_swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/careprovider_record_email_text_view"
+        >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/careprovider_record_recycle_view"
@@ -78,9 +85,11 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/careprovider_record_email_text_view"
         android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <ImageView
-        android:id="@+id/add_record_image_view"
+        android:id="@+id/add_comment_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

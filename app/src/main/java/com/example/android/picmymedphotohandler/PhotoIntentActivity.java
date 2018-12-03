@@ -103,6 +103,8 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private Photo photo;
 
+    private String consistentPhoto;
+
     /**
      * Method loads activity state
      *
@@ -117,11 +119,23 @@ public class PhotoIntentActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
 
-        imageView = (ImageView) findViewById(R.id.imageView_show1);
+        consistentPhoto = getIntent().getStringExtra("base64ForConsistency");
+
+        imageView = (ImageView) findViewById(R.id.imageViewEnlarged);
 
         bitmaps = new ArrayList<Bitmap>();
 
         cameraButton = (Button) findViewById(R.id.camera_button);
+
+        if (consistentPhoto != null) {
+            Log.d(TAG, "I'm herereeeeeeeeeeeeeeeeeeeeee!!!!!!");
+            byte[] decodedString = Base64.decode(consistentPhoto, Base64.DEFAULT);
+            // Converting to Bitmap
+            Bitmap bitmapForConsistency = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            // Setting the bitmap into imageView
+            imageView.setImageBitmap(bitmapForConsistency);
+        }
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override

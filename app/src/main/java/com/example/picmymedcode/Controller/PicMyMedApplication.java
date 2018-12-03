@@ -176,6 +176,7 @@ public class PicMyMedApplication {
     }
 
 
+
     public static void saveUserLocally(Context context) {
         try {
             ArrayList<User> userList = new ArrayList<>();
@@ -228,5 +229,8 @@ public class PicMyMedApplication {
             Log.i("DEBUG local", e.getMessage());
         }
         return false;
+    }
+    public static void getMostRecentChanges() {
+        setLoggedInUser(PicMyMedController.getUser(loggedInUser.getUsername()));
     }
 }
