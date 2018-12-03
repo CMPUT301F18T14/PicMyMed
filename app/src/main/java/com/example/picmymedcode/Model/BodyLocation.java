@@ -1,7 +1,7 @@
 /*
  * BodyLocation
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -28,7 +28,7 @@ import java.util.HashMap;
  * BodyLocation stores a body location photo and a mark on that photo indicated by the user
  * Note this class is incomplete and will be modified for the next release
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class BodyLocation implements Serializable {

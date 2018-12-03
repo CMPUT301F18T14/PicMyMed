@@ -1,7 +1,7 @@
 /*
  * Geolocation
  *
- * 2.0
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -54,7 +54,7 @@ import java.util.List;
  * body location photos and actions
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  * Ideas Combined from the following sources:
  * 1. https://www.quora.com/How-do-I-display-images-from-a-specific-directory-in-internal-storage-in-RecyclerView

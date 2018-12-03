@@ -1,7 +1,7 @@
 /*
  * RecordAdapter
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -69,7 +69,7 @@ import java.util.ArrayList;
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordViewHolder> {
@@ -201,6 +201,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         }
 
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting gallery icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent galleryActivityIntent = new Intent(context, GalleryActivity.class);
@@ -212,12 +217,22 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         });
 
         recordViewHolder.recordLocationTextView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting record location text
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
             }
         });
 
         recordViewHolder.mapIcon.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting the map icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent drawMapActivityIntent = new Intent(context, DrawMapActivity.class);
@@ -229,6 +244,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         });
 
         recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user selecting body location icon
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Log.d("onclicklistener", "clicked");
@@ -263,11 +283,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 //        });
 
         recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking on the image icon
+             *
+             * @param view  View
+             */
             @Override
             public void onClick(View view) {
-
-
-
 
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
@@ -275,6 +297,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 popup.inflate(R.menu.problem_menu);
                 //adding click listener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    /**
+                     * Handles the user clicking on the menu
+                     *
+                     * @param item  MenuItem
+                     * @return      boolean
+                     */
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
@@ -324,9 +352,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                                         });
                                 authorizationDialog.show();
 
-
-
-
                                 break;
                         }
                         return false;
@@ -337,7 +362,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
             }
         });
-
 
         recordTimeStampTextView.setText(records.get(i).getDate().toString());
 

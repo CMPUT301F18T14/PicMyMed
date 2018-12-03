@@ -1,3 +1,23 @@
+/*
+ * ProblemFragment
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.picmymedcode.View;
 
 import android.os.Bundle;
@@ -16,6 +36,13 @@ import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 
+/**
+ * ProblemFragment extends Fragment to handle menu options
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class ProblemFragment extends Fragment{
     private RecyclerView mRecyclerView;
     private ProblemAdapter mAdapter;
@@ -25,10 +52,22 @@ public class ProblemFragment extends Fragment{
     public ArrayList<Problem> problemArrayList;
     View v;
 
+    /**
+     * Instantiates the class
+     *
+     */
     public ProblemFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Creates the menu view
+     *
+     * @param inflater              LayoutInflater
+     * @param container             ViewGroup
+     * @param savedInstanceState    Bundle
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +77,10 @@ public class ProblemFragment extends Fragment{
         return v;
 
     }
+
+    /**
+     * Handles the recycler view
+     */
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();

@@ -1,7 +1,7 @@
 /*
  * Patient
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Patient class extends User to create a patient object with a phone number, email and list of problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class Patient extends User implements Serializable {

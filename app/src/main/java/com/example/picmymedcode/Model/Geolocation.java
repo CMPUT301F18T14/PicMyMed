@@ -32,7 +32,7 @@ import java.util.Locale;
  * Geolocation class handles the x and y coordinates of a physical location of map
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class Geolocation implements Serializable {
