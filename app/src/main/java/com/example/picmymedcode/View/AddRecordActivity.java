@@ -141,7 +141,7 @@ public class AddRecordActivity extends AppCompatActivity{
 
         if (user.getBodyLocationPhotoList().size()==0) {
 
-            String imageUri = "drawable://" + R.drawable.default_bodyloc;
+            String imageUri = Uri.parse("android.resource://com.example.picmymedcode/drawable/default_bodyloc.png").toString();
             Bitmap bitmap = decodeImageFromFiles(imageUri, 200, 200 );
             BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
             bodyLocationPhoto.setLabel("Default Photo");

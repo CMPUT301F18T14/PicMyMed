@@ -11,7 +11,7 @@ public class UserTest extends TestCase {
     public void testUsername() {
         CareProvider careProvider = new CareProvider("123456789",
                 "email@email.ca","1231231234");
-        assertTrue("Wrong username", careProvider.getUsername().equals("12356789"));
+        assertEquals("123456789", careProvider.getUsername());
 
         //testing if username is under 8 chars, aka, too short
         try {

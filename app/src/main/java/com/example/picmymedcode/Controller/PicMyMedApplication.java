@@ -202,7 +202,7 @@ public class PicMyMedApplication {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(context, "Keep enjoying recording your problems with this painful app!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Continue using the app...", Toast.LENGTH_SHORT).show();
                     }
                 });
         authorizationDialog.show();
