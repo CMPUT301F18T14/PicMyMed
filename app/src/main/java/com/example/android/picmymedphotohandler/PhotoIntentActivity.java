@@ -103,7 +103,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
 
     private Photo photo;
 
-    private Uri photoURI;
+    private String consistentPhoto;
 
     /**
      * Method loads activity state
@@ -119,11 +119,23 @@ public class PhotoIntentActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
 
-        imageView = (ImageView) findViewById(R.id.imageView_show1);
+        consistentPhoto = getIntent().getStringExtra("base64ForConsistency");
+
+        imageView = (ImageView) findViewById(R.id.imageViewEnlarged);
 
         bitmaps = new ArrayList<Bitmap>();
 
         cameraButton = (Button) findViewById(R.id.camera_button);
+
+        if (consistentPhoto != null) {
+            Log.d(TAG, "I'm herereeeeeeeeeeeeeeeeeeeeee!!!!!!");
+            byte[] decodedString = Base64.decode(consistentPhoto, Base64.DEFAULT);
+            // Converting to Bitmap
+            Bitmap bitmapForConsistency = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            // Setting the bitmap into imageView
+            imageView.setImageBitmap(bitmapForConsistency);
+        }
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +162,6 @@ public class PhotoIntentActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
         System.out.println("onActivityResult(int requestCode = " + requestCode + ", int resultCode = " + resultCode);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             try {
@@ -183,8 +194,6 @@ public class PhotoIntentActivity extends AppCompatActivity {
      * @throws IOException      Input Output exceptions for handling file
      */
     private void handleBigCameraPhoto(File imageFile, ImageView imageView, int maxFileSize) throws IOException {
-
-
         // Getting the absolute path of the image
         String imageFilePath = imageFile.getAbsolutePath();
 
@@ -282,7 +291,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
             if (photoFile != null) {
                 /* If the file is not null, open camera activity */
                 //System.out.println("File Size in Dispatch Intent: " + photoFile.length());
-                photoURI = FileProvider.getUriForFile(this,
+                Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -327,7 +336,7 @@ public class PhotoIntentActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
 
         try {
-            bitmap = rotateImageIfRequired(bitmap, photoURI);
+            bitmap = rotateImageIfRequired(bitmap, Uri.fromFile(new File(ImageFilePath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -417,6 +426,13 @@ public class PhotoIntentActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method rotates an image
+     *
+     * @param img       Bitmap
+     * @param degree    int
+     * @return          rotatedImg
+     */
     private static Bitmap rotateImage(Bitmap img, int degree) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);

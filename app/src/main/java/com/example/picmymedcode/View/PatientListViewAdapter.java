@@ -1,3 +1,22 @@
+/*
+ * PatientListViewAdapter
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedcode.View;
 
 import android.content.Context;
@@ -13,12 +32,24 @@ import com.example.picmymedcode.R;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * MainActivity extends AppCompatActivity to handle the main activity of the application
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class PatientListViewAdapter extends BaseAdapter {
 
     Context mContext;
     LayoutInflater inflater;
     ArrayList<String> patientNameData;
 
+    /**
+     * Instantiates the class
+     *
+     * @param context   Context
+     */
     public PatientListViewAdapter(Context context){
         mContext = context;
         inflater = LayoutInflater.from(mContext);
@@ -26,16 +57,34 @@ public class PatientListViewAdapter extends BaseAdapter {
         this.patientNameData.addAll(CareProviderAddPatientActivity.patientName);
         //collection of data
     }
+
+    /**
+     * gets the count of patients
+     *
+     * @return  int
+     */
     @Override
     public int getCount() {
         return CareProviderAddPatientActivity.patientName.size();
     }
 
+    /**
+     * Gets the patient
+     *
+     * @param    position
+     * @return   int
+     */
     @Override
     public String getItem(int position) {
         return CareProviderAddPatientActivity.patientName.get(position);
     }
 
+    /**
+     * Gets position
+     *
+     * @param position  int
+     * @return          position
+     */
     @Override
     public long getItemId(int position) {
         return position;
@@ -45,6 +94,14 @@ public class PatientListViewAdapter extends BaseAdapter {
         TextView patientName;
     }
 
+    /**
+     * Gets the view
+     *
+     * @param position      int
+     * @param convertView   View
+     * @param parent        ViewGroup
+     * @return              convertView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -64,7 +121,11 @@ public class PatientListViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    //Filter class
+    /**
+     * Filter class to filter patients
+     *
+     * @param charText  String
+     */
     public void filter (String charText){
         charText = charText.toLowerCase(Locale.getDefault());
         CareProviderAddPatientActivity.patientName.clear();

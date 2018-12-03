@@ -19,9 +19,11 @@
 
 package com.example.android.picmymedphotohandler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 
 import com.example.picmymedcode.R;
 import com.example.picmymedcode.View.BodyLocationPhotoManagerActivity;
+import com.example.picmymedcode.View.SelectBodyLocationActivity;
 import com.example.picmymedcode.View.XFixedPhotoActivity;
 import com.example.picmymedcode.View.XOnBodyLocationActivity;
 
@@ -52,6 +55,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     private Context context;
     private int problemIndex;
     private int recordIndex;
+    private static final int REQUEST_FOR_XACTIVITY_DRAW = 111;
+
 
     /**
      * Constructor of the class. It initializes all the member variables.
@@ -172,7 +177,26 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             });
         }
 
+        if (context instanceof SelectBodyLocationActivity) {
+            Log.d("GalleryAdapter: ", "Used by SelectBodyLocationActivity");
+            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Intent xIntent = new Intent(view.getContext(), XFixedPhotoActivity.class);
+                    Intent xActivity = new Intent(view.getContext(), XOnBodyLocationActivity.class);
+                    xActivity.putExtra("base64String", galleryList.get(i).getBase64());
+                    xActivity.putExtra("photoIndex", i);
+                    ((Activity) context).startActivityForResult(xActivity, REQUEST_FOR_XACTIVITY_DRAW);
+                    //float xCoordinate = data.getIntExtra
+                    //context.startActivityForResult(xActivity, REQUEST_FOR_XACTIVITY_DRAW);
+                    //float xCoordinate = getIntent().getIntExtra("x", 0);
+                }
+            });
+        }
+
     }
+
+
 
     /**
      * This method returns the size of the ArrayList of type GallerCells

@@ -1,7 +1,7 @@
 /*
  * PicMyMedApplication
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -57,7 +57,7 @@ import static android.support.v4.content.ContextCompat.getSystemService;
  * PicMyMedApplication handles the logged in user and their type (patient or care provider)
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class PicMyMedApplication {
@@ -65,6 +65,7 @@ public class PicMyMedApplication {
     public static String Preference = "username";
 
     static User loggedInUser;
+
     static User localUser;
 
     /**
@@ -92,14 +93,29 @@ public class PicMyMedApplication {
         */
     }
 
+    /**
+     * Method gets the user
+     *
+     * @return localUser
+     */
     public static User getLocalUser() {
         return localUser;
     }
 
+    /**
+     * Method sets local user
+     *
+     * @param localUser User
+     */
     public static void setLocalUser(User localUser) {
         PicMyMedApplication.localUser = localUser;
     }
 
+    /**
+     * Method gets the user that is a patient
+     *
+     * @return  patient
+     */
     public static Patient getPatientUser() {
         Patient patient = (Patient) loggedInUser;
         return patient;
@@ -136,6 +152,11 @@ public class PicMyMedApplication {
         return networkStatus != null && networkStatus.isConnected();
     }
 
+    /**
+     * Method logs out the user
+     *
+     * @param context   Context
+     */
     public static void logout(final Context context) {
         try {
             User user = getLoggedInUser();
@@ -159,6 +180,11 @@ public class PicMyMedApplication {
         }
     }
 
+    /**
+     * Method displays dialog box to confirm user wants to log out
+     *
+     * @param context   Context
+     */
     public static void logoutDialog(final Context context) {
         AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(context);
         authorizationDialog.setTitle("Logout")
@@ -179,13 +205,14 @@ public class PicMyMedApplication {
         authorizationDialog.show();
     }
 
-    public static void setDefaults(String key, String value, Context context) {
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
+
+
+    /**
+     * Method saves the user to local
+     *
+     * @param context   Context
+     */
 
     public static void saveUserLocally(Context context) {
         try {
@@ -209,6 +236,13 @@ public class PicMyMedApplication {
             throw new RuntimeException();
         }
     }
+
+    /**
+     * Method loads the user data
+     *
+     * @param ctx   Context
+     * @return      false
+     */
     public static boolean loadUserData(Context ctx) {
         try {
             ArrayList<User> userList;
@@ -231,5 +265,12 @@ public class PicMyMedApplication {
             Log.i("DEBUG local", e.getMessage());
         }
         return false;
+    }
+
+    /**
+     * Method gets the most recent changes
+     */
+    public static void getMostRecentChanges() {
+        setLoggedInUser(PicMyMedController.getUser(loggedInUser.getUsername()));
     }
 }

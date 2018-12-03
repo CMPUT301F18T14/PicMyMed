@@ -1,7 +1,7 @@
 /*
  * CareProviderProblemActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -24,12 +24,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -46,7 +49,7 @@ import java.util.ArrayList;
  * and handles displaying a care provider's patient's problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class CareProviderProblemActivity extends Activity {
@@ -55,8 +58,14 @@ public class CareProviderProblemActivity extends Activity {
     private ProblemAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
-    static String name;
+    public static String name;
+    SwipeRefreshLayout swipeLayout;
 
+    /**
+     * Method sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.careproviderpatient_activity);
@@ -76,6 +85,12 @@ public class CareProviderProblemActivity extends Activity {
         patientPhone.setText(patient.getPhoneNumber());
         //wow factor pass intent to call
         patientPhone.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles care provider clicking on patients phone number
+             * to initiate a phone call to that number
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);// Send phone number to intent as data
@@ -89,6 +104,12 @@ public class CareProviderProblemActivity extends Activity {
         patientEmail.setText(patient.getEmail());
         //wow factor pass intent email
         patientEmail.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on patients email to initiate email
+             * to the patient's email
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -102,20 +123,67 @@ public class CareProviderProblemActivity extends Activity {
 
         Button search = findViewById(R.id.careprovider_search_image_view);
         search.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking on the search button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent tabIntent = new Intent(CareProviderProblemActivity.this, TabSearchActivity.class);
                 startActivity(tabIntent);
             }
         });
-
         manageRecyclerview();
 
+        //swipe to update
+        swipeLayout = findViewById(R.id.careprovider_problem_swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Method handles user swiping down on the screen to refresh the layout
+             */
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(CareProviderProblemActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 5000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 500); // Delay in millis
+                }
+
+            }
+        });
+
     }
+
+    /**
+     * Method handles the recycler view
+     *
+     */
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();
         //saveInFile();
+        name = getIntent().getStringExtra("name");
+        final Patient patient = PicMyMedController.getPatient(name);
+        problemArrayList = patient.getProblemList();
         mRecyclerView = findViewById(R.id.careprovider_problem_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);
@@ -124,12 +192,16 @@ public class CareProviderProblemActivity extends Activity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Method starts the activity
+     *
+     */
     protected void onStart() {
 
         // TODO Auto-generated method stub
         super.onStart();
         //get patient name from intent
-        name = getIntent().getStringExtra("name");;//pass intent name
+        name = getIntent().getStringExtra("name");//pass intent name
         //patient object
         final Patient patient = PicMyMedController.getPatient(name);
         problemArrayList = patient.getProblemList();

@@ -1,3 +1,22 @@
+/*
+ * CareProviderAddPatientActivity
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.example.picmymedcode.View;
 
 import android.Manifest;
@@ -25,6 +44,14 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
 
+/**
+ * CareProviderAddPatientActivity extends AppCompatActivity and implements SearchView to
+ * add a patient
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class CareProviderAddPatientActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private final static int REQUEST_CODE = 100;
@@ -37,6 +64,11 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
     private User user;
 
 
+    /**
+     * Method sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patientsearch_activity);
@@ -63,6 +95,14 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+            /**
+             * Method handles the user clicking on a patient in the list
+             *
+             * @param parent    AdapterView<?></?>
+             * @param view      View
+             * @param position  int
+             * @param id        long
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (user != null) {
@@ -82,6 +122,11 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
 
         ImageView imageView = findViewById(R.id.careprovider_qr);
         imageView.setOnClickListener(new View.OnClickListener(){
+            /**
+             * Method handles the user clicking in the qr image
+             *
+             * @param v View
+             */
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(CareProviderAddPatientActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
@@ -96,17 +141,37 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * Method handles the user entering a text search query
+     *
+     * @param query String
+     * @return      boolean
+     */
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
+    /**
+     * Method handles the user changing their query
+     *
+     * @param newText   String
+     * @return          boolean
+     */
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
         mAdapter.filter(text);
         return false;
     }
+
+    /**
+     * Method handles the activity result
+     *
+     * @param requestCode   int
+     * @param resultCode    int
+     * @param data          Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -127,6 +192,13 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Method checks the users persmissions
+     *
+     * @param requestCode   int
+     * @param permissions   String
+     * @param grantResults  int
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -150,6 +222,11 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Method adds patient to a careprovider
+     *
+     * @param patientUsername   String
+     */
     public void addPatient(String patientUsername) {
         if (PicMyMedController.addPatientToCareProvider(patientUsername, CareProviderAddPatientActivity.this) != 1) {
             toastMessage(patientUsername + " has already been added!");
@@ -158,6 +235,9 @@ public class CareProviderAddPatientActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Method checks if the session has expired
+     */
     public void sessionExpired() {
         Intent mainActivityIntent = new Intent(CareProviderAddPatientActivity.this, MainActivity.class);
         toastMessage("User session expire. Please login again.");

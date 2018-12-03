@@ -1,7 +1,7 @@
 /*
  * MainActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -50,7 +50,7 @@ import com.google.android.gms.vision.barcode.Barcode;
  * MainActivity extends AppCompatActivity to handle the main activity of the application
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class MainActivity extends AppCompatActivity {

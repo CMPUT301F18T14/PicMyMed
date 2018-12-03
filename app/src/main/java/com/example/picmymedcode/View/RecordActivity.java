@@ -1,7 +1,7 @@
 /*
  * RecordActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -22,6 +22,8 @@ package com.example.picmymedcode.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +60,7 @@ import java.util.ArrayList;
  * view and manage problems
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class RecordActivity extends AppCompatActivity{
@@ -69,6 +71,8 @@ public class RecordActivity extends AppCompatActivity{
     public ArrayList<Problem> problemArrayList;
     static int position;
     android.support.v7.widget.Toolbar toolbar;
+    SwipeRefreshLayout swipeLayout;
+
 
     /**
      * Method initializes RecordActivity state
@@ -91,14 +95,64 @@ public class RecordActivity extends AppCompatActivity{
         position = getIntent().getIntExtra("key",0);
         String name = problemArrayList.get(position).getTitle();
 
+        swipeLayout = findViewById(R.id.record_swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Handles user swiping on the screen to refresh the layout
+             */
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(RecordActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        /**
+                         * Handles refreshing the app
+                         *
+                         */
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 5000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 500); // Delay in millis
+                }
+
+            }
+        });
+
 
     }
 
+    /**
+     * Creates the toolbar options
+     *
+     * @param menu  Menu
+     * @return      OptionsMenu
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.record_toolbar,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Handles user selected something in the menu
+     *
+     * @param item  MenuItem
+     * @return      ItemSelected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -107,12 +161,12 @@ public class RecordActivity extends AppCompatActivity{
                 intent.putExtra("key",position);
                 startActivity(intent);
                 break;
-            case R.id.galleryIcon:
+            /*case R.id.galleryIcon:
                 Intent galleryIntent = new Intent(RecordActivity.this,GalleryActivity.class);
                 galleryIntent.putExtra("problemIndex", position);
                 galleryIntent.putExtra("intentSender", 1);
                 startActivity(galleryIntent);
-                break;
+                break; */
             case R.id.slideshowIcon:
                 Intent slideshowIntent = new Intent(RecordActivity.this,SlideshowActivity.class);
                 slideshowIntent.putExtra("problemIndex", position);
@@ -129,9 +183,12 @@ public class RecordActivity extends AppCompatActivity{
                 break;
             case R.id.mapRecordIcon:
                 Intent mapIntent = new Intent(RecordActivity.this, DrawMapActivity.class);
-                mapIntent.putExtra("key",position);
+                mapIntent.putExtra("problemIndex",position);
                 mapIntent.putExtra("callingActivity", "MultiRecordActivity");
                 startActivity(mapIntent);
+                break;
+            case R.id.logout:
+                PicMyMedApplication.logoutDialog(RecordActivity.this);
                 break;
 
         }
@@ -160,52 +217,8 @@ public class RecordActivity extends AppCompatActivity{
 
         super.onStart();
         manageRecyclerview();
-
-
-
         //load
 
-    }
-
-    /**
-     * Method loaded from file. No longer implemented, now loading from database
-     */
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader reader = new BufferedReader(isr);
-
-            Gson gson = new Gson();
-            Type typeListProblem = new TypeToken<ArrayList<Problem>>() {
-            }.getType();
-            problemArrayList = gson.fromJson(reader, typeListProblem);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Method saved data to file. No longer implemented, now saving to database
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(problemArrayList,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
 }

@@ -1,0 +1,45 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mangertoolbar"
+            app:title="Body Location Photo Manager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            app:titleTextColor="#ffff"
+            android:background="@drawable/blue_gradient"
+            android:minHeight="?attr/actionBarSize">
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/mangertoolbar"
+            android:id="@+id/gallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/take_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gallery"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/signupbtn1"
+            android:paddingHorizontal="10dp"
+            android:text="@string/newphoto" />
+
+    </RelativeLayout>
+
+</ScrollView>

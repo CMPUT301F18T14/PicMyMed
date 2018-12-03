@@ -1,7 +1,7 @@
 /*
  * Record
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -33,7 +33,7 @@ import java.util.Date;
  * photolist, body location, timestamp
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class Record implements Serializable {
@@ -55,7 +55,7 @@ public class Record implements Serializable {
         this.description = "no description";
         this.geolocation = null;
         this.photoList = new ArrayList<Photo>();
-        this.bodyLocation = new BodyLocation();
+        this.bodyLocation = null;
         this.timeStamp = timeStamp;
 
     }
@@ -129,14 +129,6 @@ public class Record implements Serializable {
         return photoList;
     }
 
-    /**
-     * Method gets body locations
-     *
-     * @return BodyLocation
-     */
-    public BodyLocation getBodyLocation() {
-        return this.bodyLocation;
-    }
 
     /**
      * Method gets the timestamp of the record
@@ -160,15 +152,37 @@ public class Record implements Serializable {
         }
     }
 
-
-
+    /**
+     * method sets date
+     *
+     * @param date  Date
+     */
     public void setDate(Date date) {
         this.timeStamp = date;
     }
 
+    /**
+     * method gets the date
+     *
+     * @return  Date
+     */
     public Date getDate() {
         return this.timeStamp;
     }
+
+    /**
+     * Method gets body locations
+     *
+     * @return BodyLocation
+     */
+    public BodyLocation getBodyLocation() {
+        return this.bodyLocation;
+    }
+
+    public void setBodyLocation(BodyLocation bodyLocation) {
+        this.bodyLocation = bodyLocation;
+    }
+
 
 }
 

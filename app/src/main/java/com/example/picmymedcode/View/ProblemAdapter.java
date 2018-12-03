@@ -1,7 +1,7 @@
 /*
  * ProblemAdapter
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -20,8 +20,10 @@
 package com.example.picmymedcode.View;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -50,7 +52,7 @@ import java.util.ArrayList;
  * add a record to a problem
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>{
@@ -123,7 +125,6 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
      * @param listPosition  int
      */
     @Override
-
     public void onBindViewHolder(@NonNull final ProblemViewHolder myViewHolder, final int listPosition) {
         //set title
         TextView problemTitleTextView = myViewHolder.problemTitleTextView;
@@ -136,10 +137,20 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
         numberofRecordTextView.setText("Number of Records : "+problems.get(listPosition).getRecordList().size());
         //set description
         TextView DescriptionTextView = myViewHolder.descriptionTextView;
-        DescriptionTextView.setText(problems.get(listPosition).getDescription());
+
+        if(problems.get(listPosition).getDescription().equals("")){
+            DescriptionTextView.setVisibility(View.GONE);
+        } else {
+            DescriptionTextView.setText(problems.get(listPosition).getDescription());
+        }
 
         if (!PicMyMedApplication.getLoggedInUser().isPatient()){
             myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Handles clicking on the problem title to view records
+                 *
+                 * @param v View
+                 */
                 @Override
                 //onClick to go to next activity
                 public void onClick(View v) {
@@ -150,6 +161,11 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
             });
         }else{
             myViewHolder.problemTitleTextView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Handles clicking on the problem title
+                 *
+                 * @param v View
+                 */
                 @Override
                 //onClick to go to next activity
                 public void onClick(View v) {
@@ -188,12 +204,30 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
                                 break;
                             case R.id.delete:
                                 //handle menu2 click
-                                if (PicMyMedApplication.isNetworkAvailable(context)) {
-                                    PicMyMedController.deleteProblem(problems.get(listPosition), context);
-                                    notifyDataSetChanged();
-                                } else {
-                                    Toast.makeText(context, "You must be online to delete a problem" , Toast.LENGTH_SHORT).show();
-                                }
+
+                                AlertDialog.Builder authorizationDialog = new AlertDialog.Builder(context);
+                                authorizationDialog.setTitle("Delete")
+                                        .setCancelable(false)
+                                        .setMessage("Are you sure you want to delete?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                                                    PicMyMedController.deleteProblem(problems.get(listPosition), context);
+                                                    notifyDataSetChanged();
+                                                } else {
+                                                    Toast.makeText(context, "You must be online to delete a problem" , Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Toast.makeText(context, "Keep enjoying!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                authorizationDialog.show();
+
 
                                 //saveInFile();
                                 break;
@@ -219,29 +253,5 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
     public int getItemCount() {
         return (problems == null) ? 0 : problems.size();
     }
-
-    /**
-     * Method saved data to file. No longer implemented, data now saved to database
-     */
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = context.openFileOutput(FILENAME,
-                    0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter writer = new BufferedWriter(osw);
-
-            Gson gson = new Gson();
-            gson.toJson(problems,osw);
-            writer.flush();
-            writer.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-
-
 
 }

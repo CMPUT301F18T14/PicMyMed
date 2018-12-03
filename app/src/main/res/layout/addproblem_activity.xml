@@ -29,6 +29,7 @@
         android:gravity="center"
         android:hint="@string/problem_name"
         android:padding="10dp"
+        android:maxLength="30"
         android:textColor="#16BBE5"
         android:textColorHint="#D3D3D3" />
 
@@ -40,6 +41,7 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/box_with_outline"
         android:gravity="center"
+        android:maxLength="300"
         android:hint="@string/Problem_Description"
         android:layout_centerHorizontal="true"
         android:inputType="textCapSentences|textMultiLine"

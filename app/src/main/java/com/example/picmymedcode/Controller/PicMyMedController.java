@@ -1,7 +1,7 @@
 /*
  * PicMyMedController
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -41,12 +41,17 @@ import java.util.UUID;
 /**
  * PicMyMedController creates a user
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class PicMyMedController {
 
-
+    /**
+     * Method checks if the user is valid
+     *
+     * @param username  String
+     * @return          int
+     */
     public static int checkValidUser(String username) {
         ArrayList<Patient> patients = null;
         ArrayList<CareProvider> careProviders = null;
@@ -136,8 +141,15 @@ public class PicMyMedController {
         }
 
         return user;
-
     }
+
+    /**
+     * Method updates the user
+     *
+     * @param user      User
+     * @param context   Context
+     * @return          int
+     */
     public static int updateUser(User user, Context context) {
         try {
             if (user != null) {
@@ -163,14 +175,25 @@ public class PicMyMedController {
                 Log.d("Error message", e.getMessage());
         }
         return 0;
-
-
     }
 
+    /**
+     * Method checks if the device is authorized for the user
+     *
+     * @param user  User
+     * @return      user
+     */
     public static int checkAuthorizedDevice(User user) {
         return user.checkDeviceAuthorized(getUniquePsuedoID());
     }
 
+    /**
+     * Method adds an authorized device
+     *
+     * @param user      User
+     * @param context   Context
+     * @return          int
+     */
     public static int addAuthorizedDevice(User user, Context context) {
 
         try {
@@ -192,12 +215,12 @@ public class PicMyMedController {
 
         return 0;
     }
+
     /**
      * Method returns the users problems. Needs to be fized to address if the array list is empty
      *
      * @return  problemList
      */
-
     public static String getUsernameByID(String randomUserID) {
 
         String username = null;
@@ -211,6 +234,12 @@ public class PicMyMedController {
         }
         return username;
     }
+
+    /**
+     * Method gets a list of problems
+     *
+     * @return  problemList
+     */
     public static ArrayList<Problem> getProblems() {
         /* Needs to be fixed a bit because an empty ArrayList shouldn't be sent if user is null */
         ArrayList<Problem> problemList = new ArrayList<Problem>();
@@ -225,6 +254,11 @@ public class PicMyMedController {
 
     }
 
+    /**
+     * Method gets a string of all patient usernames
+     *
+     * @return  patientUsernames
+     */
     public static ArrayList<String> getAllPatientUsernames() {
         ArrayList<String> patientUsernames = new ArrayList<String>();
         ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
@@ -242,6 +276,12 @@ public class PicMyMedController {
         return patientUsernames;
     }
 
+    /**
+     * Method gets the patient
+     *
+     * @param username  String
+     * @return          patient
+     */
     public static Patient getPatient(String username) {
         Patient patient = (Patient) getUser(username);
         return patient;
@@ -312,6 +352,14 @@ public class PicMyMedController {
         return 1;
     }
 
+    /**
+     * Method deletes a record from a problem
+     *
+     * @param problem   Problem
+     * @param record    Record
+     * @param context   Context
+     * @return          int
+     */
     public static int deleteRecord(Problem problem, Record record, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         problem.removeRecord(record);
@@ -320,6 +368,15 @@ public class PicMyMedController {
         return 1;
     }
 
+    /**
+     * Method deletes a record from a photo
+     *
+     * @param problemIndex  int
+     * @param recordIndex   int
+     * @param photoIndex    int
+     * @param context       Context
+     * @return              int
+     */
     public static int deleteRecordPhoto(int problemIndex, int recordIndex, int photoIndex, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         Problem problem = patient.getProblemList().get(problemIndex);
@@ -403,6 +460,13 @@ public class PicMyMedController {
 
     }
 
+    /**
+     * Method adds a body location photo
+     *
+     * @param photo     BodyLocationPhoto
+     * @param context   Context
+     * @return          int
+     */
     public static int addBodyLocationPhoto(BodyLocationPhoto photo, Context context) {
         Log.d ("addBodyLocationPhoto", "in controller");
         Patient patient = PicMyMedApplication.getPatientUser();
@@ -412,6 +476,13 @@ public class PicMyMedController {
         return 1;
     }
 
+    /**
+     * Method removes a body location photo
+     *
+     * @param index     int
+     * @param context   Context
+     * @return          int
+     */
     public static int removeBodyLocationPhoto(int index, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getBodyLocationPhotoList().remove(index);
@@ -420,6 +491,14 @@ public class PicMyMedController {
         return 1;
     }
 
+    /**
+     * Method updates a body location photo
+     *
+     * @param index     int
+     * @param label     String
+     * @param context   Context
+     * @return          int
+     */
     public static int updateBodyLocationPhoto(int index, String label, Context context) {
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getBodyLocationPhotoList().get(index).setLabel(label);
@@ -428,8 +507,11 @@ public class PicMyMedController {
         return 1;
     }
 
-
-
+    /**
+     * Method gets all care providers
+     *
+     * @return  careProviders
+     */
     public static ArrayList<CareProvider> getAllCareProviders() {
         ArrayList<CareProvider> careProviders = null;
         ElasticSearchController.GetAllCareProviders getAllCareProviders = new ElasticSearchController.GetAllCareProviders();
@@ -443,11 +525,23 @@ public class PicMyMedController {
         return careProviders;
     }
 
-
+    /**
+     * Method gets photo list
+     *
+     * @param problemIndex  int
+     * @param recordIndex   int
+     * @return              photoList
+     */
     public static ArrayList<Photo> getPhotoList(int problemIndex, int recordIndex) {
         return PicMyMedApplication.getPatientUser().getProblemList().get(problemIndex).getRecordList().get(recordIndex).getPhotoList();
     }
 
+    /**
+     * Method checks if the device is the same
+     *
+     * @param user  User
+     * @return      int
+     */
     public static int checkIfSameDevice(User user) {
 
         try {
@@ -461,6 +555,13 @@ public class PicMyMedController {
         return 0;
     }
 
+    /**
+     * Method updates the last device used
+     *
+     * @param user      User
+     * @param context   Context
+     * @return          int
+     */
     public static int updateLastDeviceUsed(User user, Context context) {
         try {
             user.setLastDeviceUsed(getUniquePsuedoID());

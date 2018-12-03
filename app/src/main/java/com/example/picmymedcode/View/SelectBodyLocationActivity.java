@@ -1,5 +1,5 @@
 /*
- * Geolocation
+ * SelectBodyLocationActivity
  *
  * 1.2
  *
@@ -17,7 +17,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package com.example.picmymedcode.View;
 
 import android.content.Intent;
@@ -48,21 +47,18 @@ import com.example.picmymedcode.R;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * BodyLocationPhotoManagerActivity extends AppCompatActivity to manage all
- * body location photos and actions
+ * SelectBodyLocationActivity extends AppCompatActivity to select a body location
+ *  * Ideas Combined from the following sources:
+ *  1. https://www.quora.com/How-do-I-display-images-from-a-specific-directory-in-internal-storage-in-RecyclerView
+ *  2. https://www.youtube.com/watch?v=jGc0LG2MNKA
+ *  3. https://developer.android.com/reference/android/content/Context
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.2, 02/12/18
  * @since   1.1
- * Ideas Combined from the following sources:
- * 1. https://www.quora.com/How-do-I-display-images-from-a-specific-directory-in-internal-storage-in-RecyclerView
- * 2. https://www.youtube.com/watch?v=jGc0LG2MNKA
- * 3. https://developer.android.com/reference/android/content/Context
- *
  */
-public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
+public class SelectBodyLocationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private RecyclerView.LayoutManager layoutManager;
@@ -74,6 +70,8 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     private LoadingImageFiles loadingImageFiles;
 
     private static final int CAMERA_REQUEST_CODE = 333;
+
+    private static final int REQUEST_FOR_XACTIVITY_DRAW = 111;
     // private BodyLocationPhoto bodyLocationPhoto;
     //private Patient user;
 
@@ -85,7 +83,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_body_location_photo_manager);
+        setContentView(R.layout.activity_select_body_location);
 
         //Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
 
@@ -98,7 +96,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent photoIntent = new Intent(BodyLocationPhotoManagerActivity.this,PhotoIntentActivity.class);
+                Intent photoIntent = new Intent(SelectBodyLocationActivity.this,PhotoIntentActivity.class);
                 startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);
             }
         });
@@ -147,7 +145,7 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
         galleryCells = preparedDataFromBase64(user.getBodyLocationPhotoList());
         // Initialize the adapter
-        galleryAdapter = new GalleryAdapter(galleryCells, BodyLocationPhotoManagerActivity.this);
+        galleryAdapter = new GalleryAdapter(galleryCells, SelectBodyLocationActivity.this);
 
         // Set the adapter to the recycler view
         recyclerView.setAdapter(galleryAdapter);
@@ -162,8 +160,26 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         startActivity();
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (requestCode == CAMERA_REQUEST_CODE) {
+//            try {
+//                Log.d("DEBUG BodyLocation","BodyLocation is being fetched!!!");
+//                Photo photo = (Photo) data.getSerializableExtra("photoObject");
+//
+//                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(photo.getPhotoPath());
+//                bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
+//
+//                Log.d("BodyLocation is here!!!", photo.getPhotoPath());
+//                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, SelectBodyLocationActivity.this);
+//            } catch (Exception e) {
+//                Log.d("DEBUG BodyLocation", e.getMessage());
+//            }
+//        }
+//    }
+
     /**
-     * Method functions when activity is returned too
+     * Method handles getting activity result
      *
      * @param requestCode   int
      * @param resultCode    int
@@ -180,10 +196,29 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
                 bodyLocationPhoto.setBase64EncodedString(photo.getBase64EncodedString());
 
                 Log.d("BodyLocation is here!!!", photo.getPhotoPath());
-                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, BodyLocationPhotoManagerActivity.this);
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, SelectBodyLocationActivity.this);
             } catch (Exception e) {
                 Log.d("DEBUG BodyLocation", e.getMessage());
             }
+        }
+
+        if (requestCode == REQUEST_FOR_XACTIVITY_DRAW) {
+            try {
+                Log.d("class", "SelectBodyLocationActivity");
+                float xCoordinate = data.getFloatExtra("x", 0);
+                float yCoordinate = data.getFloatExtra("y", 0);
+                int index = data.getIntExtra("bodyLocationPhotoIndex", 0);
+
+                Intent backToAddRecordActivity = new Intent();
+                backToAddRecordActivity.putExtra("x", xCoordinate);
+                backToAddRecordActivity.putExtra("y", yCoordinate);
+                backToAddRecordActivity.putExtra("bodyLocationPhotoIndex", index);
+                setResult(RESULT_OK, backToAddRecordActivity);
+                finish();
+            } catch (Exception e) {
+                Log.d("DEBUG BodyLocation", e.getMessage());
+            }
+
         }
     }
 
@@ -211,4 +246,3 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         return galleryCellsArrayList;
     }
 }
-

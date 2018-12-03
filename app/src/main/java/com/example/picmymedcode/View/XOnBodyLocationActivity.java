@@ -1,5 +1,26 @@
+/*
+ * XOnBodyLocationActivity
+ *
+ * 1.2
+ *
+ * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -14,8 +35,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.example.picmymedcode.Controller.PicMyMedApplication;
+import com.example.picmymedcode.Controller.PicMyMedController;
+import com.example.picmymedcode.Model.BodyLocation;
+import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.R;
 
+/**
+ * XOnBodyLocationActivity extends AppCompatActivity to allow the user to
+ * select a location on a body photo
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class XOnBodyLocationActivity extends AppCompatActivity {
 
     private static final String TAG = "XOnBodyLocationActivity";
@@ -26,12 +59,20 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
     private Button cancelButton;
     //private Bitmap bitmap;
     float[] coordinates;
+    private Patient user;
 
+    /**
+     * Sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_bodylocation_photo);
         //warning, photo is stretched into the view and fills the entire space
+
+        user = (Patient) PicMyMedApplication.getLoggedInUser();
 
         //initialize view elements
         drawView = (DrawView) findViewById(R.id.bodyLocation_x);
@@ -82,9 +123,23 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
         drawView.setBitmap(bitmap);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking save
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 coordinates = drawView.getCoordinates();
+
+                int index = getIntent().getIntExtra("photoIndex", 0);
+                Intent backToAddRecordActivity = new Intent();
+                backToAddRecordActivity.putExtra("x", coordinates[0]);
+                backToAddRecordActivity.putExtra("y", coordinates[1]);
+                backToAddRecordActivity.putExtra("bodyLocationPhotoIndex", index);
+                setResult(RESULT_OK, backToAddRecordActivity);
+                finish();
+
                 Toast.makeText(XOnBodyLocationActivity.this,"x: " + coordinates[0] +
                         " y: " + coordinates[1], Toast.LENGTH_SHORT).show();
 
@@ -92,6 +147,11 @@ public class XOnBodyLocationActivity extends AppCompatActivity {
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking cancel
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 //return to other activity

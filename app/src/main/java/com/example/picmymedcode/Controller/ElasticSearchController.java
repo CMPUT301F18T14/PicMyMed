@@ -1,7 +1,7 @@
 /*
  * ElasticSearchController
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -44,14 +44,14 @@ import io.searchbox.core.SearchResult;
  * and server connectivity
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class ElasticSearchController {
 
     private static JestDroidClient client;
 
-    private static final String serverURI = "http://cmput301.softwareprocess.es:8080";
+    private static final String serverURI = "http://cmput301.softwareprocess.es:8080/";
     private static final String indexPath = "cmput301f18t14test";
     private static final String querySize = "100";
     private static final String maxQuerySize = "999999";
@@ -344,6 +344,12 @@ public class ElasticSearchController {
      */
     public static class UpdateCareProvider extends AsyncTask<CareProvider, Void, Void> {
 
+        /**
+         * Method runs in the background for care Provider
+         *
+         * @param careProviders careProvider
+         * @return              null
+         */
         @Override
         protected Void doInBackground(CareProvider... careProviders) {
             Log.i("DEBUG UpdateCP:", "Attempting to build patient index...");
@@ -367,7 +373,6 @@ public class ElasticSearchController {
                 Log.i("DEBUG UpdateCP", "The application failed to update the careprovider");
             }
 
-
             return null;
         }
     }
@@ -377,6 +382,12 @@ public class ElasticSearchController {
      */
      public static class AddProblem extends AsyncTask<Problem, Void, Void> {
 
+        /**
+         * Method handles background activity
+         *
+         * @param problems  Problem
+         * @return          null
+         */
          @Override
          protected Void doInBackground(Problem... problems) {
              verifySettings();
@@ -448,6 +459,10 @@ public class ElasticSearchController {
             return null;
         }
     }
+
+    /**
+     * Method extends AsyncTask and gets all patients
+     */
     public static class GetAllPatients extends AsyncTask<Void, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(Void... voids) {
@@ -491,10 +506,9 @@ public class ElasticSearchController {
         }
     }
 
-
-
-
-
+    /**
+     * Method extends AsyncTask to get all care providers
+     */
     public static class GetAllCareProviders extends AsyncTask<Void, Void, ArrayList<CareProvider>> {
         @Override
         protected ArrayList<CareProvider> doInBackground(Void... voids) {
@@ -537,140 +551,6 @@ public class ElasticSearchController {
             return careProviders;
         }
     }
-
-/*
-     public static class GetProblemsByUsername extends AsyncTask<String, Void, ArrayList<Problem>> {
-         @Override
-         protected ArrayList<Problem> doInBackground(String... usernames) {
-             verifySettings();
-
-             String username = usernames[0];
-
-             ArrayList<Problem> problems = new ArrayList<Problem>();
-
-
-             //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-             String problemQuery =
-             "{" +
-                                "\"size\": " + maxQuerySize + "," +
-                                "\"from\": 0," +
-                                "\"query\": {" +
-                                    "\"match\" : " +
-                                        "{ \"username\" : \"" + username + "\" }" +
-                                "}" +
-              "}";
-              "{ \"size\": " + maxQuerySize +
-                     ", \n" +
-                     "    \"query\" : {\n" +
-                     "        \"term\" : { \"title\" : \"" + search_parameters[0] + "\" }\n" +
-                     "    }\n" +
-                     "}" ;
-
-             Search search = new Search.Builder(problemQuery)
-                     .addIndex(indexPath)
-                     .addType("problem")
-                     .build();
-
-             try {
-                 // TODO get the results of the query
-                 SearchResult result = client.execute(search);
-                 if (result.isSucceeded()){
-                     List<Problem> foundProblems = result.getSourceAsObjectList(Problem.class);
-                     problems.addAll(foundProblems);
-                 }
-                 else {
-                     Log.i("DEBUG Error", "The search query failed to find any problems that matched");
-                 }
-             }
-             catch (Exception e) {
-                 Log.i("DEBUG Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-             }
-
-             return problems;
-         }
-     }
-
-
-
-
-
-     public static class AddRecordTask extends AsyncTask<Record, Void, Void> {
-
-         @Override
-         protected Void doInBackground(Record... records) {
-             verifySettings();
-             Record record = records[0];
-             Index index = new Index.Builder(record).index(indexPath).type("record").build();
-
-             if (record.getId() != null) {
-                 index = new Index.Builder(record).index(indexPath).type("record").id(record.getId()).build();
-             }
-
-             try {
-                 // where is the client?
-                 DocumentResult result = client.execute(index);
-                 if (result.isSucceeded()) {
-                     if (record.getId() == null) {
-                         record.setId(result.getId());
-                         Log.i("DEBUG Update", "Elasticsearch performed record update");
-                     } else {
-                         Log.i("DEBUG Insert", "Elasticsearch performed a record insert");
-                     }
-                     Log.i("DEBUG Success", "Elasticsearch successfully added the record");
-                 }
-                 else {
-                     Log.i("DEBUG Error", "Elasticsearch was not able to add the record");
-                 }
-             }
-             catch (Exception e) {
-                 Log.i("DEBUG Error", "The application failed to build and send the record");
-             }
-
-
-             return null;
-         }
-     }
-
-     public static class GetRecordTask extends AsyncTask<String, Void, ArrayList<Record>> {
-         @Override
-         protected ArrayList<Record> doInBackground(String... search_parameters) {
-             verifySettings();
-
-             ArrayList<Record> records = new ArrayList<Record>();
-
-
-             //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-             String recordQuery = "{ \"size\": " + querySize +
-                     ", \n" +
-                     "    \"query\" : {\n" +
-                     "        \"term\" : { \"title\" : \"" + search_parameters[0] + "\" }\n" +
-                     "    }\n" +
-                     "}" ;
-
-             Search search = new Search.Builder(recordQuery)
-                     .addIndex(indexPath)
-                     .addType("record")
-                     .build();
-
-             try {
-                 // TODO get the results of the query
-                 SearchResult result = client.execute(search);
-                 if (result.isSucceeded()){
-                     List<Record> foundRecords = result.getSourceAsObjectList(Record.class);
-                     records.addAll(foundRecords);
-                 }
-                 else {
-                     Log.i("DEBUG Error", "The search query failed to find any care providers that matched");
-                 }
-             }
-             catch (Exception e) {
-                 Log.i("DEBUG Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-             }
-
-             return records;
-         }
-     }
- */
 
     /**
      * Method verifies server settings are correct 
