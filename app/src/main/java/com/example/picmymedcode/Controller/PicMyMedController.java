@@ -23,6 +23,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AtomicFile;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Model.BodyLocationPhoto;
 import com.example.picmymedcode.Model.CareProvider;
@@ -139,20 +140,24 @@ public class PicMyMedController {
     }
     public static int updateUser(User user, Context context) {
         try {
-            if(PicMyMedApplication.isNetworkAvailable(context) ) {
-                if (user != null) {
+            if (user != null) {
+                if (PicMyMedApplication.isNetworkAvailable(context)) {
+                    Toast.makeText(context, "Does not require update next run", Toast.LENGTH_SHORT).show();
+                    user.setRequiresSync(Boolean.FALSE);
                     if (user.isPatient()) {
                         updatePatient((Patient) user, context);
                     } else {
                         updateCareProvider((CareProvider) user, context);
                     }
                     return 1;
+
+                } else {
+                    Toast.makeText(context, "Requires update next run", Toast.LENGTH_SHORT).show();
+                    user.setRequiresSync(Boolean.TRUE);
                 }
-            } else {
-                user.setRequiresSync(Boolean.TRUE);
+                PicMyMedApplication.saveUserLocally(context);
                 Log.i("DEBUG PMC", "Unable to save to the online database, storing locally ...");
             }
-
         } catch (Exception e) {
                 Log.d("DEBUG PMC", "Error updating user");
                 Log.d("Error message", e.getMessage());
@@ -252,11 +257,8 @@ public class PicMyMedController {
      */
     public static int addProblem(Problem problem, Context context) {
 
-
-
         Patient patient = PicMyMedApplication.getPatientUser();
         patient.getProblemList().add(problem);
-
         updateUser(patient, context);
 
         return 1;
