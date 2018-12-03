@@ -583,37 +583,63 @@ public class PicMyMedController {
         return matchingRecords;
     }
     */
-    public static Object[] searchForProbRecByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
+    public static ArrayList<Problem> searchForProbByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
         ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
-        ArrayList<Record> matchingRecords = new ArrayList<Record>();
         for (Problem problem : problems) {
             for (Record record : problem.getRecordList()) {
                 if (record.getBodyLocation().getPhotoID().equals(bodyLocationID)) {
                     matchingProblems.add(problem);
-                    matchingRecords.add(record);
 
                 }
             }
         }
-        return new Object[]{matchingProblems,matchingRecords};
+        return matchingProblems;
     }
-
-    public static Object[] searchForProbRecByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
-        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+    public static ArrayList<Record> searchForRecByBodyLocation(ArrayList<Problem> problems, String bodyLocationID) {
         ArrayList<Record> matchingRecords = new ArrayList<Record>();
         for (Problem problem : problems) {
             for (Record record : problem.getRecordList()) {
-                Location recordLocation = new Location("");
-                recordLocation.setLatitude(record.getGeolocation().getLatitude());
-                recordLocation.setLongitude((record.getGeolocation().getLongitude()));
-                if (searchLocation.distanceTo(recordLocation) <= metersFromLocation){
-                    matchingProblems.add(problem);
+                if (record.getBodyLocation().getPhotoID().equals(bodyLocationID)) {
                     matchingRecords.add(record);
 
                 }
             }
         }
-        return new Object[]{matchingProblems,matchingRecords};
+        return matchingRecords;
+    }
+
+
+    public static ArrayList<Problem> searchForProbByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
+        ArrayList<Problem> matchingProblems = new ArrayList<Problem>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getGeolocation() != null) {
+                    Location recordLocation = new Location("");
+                    recordLocation.setLatitude(record.getGeolocation().getLatitude());
+                    recordLocation.setLongitude((record.getGeolocation().getLongitude()));
+                    if (searchLocation.distanceTo(recordLocation) <= metersFromLocation) {
+                        matchingProblems.add(problem);
+                    }
+                }
+            }
+        }
+        return matchingProblems;
+    }
+    public static ArrayList<Record> searchForRecByGeolocation(ArrayList<Problem> problems, Location searchLocation) {
+        ArrayList<Record> matchingRecords = new ArrayList<Record>();
+        for (Problem problem : problems) {
+            for (Record record : problem.getRecordList()) {
+                if (record.getGeolocation() != null) {
+                    Location recordLocation = new Location("");
+                    recordLocation.setLatitude(record.getGeolocation().getLatitude());
+                    recordLocation.setLongitude((record.getGeolocation().getLongitude()));
+                    if (searchLocation.distanceTo(recordLocation) <= metersFromLocation) {
+                        matchingRecords.add(record);
+                    }
+                }
+            }
+        }
+        return matchingRecords;
     }
 
     /**

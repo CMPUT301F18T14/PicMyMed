@@ -16,11 +16,32 @@
             android:background="@drawable/blue_gradient"
             android:layout_below="@+id/Tab_Search_Toolbar"
             android:iconifiedByDefault="false"></SearchView>
+        <Button
+            android:id="@+id/record_search_location_button"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchRecords"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/signupbtn1"
+            android:text="Search by location" />
+        <Button
+            android:id="@+id/record_search_bodylocation_button"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/record_search_location_button"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/signupbtn1"
+            android:text="Search by bodylocation" />
+
+
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_record_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/searchRecords"
+            android:layout_below="@+id/record_search_bodylocation_button"
             android:scrollbars="vertical" />
     </RelativeLayout>
 

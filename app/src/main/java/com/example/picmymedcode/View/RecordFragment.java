@@ -1,5 +1,7 @@
 package com.example.picmymedcode.View;
 
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
@@ -17,8 +20,14 @@ import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.R;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 public class RecordFragment extends Fragment {
     private RecyclerView mRecyclerView;
@@ -26,7 +35,9 @@ public class RecordFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
     public ArrayList<Record> allRecordArrayList = new ArrayList<Record>(),filteredDataList;
+    private static ArrayList<Record> baseRecordArrayList = new ArrayList<Record>();
     Patient patient;
+    int PLACE_PICKER_REQUEST = 1;
     View v;
 
     public RecordFragment() {
@@ -47,6 +58,7 @@ public class RecordFragment extends Fragment {
         for (Problem problem : problemArrayList) {
             if (problem.getRecordList() != null) {
                 allRecordArrayList.addAll(problem.getRecordList());
+                baseRecordArrayList.addAll(problem.getRecordList());
             }
         }
 
@@ -65,6 +77,25 @@ public class RecordFragment extends Fragment {
                 filteredDataList = filter(allRecordArrayList, newText);
                 mAdapter.setFilter(filteredDataList);
                 return true;
+            }
+        });
+        Button searchLocation = v.findViewById(R.id.record_search_location_button);
+
+        searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allRecordArrayList.clear();
+                allRecordArrayList.addAll(baseRecordArrayList);
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+
+                    startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+                //PicMyMedController.searchForProbByBodyLocation(problemArrayList,);
             }
         });
 
@@ -105,4 +136,25 @@ public class RecordFragment extends Fragment {
         return filteredDataList;
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PLACE_PICKER_REQUEST) {
+
+            if (resultCode == RESULT_OK) {
+
+                Place place = PlacePicker.getPlace(getActivity(),data);
+                Location location = new Location("");
+                double lat = place.getLatLng().latitude;
+                double lon = place.getLatLng().longitude;
+                location.setLatitude(lat);
+                location.setLongitude(lon);
+
+
+                allRecordArrayList = PicMyMedController.searchForRecByGeolocation(problemArrayList,location);
+                mAdapter =  new SearchRecordAdapter(getContext(), allRecordArrayList);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 }
