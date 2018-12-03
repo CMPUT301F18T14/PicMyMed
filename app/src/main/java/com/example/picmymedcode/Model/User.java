@@ -207,6 +207,11 @@ public abstract class User implements Serializable {
         return requiresSync;
     }
 
+    /**
+     * Method sets required sync.
+     *
+     * @param requiresSync  Boolean
+     */
     public void setRequiresSync(Boolean requiresSync) {
         this.requiresSync = requiresSync;
     }
