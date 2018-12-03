@@ -1,8 +1,10 @@
 package com.example.picmymedmaphandler.View;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.input.InputManager;
@@ -76,7 +78,6 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private final static String DEVICE_LOCATION_TITLE = "Current Location";
     private final static float MAP_ZOOM_LEVEL = 10f; // 15: Able to View Streets
     private final static LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(0, 0), new LatLng(0, 0));//new LatLngBounds(new LatLng(85, -180), new LatLng(-85, 180)); // Maximum bound for google Map
-    private LongitudeLatitude longitudeLatitude = null;
     private LatLng mLatLng = null;
     private GoogleMap mGoogleMap;
     RelativeLayout relativeLayoutForSearch;
@@ -87,6 +88,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
     private GoogleApiClient googleApiClient;
     private PlaceInformation mPlace;
     private String callingActiviy;
+    private LongitudeLatitude longitudeLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,46 +134,76 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
 
     private void initialTaskInActivityForAddingRecord() {
 
+        double latitude = getIntent().getDoubleExtra("Latitude", 0);
+        double longitude = getIntent().getDoubleExtra("Longitude", 0);
+
+        mLatLng = new LatLng(latitude, longitude);
 
         longitudeLatitude = new LongitudeLatitude(DrawMapActivity.this);
 
-        // Delays the drawing of Map
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Handles null pointer exception when LongitudeLatitude returns null LatLng
-                try {
-                    // Getting the current device location
-                    gettingCurrentLatLon();
-                    // Drawing the map
-                    initMap();
-                    // Making the Add button visible after the location is set
+        // Making the Add button visible after the location is set
 
-                    relativeLayoutForSearch.setVisibility(View.VISIBLE);
+        relativeLayoutForSearch.setVisibility(View.VISIBLE);
 
-                    searchText.setVisibility(View.VISIBLE);
+        searchText.setVisibility(View.VISIBLE);
 
-                    mGps.setVisibility(View.VISIBLE);
-                    // Hiding the Add button
-                    mAdd.setVisibility(View.VISIBLE);
-                    // Searching Location
-                    initSearch();
-                } catch (NullPointerException e) {
-                    //onStart();
-                    Toast.makeText(DrawMapActivity.this,
-                            "Location is not synced. Turn on the GPS, and try again.",
-                            Toast.LENGTH_SHORT).show();
-                    // Creating intent, and calling the activity again
-                    longitudeLatitude = null;
-                    mAdd = null;
-                    mGps = null;
-                    searchText = null;
-                    Intent intent = getIntent();
-                    finish();
-                    startActivity(intent);
-                }
-            }
-        }, 5000 /* 5 sec */ );
+        mGps.setVisibility(View.VISIBLE);
+        // Hiding the Add button
+        mAdd.setVisibility(View.VISIBLE);
+
+        initMap();
+
+        initSearch();
+
+        try {
+
+            // Drawing the map
+
+        } catch (NullPointerException e) {
+            //finish();
+        }
+
+
+
+
+//        // Delays the drawing of Map
+//        new Handler().postDelayed(new Runnable() {
+//            @SuppressLint("NewApi")
+//            @Override
+//            public void run() {
+//                // Handles null pointer exception when LongitudeLatitude returns null LatLng
+//                try {
+//                    // Getting the current device location
+//                    gettingCurrentLatLon();
+//                    // Drawing the map
+//                    initMap();
+//                    // Making the Add button visible after the location is set
+//
+//                    relativeLayoutForSearch.setVisibility(View.VISIBLE);
+//
+//                    searchText.setVisibility(View.VISIBLE);
+//
+//                    mGps.setVisibility(View.VISIBLE);
+//                    // Hiding the Add button
+//                    mAdd.setVisibility(View.VISIBLE);
+//                    // Searching Location
+//                    initSearch();
+//                } catch (NullPointerException e) {
+//                    //onStart();
+//                    Toast.makeText(DrawMapActivity.this,
+//                            "Location is not synced. Turn on the GPS, and try again.",
+//                            Toast.LENGTH_SHORT).show();
+//                    // Creating intent, and calling the activity again
+//                    longitudeLatitude = null;
+//                    mAdd = null;
+//                    mGps = null;
+//                    searchText = null;
+//                    Intent intent = getIntent();
+//                    finishAndRemoveTask();
+//                    startActivity(intent);
+//                }
+//            }
+//        }, 5000 /* 5 sec */ );
     }
 
     private void initSearch(){
@@ -235,6 +267,7 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
                 backToAddRecordActivity.putExtra("latitude", mLatLng.latitude);
                 backToAddRecordActivity.putExtra("longitude", mLatLng.longitude);
                 setResult(RESULT_OK, backToAddRecordActivity);
+                longitudeLatitude = null;
                 finish();
 
             }
@@ -448,9 +481,8 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
      * This method hides the keyboard
      */
     private void hideSoftKeyBoard(){
-        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), 0);
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 
@@ -559,5 +591,6 @@ public class DrawMapActivity extends AppCompatActivity implements GoogleApiClien
             places.release();
         }
     };
+
 
 }
