@@ -39,7 +39,7 @@ import java.util.ArrayList;
  * add a patient
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class CareProviderAddPatientAdapter extends AppCompatActivity implements SearchView.OnQueryTextListener{
