@@ -24,10 +24,6 @@ import static org.junit.Assert.*;
 public class BodyLocationPhotoManagerActivityTest {
     private final static String TAG = "BodyLocationPhotoManagerActivityTest: ";
 
-    Patient patient = new Patient("apuian12","h@g.com","5555555555");
-
-    //Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
-
     @Rule
     public ActivityTestRule<BodyLocationPhotoManagerActivity> mActivity = new ActivityTestRule<BodyLocationPhotoManagerActivity>(BodyLocationPhotoManagerActivity.class){
         /**
@@ -36,12 +32,7 @@ public class BodyLocationPhotoManagerActivityTest {
         @Override
         protected void beforeActivityLaunched() {
             //super.beforeActivityLaunched();
-            PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-            patient.setElasticSearchID("AWdzHDiUVa1LxfbRovmp");
-            patient.setLastDeviceUsed("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-            patient.addAuthorizedDevice("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-            picMyMedApplication.setLoggedInUser(patient);
-
+            LoggedInUserForTesting.LoggedInUserForTesting();
         }
     };
 
@@ -50,9 +41,6 @@ public class BodyLocationPhotoManagerActivityTest {
      */
     @Test
     public void testCameraIntent() {
-
-
-        // Find a view with id enteredPhone and type "9111" on that view.
         Espresso.onView(withId(R.id.take_photo_button)).perform(ViewActions.click());
     }
 
@@ -66,10 +54,6 @@ public class BodyLocationPhotoManagerActivityTest {
             /* Passes when the position has a problem stored in it.
              * Then it performs longClick action on the view to
              * show the item in a new activity. */
-            onView(ViewMatchers.withId(R.id.gallery))
-                    .perform(RecyclerViewActions
-                            .actionOnItemAtPosition(0, ViewActions.click()));
-
             onView(ViewMatchers.withId(R.id.gallery))
                     .perform(RecyclerViewActions
                             .actionOnItemAtPosition(0, ViewActions.click()));

@@ -104,6 +104,7 @@ public class AddRecordActivity extends AppCompatActivity{
     int position;
     private ArrayList<Photo> placeHolderPhotoList;
     private Patient user;
+    private int problemIndex;
 
     /**
      * Method initializes the add record activity
@@ -117,6 +118,8 @@ public class AddRecordActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addrecord_activity);
+
+        problemIndex = getIntent().getIntExtra("key", 0);
         placeHolderPhotoList = new ArrayList<Photo>();
         locationNameTextView = (TextView) findViewById(R.id.location_text);
         final EditText recordTitleEditText = findViewById(R.id.record_title_edit_text);
@@ -144,6 +147,7 @@ public class AddRecordActivity extends AppCompatActivity{
                 if (placeHolderPhotoList.size()<10) {
                     Intent photoIntent = new Intent(AddRecordActivity.this, PhotoIntentActivity.class);
                     if (photo != null) {
+                        photoIntent.putExtra("problemIndex", problemIndex);
                         photoIntent.putExtra("base64ForConsistency", photo.getBase64EncodedString());
                     }
                     startActivityForResult(photoIntent, CAMERA_REQUEST_CODE);

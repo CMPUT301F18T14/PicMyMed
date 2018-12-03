@@ -18,9 +18,6 @@ import static org.junit.Assert.*;
 
 public class ProfileActivityTest {
     private final static String TAG = "ProfileActivityTest: ";
-    Patient patient = new Patient("apuian12","h@g.com","5555555555");
-
-//    Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
 
     @Rule
     public ActivityTestRule<ProfileActivity> ProfileActivityTestRuleActivity =
@@ -31,11 +28,7 @@ public class ProfileActivityTest {
                 @Override
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
-                    PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-                    patient.setElasticSearchID("AWdzHDiUVa1LxfbRovmp");
-                    patient.setLastDeviceUsed("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-                    patient.addAuthorizedDevice("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-                    picMyMedApplication.setLoggedInUser(patient);
+                    LoggedInUserForTesting.LoggedInUserForTesting();
 
                 }
             };

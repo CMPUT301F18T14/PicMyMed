@@ -61,6 +61,7 @@ public class EditProblemActivity extends AppCompatActivity {
     private Calendar mCalendar;
     private Activity mActivity;
     private String mDate;
+    private Button problemSaveButton;
 
 
     /**
@@ -91,7 +92,7 @@ public class EditProblemActivity extends AppCompatActivity {
         problemTimeEditText.setOnClickListener(textListener);
 
 
-        Button problemSaveButton = findViewById(R.id.problem_edit_save_button);
+        problemSaveButton = findViewById(R.id.problem_edit_save_button);
         problemSaveButton.setOnClickListener(new View.OnClickListener() {
 
             /**

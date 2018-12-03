@@ -35,7 +35,7 @@ public class MainActivityTest {
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
-        closeSoftKeyboard();
+        Espresso.closeSoftKeyboard();
 
         // Find a view with id loginButton and clicks on that view.
         Espresso.onView(withId(R.id.loginButton)).perform(ViewActions.click());
@@ -54,7 +54,7 @@ public class MainActivityTest {
 
         // Close the keyboard, if there is a button that is covered by it,
         // it will not be visible to espresso, and will throw an exception
-        closeSoftKeyboard();
+        Espresso.closeSoftKeyboard();
 
         // Find a view with id loginButton and clicks on that view.
         Espresso.onView(withId(R.id.loginButton)).perform(ViewActions.click());
@@ -80,13 +80,19 @@ public class MainActivityTest {
 
         Espresso.onView(withId(R.id.enteredUID)).perform(typeText(patientId));
 
+        Espresso.closeSoftKeyboard();
+
         Espresso.onView(withId(R.id.enteredPhone)).perform(ViewActions.click());
 
         Espresso.onView(withId(R.id.enteredPhone)).perform(typeText(phoneNumber));
 
+        Espresso.closeSoftKeyboard();
+
         Espresso.onView(withId(R.id.enteredEmail)).perform(ViewActions.click());
 
         Espresso.onView(withId(R.id.enteredEmail)).perform(typeText(email));
+
+        Espresso.closeSoftKeyboard();
 
         Espresso.onView(withId(R.id.signUpButton)).perform(ViewActions.click());
 

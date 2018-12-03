@@ -1,5 +1,7 @@
 package com.example.picmymedcode.View;
 
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
@@ -16,9 +18,6 @@ public class CareProviderProblemActivityTest {
 
     private final static String TAG = "CareProviderProblemActivityTest: ";
 
-    //CareProvider careProvider = new CareProvider("CP");
-
-
     @Rule
     public ActivityTestRule<CareProviderProblemActivity> CareProviderProblemActivityTestRule =
             new ActivityTestRule<CareProviderProblemActivity>  (CareProviderProblemActivity.class) {
@@ -28,8 +27,7 @@ public class CareProviderProblemActivityTest {
                 @Override
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
-                    PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-                    //picMyMedApplication.setLoggedInUser(careProvider);
+                    LoggedInUserForTesting.LoggedInUserForTestingCare();
 
                 }
             };
@@ -39,12 +37,18 @@ public class CareProviderProblemActivityTest {
      */
 
     @Test
-    public void viewProblems() {
-        //Espresso.onView(withId(R.id.search_patient_button)).perform(ViewActions.click());
+    public void TestSearchPatient() {
+        Espresso.onView(withId(R.id.careprovider_search_image_view)).perform(ViewActions.click());
         // Will be implemented in project 5
     }
     @Test
-    public void testClickOnSpecificItemInAdapterView() {
+    public void TestEmailSending() {
+        Espresso.onView(withId(R.id.careprovider_problem_email_text_view)).perform(ViewActions.click());
+        // Will be implemented in project 5
+    }
+    @Test
+    public void TestPhoneCalling() {
+        Espresso.onView(withId(R.id.careprovider_problem_phone_text_view)).perform(ViewActions.click());
         // Will be implemented in project 5
     }
 

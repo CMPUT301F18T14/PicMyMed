@@ -35,15 +35,6 @@ public class RecordActivityTest {
 
     private final static String TAG = "RecordActivityTest: ";
 
-    private Patient patient;
-
-    private ArrayList<Problem> problems;
-
-    private String name;
-    //Problem problem = new Problem("test",new Date(), "mockTitle", "mock description");
-
-    //Record record = new Record("Felt 1");
-
     @Rule
     public ActivityTestRule<RecordActivity> recordActivityTestRuleActivity =
             new ActivityTestRule<RecordActivity>(RecordActivity.class){
@@ -60,15 +51,7 @@ public class RecordActivityTest {
                 @Override
                 protected void beforeActivityLaunched() {
                     //super.beforeActivityLaunched();
-                    PicMyMedApplication picMyMedApplication = new PicMyMedApplication();
-
-                    patient = PicMyMedController.getPatient("apuian12");
-                    patient.setElasticSearchID("AWdzHDiUVa1LxfbRovmp");
-                    patient.setLastDeviceUsed("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-                    patient.addAuthorizedDevice("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-                    picMyMedApplication.setLoggedInUser(patient);
-
-                    Log.d(TAG,""+patient.getProblemList().size());
+                    LoggedInUserForTesting.LoggedInUserForTesting();
 
                 }
 
@@ -136,7 +119,7 @@ public class RecordActivityTest {
      * Scrolling to a specific record
      */
     @Test
-    public void scrollingToRecord(){
+    public void scrollingToRecord() {
         try {
             /* Passes when the position has a record stored in it.
              * Then it performs scrollTo action on the view to scroll at that position. */
@@ -144,45 +127,9 @@ public class RecordActivityTest {
                     .perform(RecyclerViewActions
                             .actionOnItemAtPosition(0, ViewActions.scrollTo()));
             Log.d(TAG, "The Problem is at the position.");
-        } catch(PerformException e) {
+        } catch (PerformException e) {
             Log.d(TAG, "Error performing. Nothing exists at that position on the view.");
         }
-
-//        try {
-//            /* Passes when the position has a problem stored in it.
-//             * Then it performs longClick action on the view to
-//             * show the item in a new activity. */
-//            Espresso.onView(ViewMatchers.withId(R.id.problem_recycle_view))
-//                    .perform(RecyclerViewActions
-//                            .actionOnItemAtPosition(1000, ViewActions.click()));
-//            Log.d(TAG, "The Problem is at the position.");
-//        } catch(PerformException e) {
-//            Log.d(TAG, "Error performing. Nothing exists at that position on the view.");
-//        }
     }
-
-//    /**
-//     * Testing Gallery Button directing to GalleryActivity
-//     */
-//    @Test
-//    public void testOpeningGallery() {
-//     //   Espresso.onView(withId(R.id.gallery_button)).perform(ViewActions.click());
-//    }
-//
-//    /**
-//     * Testing Slide Show button directing to SlideShowActivity
-//     */
-//    @Test
-//    public void testOpeningSlideShow() {
-//      //  Espresso.onView(withId(R.id.slideshow_button)).perform(ViewActions.click());
-//    }
-//
-//    /**
-//     * Clicking on specific item on the adapterView
-//     */
-//    @Test
-//    public void testClickOnSpecificItemInAdapterView() {
-//        // Will be implemented in project 5
-//    }
 
 }
