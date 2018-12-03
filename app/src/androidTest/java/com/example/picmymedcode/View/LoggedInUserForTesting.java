@@ -29,7 +29,7 @@ public class LoggedInUserForTesting {
         careProvider.setElasticSearchID("AWd0xGOZVa1LxfbRovpL");
         careProvider.setLastDeviceUsed("ffffffff-c4b1-10bc-ffff-ffff8d621788");
         careProvider.addAuthorizedDevice("ffffffff-c4b1-10bc-ffff-ffff8d621788");
-        careProvider.getPatientList().add("intenttesting");
+        //careProvider.getPatientList().add("intenttesting");
 
         picMyMedApplication.setLoggedInUser(careProvider);
     }
