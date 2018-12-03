@@ -3,11 +3,14 @@ package com.example.picmymedcode.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -25,6 +28,7 @@ public class CareProviderCommentActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManage;
     public ArrayList<Problem> problemArrayList;
+    SwipeRefreshLayout swipeLayout;
 
     final int position = CareProviderRecordActivity.problemPosition;
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,38 @@ public class CareProviderCommentActivity extends AppCompatActivity{
 
         manageRecyclerview();
 
+        //swipe to refresh
+        swipeLayout = findViewById(R.id.careprovider_comment_swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(CareProviderCommentActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 2000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 500); // Delay in millis
+                }
+
+            }
+        });
+
 
     }
 
@@ -80,6 +116,7 @@ public class CareProviderCommentActivity extends AppCompatActivity{
         //to clear my file
         //problemArrayList.clear();
         //saveInFile();
+        patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
         problemArrayList = patient.getProblemList();
         mRecyclerView = findViewById(R.id.careprovider_comment_recycle_view);
         mRecyclerView.setHasFixedSize(true);

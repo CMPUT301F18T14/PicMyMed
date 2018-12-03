@@ -3,6 +3,8 @@ package com.example.picmymedcode.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picmymedcode.Controller.PicMyMedApplication;
 import com.example.picmymedcode.Controller.PicMyMedController;
@@ -27,6 +30,8 @@ public class CareProviderRecordActivity extends AppCompatActivity{
     public ArrayList<Problem> problemArrayList;
     static int problemPosition;
     Patient patient;
+    SwipeRefreshLayout swipeLayout;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +78,11 @@ public class CareProviderRecordActivity extends AppCompatActivity{
             }
         });
 
-        manageRecyclerview();
 
 
-        ImageView addRecordImageView = (ImageView) findViewById(R.id.add_record_image_view);
+
+        ImageView addRecordImageView = (ImageView) findViewById(R.id.add_comment_image_view);
+        addRecordImageView.bringToFront();
         addRecordImageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent problemIntent = new Intent(CareProviderRecordActivity.this,CareProviderAddComment.class);
@@ -95,10 +101,48 @@ public class CareProviderRecordActivity extends AppCompatActivity{
             }
         });
 
+        //swipe to refresh
+        swipeLayout = findViewById(R.id.careprovider_record_swipeRefresh);
+        // Adding Listener
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (PicMyMedApplication.isNetworkAvailable(CareProviderRecordActivity.this)) {
+                    // To keep animation for 4 seconds
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            PicMyMedApplication.getMostRecentChanges();
+                            manageRecyclerview();
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "Refreshed!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 5000); // Delay in millis
+
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            // Stop animation (This will be after 3 seconds)
+                            swipeLayout.setRefreshing(false);
+                            Toast.makeText(getApplicationContext(), "No internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }, 500); // Delay in millis
+                }
+
+            }
+        });
+
+        manageRecyclerview();
+
 
     }
 
     public void manageRecyclerview(){
+        problemPosition = getIntent().getIntExtra("key",0);
+        patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
+        problemArrayList = patient.getProblemList();
+        problemArrayList.get(problemPosition).getRecordList();
         mRecyclerView = findViewById(R.id.careprovider_record_recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManage = new LinearLayoutManager(this);

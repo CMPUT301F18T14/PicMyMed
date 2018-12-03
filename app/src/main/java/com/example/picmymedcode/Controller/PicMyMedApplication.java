@@ -229,4 +229,7 @@ public class PicMyMedApplication {
         }
         return false;
     }
+    public static void getMostRecentChanges() {
+        setLoggedInUser(PicMyMedController.getUser(loggedInUser.getUsername()));
+    }
 }
