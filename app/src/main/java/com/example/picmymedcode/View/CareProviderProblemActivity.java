@@ -61,7 +61,11 @@ public class CareProviderProblemActivity extends Activity {
     static String name;
     SwipeRefreshLayout swipeLayout;
 
-
+    /**
+     * Method sets the state
+     *
+     * @param savedInstanceState    Bundle
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.careproviderpatient_activity);
@@ -81,6 +85,12 @@ public class CareProviderProblemActivity extends Activity {
         patientPhone.setText(patient.getPhoneNumber());
         //wow factor pass intent to call
         patientPhone.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles care provider clicking on patients phone number
+             * to initiate a phone call to that number
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);// Send phone number to intent as data
@@ -94,6 +104,12 @@ public class CareProviderProblemActivity extends Activity {
         patientEmail.setText(patient.getEmail());
         //wow factor pass intent email
         patientEmail.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method handles user clicking on patients email to initiate email
+             * to the patient's email
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -107,6 +123,11 @@ public class CareProviderProblemActivity extends Activity {
 
         Button search = findViewById(R.id.careprovider_search_image_view);
         search.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Handles user clicking on the search button
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 Intent tabIntent = new Intent(CareProviderProblemActivity.this, TabSearchActivity.class);
@@ -119,6 +140,9 @@ public class CareProviderProblemActivity extends Activity {
         swipeLayout = findViewById(R.id.careprovider_problem_swipeRefresh);
         // Adding Listener
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            /**
+             * Method handles user swiping down on the screen to refresh the layout
+             */
             @Override
             public void onRefresh() {
 
@@ -147,9 +171,12 @@ public class CareProviderProblemActivity extends Activity {
             }
         });
 
-
-
     }
+
+    /**
+     * Method handles the recycler view
+     *
+     */
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();
@@ -165,6 +192,10 @@ public class CareProviderProblemActivity extends Activity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    /**
+     * Method starts the activity
+     *
+     */
     protected void onStart() {
 
         // TODO Auto-generated method stub

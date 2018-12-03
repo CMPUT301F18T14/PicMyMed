@@ -41,7 +41,6 @@ public abstract class User implements Serializable {
     private String phoneNumber;
     private String email;
     private String lastDeviceUsed;
-
     private Boolean requiresSync;
 
     /**
@@ -126,10 +125,22 @@ public abstract class User implements Serializable {
 
         return randomString;
     }
+
+    /**
+     * Method adds an authorized device
+     *
+     * @param deviceID  String
+     */
     public void addAuthorizedDevice(String deviceID) {
         this.authorizedDevices.add(deviceID);
     }
 
+    /**
+     * Method checks if a device is authorized
+     *
+     * @param deviceID  String
+     * @return          int
+     */
     public int checkDeviceAuthorized(String deviceID) {
 
         for (String authorizedDevice: this.authorizedDevices) {
@@ -192,21 +203,40 @@ public abstract class User implements Serializable {
             this.phoneNumber = phoneNumber;
         }
 
-
     }
 
+    /**
+     * Method gets the last device used
+     *
+     * @return  lastDeviceUsed
+     */
     public String getLastDeviceUsed() {
         return lastDeviceUsed;
     }
 
+    /**
+     * Method sets the last device used
+     *
+     * @param lastDeviceUsed    String
+     */
     public void setLastDeviceUsed(String lastDeviceUsed) {
         this.lastDeviceUsed = lastDeviceUsed;
     }
 
+    /**
+     * Method gets if sync is required
+     *
+     * @return  requiresSync
+     */
     public Boolean getRequiresSync() {
         return requiresSync;
     }
 
+    /**
+     * Method sets required sync
+     *
+     * @param requiresSync  Boolean
+     */
     public void setRequiresSync(Boolean requiresSync) {
         this.requiresSync = requiresSync;
     }

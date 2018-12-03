@@ -50,6 +50,32 @@ public class BodyLocation implements Serializable {
         this.photoID = photoID;
     }
 
+
+    /**
+     * this method removes a body location
+     *
+     * @param location string of body location
+     */
+    public void removeBodyLocation(String location) {
+        if (this.bodyLocations.get(location) != null) {
+            bodyLocations.put(location, false);
+        }
+    }
+
+    /**
+     * This method returns a body location
+     *
+     * @param location  string of body location
+     * @return          boolean
+     */
+    public Boolean getLocation(String location){
+            if (this.bodyLocations.get(location) != null) {
+               Boolean present = this.bodyLocations.get(location);
+               return present;
+            }
+            return false;
+    }
+
     public float getxCoordinate() {
         return xCoordinate;
     }
@@ -65,4 +91,5 @@ public class BodyLocation implements Serializable {
     public void setyCoordinate(float yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
+
 }
