@@ -14,6 +14,13 @@ import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 
+/**
+ * SearchProblemAdapter extends RecyclerView to search a problem
+ *
+ * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
+ * @version 1.2, 02/12/18
+ * @since   1.1
+ */
 public class SearchProblemAdapter extends RecyclerView.Adapter<SearchProblemAdapter.ProblemViewHolder>{
     private static final String FILENAME = "file.sav";
 
