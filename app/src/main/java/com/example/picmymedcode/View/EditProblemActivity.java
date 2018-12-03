@@ -1,7 +1,7 @@
 /*
  * EditProblemActivity
  *
- * 1.1
+ * 1.2
  *
  * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
  *
@@ -47,7 +47,7 @@ import java.util.Locale;
  * EditProblemActivity extends AppCompatActivity and handles a patient editing a problem
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
+ * @version 1.2, 02/12/18
  * @since   1.1
  */
 public class EditProblemActivity extends AppCompatActivity {
@@ -114,6 +114,11 @@ public class EditProblemActivity extends AppCompatActivity {
 
     /* Define the onClickListener, and start the DatePickerDialog with users current time */
     private final View.OnClickListener textListener = new View.OnClickListener() {
+        /**
+         * Method handles clicking on the date
+         *
+         * @param v View
+         */
         @Override
         public void onClick(View v) {
             mCalendar = Calendar.getInstance();
@@ -124,6 +129,14 @@ public class EditProblemActivity extends AppCompatActivity {
 
     /* After user decided on a date, store those in our calendar variable and then start the TimePickerDialog immediately */
     private final DatePickerDialog.OnDateSetListener mDateDataSet = new DatePickerDialog.OnDateSetListener() {
+        /**
+         * Method handles setting the date
+         *
+         * @param view          DatePicker
+         * @param year          int
+         * @param monthOfYear   int
+         * @param dayOfMonth    int
+         */
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             mCalendar.set(Calendar.YEAR, year);
@@ -135,6 +148,13 @@ public class EditProblemActivity extends AppCompatActivity {
 
     /* After user decided on a time, save them into our calendar instance, and now parse what our calendar has into the TextView */
     private final TimePickerDialog.OnTimeSetListener mTimeDataSet = new TimePickerDialog.OnTimeSetListener() {
+        /**
+         * Method sets the time
+         *
+         * @param view      TimePicker
+         * @param hourOfDay int
+         * @param minute    int
+         */
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
