@@ -1,5 +1,5 @@
 /*
- * ElasticSearchController
+ * DataAccessController
  *
  * 1.2
  *
@@ -26,7 +26,6 @@ import android.util.Log;
 import com.example.picmymedcode.Model.CareProvider;
 import com.example.picmymedcode.Model.Patient;
 import com.example.picmymedcode.Model.Problem;
-import com.example.picmymedcode.Model.User;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -40,14 +39,14 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 /**
- * ElasticSearchController handles user input, controls background activity
+ * DataAccessController handles user input, controls background activity
  * and server connectivity
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
  * @version 1.2, 02/12/18
  * @since   1.1
  */
-public class ElasticSearchController {
+public class DataAccessController {
 
     private static JestDroidClient client;
 
@@ -88,7 +87,7 @@ public class ElasticSearchController {
                         Log.i("DEBUG AddPatient", "Patient ID " + result.getId() + "generated.");
                         Log.i("DEBUG AddPatient", "Updating index of patient ...");
                         try {
-                            ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
+                            DataAccessController.UpdatePatient updatePatient = new DataAccessController.UpdatePatient();
                             updatePatient.execute(patient);
                         } catch (Exception e) {
                             Log.i("DEBUG AddPatient", "Elasticsearch unable to update newly generated ID of patient");
@@ -141,7 +140,7 @@ public class ElasticSearchController {
                         Log.i("DEBUG AddCareProvider", "Careprovider ID " + result.getId() + "generated.");
                         Log.i("DEBUG AddCareProvider", "Updating index of careprovider ...");
                         try {
-                            ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+                            DataAccessController.UpdateCareProvider updateCareProvider = new DataAccessController.UpdateCareProvider();
                             updateCareProvider.execute(careProvider);
                         } catch (Exception e) {
                             Log.i("DEBUG AddCareProvider", "Elasticsearch unable to update newly generated ID of careprovider");
@@ -405,7 +404,7 @@ public class ElasticSearchController {
                          Log.i("DEBUG AddProblem", "Problem ID " + result.getId() + "generated.");
                          Log.i("DEBUG AddProblem", "Updating index of problem ...");
                          try {
-                             ElasticSearchController.UpdateProblem updateProblem = new ElasticSearchController.UpdateProblem();
+                             DataAccessController.UpdateProblem updateProblem = new DataAccessController.UpdateProblem();
                              updateProblem.execute(problem);
                          } catch (Exception e) {
                              Log.i("DEBUG AddProblem", "Elasticsearch unable to update newly generated ID of problem");

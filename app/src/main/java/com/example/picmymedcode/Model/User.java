@@ -173,7 +173,7 @@ public abstract class User implements Serializable {
     public void setEmail(String email) {
         if (email.length() == 0) {
             throw new IllegalArgumentException("Email cannot be empty!");
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else if (!email.contains("@")){
             throw new IllegalArgumentException("Invalid email address!");
         } else {
             this.email = email;

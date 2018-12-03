@@ -22,7 +22,6 @@ package com.example.picmymedcode.Controller;
 import android.content.Context;
 import android.location.Location;
 import android.os.Build;
-import android.util.AtomicFile;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,10 +33,8 @@ import com.example.picmymedcode.Model.Problem;
 import com.example.picmymedcode.Model.Record;
 import com.example.picmymedcode.Model.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -59,10 +56,10 @@ public class PicMyMedController {
         ArrayList<Patient> patients = null;
         ArrayList<CareProvider> careProviders = null;
 
-        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        DataAccessController.GetPatient getPatient = new DataAccessController.GetPatient();
         getPatient.execute(username);
 
-        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+        DataAccessController.GetCareProvider getCareProvider = new DataAccessController.GetCareProvider();
         getCareProvider.execute(username);
 
         try {
@@ -97,11 +94,11 @@ public class PicMyMedController {
 
                 if (user.isPatient()) {
                     Patient patient = (Patient) user;
-                    ElasticSearchController.AddPatient addPatient = new ElasticSearchController.AddPatient();
+                    DataAccessController.AddPatient addPatient = new DataAccessController.AddPatient();
                     addPatient.execute(patient);
                 } else {
                     CareProvider careProvider = (CareProvider) user;
-                    ElasticSearchController.AddCareProvider addCareProvider = new ElasticSearchController.AddCareProvider();
+                    DataAccessController.AddCareProvider addCareProvider = new DataAccessController.AddCareProvider();
                     addCareProvider.execute(careProvider);
 
                 }
@@ -123,10 +120,10 @@ public class PicMyMedController {
     public static User getUser(String username) {
 
         User user = null;
-        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+        DataAccessController.GetPatient getPatient = new DataAccessController.GetPatient();
         getPatient.execute(username);
 
-        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+        DataAccessController.GetCareProvider getCareProvider = new DataAccessController.GetCareProvider();
         getCareProvider.execute(username);
 
         try {
@@ -228,7 +225,7 @@ public class PicMyMedController {
 
         String username = null;
 
-        ElasticSearchController.GetUsernameByID getUsernameByID= new ElasticSearchController.GetUsernameByID();
+        DataAccessController.GetUsernameByID getUsernameByID= new DataAccessController.GetUsernameByID();
         getUsernameByID.execute(randomUserID);
         try {
             username = getUsernameByID.get();
@@ -264,7 +261,7 @@ public class PicMyMedController {
      */
     public static ArrayList<String> getAllPatientUsernames() {
         ArrayList<String> patientUsernames = new ArrayList<String>();
-        ElasticSearchController.GetAllPatients getAllPatients = new ElasticSearchController.GetAllPatients();
+        DataAccessController.GetAllPatients getAllPatients = new DataAccessController.GetAllPatients();
         getAllPatients.execute();
 
         try {
@@ -400,7 +397,7 @@ public class PicMyMedController {
     public static int updatePatient(Patient patient, Context context) {
 
         try {
-            ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
+            DataAccessController.UpdatePatient updatePatient = new DataAccessController.UpdatePatient();
             updatePatient.execute(patient);
             return 1;
         } catch (Exception e) {
@@ -417,7 +414,7 @@ public class PicMyMedController {
     public static int updateCareProvider(CareProvider careProvider, Context context) {
 
         try {
-            ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+            DataAccessController.UpdateCareProvider updateCareProvider = new DataAccessController.UpdateCareProvider();
             updateCareProvider.execute(careProvider);
             return 1;
         } catch (Exception e) {
@@ -517,7 +514,7 @@ public class PicMyMedController {
      */
     public static ArrayList<CareProvider> getAllCareProviders() {
         ArrayList<CareProvider> careProviders = null;
-        ElasticSearchController.GetAllCareProviders getAllCareProviders = new ElasticSearchController.GetAllCareProviders();
+        DataAccessController.GetAllCareProviders getAllCareProviders = new DataAccessController.GetAllCareProviders();
         getAllCareProviders.execute();
         try {
             careProviders = getAllCareProviders.get();

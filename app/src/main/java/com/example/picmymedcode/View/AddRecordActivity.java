@@ -144,20 +144,21 @@ public class AddRecordActivity extends AppCompatActivity{
 
 
         if (user.getBodyLocationPhotoList().size()==0) {
-
-            //Uri imageUri = Uri.parse("android.resource://"+BuildConfig.APPLICATION_ID+"/drawable/default_bodyloc.png" );
-            String imageUri =  "drawable://"  + R.drawable.default_bodyloc;
-
-            Bitmap bitmap = decodeImageFromFiles(imageUri.toString(), 200, 200 );
-            BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri.toString());
-            bodyLocationPhoto.setLabel("Default Photo");
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 50 , byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            bodyLocationPhoto.setBase64EncodedString(base64Image);
-            //user.getBodyLocationPhotoList().add(bodyLocationPhoto);
-            PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, AddRecordActivity.this);
+            try {
+                String imageUri = Uri.parse("android.resource://com.example.picmymedcode/drawable/default_bodyloc.png").toString();
+                Bitmap bitmap = decodeImageFromFiles(imageUri, 200, 200);
+                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
+                bodyLocationPhoto.setLabel("Default Photo");
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                bodyLocationPhoto.setBase64EncodedString(base64Image);
+                //user.getBodyLocationPhotoList().add(bodyLocationPhoto);
+                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, AddRecordActivity.this);
+            } catch (Exception e ) {
+                Log.i("DEBUG", e.getMessage());
+            }
         }
 
         geoLocationButton = (Button) findViewById(R.id.record_geo_button);
