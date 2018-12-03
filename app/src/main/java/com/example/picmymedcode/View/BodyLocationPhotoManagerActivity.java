@@ -1,22 +1,4 @@
-/*
- * Geolocation
- *
- * 2.0
- *
- * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
+// shamelessly copied from Apu's Gallery Activity
 
 package com.example.picmymedcode.View;
 
@@ -48,20 +30,6 @@ import com.example.picmymedcode.R;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * BodyLocationPhotoManagerActivity extends AppCompatActivity to manage all
- * body location photos and actions
- *
- * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
- * @since   1.1
- * Ideas Combined from the following sources:
- * 1. https://www.quora.com/How-do-I-display-images-from-a-specific-directory-in-internal-storage-in-RecyclerView
- * 2. https://www.youtube.com/watch?v=jGc0LG2MNKA
- * 3. https://developer.android.com/reference/android/content/Context
- *
- */
 public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
@@ -162,13 +130,6 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
         startActivity();
     }
 
-    /**
-     * Method functions when activity is returned too
-     *
-     * @param requestCode   int
-     * @param resultCode    int
-     * @param data          Intent
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CAMERA_REQUEST_CODE) {
@@ -212,3 +173,38 @@ public class BodyLocationPhotoManagerActivity extends AppCompatActivity {
     }
 }
 
+
+/*
+ * GalleryActivity
+ *
+ * 1.1
+ *
+ * November 16, 2018
+ *
+ * Copyright 2018 CMPUT301F18T14. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+/**
+ * GalleryActivity performs actions on the database and
+ * the GalleryAdapter settings to show the Gallery
+ *
+ * @author  Md Touhidul (Apu) Islam
+ * @version 1.1, 16/11/18
+ * @since   1.1
+ *
+ * Ideas Combined from the following sources:
+ * 1. https://www.quora.com/How-do-I-display-images-from-a-specific-directory-in-internal-storage-in-RecyclerView
+ * 2. https://www.youtube.com/watch?v=jGc0LG2MNKA
+ * 3. https://developer.android.com/reference/android/content/Context
+ * Used in: GalleryActivity.java, GalleryAdapter.java, GalleryCells.java, LoadingImageFiles.java
+ */

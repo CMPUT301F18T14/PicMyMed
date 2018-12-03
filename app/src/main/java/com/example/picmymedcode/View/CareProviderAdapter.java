@@ -1,22 +1,3 @@
-/*
- * CareProviderAdapter
- *
- * 1.1
- *
- * Copyright (C) 2018 CMPUT301F18T14. All Rights Reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package com.example.picmymedcode.View;
 
 import android.content.Context;
@@ -38,14 +19,6 @@ import com.example.picmymedcode.R;
 
 import java.util.ArrayList;
 
-/**
- * CareProviderAdapter extends RecyclerView.Adapter to
- * handle a care provider logging into the application
- *
- * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
- * @version 1.1, 16/11/18
- * @since   1.1
- */
 public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmymedcode.View.CareProviderAdapter.CareProviderViewHolder> {
 
     private static final String FILENAME = "file.sav";
@@ -74,10 +47,9 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
     }
 
     /**
-     * Method gets patient data
      *
-     * @param context           Context
-     * @param patientnameData   ArrayList<String></String>
+     * @param context
+     * @param patientnameData
      */
     public CareProviderAdapter (Context context, ArrayList<String> patientnameData){
         this.patientnameData = patientnameData;
@@ -98,6 +70,7 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
         CareProviderAdapter.CareProviderViewHolder myViewHolder = new CareProviderAdapter.CareProviderViewHolder(view);
         return myViewHolder;
     }
+
 
 
     /**
@@ -147,5 +120,24 @@ public class CareProviderAdapter extends RecyclerView.Adapter<com.example.picmym
         return (patientnameData == null) ? 0 : patientnameData.size();
     }
 
+    /**
+     * Method saved data to file. No longer implemented, data now saved to database
+     */
+    /*private void saveInFile() {
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME,
+                    0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
 
+            Gson gson = new Gson();
+            gson.toJson(problems,osw);
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    } */
 }

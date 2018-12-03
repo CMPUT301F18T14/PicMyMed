@@ -41,7 +41,7 @@ import com.example.picmymedcode.R;
 import java.util.ArrayList;
 
 /**
- * CareProviderActivity extends AppCompatActivity to
+ * CareProviderActivity extends AppCompatActivity tp
  * handle a care provider logging into the application
  *
  * @author  Umer, Apu, Ian, Shawna, Eenna, Debra
@@ -103,24 +103,12 @@ public class CareProviderActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Method creates toolbar menu
-     *
-     * @param menu  Menu
-     * @return      menu
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.careprovider_toolbar,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * Method handles toolbar menu items being selected
-     *
-     * @param item  MenuItem
-     * @return      itemSelected
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -135,9 +123,6 @@ public class CareProviderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * method shows view of patients for care providers
-     */
     public void manageRecyclerview(){
         //to clear my file
         //problemArrayList.clear();
@@ -150,9 +135,6 @@ public class CareProviderActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    /**
-     * Method started when activity starts
-     */
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
@@ -174,10 +156,6 @@ public class CareProviderActivity extends AppCompatActivity {
         //loadFromFile();
         //mAdapter = new ProblemAdapter(getApplicationContext(), problemArrayList);
     }
-
-    /**
-     * Method handles user pressing back
-     */
     @Override
     public void onBackPressed() {
         PicMyMedApplication.logoutDialog(CareProviderActivity.this);

@@ -17,6 +17,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package com.example.picmymedcode.View;
 
 import android.content.Context;
@@ -46,6 +47,7 @@ import java.util.ArrayList;
  * @version 1.2, 02/12/18
  * @since   1.1
  */
+
 public class CareProviderCommentAdapter extends RecyclerView.Adapter<CareProviderCommentAdapter.ProblemViewHolder>{
     private static final String FILENAME = "file.sav";
 
@@ -60,6 +62,7 @@ public static class ProblemViewHolder extends RecyclerView.ViewHolder{
     TextView commentTextView;
 
 
+
     /**
      * Method handles how problems are viewed
      *
@@ -72,7 +75,6 @@ public static class ProblemViewHolder extends RecyclerView.ViewHolder{
 }
 
     /**
-     * Method handles care providers comments
      *
      * @param context
      * @param problemsdata
@@ -122,6 +124,26 @@ public static class ProblemViewHolder extends RecyclerView.ViewHolder{
         return (problemsdata == null) ? 0 : problemsdata.size();
     }
 
+    /**
+     * Method saved data to file. No longer implemented, data now saved to database
+     */
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME,
+                    0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
+
+            Gson gson = new Gson();
+            gson.toJson(problemsdata,osw);
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 
 }
