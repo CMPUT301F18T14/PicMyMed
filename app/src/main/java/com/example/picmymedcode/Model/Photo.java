@@ -20,11 +20,7 @@
 
 package com.example.picmymedcode.Model;
 
-import android.graphics.Bitmap;
-
-import java.io.File;
 import java.io.Serializable;
-import java.util.Random;
 
 /**
  * Photo class sets the file path of a photo and returns it

@@ -22,7 +22,6 @@ package com.example.picmymedcode.Model;
 
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * BodyLocation stores a body location photo and a mark on that photo indicated by the user

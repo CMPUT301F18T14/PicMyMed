@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Problem class creates a problem object for the patient containing a date, title, description, id,
@@ -37,7 +36,6 @@ public class Problem implements Serializable {
     private String startDate;
     private String title;
     private String description;
-    //private RecordList recordList;
     private String problemID;
     private String username;
     private ArrayList<Record> recordList;

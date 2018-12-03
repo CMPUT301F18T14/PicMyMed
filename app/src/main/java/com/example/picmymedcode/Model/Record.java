@@ -19,14 +19,9 @@
  */
 package com.example.picmymedcode.Model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  * Record class creates a record object with a title, comment, id, geolocation,

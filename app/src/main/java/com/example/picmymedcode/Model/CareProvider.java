@@ -19,8 +19,6 @@
  */
 package com.example.picmymedcode.Model;
 
-import com.example.picmymedcode.Model.User;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
