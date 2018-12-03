@@ -18,8 +18,28 @@ public class ProblemTest extends TestCase {
         assertEquals("Wrong Username", "testUsername", testProblem.getUsername());
         assertEquals("Wrong Date", date.toString(), testProblem.getStartDate());
         assertEquals("Wrong Title", "testProblem", testProblem.getTitle());
+        //testing if title is over 30chars, aka, too long
+        try {
+            testProblem = new Problem("testUsername",date.toString(),
+                    "ckMGtw9SkuEOtOG1Z1fvo7qQhhpNlz0", "test description");
+            fail("Exception wasn't thrown for the title, was supposed to be.");
+        } catch (IllegalArgumentException e) {
+            assertTrue("Expected to get here. Title too long.", true);
+        }
         assertEquals("Wrong Description", "test description",
                 testProblem.getDescription());
+        //testing if description is over 300 chars, aka, too long
+        try {
+            testProblem = new Problem("testUsername",date.toString(),"testProblem","9uvDAE0rWBRb7FhvMtD4I0" +
+                    "ES69rO7YKkDXpLWyx1CI4ALQ6GhZEvXGkLZnMAFF9FfupDCXk" +
+                    "MBrTReSSj7TXMEXhFwZcobxOyFTUkvoKYHIYQoJfOlqvaE3guRx8n2" +
+                    "73kyzCxh0qvWOwyeFMPiSgGXdg5GcUjwOcZ0eim1mIHckBty8CITdqmL" +
+                    "Hb76iC6EYidTMEflLubBQ3WuyLoCOSftcwSRGNEZf4IHfOm4ubPPSs2VrcZ" +
+                    "BBU6TPWYLWmTdxfBCfskT49tRreA8EAoMgiOMxGPwDPYhqygcjWJIuHCCOZoY");
+            fail("Exception wasn't thrown for the description, was supposed to be.");
+        } catch (IllegalArgumentException e) {
+            assertTrue("Expected to get here. Description too long.", true);
+        }
         assertTrue("Did not return ArrayList<Record>",
                 testProblem.getRecordList() instanceof ArrayList);
         assertTrue("Did not return ArrayList<String>",
@@ -38,6 +58,13 @@ public class ProblemTest extends TestCase {
 
         testProblem.setTitle("new testProblem");
         assertEquals("new testProblem", testProblem.getTitle());
+
+        try {
+            testProblem.setTitle("ckMGtw9SuEOtOG1Z1kfvo7qQhhpNlz0");
+            fail("Exception wasn't thrown for the title, was supposed to be.");
+        } catch (IllegalArgumentException e) {
+            assertTrue("Expected to get here. Title too long.", true);
+        }
     }
 
     public void testGetDescription() {
@@ -53,6 +80,19 @@ public class ProblemTest extends TestCase {
 
         testProblem.setDescription("new test description");
         assertEquals("new test description", testProblem.getDescription());
+
+        //description is 300 chars, aka, too long
+        try {
+            testProblem.setDescription("9uvDAE0rWBRb7FhvMtD4I0" +
+                    "ES69rO7YKkDXpLWyx1CI4ALQ6GhZEvXGkLZnMAFF9FfupDCXk" +
+                    "MBrTReSSj7TXMEXhFwZcobxOyFTUvoKYHIYQoJfOlqvaE3guRx8n2" +
+                    "73kyzCxh0qvWOwyeFMPiSgGXkdg5GcUjwOcZ0eim1mIHckBty8CITdqmL" +
+                    "Hb76iC6EYidTMEflLubBQ3WuyLoCOSftcwSRGNEZf4IHfOm4ubPPSs2VrcZ" +
+                    "BBU6TPWYLWmTdxfBCfskT49tRreA8EAoMgiOMxGPwDPYhqygcjWJIuHCCOZoY");
+            fail("Exception wasn't thrown for the description, was supposed to be.");
+        } catch (IllegalArgumentException e) {
+            assertTrue("Expected to get here. Description too long.", true);
+        }
     }
 
     public void testGetRecordList() {
