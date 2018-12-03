@@ -43,14 +43,14 @@ public class Record implements Serializable {
     private Geolocation geolocation;
     private ArrayList<Photo> photoList;
     private BodyLocation bodyLocation;
-    private Date timeStamp;
+    private String timeStamp;
 
     /**
      * Constructor initializes variables for Record
      *
      * @param title String
      */
-    public Record(String title, Date timeStamp) {
+    public Record(String title, String timeStamp) {
         this.title = title;
         this.description = "no description";
         this.geolocation = null;
@@ -131,15 +131,6 @@ public class Record implements Serializable {
 
 
     /**
-     * Method gets the timestamp of the record
-     *
-     * @return  timeStamp
-     */
-    public Date getTimeStamp() {
-        return timeStamp;
-    }
-
-    /**
      * Method adds photos to photolist for the record
      *
      * @param photo A photo object
@@ -157,7 +148,7 @@ public class Record implements Serializable {
      *
      * @param date  Date
      */
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.timeStamp = date;
     }
 
@@ -166,7 +157,7 @@ public class Record implements Serializable {
      *
      * @return  Date
      */
-    public Date getDate() {
+    public String getDate() {
         return this.timeStamp;
     }
 
