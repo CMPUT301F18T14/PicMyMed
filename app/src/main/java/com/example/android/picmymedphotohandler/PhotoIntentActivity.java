@@ -138,6 +138,11 @@ public class PhotoIntentActivity extends AppCompatActivity {
         }
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Launches camera when photo button pressed
+             *
+             * @param v View
+             */
             @Override
             public void onClick(View v) {
                 if (bitmaps.size() < MAX_NUMBER_OF_PHOTOS) {
