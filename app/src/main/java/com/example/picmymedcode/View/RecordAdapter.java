@@ -88,6 +88,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         ImageView recordMoreImageView;
         ImageView galleryIcon;
         ImageView mapIcon;
+        ImageView bodyLocationIcon;
         TextView recordTimeStampView;
         RecyclerView recordPhotoView;
 
@@ -107,6 +108,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             this.recordPhotoView = itemView.findViewById(R.id.recyclerView_in_recordCard);
             this.galleryIcon = itemView.findViewById(R.id.record_gallery);
             this.mapIcon = itemView.findViewById(R.id.mapIcon);
+            this.bodyLocationIcon = itemView.findViewById(R.id.bodyLocationIcon);
 
             this.recordMoreImageView = (ImageView) itemView.findViewById(R.id.record_more_bar);
             if (!PicMyMedApplication.getLoggedInUser().isPatient()){
@@ -167,17 +169,28 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         TextView recordTimeStampTextView = recordViewHolder.recordTimeStampView;
         TextView recordLocationTextView = recordViewHolder.recordLocationTextView;
 
+        if(records.get(i).getTitle().equals("")){
+            recordTitleTextView.setVisibility(View.GONE);
+        } else {
+            recordTitleTextView.setText(records.get(i).getTitle());
+        }
 
-        recordTitleTextView.setText(records.get(i).getTitle());
-        recordDescriptionTextView.setText(records.get(i).getDescription());
+        if(records.get(i).getDescription().equals("")){
+            recordDescriptionTextView.setVisibility(View.GONE);
+        } else {
+            recordDescriptionTextView.setText(records.get(i).getDescription());
+        }
+
         recordTimeTextView.setText(records.get(i).getTimeStamp().toString());
+
         Geolocation geolocation = records.get(i).getGeolocation();
         if (geolocation != null) {
             recordLocationTextView.setText(geolocation.getLocationName());
         } else {
-            recordViewHolder.mapIcon.setVisibility(View.INVISIBLE);
-
+            recordViewHolder.mapIcon.setVisibility(View.GONE);
         }
+
+        recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
 
         RecyclerView recordPhotoSlider = recordViewHolder.recordPhotoView;
         // Initialize the layout format and span
@@ -190,7 +203,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
 
         if (records.get(i).getPhotoList().size()==0) {
-            recordViewHolder.galleryIcon.setVisibility(View.INVISIBLE);
+            recordViewHolder.galleryIcon.setVisibility(View.GONE);
+            recordPhotoSlider.setVisibility(View.GONE);
         }
 
         recordViewHolder.galleryIcon.setOnClickListener(new View.OnClickListener() {
@@ -221,6 +235,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
             }
         });
 
+        recordViewHolder.bodyLocationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
 //        recordViewHolder.recordTitleTextView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -235,9 +256,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         recordViewHolder.recordMoreImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
 
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(context, recordViewHolder.recordMoreImageView);
