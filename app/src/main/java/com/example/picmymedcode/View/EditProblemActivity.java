@@ -83,7 +83,7 @@ public class EditProblemActivity extends AppCompatActivity {
         problemDescriptionEditText.setText(problemArrayList.get(position).getDescription());
         problemTimeEditText.setText(problemArrayList.get(position).getStartDate());
 
-        date = problemArrayList.get(position).getStartDate();
+        mDate = problemArrayList.get(position).getStartDate();
 
         //System.out.println("FUCK"+problemArrayList.get(position).getStartDate());
         mActivity = this;
@@ -102,12 +102,8 @@ public class EditProblemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Problem problem = problemArrayList.get(position);
-                if (mDate == null){
-                    PicMyMedController.editProblem(problem, date, problemTitleEditText.getText().toString(), problemDescriptionEditText.getText().toString(), EditProblemActivity.this);
-                }else {
-                    PicMyMedController.editProblem(problem, mDate, problemTitleEditText.getText().toString(), problemDescriptionEditText.getText().toString(), EditProblemActivity.this);
-                }
-                // Problem problem = new Problem (PicMyMedApplication.getUsername(),date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
+                PicMyMedController.editProblem(problem, mDate,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString(), EditProblemActivity.this);
+               // Problem problem = new Problem (PicMyMedApplication.getUsername(),date,problemTitleEditText.getText().toString(),problemDescriptionEditText.getText().toString());
                 //PicMyMedController.addProblem(problem);
                 //problemArrayList.add(problem);
                 //saveInFile();
