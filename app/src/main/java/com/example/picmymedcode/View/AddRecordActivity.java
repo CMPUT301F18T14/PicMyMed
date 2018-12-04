@@ -346,10 +346,13 @@ public class AddRecordActivity extends AppCompatActivity{
 
         if (requestCode == BODY_LOCATION_CODE) {
             try {
+                Log.d(TAG, "got back to add record");
                 int index = data.getIntExtra("bodyLocationPhotoIndex", 0);
                 float xCoordinate = data.getFloatExtra("x", 0);
                 float yCoordinate = data.getFloatExtra("y", 0);
+                user = (Patient) PicMyMedApplication.getLoggedInUser();
                 BodyLocationPhoto bodyLocationPhoto = user.getBodyLocationPhotoList().get(index);
+                Log.d(TAG, "got bodylocationlist");
                 bodyLocation = new BodyLocation(bodyLocationPhoto.getPhotoID(), xCoordinate, yCoordinate);
                 Log.d(TAG, "successfully created bodylocation");
             } catch (Exception e) {
