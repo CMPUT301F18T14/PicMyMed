@@ -143,24 +143,6 @@ public class AddRecordActivity extends AppCompatActivity{
         final EditText recordDescriptionEditText = findViewById(R.id.record_description_edit_text);
 
 
-        if (user.getBodyLocationPhotoList().size()==0) {
-            try {
-                String imageUri = Uri.parse("android.resource://com.example.picmymedcode/drawable/default_bodyloc.png").toString();
-                Bitmap bitmap = decodeImageFromFiles(imageUri, 200, 200);
-                BodyLocationPhoto bodyLocationPhoto = new BodyLocationPhoto(imageUri);
-                bodyLocationPhoto.setLabel("Default Photo");
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                bodyLocationPhoto.setBase64EncodedString(base64Image);
-                //user.getBodyLocationPhotoList().add(bodyLocationPhoto);
-                PicMyMedController.addBodyLocationPhoto(bodyLocationPhoto, AddRecordActivity.this);
-            } catch (Exception e ) {
-                Log.i("DEBUG", e.getMessage());
-            }
-        }
-
         geoLocationButton = (Button) findViewById(R.id.record_geo_button);
         geoLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +158,7 @@ public class AddRecordActivity extends AppCompatActivity{
 //                }
 
                 checkForLocationRequestSettings();
+                geoLocationButton.setText("Map is ready!");
                 if(currentLocation != null) {
                     sendingMapIntent();
                 }
@@ -271,6 +254,7 @@ public class AddRecordActivity extends AppCompatActivity{
         photoCounts.setText("You can add "+(10-placeHolderPhotoList.size())+ " more photos");
         locationRequest = null;
         geoLocationButton.setEnabled(true);
+        geoLocationButton.setText("Geolocation");
     }
     /**
      * Method starts add record activity
@@ -515,37 +499,6 @@ public class AddRecordActivity extends AppCompatActivity{
         mapIntent.putExtra("Latitude", currentLocation.getLatitude());
         mapIntent.putExtra("Longitude", currentLocation.getLongitude());
         startActivityForResult(mapIntent, LAT_LNG_REQUEST_CODE);
-    }
-
-    public Bitmap decodeImageFromFiles(String ImageFilePath, int imageViewWidth, int imageViewHeight){
-        BitmapFactory.Options scalingOptions = new BitmapFactory.Options();
-
-        // Do not load the Bitmap into memory
-        scalingOptions.inJustDecodeBounds = true;
-
-        // Passing the scalingOptions to decode the original file
-        BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
-
-        // Determine how much to scale down the image
-        int scaleFactor = 1;
-        int originalImageWidth = scalingOptions.outWidth;
-        int originalImageHeight = scalingOptions.outHeight;
-        while (originalImageWidth / scaleFactor / 2 >= imageViewWidth
-                && originalImageHeight / scaleFactor / 2 >= imageViewHeight) {
-
-            scaleFactor *= 2;
-        }
-
-        // Decode with the scaling factor
-        scalingOptions.inSampleSize = scaleFactor;
-
-        // Loading onto memory in order to save the bitmap
-        scalingOptions.inJustDecodeBounds = false;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(ImageFilePath, scalingOptions);
-
-
-        return bitmap;
     }
 
 }
