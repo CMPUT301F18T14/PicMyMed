@@ -194,19 +194,36 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         } else {
             recordViewHolder.mapIcon.setVisibility(View.GONE);
         }
-
-        Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
-        BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
-        records.get(i).getBodyLocation();
-        System.out.println("BODY LOCATION "+bodyLocation);
-        if (bodyLocation!=null){
-            System.out.println(records.get(i).getBodyLocation());
-            Log.d("getBodyLocation", "not null ");
-            recordViewHolder.bodyLocationIcon.setVisibility(View.VISIBLE);
-        } else {
-            Log.d("getBodyLocation", "null ");
-            recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
+        //todo
+        if (!PicMyMedApplication.getLoggedInUser().isPatient()){
+            Patient patient = PicMyMedController.getPatient(CareProviderProblemActivity.name);
+            records =patient.getProblemList().get(CareProviderRecordActivity.problemPosition).getRecordList();
+            BodyLocation bodyLocation = patient.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
+            records.get(i).getBodyLocation();
+            System.out.println("BODY LOCATION "+bodyLocation);
+            if (bodyLocation!=null){
+                System.out.println(records.get(i).getBodyLocation());
+                Log.d("getBodyLocation", "not null ");
+                recordViewHolder.bodyLocationIcon.setVisibility(View.VISIBLE);
+            } else {
+                Log.d("getBodyLocation", "null ");
+                recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
+            }
+        }else{
+            Patient user = (Patient) PicMyMedApplication.getLoggedInUser();
+            BodyLocation bodyLocation = user.getProblemList().get(problemIndex).getRecordList().get(i).getBodyLocation();
+            records.get(i).getBodyLocation();
+            System.out.println("BODY LOCATION "+bodyLocation);
+            if (bodyLocation!=null){
+                System.out.println(records.get(i).getBodyLocation());
+                Log.d("getBodyLocation", "not null ");
+                recordViewHolder.bodyLocationIcon.setVisibility(View.VISIBLE);
+            } else {
+                Log.d("getBodyLocation", "null ");
+                recordViewHolder.bodyLocationIcon.setVisibility(View.GONE);
+            }
         }
+
 
 
 
